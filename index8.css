@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=IBM%20Plex%20Sans:500|IBM%20Plex%20Sans:300");
+
 :root {
   --m: 4rem;
   --logo-scale: 1; /* Skalierungsfaktor für das Logo */
@@ -21,6 +22,7 @@ body {
   margin: 0;
   color: #d5d5d5;
   font-size: calc(0.3 * var(--m));
+  overflow-x: hidden; /* Verhindert horizontales Scrollen */
 }
 
 .logo {
@@ -32,8 +34,12 @@ body {
   overflow: hidden;
   transition: transform 0.5s ease, margin-bottom 0.5s ease;
   transform: scale(var(--logo-scale));
-  margin: calc(2 * var(--m)) calc(5 * var(--m)) calc(5 * var(--m))
-    calc(5 * var(--m));
+  margin: calc(2 * var(--m)) auto; /* Zentriert das Logo horizontal */
+  position: fixed; /* Logo bleibt fixiert, um sichtbar zu bleiben */
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) scale(var(--logo-scale));
+  z-index: 100; /* Sicherstellt, dass das Logo über anderen Elementen bleibt */
 }
 
 .logo img {
@@ -55,39 +61,9 @@ h3 {
   margin: 0;
 }
 
-.card {
-  height: calc(8 * var(--m));
-  width: calc(12 * var(--m));
-  margin-top: 2rem;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border-radius: calc(0.5 * var(--m));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: var(--m);
-  margin: calc(2 * var(--m)) calc(5 * var(--m)) calc(10 * var(--m));
-}
-
-button {
-  background-color: #000;
-  font-size: calc(0.4 * var(--m));
-  border: none;
-  color: #e5e5e5;
-  font-family: "IBM Plex Sans";
-  font-weight: 400;
-  padding: calc(0.35 * var(--m)) calc(0.8 * var(--m));
-  border-radius: calc(0.3 * var(--m));
-}
-
 footer {
-  margin-top: 40vh;
-  z-index: 500;
+  margin-top: 120vh;
+  z-index: 50;
   width: 100%;
   height: 60vh;
   display: flex;
