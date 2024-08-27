@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=IBM%20Plex%20Sans:500|IBM%20Plex%20Sans:300");
 :root {
   --m: 4rem;
+  --logo-scale: 1; /* Skalierungsfaktor für das Logo */
 }
 
 * {
@@ -23,12 +24,14 @@ body {
 }
 
 .logo {
-  width: 100vw;
-  height: 100vh;
+  width: 80vw;
+  height: calc(80vw * 0.5); /* Verhältnis beibehalten, passt die Höhe an */
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  transition: transform 0.5s ease, margin-bottom 0.5s ease;
+  transform: scale(var(--logo-scale));
 }
 
 .logo img {
