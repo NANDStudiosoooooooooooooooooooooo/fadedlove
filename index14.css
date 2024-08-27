@@ -133,7 +133,6 @@ footer::before {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   margin-top: 2rem;
-  z-index: 3000;
 }
 
 img {
@@ -193,4 +192,8 @@ a {
   .col {
     width: 100%;
   }
+}
+
+.headline {
+  text-decoration: underline;
 }
