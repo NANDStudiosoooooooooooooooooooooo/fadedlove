@@ -175,10 +175,6 @@ a {
   text-decoration: underline;
 }
 
-.href:active {
-  text-decoration: underline;
-}
-
 .icon {
   width: calc(0.6 * var(--m));
   height: calc(0.6 * var(--m));
