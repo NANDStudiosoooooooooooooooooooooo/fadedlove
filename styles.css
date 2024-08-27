@@ -186,12 +186,10 @@ a {
 .href {
     text-decoration:none;
 }
-
 .href:hover{
     text-decoration:underline;
     text-underline-position: below;
 }
-
 .href:active{
     text-decoration:underline;
     text-underline-position: line-through;
