@@ -39,7 +39,7 @@ body {
   top: 0;
   left: 50%;
   transform: translateX(-50%) scale(var(--logo-scale));
-  z-index: 100; /* Sicherstellt, dass das Logo über anderen Elementen bleibt */
+  z-index: 10; /* Setzen Sie dies unter den Wert des Footers */
 }
 
 .logo img {
@@ -63,7 +63,7 @@ h3 {
 
 footer {
   margin-top: 120vh;
-  z-index: 50;
+  z-index: 50; /* Footer bleibt über dem Logo */
   width: 100%;
   height: 60vh;
   display: flex;
@@ -90,7 +90,7 @@ footer::before {
 }
 
 .backdrop {
-  z-index: -5;
+  z-index: 40; /* Der Backdrop bleibt ebenfalls über dem Logo, aber unter dem Footer-Inhalt */
   position: absolute;
   inset: 0;
   backdrop-filter: blur(40px);
