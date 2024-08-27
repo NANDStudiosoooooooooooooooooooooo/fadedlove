@@ -32,6 +32,8 @@ body {
   overflow: hidden;
   transition: transform 0.5s ease, margin-bottom 0.5s ease;
   transform: scale(var(--logo-scale));
+  margin: calc(2 * var(--m)) calc(5 * var(--m)) calc(5 * var(--m))
+    calc(5 * var(--m));
 }
 
 .logo img {
