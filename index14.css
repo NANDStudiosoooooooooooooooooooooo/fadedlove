@@ -89,7 +89,8 @@ footer::before {
     rgba(0, 0, 0, 1) 50%,
     rgb(0, 0, 0)
   );
-  z-index: 2000;
+  pointer-events: none;
+  z-index: 1000;
 }
 
 .backdrop {
@@ -120,6 +121,7 @@ footer::before {
   justify-content: flex-start;
   padding: calc(0.3 * var(--m)) calc(0.8 * var(--m));
   width: 28%;
+  z-index: 3000;
 }
 
 .col2,
@@ -131,6 +133,7 @@ footer::before {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   margin-top: 2rem;
+  z-index: 3000;
 }
 
 img {
@@ -152,6 +155,7 @@ a {
 
 .href {
   text-decoration: none;
+  z-index: 4000;
 }
 
 .href:hover {
@@ -172,6 +176,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 4000;
 }
 
 @media screen and (max-width: 1000px) {
