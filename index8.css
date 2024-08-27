@@ -25,7 +25,7 @@ body {
 
 .logo {
   width: 80vw;
-  height: calc(80vw * 0.5); /* Verhältnis beibehalten, passt die Höhe an */
+  height: calc(80vw * 0.55); /* Verhältnis beibehalten, passt die Höhe an */
   display: flex;
   justify-content: center;
   align-items: center;
