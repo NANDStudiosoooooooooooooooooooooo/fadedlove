@@ -34,7 +34,22 @@
   </div>
   <div class="col col3">
     <p><div class="headline">SUBSCRIBE</div></p>
-    <p></p>
+    <p><form id="emailForm">
+        <input 
+          type="email" 
+          id="email" 
+          placeholder="ENTER YOUR EMAIL" 
+          required 
+          style="border: none; outline: none; background: none; color: #fff; text-transform: uppercase;"
+        />
+        <br><br>
+        <button id="subscribeButton" style="background: none; border: none; color: rgb(255, 255, 255); text-decoration: underline; cursor: pointer;">
+          SUBSCRIBE
+        </button>
+        <button id="unsubscribeButton" style="background: none; border: none; color: rgb(255, 255, 255); text-decoration: underline; cursor: pointer;">
+          UNSUBSCRIBE
+        </button>
+      </form></p>
     <p></p>
     <p></p>
     <p></p>
@@ -44,5 +59,6 @@
 
 
 <script src="scroll.js"></script>
+<script src="form.js"></script>
 </body>
 </html>
