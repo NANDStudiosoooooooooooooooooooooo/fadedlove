@@ -161,9 +161,6 @@ a {
   justify-content: center;
   align-items: center;
 }
-.link:hover {
-    text-underline-position: below;
-}
 
 @media screen and (max-width: 1000px) {
   :root {
