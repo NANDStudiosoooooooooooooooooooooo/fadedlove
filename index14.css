@@ -41,6 +41,7 @@ body {
   transform: translateX(-50%) scale(var(--logo-scale));
   z-index: 10; /* Setzen Sie dies unter den Wert des Footers */
   user-select: none;
+  pointer-events: none;
 }
 
 .logo img {
@@ -48,6 +49,7 @@ body {
   height: 100%;
   object-fit: cover;
   user-select: none;
+  pointer-events: none;
 }
 
 h2 {

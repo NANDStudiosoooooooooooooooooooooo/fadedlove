@@ -12,3 +12,24 @@ window.addEventListener('scroll', function() {
       logo.style.marginBottom = '0px';
     }
   });
+
+    // Verhindert Rechtsklick
+    document.addEventListener('contextmenu', function(e) {
+        if (e.target.closest('.logo')) {
+          e.preventDefault();
+        }
+      });
+    
+      // Verhindert Drag-and-Drop (z.B. zum Kopieren des Bildes)
+      document.addEventListener('dragstart', function(e) {
+        if (e.target.closest('.logo img')) {
+          e.preventDefault();
+        }
+      });
+    
+      // Verhindert das Kopieren über das Kontextmenü
+      document.addEventListener('copy', function(e) {
+        if (e.target.closest('.logo')) {
+          e.preventDefault();
+        }
+      });
