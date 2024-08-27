@@ -40,12 +40,14 @@ body {
   left: 50%;
   transform: translateX(-50%) scale(var(--logo-scale));
   z-index: 10; /* Setzen Sie dies unter den Wert des Footers */
+  user-select: none;
 }
 
 .logo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  user-select: none;
 }
 
 h2 {
