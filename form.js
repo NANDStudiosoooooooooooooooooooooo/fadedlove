@@ -3,7 +3,7 @@ document.getElementById("subscribeButton").addEventListener("click", function(ev
     const email = document.getElementById("email").value;
     if (email) {
       // Sende die E-Mail an den Cloudflare Worker für das Abonnieren
-      fetch("https://your-cloudflare-worker-url-for-subscribe", {
+      fetch("https://subscribe.nand339.workers.dev/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -25,7 +25,7 @@ document.getElementById("subscribeButton").addEventListener("click", function(ev
     const email = document.getElementById("email").value;
     if (email) {
       // Sende die E-Mail an den Cloudflare Worker für das Abbestellen
-      fetch("https://your-cloudflare-worker-url-for-unsubscribe", {
+      fetch("https://unsubscribe.nand339.workers.dev/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
