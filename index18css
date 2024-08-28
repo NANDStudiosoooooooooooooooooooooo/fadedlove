@@ -240,7 +240,6 @@ a {
 
 .gallery-item {
   width: var(--item-width);
-  margin: 0 var(--item-margin); /* Margin to create the overlapping effect */
   text-align: center;
   position: relative;
   padding: 1rem;
