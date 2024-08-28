@@ -250,3 +250,9 @@ a {
   object-fit: cover;
   margin-bottom: 1rem;
 }
+
+#backbutton {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+}
