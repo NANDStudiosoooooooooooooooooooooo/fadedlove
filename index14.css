@@ -199,3 +199,26 @@ a {
 .headline {
   text-decoration: underline;
 }
+
+.s_logo {
+	width: 8vw;
+    height: calc(8vw / 1.83);
+    display: flex;
+    justify-content: top;
+    align-items: center;
+    overflow: hidden;
+    transform: scale(var(--logo-scale));
+    margin: calc(2 * var(--m)) auto;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) scale(var(--logo-scale));
+    z-index: 10;
+    user-select: none;
+    pointer-events: none;
+}
+
+.gallery-name{
+  font-size: medium;
+  
+}
