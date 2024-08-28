@@ -216,6 +216,8 @@ a {
   width: 100vw;
   overflow: hidden;
   position: relative;
+  padding: 0;  /* Remove any padding or margins that might shift the gallery */
+  box-sizing: border-box;
 }
 
 .gallery-wrapper {
@@ -235,6 +237,7 @@ a {
   transform-origin: center;
   transition: transform 0.5s ease;
   margin: 0 10vw; /* Adjust margin to add space between items */
+  box-sizing: border-box;
 }
 
 .gallery-item img {
@@ -246,6 +249,20 @@ a {
 
 .gallery-item.active img {
   transform: scale(1); /* Scale up the active item */
+}
+
+.gallery-name, .buy-button {
+  margin-top: 20px;
+  font-size: 20px;
+  text-align: center;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .gallery-item {
+      flex: 0 0 90vw; /* Use more of the viewport width on smaller screens */
+      margin: 0 5vw; /* Adjust margins to center the items better */
+  }
 }
 
 .top-buttons {
