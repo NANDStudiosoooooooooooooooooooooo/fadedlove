@@ -201,8 +201,8 @@ a {
 }
 
 .s_logo {
-	width: 8vw;
-  height: calc(8vw / 1.83);
+	width: 20vw;
+  height: calc(20vw / 1.83);
   display: flex;
   justify-content: top;
   align-items: center;
@@ -233,6 +233,7 @@ a {
 .gallery-wrapper {
   display: flex;
   flex-direction: row;
+  width: calc(100% * 3);
   transition: transform 0.5s ease;
   will-change: transform;
 }
