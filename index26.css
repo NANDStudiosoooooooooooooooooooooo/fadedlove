@@ -216,7 +216,7 @@ a {
   width: 100vw;
   overflow: hidden;
   position: relative;
-  padding: 0;  /* Remove any padding or margins that might shift the gallery */
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -229,14 +229,15 @@ a {
 }
 
 .gallery-item {
-  flex: 0 0 80vw; /* Adjust to 80vw so that adjacent items are partially visible */
+  flex: 0 0 60%; /* Use 60% of the screen width for the gallery item */
+  max-width: 600px; /* Set a maximum width to ensure the item isn't too large */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   transform-origin: center;
   transition: transform 0.5s ease;
-  margin: 0 10vw; /* Adjust margin to add space between items */
+  margin: 0 5vw; /* Adjust margin to add space between items */
   box-sizing: border-box;
 }
 
@@ -244,7 +245,7 @@ a {
   max-width: 100%;
   height: auto;
   transition: transform 0.5s ease;
-  transform: scale(0.6); /* Start with smaller scale for all items */
+  transform: scale(0.8); /* Start with a smaller scale for all items */
 }
 
 .gallery-item.active img {
@@ -258,10 +259,23 @@ a {
   color: white;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 781px) {
   .gallery-item {
-      flex: 0 0 90vw; /* Use more of the viewport width on smaller screens */
+      flex: 0 0 80%; /* Reduce the size of the gallery item for smaller screens */
+      margin: 0 10vw; /* Adjust margins for centering */
+  }
+  .gallery-item img {
+      transform: scale(0.7); /* Slightly reduce the scale on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-item {
+      flex: 0 0 90%; /* Use more of the viewport width on very small screens */
       margin: 0 5vw; /* Adjust margins to center the items better */
+  }
+  .gallery-item img {
+      transform: scale(0.6); /* Further reduce the scale for very small screens */
   }
 }
 
