@@ -212,70 +212,63 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
   height: 100vh;
-  width: 100vw;
-  overflow: hidden;
   position: relative;
-  padding: 0;
-  box-sizing: border-box;
+  overflow: hidden;
+  background-color: black;
 }
 
 .gallery-wrapper {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  transition: transform 0.5s ease;
-  height: 100%;
-  will-change: transform;
+  justify-content: center;
+  width: 100%;
+  max-width: 1000px; /* Maximalbreite der Galerie */
+  transition: transform 0.5s ease-in-out;
 }
 
 .gallery-item {
-  flex: 0 0 60%; /* Use 60% of the screen width for the gallery item */
-  max-width: 600px; /* Set a maximum width to ensure the item isn't too large */
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Höhe des Items auf volle Bildschirmhöhe setzen */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transform-origin: center;
   transition: transform 0.5s ease;
-  margin: 0 5vw; /* Adjust margin to add space between items */
+  padding: 20px;
   box-sizing: border-box;
 }
 
 .gallery-item img {
   max-width: 100%;
-  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
   transition: transform 0.5s ease;
-  transform: scale(0.8); /* Start with a smaller scale for all items */
 }
 
 .gallery-item.active img {
-  transform: scale(1); /* Scale up the active item */
+  transform: scale(1.05); /* Leichter Zoom auf das aktive Bild */
 }
 
-.gallery-name, .buy-button {
+.gallery-name {
   margin-top: 20px;
-  font-size: 20px;
+  font-size: 24px;
   text-align: center;
-  color: white;
 }
 
-@media (max-width: 781px) {
-  .gallery-item {
-      flex: 0 0 80%; /* Reduce the size of the gallery item for smaller screens */
-      margin: 0 10vw; /* Adjust margins for centering */
-  }
-  .gallery-item img {
-      transform: scale(0.7); /* Slightly reduce the scale on smaller screens */
-  }
+.buy-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
-@media (max-width: 480px) {
-  .gallery-item {
-      flex: 0 0 90%; /* Use more of the viewport width on very small screens */
-      margin: 0 5vw; /* Adjust margins to center the items better */
-  }
+@media (max-width: 768px) {
   .gallery-item img {
-      transform: scale(0.6); /* Further reduce the scale for very small screens */
+      max-height: 70vh; /* Anpassung für kleinere Bildschirme */
   }
 }
 
