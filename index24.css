@@ -213,12 +213,10 @@ a {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 100%; /* Use full width of the viewport */
-  max-width: 1000px; /* Maximum width for the gallery */
-  margin: 0 auto; /* Center the gallery horizontally */
+  width: 100vw;
   overflow: hidden;
   position: relative;
-  padding: 0;
+  padding: 0;  /* Remove any padding or margins that might shift the gallery */
   box-sizing: border-box;
 }
 
@@ -232,7 +230,6 @@ a {
 
 .gallery-item {
   flex: 0 0 60vw; /* Adjust to 60vw for desktop to reduce image size */
-  max-width: 100%; /* Prevent gallery items from exceeding 100% of gallery width */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -281,7 +278,6 @@ a {
       margin: 0 2.5vw; /* Adjust margins to center the items better */
   }
 }
-
 .top-buttons {
   width: 100%;
   display: flex;
