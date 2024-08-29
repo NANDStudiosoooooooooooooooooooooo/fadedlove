@@ -245,6 +245,7 @@ a {
   height: auto;
   transition: transform 0.5s ease;
   transform: scale(0.6); /* Start with smaller scale for all items */
+  user-select: none;
 }
 
 .gallery-item.active img {
