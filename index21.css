@@ -229,7 +229,7 @@ a {
 }
 
 .gallery-item {
-  flex: 0 0 80vw; /* Adjust to 80vw so that adjacent items are partially visible */
+  flex: 0 0 60vw; /* Adjust to 60vw for desktop to reduce image size */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -258,10 +258,24 @@ a {
   color: white;
 }
 
+@media (max-width: 1024px) {
+  .gallery-item {
+      flex: 0 0 70vw; /* Increase size slightly for tablets and smaller desktops */
+      margin: 0 10vw; /* Adjust margins to maintain spacing */
+  }
+}
+
 @media (max-width: 768px) {
   .gallery-item {
       flex: 0 0 90vw; /* Use more of the viewport width on smaller screens */
       margin: 0 5vw; /* Adjust margins to center the items better */
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-item {
+      flex: 0 0 95vw; /* Full viewport width on very small screens */
+      margin: 0 2.5vw; /* Adjust margins to center the items better */
   }
 }
 
