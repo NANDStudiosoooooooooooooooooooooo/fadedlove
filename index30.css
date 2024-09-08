@@ -27,7 +27,7 @@ body {
 
 .logo {
   width: 100vw; /* 80% der Viewport-Breite */
-  height: calc(80vw / 1); /* Höhe basierend auf dem berechneten Verhältnis */
+  height: 80vw;     /*calc(80vw / 1);  Höhe basierend auf dem berechneten Verhältnis */
   display: flex;
   justify-content: center;
   align-items: center;
