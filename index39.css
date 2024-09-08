@@ -148,6 +148,12 @@ footer::before {
   bottom: 0px;
 }
 
+@media (max-width: 700px) {
+  footer::before {
+    height: 80vh; /* Höhe des Gradients bei kleineren Bildschirmen */
+  }
+}
+
 .col {
   flex-direction: column;
   align-items: flex-start;
