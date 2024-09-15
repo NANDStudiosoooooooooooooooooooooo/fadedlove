@@ -45,7 +45,7 @@
                 "button": {
                   "background-color": "transparent",
                   "color": "#d5d5d5",
-                  "border": "1px solid #d5d5d5",
+                  "border": "1px solid #000",
                   "padding": "10px 20px",
                   "text-transform": "uppercase",
                   "font-size": "16px",
@@ -60,7 +60,7 @@
                 },
               },
               "text": {
-                "button": "Add to Cart",
+                "button": "ADD",
               },
               "contents": {
                 "img": false,
@@ -72,14 +72,14 @@
               "styles": {
                 "button": {
                   "background-color": "transparent",
-                  "color": "#d5d5d5",
-                  "border": "1px solid #d5d5d5",
+                  "color": "#000000",
+                  "border": "1px solid #000000",
                   "padding": "10px 20px",
                   "text-transform": "uppercase",
                   "font-family": "IBM Plex Sans",
                 },
                 "button:hover": {
-                  "background-color": "#d5d5d5",
+                  "background-color": "#000000",
                   "color": "black",
                   "cursor": "pointer",
                 },
