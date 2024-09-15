@@ -117,7 +117,7 @@
                 "font-family": "IBM Plex Sans",
               },
               "toggle:hover": {
-                "background-color": "black",
+                "background-color": "#000000",
                 "color": "#ffffff",
               }
             }
