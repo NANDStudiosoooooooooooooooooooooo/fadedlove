@@ -74,19 +74,21 @@
             "styles": {
               "button": {
                 "background-color": "transparent",
-                "color": "#000000",
+                "color": "#ffffff",
                 "border": "1px solid #000000",
                 "padding": "10px 20px",
                 "text-transform": "uppercase",
                 "font-family": "IBM Plex Sans",
+                "text-decoration": "none",
               },
               "button:hover": {
                 "background-color": "transparent", // Keep background color the same
-                "color": "#000000", // Keep text color the same
+                "color": "#ffffff", // Keep text color the same
                 "cursor": "pointer",
+                "text-decoration": "underline",
               },
               "title": {
-                "color": "#ffffff",
+                "color": "#000000",
                 "font-family": "IBM Plex Sans",
               },
               "price": {
@@ -110,13 +112,13 @@
           "toggle": {
             "styles": {
               "toggle": {
-                "background-color": "#d5d5d5",
+                "background-color": "#ffffff",
                 "color": "black",
                 "font-family": "IBM Plex Sans",
               },
               "toggle:hover": {
                 "background-color": "black",
-                "color": "#d5d5d5",
+                "color": "#ffffff",
               }
             }
           },
