@@ -19,13 +19,37 @@
             align-items: center;
             overflow-x: hidden;
         }
+        .logo {
+            width: 120px;
+            height: auto;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        video {
+            width: 80px;
+            height: auto;
+            display: block;
+        }
     </style>
 </head>
 
 <body>
     <div class="top-buttons">
         <a href="https://fadedcloth.de/" id="backbutton">MAINPAGE</a>
-        
+    </div>
+
+    <div class="header">
+        <div class="logo-container">
+            <video autoplay loop muted>
+                <source src="logo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
     </div>
 
     <div class="shop-container" id="shopItems">
