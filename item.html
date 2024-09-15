@@ -16,15 +16,64 @@
             margin: 0;
             padding: 20px;
         }
+
+        .logo {
+            width: 120px;
+            height: auto;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        video {
+            width: 80px;
+            height: auto;
+            display: block;
+        }
+        .shop-links {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .shop-links a {
+            display: inline-block;
+            margin-right: 20px;
+            color: #d5d5d5;
+            text-decoration: none;
+        }
+
+        .shop-links a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
+
+    <div class="header">
+        <a href="https://fadedcloth.de/" id="backbutton" class="back-button">MAINPAGE</a>
+        <div class="logo-container">
+            <video autoplay loop muted>
+                <source src="logo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <a href="https://fadedcloth.de/gallery" id="shopbutton" class="back-button">SHOP</a>
+    </div>
 
     <div class="item-details" id="itemDetails">
         <!-- Item details will be displayed here -->
     </div>
 
     <a href="https://fadedcloth.de/gallery" class="back-button">Back to Shop</a>
+
+    <div class="shop-links">
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/terms-of-service">Terms of Service</a>
+        <a href="/contact">Contact</a>
+    </div>
 
     <script>
         // Fetch the item ID from the query parameter
