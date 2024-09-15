@@ -4,13 +4,13 @@
         "name": "Item 1",
         "price": "$20",
         "description": "This is a description for Item 1.",
-        "id": "shopify_001"
+        "id": "9587523944791"
     },
     {
         "svg": "back.svg",
         "name": "Item 2",
         "price": "$30",
         "description": "This is a description for Item 2.",
-        "id": "shopify_002"
+        "id": "9587523944791"
     }
 ]
