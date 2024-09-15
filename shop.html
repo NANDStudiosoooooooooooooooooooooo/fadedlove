@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faded Love Collection</title>
+    <link rel="stylesheet" href="index39.css">
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: "IBM Plex Sans", sans-serif;
+            font-weight: 300;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-buttons">
+        <a href="https://fadedcloth.de/" id="backbutton">MAINPAGE</a>
+        <a href="https://fadedcloth.de/gallery" id="shopbutton">SHOP</a>
+    </div>
+
+    <div class="shop-container" id="shopItems">
+        <!-- Items will be dynamically generated here -->
+    </div>
+
+    <div class="shop-links">
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/terms-of-service">Terms of Service</a>
+        <a href="/contact">Contact</a>
+    </div>
+
+    <script>
+        // Fetch item data from external JSON file
+        fetch('items.json')
+            .then(response => response.json())
+            .then(data => {
+                const shopItemsContainer = document.getElementById('shopItems');
+                data.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.classList.add('shop-item');
+                    itemDiv.innerHTML = `
+                        <img src="${item.svg}" alt="${item.name}">
+                        <div class="item-info">
+                            <h3>${item.name}</h3>
+                            <p>${item.price}</p>
+                        </div>
+                    `;
+
+                    // On click, navigate to item page with query parameter
+                    itemDiv.addEventListener('click', () => {
+                        window.location.href = `/item?item=${item.id}`;
+                    });
+
+                    shopItemsContainer.appendChild(itemDiv);
+                });
+            });
+    </script>
+</body>
+
+</html>

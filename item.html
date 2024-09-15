@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Details</title>
+    <link rel="stylesheet" href="index39.css">
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: "IBM Plex Sans", sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="item-details" id="itemDetails">
+        <!-- Item details will be displayed here -->
+    </div>
+
+    <a href="https://fadedcloth.de/gallery" class="back-button">Back to Shop</a>
+
+    <script>
+        // Fetch the item ID from the query parameter
+        const params = new URLSearchParams(window.location.search);
+        const itemId = params.get('item');
+
+        // Fetch item data from external JSON file
+        fetch('items.json')
+            .then(response => response.json())
+            .then(data => {
+                const item = data.find(i => i.id === itemId);
+                if (item) {
+                    displayItem(item);
+                } else {
+                    document.getElementById('itemDetails').innerHTML = '<p>Item not found.</p>';
+                }
+            });
+
+        // Function to display the item details
+        function displayItem(item) {
+            const itemDetails = document.getElementById('itemDetails');
+            itemDetails.innerHTML = `
+                <img src="${item.svg}" alt="${item.name}">
+                <h2>${item.name}</h2>
+                <p>${item.description}</p>
+                <p><strong>Price: ${item.price}</strong></p>
+            `;
+        }
+    </script>
+</body>
+</html>
