@@ -390,3 +390,94 @@ a {
   height: auto;
   margin-bottom: 20px;
 }
+
+.shopify-cart {
+  font-family: "IBM Plex Sans", sans-serif;
+  background-color: black;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.shopify-cart hr {
+  border: 0;
+  border-top: 1px solid white;
+  margin: 20px 0;
+}
+
+.shopify-cart .item {
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.shopify-cart .item img {
+  max-width: 50px;
+  height: auto;
+}
+
+.shopify-cart .item-details {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.shopify-cart .item-quantity {
+  display: flex;
+  align-items: center;
+}
+
+.shopify-cart .item-quantity button {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 5px 10px;
+  font-family: "IBM Plex Sans", sans-serif;
+  cursor: pointer;
+  margin: 0 5px;
+  text-transform: uppercase;
+}
+
+.shopify-cart .item-quantity button:hover {
+  background: white;
+  color: black;
+}
+
+.shopify-cart .item-quantity input {
+  width: 30px;
+  text-align: center;
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.shopify-cart .checkout-button {
+  background: white;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  font-family: "IBM Plex Sans", sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  transition: box-shadow 0.3s ease;
+}
+
+.shopify-cart .checkout-button:hover {
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+}
+
+/* Logo in cart */
+.shopify-cart .logo-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.shopify-cart .logo-container video {
+  width: 80px;
+  height: auto;
+}

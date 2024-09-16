@@ -72,56 +72,68 @@
           },
           "cart": {
             "styles": {
-              "button": {
-                "background-color": "transparent",
-                "color": "#ffffff",
-                "border": "1px solid #000000",
-                "padding": "10px 20px",
-                "text-transform": "uppercase",
-                "font-family": "IBM Plex Sans",
-                "text-decoration": "none",
-              },
-              "button:hover": {
-                "background-color": "transparent", // Keep background color the same
-                "color": "#ffffff", // Keep text color the same
-                "cursor": "pointer",
-                "text-decoration": "underline",
-              },
-              "title": {
-                "color": "#000000",
-                "font-family": "IBM Plex Sans",
-              },
-              "price": {
-                "color": "#ffffff",
-                "font-family": "IBM Plex Sans",
-              },
-              "total": {
-                "color": "#ffffff",
-                "font-family": "IBM Plex Sans",
-              },
-              "footer": {
-                "background-color": "black",
-              },
+                "button": {
+                    "background-color": "white",
+                    "color": "black",
+                    "border": "none",
+                    "padding": "10px 20px",
+                    "text-transform": "uppercase",
+                    "font-family": "IBM Plex Sans",
+                    "border-radius": "5px",
+                    "cursor": "pointer",
+                    "box-shadow": "0 0 10px rgba(255, 255, 255, 0.5)",
+                    "transition": "box-shadow 0.3s ease"
+                },
+                "button:hover": {
+                    "box-shadow": "0 0 15px rgba(255, 255, 255, 0.7)"
+                },
+                "title": {
+                    "color": "white",
+                    "font-family": "IBM Plex Sans"
+                },
+                "price": {
+                    "color": "white",
+                    "font-family": "IBM Plex Sans"
+                },
+                "total": {
+                    "color": "white",
+                    "font-family": "IBM Plex Sans"
+                },
+                "footer": {
+                    "background-color": "black"
+                },
+                "item": {
+                    "border-bottom": "1px solid white",
+                    "padding": "10px 0"
+                },
+                "item-details": {
+                    "color": "white",
+                    "font-family": "IBM Plex Sans"
+                },
+                "item-quantity": {
+                    "color": "white",
+                    "font-family": "IBM Plex Sans"
+                }
             },
             "text": {
-              "total": "SUBTOTAL",
-              "button": "CHECKOUT",
+                "total": "Subtotal",
+                "button": "Checkout"
             },
-            "popup": false, // Disable cart popup
-          },
-          "toggle": {
+            "popup": false // Disable cart popup
+        },
+        "toggle": {
             "styles": {
-              "toggle": {
-                "background-color": "#ffffff",
-                "color": "black",
-                "font-family": "IBM Plex Sans",
-              },
-              "toggle:hover": {
-                "background-color": "#000000",
-                "color": "#ffffff",
-              }
+                "toggle": {
+                    "background-color": "black",
+                    "color": "white",
+                    "font-family": "IBM Plex Sans"
+                },
+                "toggle:hover": {
+                    "background-color": "white",
+                    "color": "black"
+                }
             }
-          },
+          }
         }
       });
     });
