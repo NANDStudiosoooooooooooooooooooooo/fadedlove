@@ -64,37 +64,38 @@
 
     <script>
         // Fetch the items from external JSON
-        fetch('items.json')
-          .then(response => response.json())
-          .then(items => {
-            const shopContainer = document.getElementById('shop-container');
+fetch('items.json')
+  .then(response => response.json())
+  .then(items => {
+    const shopContainer = document.querySelector('.shop-container'); // Using class selector for 'shop-container'
+
+    items.forEach(item => {
+      const itemDiv = document.createElement('div');
+      itemDiv.classList.add('shop-item');
       
-            items.forEach(item => {
-              const itemDiv = document.createElement('div');
-              itemDiv.classList.add('shop-item');
-              
-              const itemImage = document.createElement('img');
-              itemImage.src = item.images[0];  // Set first image
-              itemImage.alt = item.name;
+      const itemImage = document.createElement('img');
+      itemImage.src = item.images[0];  // Set first image
+      itemImage.alt = item.name;
+
+      // Change to second image on hover
+      itemDiv.addEventListener('mouseenter', () => {
+        itemImage.src = item.images[1];  // Switch to second image
+      });
+      itemDiv.addEventListener('mouseleave', () => {
+        itemImage.src = item.images[0];  // Switch back to first image
+      });
+
+      // Add the link to the item page
+      const itemLink = document.createElement('a');
+      itemLink.href = `/item?item=${item.id}`;
+      itemLink.appendChild(itemImage);
       
-              // Change to second image on hover
-              itemDiv.addEventListener('mouseenter', () => {
-                itemImage.src = item.images[1];  // Switch to second image
-              });
-              itemDiv.addEventListener('mouseleave', () => {
-                itemImage.src = item.images[0];  // Switch back to first image
-              });
-      
-              // Add the link to the item page
-              const itemLink = document.createElement('a');
-              itemLink.href = `/item?item=${item.id}`;
-              itemLink.appendChild(itemImage);
-              
-              // Append to the container
-              itemDiv.appendChild(itemLink);
-              shopContainer.appendChild(itemDiv);
-            });
-          });
+      // Append to the container
+      itemDiv.appendChild(itemLink);
+      shopContainer.appendChild(itemDiv);
+    });
+  })
+  .catch(error => console.error('Error fetching items:', error));
       </script>
 </body>
 
