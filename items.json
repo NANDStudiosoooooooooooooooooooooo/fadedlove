@@ -1,16 +1,16 @@
 [
     {
         "svg": "front.svg",
-        "name": "Item 1",
-        "price": "20€",
-        "description": "This is a description for Item 1.",
-        "id": "8888"
+        "name": "FADEDLOVE TEE #1",
+        "price": "50€",
+        "description": "100% COTTON | MADE IN CHINA | COLOR: BLACK BOXY FIT",
+        "id": "9587523944791"
     },
     {
         "svg": "back.svg",
-        "name": "Item 2",
-        "price": "30€",
-        "description": "This is a description for Item 2.",
+        "name": "FADEDLOVE TEE #1",
+        "price": "50€",
+        "description": "100% COTTON | MADE IN CHINA | COLOR: BLACK BOXY FIT",
         "id": "9587523944791"
     }
 ]
