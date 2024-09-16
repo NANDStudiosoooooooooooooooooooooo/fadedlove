@@ -63,31 +63,39 @@
     </div>
 
     <script>
-        // Fetch item data from external JSON file
+        // Fetch the items from external JSON
         fetch('items.json')
-            .then(response => response.json())
-            .then(data => {
-                const shopItemsContainer = document.getElementById('shopItems');
-                data.forEach(item => {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.classList.add('shop-item');
-                    itemDiv.innerHTML = `
-                        <img src="${item.svg}" alt="${item.name}">
-                        <div class="item-info">
-                            <h3>${item.name}</h3>
-                            <p>${item.price}</p>
-                        </div>
-                    `;
-
-                    // On click, navigate to item page with query parameter
-                    itemDiv.addEventListener('click', () => {
-                        window.location.href = `/item?item=${item.id}`;
-                    });
-
-                    shopItemsContainer.appendChild(itemDiv);
-                });
+          .then(response => response.json())
+          .then(items => {
+            const shopContainer = document.getElementById('shop-container');
+      
+            items.forEach(item => {
+              const itemDiv = document.createElement('div');
+              itemDiv.classList.add('shop-item');
+              
+              const itemImage = document.createElement('img');
+              itemImage.src = item.images[0];  // Set first image
+              itemImage.alt = item.name;
+      
+              // Change to second image on hover
+              itemDiv.addEventListener('mouseenter', () => {
+                itemImage.src = item.images[1];  // Switch to second image
+              });
+              itemDiv.addEventListener('mouseleave', () => {
+                itemImage.src = item.images[0];  // Switch back to first image
+              });
+      
+              // Add the link to the item page
+              const itemLink = document.createElement('a');
+              itemLink.href = `/item?item=${item.id}`;
+              itemLink.appendChild(itemImage);
+              
+              // Append to the container
+              itemDiv.appendChild(itemLink);
+              shopContainer.appendChild(itemDiv);
             });
-    </script>
+          });
+      </script>
 </body>
 
 </html>

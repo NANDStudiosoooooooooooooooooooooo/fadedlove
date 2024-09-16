@@ -35,7 +35,36 @@
             height: auto;
             display: block;
         }
-    </style>
+
+        .item-images-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+        }
+      
+        .item-images-container img {
+          width: 100%;
+          max-width: 500px;
+          margin-bottom: 20px;
+          transition: 0.3s;
+        }
+
+        @media (min-width: 768px) {
+            .item-images-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .item-images-container img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #d5d5d5;
+            transition: 0.3s;
+        }
+      </style>
 </head>
 <body>
     <div class="top-buttons">
@@ -50,6 +79,10 @@
             </video>
         </div>
     </div>
+
+    <div class="item-images-container">
+        <!-- Images will be dynamically inserted here -->
+      </div>
 
     <div class="item-details" id="itemDetails">
         <!-- Item details will be displayed here -->
@@ -87,12 +120,22 @@
         // Function to display the item details
         function displayItem(item) {
             const itemDetails = document.getElementById('itemDetails');
+            const imagesContainer = document.querySelector('.item-images-container');
+
+            // Display item name, description, and price
             itemDetails.innerHTML = `
-                <img src="${item.svg}" alt="${item.name}">
                 <h2>${item.name}</h2>
                 <p>${item.description}</p>
                 <p><strong>PRICE: ${item.price}</strong></p>
             `;
+
+            // Loop through images and add to the images container
+            item.images.forEach(image => {
+                const imgElement = document.createElement('img');
+                imgElement.src = image;
+                imgElement.alt = item.name;
+                imagesContainer.appendChild(imgElement);
+            });
         }
     </script>
 </body>
