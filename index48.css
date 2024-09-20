@@ -323,8 +323,8 @@ a {
 .shop-container {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: 20px;
-  padding: 100px 20px 20px 20px;
+  gap: 10px;
+  padding: 80px 20px 20px 20px;
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
@@ -353,15 +353,19 @@ a {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  
+  display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px;
+  max-width: 100%;
 }
 
 .shop-item img {
   width: 100%;
   height: auto;
   display: block;
+  max-width: 300px;
+  object-fit: cover;
 }
 
 .item-info {
