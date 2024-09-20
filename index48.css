@@ -321,6 +321,13 @@ a {
   top: 0;
   z-index: 120;
 }
+.main-button{
+  outline: none;
+  border-radius: 33px;
+  box-shadow: whitesmoke;
+  background-color: black;
+  cursor: pointer;
+}
 
 .shop-container {
   display: grid;
