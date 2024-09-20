@@ -62,8 +62,8 @@ body {
 .logo2 {
   padding: 20px;
   position: fixed;
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
