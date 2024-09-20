@@ -322,6 +322,7 @@ a {
   z-index: 120;
 }
 .main-button{
+  border: black;
   outline: none;
   border-radius: 33px;
   box-shadow: whitesmoke;
