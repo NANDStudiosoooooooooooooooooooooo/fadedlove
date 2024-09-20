@@ -359,6 +359,8 @@ a {
   width: 100%;
   height: auto;
   display: block;
+  justify-content: center;
+  align-items: center;
 }
 
 .item-info {
