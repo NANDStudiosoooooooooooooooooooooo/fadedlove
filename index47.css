@@ -332,17 +332,15 @@ a {
 }
 
 .shop-header{
-  position: relative;
+  position: fixed;
   top: 0;
   width: 100%;
-  height: 60px;
+  height: 80px;
   z-index: 1000;
   display: flex;
-  justify-content: space-evenly;
   align-items: center;
-  padding: 10px 0;
+  justify-content: center;
   background-color: black;
-  margin-top: auto;
 }
 
 @media (min-width: 768px) {
@@ -355,9 +353,6 @@ a {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .shop-item img {
@@ -383,15 +378,17 @@ a {
 }
 
 .shop-links {
-  position: fixed;
+  position: relative;
   bottom: 0;
   width: 100%;
-  height: 60px; /* Adjust the height as needed */
+  height: 60px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  padding: 10px 0;
   background-color: black; /* Ensure it's visible */
   z-index: 1000;
+  margin-top: 20px;
 }
 
 .shop-links a {
