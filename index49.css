@@ -339,7 +339,7 @@ a {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 10px;
-  padding-top: 80px;
+  padding: 80px 10px 10px 10px;
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
@@ -426,6 +426,7 @@ a {
 .item-details {
   text-align: center;
   max-width: 600px;
+  padding: 0px 10px 10px 10px;
 }
 
 .item-details img {
