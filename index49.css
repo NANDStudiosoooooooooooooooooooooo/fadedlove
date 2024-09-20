@@ -376,7 +376,7 @@ a {
 
 .shop-item img {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: block;
   max-width: 500px;
   object-fit: cover;
