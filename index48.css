@@ -329,7 +329,7 @@ a {
   width: 100%;
   height: auto;
   margin: 0 auto;
-  flex: 1;
+  flex: none;
 }
 
 .shop-header{
