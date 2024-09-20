@@ -9,7 +9,7 @@
 
 :root {
   --m: 4rem;
-  --logo-scale: 0.4; /* Skalierungsfaktor für das Logo */
+  --logo-scale: 1; /* Skalierungsfaktor für das Logo */
 }
 
 * {
