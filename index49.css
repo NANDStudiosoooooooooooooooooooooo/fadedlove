@@ -77,6 +77,12 @@ video {
   max-height: 100%;
 }
 
+.logo-container {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
 
 h2 {
   font-weight: 500;
