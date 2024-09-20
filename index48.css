@@ -325,6 +325,7 @@ a {
   border: black;
   outline: none;
   border-radius: 33px;
+  box-shadow: 5PX;
   box-shadow: whitesmoke;
   background-color: black;
   cursor: pointer;
