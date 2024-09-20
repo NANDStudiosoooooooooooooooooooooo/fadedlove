@@ -338,8 +338,8 @@ a {
   position: fixed;
   top: 0;
   width: 100%;
-  height: 60px; /* Adjust the height as needed */
-  z-index: 1000; /* Ensure it's above other content */
+  height: 80px;
+  z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
