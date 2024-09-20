@@ -340,6 +340,7 @@ a {
   align-items: center;
   justify-content: center;
   background-color: black;
+  margin-bottom: 80px;
 }
 
 @media (min-width: 768px) {
