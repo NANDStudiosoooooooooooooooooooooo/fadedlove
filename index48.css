@@ -331,6 +331,10 @@ a {
   flex: 1;
 }
 
+.main-header{
+  position: fixed;
+}
+
 .shop-header{
   position: fixed;
   top: 0;
