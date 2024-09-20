@@ -65,7 +65,7 @@ body {
   position: fixed;
   width: auto;
   height: auto;
-  display: block;
+  display: flex;
   justify-content: center;
   align-items: center;
   z-index: 10;
