@@ -33,8 +33,8 @@ body {
 }
 
 .logo {
-  width: 120vw; /* 80% der Viewport-Breite */
-  height: calc(120vw / 1.8); /* Höhe basierend auf dem berechneten Verhältnis */
+  width: 100vw; /* 80% der Viewport-Breite */
+  height: calc(100vw / 1.8); /* Höhe basierend auf dem berechneten Verhältnis */
   display: flex;
   justify-content: center;
   align-items: center;
