@@ -13,6 +13,10 @@
     <a href="https://fadedcloth.de/shop" class="main-button" id="shopbutton">SHOP</a>
   </div>
 
+  <div id="loader" class="loader-container">
+    <l-zoomies size="80" stroke="5" bg-opacity="0.1" speed="1.4" color="black"></l-zoomies>
+  </div>
+
 
   <div class="logo2">
   <video autoplay loop muted playsinline preload="auto">
@@ -66,7 +70,18 @@
 
 
 <script src="scroll.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js"></script>
+<script>
+  // Warten, bis das Video geladen ist
+  const video = document.getElementById('logo-video');
+  const loader = document.getElementById('loader');
 
+  video.addEventListener('canplaythrough', function () {
+    // Wenn das Video vollständig geladen ist, Ladeanimation ausblenden und Video anzeigen
+    loader.style.display = 'none';
+    video.style.display = 'flex';
+  });
+</script>
 <script src="https://subscribe.fadedcloth.de/scripts/fadedsub.js"></script>
 <script src="https://subscribe.fadedcloth.de/scripts/fadedunsub.js"></script>
 </body>
