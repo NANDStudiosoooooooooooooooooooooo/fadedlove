@@ -18,7 +18,7 @@
   </div>
 
 
-  <div class="logo2">
+  <div class="logo2" id="video-container">
   <video autoplay loop muted playsinline preload="auto" id="logo-video">
     <source src="logo.mp4" type="video/mp4">
     Dein Browser unterstützt das Video-Tag nicht.
@@ -75,11 +75,12 @@
   // Warten, bis das Video geladen ist
   const video = document.getElementById('logo-video');
   const loader = document.getElementById('loader');
+  const logocontainerRef = document.getElementById('video-container');
 
   video.addEventListener('canplaythrough', function () {
     // Wenn das Video vollständig geladen ist, Ladeanimation ausblenden und Video anzeigen
     loader.style.display = 'none';
-    video.style.display = 'flex';
+    logocontainerRef.style.display = 'flex';
   });
 </script>
 <script src="https://subscribe.fadedcloth.de/scripts/fadedsub.js"></script>
