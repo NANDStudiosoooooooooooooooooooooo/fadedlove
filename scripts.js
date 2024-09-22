@@ -6,70 +6,77 @@ const panel2 = document.getElementById('panel2');
 const closePanel1 = document.getElementById('close-panel1');
 const closePanel2 = document.getElementById('close-panel2');
 
+// Variables to track active panel
+let activePanel = null;
+let activeButton = null;
+
 // Event Listeners for Buttons
 button1.addEventListener('click', () => {
+    if (activePanel === panel1) return; // Do nothing if same panel is already active
+    hideActivePanel();
     panel1.classList.add('visible');
     panel1.classList.remove('hidden');
-    hideButtons();
+    activePanel = panel1;
+    setActiveButton(button1);
 });
 
 button2.addEventListener('click', () => {
+    if (activePanel === panel2) return; // Do nothing if same panel is already active
+    hideActivePanel();
     panel2.classList.add('visible');
     panel2.classList.remove('hidden');
-    hideButtons();
+    activePanel = panel2;
+    setActiveButton(button2);
 });
 
 // Event Listeners for Close Buttons
 closePanel1.addEventListener('click', () => {
-    panel1.classList.remove('visible');
-    panel1.classList.add('hidden');
-    showButtons();
+    hideActivePanel();
+    activePanel = null;
 });
 
 closePanel2.addEventListener('click', () => {
-    panel2.classList.remove('visible');
-    panel2.classList.add('hidden');
-    showButtons();
+    hideActivePanel();
+    activePanel = null;
 });
 
-// Hide buttons function
-function hideButtons() {
-    document.querySelector('.buttons-container').style.display = 'none';
+// Function to hide currently active panel
+function hideActivePanel() {
+    if (activePanel) {
+        activePanel.classList.remove('visible');
+        activePanel.classList.add('hidden');
+    }
+    if (activeButton) {
+        activeButton.classList.remove('active-button');
+    }
 }
 
-// Show buttons function
-function showButtons() {
-    document.querySelector('.buttons-container').style.display = 'flex';
+// Function to set the active button
+function setActiveButton(button) {
+    activeButton = button;
+    activeButton.classList.add('active-button');
 }
 
 // Keep panel open when clicking on links
 const linksPanel1 = panel1.querySelectorAll('.panel-link');
 const linksPanel2 = panel2.querySelectorAll('.panel-link');
 
-// Links for Panel 1 should not hide the buttons
 linksPanel1.forEach(link => {
     link.addEventListener('click', (e) => {
         e.stopPropagation(); // Stop the event from bubbling
     });
 });
 
-// Links for Panel 2 should not hide the buttons
 linksPanel2.forEach(link => {
     link.addEventListener('click', (e) => {
         e.stopPropagation();
     });
 });
 
-// Close panels when clicking outside
+// Close panels when clicking outside, unless clicking the panel or the button
 document.addEventListener('click', (e) => {
-    if (!panel1.contains(e.target) && !button1.contains(e.target)) {
-        panel1.classList.remove('visible');
-        panel1.classList.add('hidden');
-        showButtons();
-    }
-    if (!panel2.contains(e.target) && !button2.contains(e.target)) {
-        panel2.classList.remove('visible');
-        panel2.classList.add('hidden');
-        showButtons();
+    if (activePanel && !activePanel.contains(e.target) && !activeButton.contains(e.target)) {
+        hideActivePanel();
+        activePanel = null;
     }
 }, true);
