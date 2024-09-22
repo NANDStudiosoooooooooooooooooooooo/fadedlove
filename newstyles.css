@@ -61,7 +61,7 @@ body {
 
 .glass-button {
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px); /* Blur-Effekt hinzugefügt */
     border: none;
     padding: 10px 20px;
     font-size: 16px;
@@ -80,15 +80,24 @@ body {
     bottom: 100px; /* Gleicher Abstand wie die Buttons */
     left: 150px;  /* Panels rechts von den Buttons mit Abstand */
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px); /* Blur/Glas-Effekt hinzugefügt */
     padding: 40px 20px;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 300px; /* Panels breiter gemacht */
+    width: 300px; /* Standardbreite für Desktop */
     visibility: hidden;
     z-index: 10; /* Überlappt das Video */
+}
+
+/* Panels auf kleinen Geräten (Mobil) */
+@media (max-width: 768px) {
+    .glass-panel {
+        width: 90vw; /* Panels auf Mobilgeräten schmaler machen */
+        left: 5vw;   /* Panels zentrieren */
+        bottom: 50px; /* Panels höher auf mobilen Geräten */
+    }
 }
 
 /* HREFs in Panels */
@@ -127,6 +136,14 @@ body {
 
 .visible {
     visibility: visible;
+}
+
+/* Copyright Text im zweiten Panel */
+#panel2 .copyright {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5); /* Leicht transparent */
+    text-align: center;
+    margin-top: 20px;
 }
 
 /* Responsive adjustments */
