@@ -42,6 +42,24 @@ function showButtons() {
     document.querySelector('.buttons-container').style.display = 'flex';
 }
 
+// Keep panel open when clicking on links
+const linksPanel1 = panel1.querySelectorAll('.panel-link');
+const linksPanel2 = panel2.querySelectorAll('.panel-link');
+
+// Links for Panel 1 should not hide the buttons
+linksPanel1.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.stopPropagation(); // Stop the event from bubbling
+    });
+});
+
+// Links for Panel 2 should not hide the buttons
+linksPanel2.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+});
+
 // Close panels when clicking outside
 document.addEventListener('click', (e) => {
     if (!panel1.contains(e.target) && !button1.contains(e.target)) {
