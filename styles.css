@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-/* Body: Deaktiviere Scrollen */
+/* Body: Scrollen verhindern */
 body {
     background-color: #000;
     color: white;
@@ -15,10 +15,11 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
-    overflow: hidden; /* Verhindert Scrollen */
+    overflow: hidden; /* Scrollen vollständig verhindern */
+    margin: 0;
 }
 
-/* Logo Container */
+/* Logo Container: Verhindere Scrollen des Logos */
 .logo-container {
     width: 70vw;
     height: 70vh;
@@ -29,58 +30,40 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    overflow: hidden; /* Scrollverhalten auch für das Logo blockieren */
 }
 
-.logo {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-
-/* Navigation Link */
-.nav-link {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-.nav-link:hover {
-    text-decoration: underline;
-}
-
-/* Buttons Container: Fixiere die Buttons unten links */
+/* Buttons Container: Positioniere Buttons höher */
 .buttons-container {
-    position: fixed; /* Geändert von absolute zu fixed, um Buttons immer sichtbar zu halten */
-    bottom: 20px;
+    position: fixed;
+    bottom: 100px; /* Abstand zur Unterkante erhöhen */
     left: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.glass-button {
+/* Buttons Style */
+.buttons-container button {
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
     border: none;
+    border-radius: 10px;
     padding: 10px 20px;
-    font-size: 16px;
     color: white;
-    border-radius: 12px;
+    font-size: 18px;
     cursor: pointer;
 }
 
-.glass-button:hover {
-    background: rgba(255, 255, 255, 0.2);
+.buttons-container button:hover {
+    text-decoration: underline;
 }
 
-/* Panels */
+/* Panels: Breiter und rechts von den Buttons */
 .glass-panel {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
+    position: fixed;
+    bottom: 100px; /* Gleicher Abstand wie die Buttons */
+    left: 150px;  /* Etwas Abstand von den Buttons */
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(15px);
     padding: 40px 20px;
@@ -88,23 +71,24 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: auto;
+    width: 300px; /* Breiter machen, sodass der X-Button nicht über den Links steht */
     visibility: hidden;
-    z-index: 10; /* Überlappt das Video */
+    z-index: 10;
 }
 
-/* HREFs in Panels */
+/* HREFs in Panels: Mehr Platz zwischen Links */
 .glass-panel .panel-link {
     color: white;
     text-decoration: none;
     font-size: 20px;
+    margin-bottom: 10px; /* Mehr Platz zwischen den Links */
 }
 
 .glass-panel .panel-link:hover {
     text-decoration: underline;
 }
 
-/* Close Button (X) */
+/* Close Button (X): Positionieren über den Links, nicht überlappend */
 .glass-panel .close-btn {
     position: absolute;
     top: 10px;
@@ -116,18 +100,12 @@ body {
     cursor: pointer;
 }
 
-.hidden {
-    display: none;
+/* Markiere aktiven Button durch Unterstreichung */
+.active-button {
+    text-decoration: underline;
 }
 
-.visible {
-    visibility: visible;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .logo-container {
-        width: 90vw;
-        height: 60vh;
-    }
+/* Verhindere die Auswahl von Text und Elementen */
+* {
+    user-select: none;
 }
