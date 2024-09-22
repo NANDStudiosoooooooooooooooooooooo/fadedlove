@@ -4,16 +4,20 @@
     box-sizing: border-box;
 }
 
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Scrollen verhindern */
+}
+
 body {
     background-color: #000;
     color: white;
     font-family: Arial, sans-serif;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    overflow: hidden; /* Scrollen verhindern */
 }
 
 /* Logo Container */
@@ -52,7 +56,7 @@ body {
 /* Buttons Container - untereinander angeordnet */
 .buttons-container {
     position: absolute;
-    bottom: 100px; /* Höher positioniert */
+    bottom: 100px;
     left: 20px;
     display: flex;
     flex-direction: column;
@@ -61,7 +65,7 @@ body {
 
 .glass-button {
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px); /* Blur-Effekt hinzugefügt */
+    backdrop-filter: blur(10px); /* Blur-Effekt für Buttons */
     border: none;
     padding: 10px 20px;
     font-size: 16px;
@@ -77,16 +81,17 @@ body {
 /* Panels */
 .glass-panel {
     position: absolute;
-    bottom: 100px; /* Gleicher Abstand wie die Buttons */
-    left: 150px;  /* Panels rechts von den Buttons mit Abstand */
+    bottom: 100px;
+    left: calc(150px + 20px); /* Rechts von den Buttons */
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px); /* Blur/Glas-Effekt hinzugefügt */
+    backdrop-filter: blur(15px); /* Blur/Glas-Effekt */
     padding: 40px 20px;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 300px; /* Standardbreite für Desktop */
+    width: 300px;
+    max-width: calc(100vw - 50px); /* Passt sich an Bildschirmbreite an */
     visibility: hidden;
     z-index: 10; /* Überlappt das Video */
 }
@@ -94,9 +99,9 @@ body {
 /* Panels auf kleinen Geräten (Mobil) */
 @media (max-width: 768px) {
     .glass-panel {
-        width: 90vw; /* Panels auf Mobilgeräten schmaler machen */
-        left: 5vw;   /* Panels zentrieren */
-        bottom: 50px; /* Panels höher auf mobilen Geräten */
+        width: 90vw;
+        left: 5vw;  /* Panels zentriert auf kleineren Bildschirmen */
+        bottom: 50px; /* Etwas höher auf mobilen Geräten */
     }
 }
 
@@ -124,6 +129,14 @@ body {
     cursor: pointer;
 }
 
+/* Copyright Text im zweiten Panel */
+#panel2 .copyright {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5); /* Leicht transparent */
+    text-align: left; /* Links bündig */
+    margin-top: 20px;
+}
+
 /* Aktiver Button: Markiert durch Unterstreichung */
 .active-button {
     text-decoration: underline;
@@ -136,14 +149,6 @@ body {
 
 .visible {
     visibility: visible;
-}
-
-/* Copyright Text im zweiten Panel */
-#panel2 .copyright {
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.5); /* Leicht transparent */
-    text-align: center;
-    margin-top: 20px;
 }
 
 /* Responsive adjustments */
