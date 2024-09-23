@@ -91,7 +91,7 @@ body {
     flex-direction: column;
     gap: 20px;
     width: 300px;
-    max-width: calc(100vw - 50px); /* Passt sich an Bildschirmbreite an */
+    max-width: calc(100vw - 70px); /* Passt sich an Bildschirmbreite an */
     visibility: hidden;
     z-index: 10; /* Überlappt das Video */
 }
@@ -99,8 +99,8 @@ body {
 /* Panels auf kleinen Geräten (Mobil) */
 @media (max-width: 768px) {
     .glass-panel {
-        width: 90vw;
-        left: 5vw;  /* Panels zentriert auf kleineren Bildschirmen */
+        width: calc(100vw - 90px); /* Schmaler auf Mobilgeräten, Abstand zum Rand */
+        left: 90px; /* Abstand zwischen Panel und Buttons auf mobilen Geräten */
         bottom: 50px; /* Etwas höher auf mobilen Geräten */
     }
 }
