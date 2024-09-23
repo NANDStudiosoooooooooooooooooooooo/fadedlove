@@ -7,10 +7,14 @@
 }
 
 html, body {
+    font-family: 'IBM Plex Sans', sans-serif;
     width: 100%;
     height: 100%;
-    overflow: hidden; /* Scrollen verhindern */
-    -webkit-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%; /* Verhindert Textgröße-Anpassungen in iOS */
+    -ms-text-size-adjust: 100%; /* Verhindert Textgröße-Anpassungen in IE/Edge */
+    -webkit-font-smoothing: antialiased; /* Bessere Kantenglättung in iOS/Safari */
+    -moz-osx-font-smoothing: grayscale; /* Bessere Kantenglättung in macOS */
+    overflow: hidden; /* Scrollen deaktivieren */
 }
 
 body {
@@ -259,7 +263,72 @@ input[type="email"] {
     box-shadow: none; /* Entfernt Schatten auf iOS */
     color: #fff;
     padding: 10px;
+    font-size: 16px;
     text-transform: uppercase;
     outline: none; /* Verhindert Standard-Umrandung */
 }
 
+/* CSS Reset BEGIN */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent; /* Entfernt iOS/Android Highlight beim Tappen */
+}
+
+button, input, textarea {
+    -webkit-appearance: none; /* Verhindert Browser-spezifische Änderungen */
+    appearance: none;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+button:focus, input:focus {
+    outline: none; /* Verhindert Standard-Fokusrahmen */
+}
+
+/* Safari-spezifische Anpassungen deaktivieren */
+input[type="email"],
+input[type="text"],
+button {
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent; /* Entfernt Autofill Hintergrund in Safari */
+    box-shadow: none; /* Verhindert Schatten in Safari */
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* Platzhalter-Farbe anpassen */
+}
+
+/* Spezifisch für iOS */
+@supports (-webkit-touch-callout: none) {
+    /* Entfernt Autokorrektur, wenn sie auf iOS nicht erwünscht ist */
+    input[type="text"], input[type="email"], textarea {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-user-modify: read-write-plaintext-only; /* Verhindert iOS-Änderungen */
+    }
+
+    /* Entfernt Autofill-Hintergrund in iOS Safari */
+    input:-webkit-autofill {
+        background-color: transparent !important;
+        -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+        box-shadow: 0 0 0px 1000px transparent inset;
+    }
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important; /* Entfernt Autofill-Hintergrund */
+    box-shadow: 0 0 0px 1000px transparent inset !important;
+    -webkit-text-fill-color: white !important; /* Textfarbe im Autofill-Zustand */
+}
+
+/* END */
