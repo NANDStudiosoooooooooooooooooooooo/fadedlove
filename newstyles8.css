@@ -80,6 +80,8 @@ body {
     cursor: pointer;
     transition: box-shadow 0.3s ease;
     white-space: nowrap; /* Verhindert Zeilenumbruch */
+    -webkit-appearance: none; /* Entfernt iOS/Safari-Standardbutton-Styling */
+    appearance: none;
 }
 
 .glass-button:hover {
