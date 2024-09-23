@@ -56,7 +56,7 @@ body {
 /* Buttons Container - untereinander angeordnet */
 .buttons-container {
     position: absolute;
-    bottom: 120px; /* Weiter nach unten verschoben */
+    bottom: 150px; /* Weiter nach unten verschoben für größere Bildschirme */
     left: 20px;
     display: flex;
     flex-direction: column;
@@ -72,7 +72,7 @@ body {
     color: white;
     border-radius: 12px;
     cursor: pointer;
-    transition: box-shadow 0.3s ease; /* Für sanften Hover-Effekt */
+    transition: box-shadow 0.3s ease; /* Sanfter Hover-Effekt */
 }
 
 .glass-button:hover {
@@ -87,7 +87,7 @@ body {
 /* Panels */
 .glass-panel {
     position: absolute;
-    bottom: 120px; /* Etwas höher auf kleinen Bildschirmen */
+    bottom: 150px; /* Gleiche Höhe wie die Buttons */
     left: calc(150px + 20px); /* Rechts von den Buttons */
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(15px); /* Blur/Glas-Effekt */
@@ -107,7 +107,11 @@ body {
     .glass-panel {
         width: calc(100vw - 100px); /* Schmaler auf Mobilgeräten */
         left: 90px; /* Abstand zwischen Panel und Buttons auf mobilen Geräten */
-        bottom: 100px; /* Höher positioniert, damit es nicht zu tief ist */
+        bottom: 100px; /* Etwas höher, um nicht die Homebar zu überlappen */
+    }
+
+    .buttons-container {
+        bottom: 100px; /* Gleiche Höhe wie das Panel */
     }
 }
 
