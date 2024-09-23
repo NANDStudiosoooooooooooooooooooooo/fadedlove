@@ -24,7 +24,7 @@ body {
 .logo-container {
     width: 70vw;
     height: 70vh;
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
@@ -56,7 +56,7 @@ body {
 /* Buttons Container - untereinander angeordnet */
 .buttons-container {
     position: absolute;
-    bottom: 100px;
+    bottom: 120px; /* Weiter nach unten verschoben */
     left: 20px;
     display: flex;
     flex-direction: column;
@@ -72,16 +72,22 @@ body {
     color: white;
     border-radius: 12px;
     cursor: pointer;
+    transition: box-shadow 0.3s ease; /* Für sanften Hover-Effekt */
 }
 
 .glass-button:hover {
-    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5); /* Weißer Schatten-Effekt beim Hover */
+}
+
+.active-button {
+    text-decoration: underline;
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5); /* Weißer Schatten-Effekt für aktiven Button */
 }
 
 /* Panels */
 .glass-panel {
     position: absolute;
-    bottom: 100px;
+    bottom: 120px; /* Etwas höher auf kleinen Bildschirmen */
     left: calc(150px + 20px); /* Rechts von den Buttons */
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(15px); /* Blur/Glas-Effekt */
@@ -90,8 +96,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 300px;
-    max-width: calc(100vw - 70px); /* Passt sich an Bildschirmbreite an */
+    width: 280px;
+    max-width: calc(100vw - 80px); /* Anpassung an kleine Bildschirme */
     visibility: hidden;
     z-index: 10; /* Überlappt das Video */
 }
@@ -99,9 +105,9 @@ body {
 /* Panels auf kleinen Geräten (Mobil) */
 @media (max-width: 768px) {
     .glass-panel {
-        width: calc(100vw - 90px); /* Schmaler auf Mobilgeräten, Abstand zum Rand */
+        width: calc(100vw - 100px); /* Schmaler auf Mobilgeräten */
         left: 90px; /* Abstand zwischen Panel und Buttons auf mobilen Geräten */
-        bottom: 50px; /* Etwas höher auf mobilen Geräten */
+        bottom: 100px; /* Höher positioniert, damit es nicht zu tief ist */
     }
 }
 
@@ -135,11 +141,6 @@ body {
     color: rgba(255, 255, 255, 0.5); /* Leicht transparent */
     text-align: left; /* Links bündig */
     margin-top: 20px;
-}
-
-/* Aktiver Button: Markiert durch Unterstreichung */
-.active-button {
-    text-decoration: underline;
 }
 
 /* Versteckte Elemente */
