@@ -21,6 +21,13 @@ function togglePanel(panelId) {
         if (activeButton) {
             activeButton.classList.add('active-button');
         }
+    } else {
+        // Wenn das Panel bereits offen ist, schließe es
+        currentPanel.classList.add('hidden');
+        let activeButton = Array.from(buttons).find(button => button.getAttribute('data-target') === panelId);
+        if (activeButton) {
+            activeButton.classList.remove('active-button');
+        }
     }
 }
 

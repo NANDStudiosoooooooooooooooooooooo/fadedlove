@@ -101,9 +101,14 @@ body {
     gap: 20px;
     width: 280px;
     max-width: calc(100vw - 80px); /* Anpassung an kleine Bildschirme */
-    visibility: hidden;
+    
     z-index: 10;
 }
+
+.hidden {
+    display: none;
+}
+
 
 /* Panels auf kleinen Geräten (Mobil) */
 @media (max-width: 768px) {
