@@ -153,9 +153,9 @@ body {
     }
 
     #panel3 {
-        min-width: calc(100vw);
+        min-width: calc(100%);
         left: 20px;
-        right: 10px;
+        right: 20px;
         bottom: 80px;
     }
 
