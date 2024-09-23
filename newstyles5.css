@@ -62,18 +62,20 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: auto;
 }
 
 .glass-button {
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px); /* Blur-Effekt für Buttons */
+    backdrop-filter: blur(10px);
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 10px 20px; /* Dies kann je nach Bedarf angepasst werden */
     color: white;
     border-radius: 12px;
     cursor: pointer;
-    transition: box-shadow 0.3s ease; /* Sanfter Hover-Effekt */
+    transition: box-shadow 0.3s ease;
+    text-align: left; /* Text linksbündig */
+    white-space: nowrap; /* Verhindert, dass der Text umbricht */
 }
 
 .glass-button:hover, .glass-button:active {

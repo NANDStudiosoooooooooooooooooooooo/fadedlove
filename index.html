@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FADEDCLOTH</title>
-    <link rel="stylesheet" href="newstyles4.css">
+    <link rel="stylesheet" href="newstyles5.css">
 </head>
 <body>
     <div id="loader" class="loader-container">
@@ -23,21 +23,21 @@
 
     <!-- Buttons unten links (untereinander) -->
     <div class="buttons-container">
-        <button id="button1" class="glass-button" data-target="panel1">MENU</button>
-        <button id="button2" class="glass-button" data-target="panel2">LEGAL</button>
-        <button id="button3" class="glass-button" data-target="panel3">SUBSCRIBE</button>
+        <button id="button1" class="glass-button" onclick="togglePanel(1)">MENU</button>
+        <button id="button2" class="glass-button" onclick="togglePanel(2)">LEGAL</button>
+        <button id="button3" class="glass-button" onclick="togglePanel(3)">SUBSCRIBE</button>
     </div>
 
     <!-- Panel für Button 1 -->
     <div id="panel1" class="glass-panel hidden">
-        <button class="close-btn">X</button>
+        <button class="close-btn" onclick="togglePanel('panel1')">X</button>
         <a href="https://fadedcloth.de/" class="panel-link">MAINPAGE</a>
         <a href="https://fadedcloth.de/shop" class="panel-link">SHOP</a>
     </div>
 
     <!-- Panel für Button 2 -->
     <div id="panel2" class="glass-panel hidden">
-        <button class="close-btn">X</button>
+        <button class="close-btn" onclick="togglePanel('panel2')">X</button>
         <a href="mailto:help@fadedcloth.de" class="panel-link">CONTACT</a>
         <a href="https://fadedcloth.de/privacy-policy" class="panel-link">PRIVACY POLICY</a>
         <a href="https://fadedcloth.de/terms-of-service" class="panel-link">TERMS OF SERVICE</a>
@@ -46,7 +46,7 @@
 
     <!-- Panel für Button 3 (Subscribe Panel) -->
     <div id="panel3" class="glass-panel hidden">
-        <button class="close-btn">X</button>
+        <button class="close-btn" onclick="togglePanel('panel3')">X</button>
         <div class="headline">SUBSCRIBE</div>
         <form id="emailForm">
             <input 
@@ -63,7 +63,7 @@
         </form>
     </div>
 
-    <script src="newscripts2.js"></script>
+    <script src="newscripts3.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js"></script>
     <script>
         // Warten, bis das Video geladen ist
