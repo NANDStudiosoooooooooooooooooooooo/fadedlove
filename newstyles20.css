@@ -155,7 +155,7 @@ body {
     }
 
     #panel3 {
-        width: calc(100vw + 150px);
+        width: calc(100vw + 170px);
         left: 20px;
         padding-right: 20px;
     }
@@ -213,12 +213,13 @@ body {
 
 /* Headline für das Subscribe-Panel */
 .headline {
-    font-size: 24px;
+    font-size: 22px;
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 20px;
     color: white;
     text-decoration: underline;
+    font-weight: 500;
 }
 
 /* Email-Input */
