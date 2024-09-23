@@ -111,10 +111,6 @@ body {
     z-index: 10;
 }
 
-.hidden {
-    display: none;
-}
-
 
 /* Panels auf kleinen Geräten (Mobil) */
 @media (max-width: 768px) {
@@ -134,6 +130,12 @@ body {
 
     .glass-panel .panel-link {
         font-size: 14px;
+    }
+
+    #panel3 {
+        width: calc(100vw -20px);
+        left: 20px;
+        bottom: 80px;
     }
 
 }
@@ -223,3 +225,16 @@ body {
     padding: 8px 15px;
     border-radius: 10px;
 }
+
+input[type="email"] {
+    -webkit-appearance: none; /* Entfernt iOS Standard-Styling */
+    appearance: none;
+    border-radius: 0; /* Verhindert abgerundete Ecken */
+    background-color: transparent !important; /* Verhindert Autofill-Hintergrund */
+    box-shadow: none; /* Entfernt Schatten auf iOS */
+    color: #fff;
+    padding: 10px;
+    text-transform: uppercase;
+    outline: none; /* Verhindert Standard-Umrandung */
+}
+
