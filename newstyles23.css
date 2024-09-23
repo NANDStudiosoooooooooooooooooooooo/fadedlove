@@ -246,7 +246,6 @@ body {
     display: flex;
     justify-content: space-between;
     gap: 10px;
-    padding-right: 10px;
 }
 
 .small-button {
@@ -269,59 +268,7 @@ input[type="email"] {
 }
 
 /* CSS Reset BEGIN */
-*,
-*::before,
-*::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent; /* Entfernt iOS/Android Highlight beim Tappen */
-}
-
-button, input, textarea {
-    -webkit-appearance: none; /* Verhindert Browser-spezifische Änderungen */
-    appearance: none;
-    border: none;
-    outline: none;
-    background: none;
-}
-
-button:focus, input:focus {
-    outline: none; /* Verhindert Standard-Fokusrahmen */
-}
-
-/* Safari-spezifische Anpassungen deaktivieren */
-input[type="email"],
-input[type="text"],
-button {
-    border: none;
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: transparent; /* Entfernt Autofill Hintergrund in Safari */
-    box-shadow: none; /* Verhindert Schatten in Safari */
-}
-
-input::placeholder {
-    color: rgba(255, 255, 255, 0.5); /* Platzhalter-Farbe anpassen */
-}
-
-/* Spezifisch für iOS */
-@supports (-webkit-touch-callout: none) {
-    /* Entfernt Autokorrektur, wenn sie auf iOS nicht erwünscht ist */
-    input[type="text"], input[type="email"], textarea {
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        user-select: none;
-        -webkit-user-modify: read-write-plaintext-only; /* Verhindert iOS-Änderungen */
-    }
-
-    /* Entfernt Autofill-Hintergrund in iOS Safari */
-    input:-webkit-autofill {
-        background-color: transparent !important;
-        -webkit-box-shadow: 0 0 0px 1000px transparent inset;
-        box-shadow: 0 0 0px 1000px transparent inset;
-    }
-}
+/* Autofill-Styling für iOS verhindern */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -331,4 +278,22 @@ input:-webkit-autofill:active {
     -webkit-text-fill-color: white !important; /* Textfarbe im Autofill-Zustand */
 }
 
+/* Safari-spezifische Anpassungen deaktivieren */
+input[type="email"],
+input[type="text"],
+button {
+    background-color: rgba(255, 255, 255, 0.1) !important; /* Behalte den leicht transparenten Hintergrund */
+    color: white !important; /* Textfarbe bleibt weiß */
+    -webkit-appearance: none; /* iOS-spezifische Stile entfernen */
+    appearance: none;
+    box-shadow: none; /* Schatten auf iOS entfernen */
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* Platzhalterfarbe leicht transparent */
+}
+
+button:focus, input:focus {
+    outline: none; /* Verhindert Standard-Fokusrahmen */
+}
 /* END */
