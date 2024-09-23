@@ -69,17 +69,22 @@ body {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border: none;
-    padding: 10px 20px; /* Dies kann je nach Bedarf angepasst werden */
+    padding: 10px 20px; /* Du kannst dies anpassen, um den Abstand zu ändern */
+    font-size: 16px;
     color: white;
     border-radius: 12px;
     cursor: pointer;
     transition: box-shadow 0.3s ease;
-    text-align: left; /* Text linksbündig */
-    white-space: nowrap; /* Verhindert, dass der Text umbricht */
+    white-space: nowrap; /* Verhindert Zeilenumbruch */
 }
 
-.glass-button:hover, .glass-button:active {
-    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5); /* Weißer Schatten-Effekt beim Hover/Aktiv */
+.glass-button:hover {
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5);
+}
+
+.active-button {
+    text-decoration: underline;
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5);
 }
 
 /* Panels */

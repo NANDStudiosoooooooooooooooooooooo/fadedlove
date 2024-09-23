@@ -7,19 +7,17 @@ function togglePanel(panelId) {
 
     // Überprüfen, ob das aktuelle Panel bereits sichtbar ist
     if (currentPanel.classList.contains('hidden')) {
-        // Panels schließen, außer dem aktuellen
-        panels.forEach(panel => {
-            panel.classList.add('hidden');
-        });
+        // Alle Panels schließen
+        panels.forEach(panel => panel.classList.add('hidden'));
         
         // Aktuelles Panel öffnen
         currentPanel.classList.remove('hidden');
-        
+
         // Button-Status aktualisieren
         buttons.forEach(button => {
             button.classList.remove('active-button');
         });
-        let activeButton = Array.from(buttons).find(button => button.id === panelId);
+        let activeButton = Array.from(buttons).find(button => button.getAttribute('data-target') === panelId);
         if (activeButton) {
             activeButton.classList.add('active-button');
         }
@@ -56,8 +54,8 @@ document.querySelectorAll('.glass-button').forEach(button => {
     button.addEventListener('click', function(event) {
         event.stopPropagation(); // Verhindert, dass das Event auch das document erreicht
 
-        // Hole das Ziel-Panel von der id des Buttons
-        let targetPanel = button.id; // z.B. button1, button2
+        // Hole das Ziel-Panel von der data-target des Buttons
+        let targetPanel = button.getAttribute('data-target');
         togglePanel(targetPanel);
     });
 });
