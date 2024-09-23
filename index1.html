@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FADEDCLOTH</title>
+    <link rel="stylesheet" href="index51.css">
+</head>
+<body>
+
+
+  <div class="top-buttons">
+    <a href="https://fadedcloth.de/shop" class="main-button" id="shopbutton">SHOP</a>
+  </div>
+
+  <div id="loader" class="loader-container">
+    <l-zoomies size="80" stroke="5" bg-opacity="0.1" speed="1.4" color="white"></l-zoomies>
+  </div>
+
+
+  <div class="logo2" id="video-container">
+  <video autoplay loop muted playsinline preload="auto" id="logo-video">
+    <source src="logo.mp4" type="video/mp4">
+    Dein Browser unterstützt das Video-Tag nicht.
+  </video>
+  </div>
+
+
+
+
+<footer id="footer">
+ 
+  <div class="col col1">
+    <h3>FADEDCLOTH</h3>
+    <p>Made with <span style="color: #cc98bb;">❤</span> by <a href="https://nand-studios.com" target="_blank" class="href">Nand Studios</a></p>
+    <div class="social">
+      <a href="https://github.com/NANDStudiosoooooooooooooooooooooo" target="_blank" class="link"><img class="icon" src="icon-github.svg" alt="GitHub" /></a>
+      <a href="https://twitter.com/fadedcloth" target="_blank" class="link"><img src="https://assets.codepen.io/9051928/x.png" alt="Twitter" /></a>
+      <a href="https://tiktok.com/@fadedcloth.de" target="_blank" class="link"><img src="icon-tiktok.svg" alt="TikTok" /></a>
+    </div>
+    <p style="color: #818181; font-size: smaller">2024 © All Rights Reserved</p>
+  </div>
+  <div class="col col2">
+    <p><div class="headline">LINKS</div></p>
+    <p><a href="https://fadedcloth.de/shop" target="_blank" class="href">SHOP</a></p>
+    <p><a href="mailto:help@fadedcloth.de" target="_blank" class="href">CONTACT</a></p>
+    <p><a href="https://fadedcloth.de/gallery" class="href">GALLERY</a></p>
+    <p><a href="https://fadedcloth.de/" class="href">MAINPAGE</a></p>
+  </div>
+  <div class="col col3">
+    <p><div class="headline">SUBSCRIBE</div></p>
+    <p><form id="emailForm">
+        <input 
+          type="email" 
+          id="email" 
+          placeholder="ENTER YOUR EMAIL" 
+          required 
+          style="border: none; outline: none; background: none; color: #fff; text-transform: uppercase;"
+        />
+        <button id="subscribeButton" style="background: none; border: none; color: rgb(255, 255, 255); text-decoration: underline; cursor: pointer;">
+          SUBSCRIBE
+        </button>
+        <button id="unsubscribeButton" style="background: none; border: none; color: rgb(255, 255, 255); text-decoration: underline; cursor: pointer;">
+          UNSUBSCRIBE
+        </button>
+      </form></p>
+  </div>
+  
+</footer>
+
+
+<script src="scroll.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js"></script>
+<script>
+  // Warten, bis das Video geladen ist
+  const video = document.getElementById('logo-video');
+  const loader = document.getElementById('loader');
+  const logocontainerRef = document.getElementById('video-container');
+
+  video.addEventListener('canplaythrough', function () {
+    // Wenn das Video vollständig geladen ist, Ladeanimation ausblenden und Video anzeigen
+    loader.style.display = 'none';
+    logocontainerRef.style.display = 'flex';
+  });
+</script>
+<script src="https://subscribe.fadedcloth.de/scripts/fadedsub.js"></script>
+<script src="https://subscribe.fadedcloth.de/scripts/fadedunsub.js"></script>
+</body>
+</html>
