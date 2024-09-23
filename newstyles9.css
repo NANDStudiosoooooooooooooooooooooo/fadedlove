@@ -127,6 +127,11 @@ body {
     .buttons-container {
         bottom: 80px; /* Gleiche Höhe wie das Panel */
     }
+
+    .glass-button {
+        font-size: 12px;
+    }
+
 }
 
 /* HREFs in Panels */
