@@ -155,6 +155,7 @@ body {
     }
 
     #panel3 {
+        width: calc(100vw + 150px);
         left: 20px;
         padding-right: 20px;
     }
