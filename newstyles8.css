@@ -118,7 +118,7 @@ body {
 @media (max-width: 768px) {
     .glass-panel {
         width: calc(100vw - 100px); /* Schmaler auf Mobilgeräten */
-        left: 90px; /* Abstand zwischen Panel und Buttons auf mobilen Geräten */
+        left: calc(150px + 20px); /* Abstand zwischen Panel und Buttons auf mobilen Geräten */
         bottom: 80px; /* Etwas höher, um nicht die Homebar zu überlappen */
     }
 
