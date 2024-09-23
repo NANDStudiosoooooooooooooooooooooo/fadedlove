@@ -153,8 +153,9 @@ body {
     }
 
     #panel3 {
-        width: calc(100vw +150px);
+        width: calc(100vw);
         left: 20px;
+        right: 20px;
         bottom: 80px;
     }
 
