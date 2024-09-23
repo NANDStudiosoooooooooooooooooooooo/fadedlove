@@ -239,6 +239,9 @@ body {
     text-transform: uppercase;
     margin-bottom: 20px;
     border-radius: 12px;
+    -webkit-appearance: none; /*For Chrome*/
+    -moz-appearance: none;/*For Mozilla*/
+    appearance: none;
 }
 
 /* Subscribe/Unsubscribe Buttons */
@@ -246,6 +249,9 @@ body {
     display: flex;
     justify-content: space-between;
     gap: 10px;
+    -webkit-appearance: none; /*For Chrome*/
+    -moz-appearance: none;/*For Mozilla*/
+    appearance: none;
 }
 
 .small-button {
