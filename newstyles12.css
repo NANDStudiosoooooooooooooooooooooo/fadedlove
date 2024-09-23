@@ -52,6 +52,7 @@ body {
     color: white;
     text-decoration: none;
     font-size: 14px;
+    left: 0px;
 }
 
 .nav-link:hover {
