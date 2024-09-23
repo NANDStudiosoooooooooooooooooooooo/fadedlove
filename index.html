@@ -18,36 +18,35 @@
         </video>
     </div>
 
-    <!-- Navigation links -->
+    <!-- Navigation link -->
     <a href="/shop" class="nav-link top-left">SHOP</a>
 
     <!-- Buttons unten links (untereinander) -->
     <div class="buttons-container">
-        <button id="button1" class="glass-button">MENU</button>
-        <button id="button2" class="glass-button">LEGAL</button>
+        <button id="button1" class="glass-button" data-target="panel1">MENU</button>
+        <button id="button2" class="glass-button" data-target="panel2">LEGAL</button>
+        <button id="button3" class="glass-button" data-target="panel3">SUBSCRIBE</button>
     </div>
 
     <!-- Panel für Button 1 -->
     <div id="panel1" class="glass-panel hidden">
-        <button class="close-btn" id="close-panel1">X</button>
+        <button class="close-btn">X</button>
         <a href="https://fadedcloth.de/" class="panel-link">MAINPAGE</a>
         <a href="https://fadedcloth.de/shop" class="panel-link">SHOP</a>
-        
     </div>
 
     <!-- Panel für Button 2 -->
-    <div id="panel2" class="glass-panel">
-    <a href="mailto:help@fadedcloth.de" class="panel-link">CONTACT</a>
-    <a href="https://fadedcloth.de/privacy-policy" class="panel-link">PRIVACY POLICY</a>
-    <a href="https://fadedcloth.de/terms-of-service" class="panel-link">TERMS OF SERVICE</a>
-    <button class="close-btn" id="close-panel2">X</button>
-     <div class="copyright">
-        &copy; FADEDCLOTH 2024
-     </div>
+    <div id="panel2" class="glass-panel hidden">
+        <button class="close-btn">X</button>
+        <a href="mailto:help@fadedcloth.de" class="panel-link">CONTACT</a>
+        <a href="https://fadedcloth.de/privacy-policy" class="panel-link">PRIVACY POLICY</a>
+        <a href="https://fadedcloth.de/terms-of-service" class="panel-link">TERMS OF SERVICE</a>
+        <div class="copyright">&copy; FADEDCLOTH 2024</div>
     </div>
 
-    <div id="panel3" class="glass-panel">
-        <button class="close-btn" onclick="togglePanel(3)">X</button>
+    <!-- Panel für Button 3 (Subscribe Panel) -->
+    <div id="panel3" class="glass-panel hidden">
+        <button class="close-btn">X</button>
         <div class="headline">SUBSCRIBE</div>
         <form id="emailForm">
             <input 
@@ -58,12 +57,8 @@
                 class="email-input"
             />
             <div class="form-buttons">
-                <button id="subscribeButton" class="glass-button small-button">
-                    SUBSCRIBE
-                </button>
-                <button id="unsubscribeButton" class="glass-button small-button">
-                    UNSUBSCRIBE
-                </button>
+                <button id="subscribeButton" class="glass-button small-button">SUBSCRIBE</button>
+                <button id="unsubscribeButton" class="glass-button small-button">UNSUBSCRIBE</button>
             </div>
         </form>
     </div>
@@ -71,16 +66,16 @@
     <script src="newscripts.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js"></script>
     <script>
-    // Warten, bis das Video geladen ist
-    const video = document.getElementById('logo-video');
-    const loader = document.getElementById('loader');
-    const logocontainerRef = document.getElementById('logo-container');
+        // Warten, bis das Video geladen ist
+        const video = document.getElementById('logo-video');
+        const loader = document.getElementById('loader');
+        const logocontainerRef = document.getElementById('logo-container');
 
-    video.addEventListener('canplaythrough', function () {
-        // Wenn das Video vollständig geladen ist, Ladeanimation ausblenden und Video anzeigen
-        loader.style.display = 'none';
-        logocontainerRef.style.display = 'flex';
-    });
+        video.addEventListener('canplaythrough', function () {
+            // Wenn das Video vollständig geladen ist, Ladeanimation ausblenden und Video anzeigen
+            loader.style.display = 'none';
+            logocontainerRef.style.display = 'flex';
+        });
     </script>
     <script src="https://subscribe.fadedcloth.de/scripts/fadedsub.js"></script>
     <script src="https://subscribe.fadedcloth.de/scripts/fadedunsub.js"></script>

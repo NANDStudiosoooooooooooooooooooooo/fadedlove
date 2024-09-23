@@ -1,82 +1,71 @@
-// Element References
-const button1 = document.getElementById('button1');
-const button2 = document.getElementById('button2');
-const panel1 = document.getElementById('panel1');
-const panel2 = document.getElementById('panel2');
-const closePanel1 = document.getElementById('close-panel1');
-const closePanel2 = document.getElementById('close-panel2');
+// Funktion zum Öffnen und Schließen der Panels
+function togglePanel(panelId) {
+    // Alle Panels und Buttons auswählen
+    let panels = document.querySelectorAll('.glass-panel');
+    let buttons = document.querySelectorAll('.glass-button');
 
-// Variables to track active panel
-let activePanel = null;
-let activeButton = null;
+    // Panels durchgehen und Sichtbarkeit zurücksetzen
+    panels.forEach(panel => {
+        if (panel.id === panelId) {
+            // Panel anzeigen, wenn es nicht sichtbar ist
+            if (panel.style.visibility === 'visible') {
+                panel.style.visibility = 'hidden'; // Schließe das Panel, wenn es bereits offen ist
+            } else {
+                panel.style.visibility = 'visible'; // Öffne das Panel
+            }
+        } else {
+            // Alle anderen Panels schließen
+            panel.style.visibility = 'hidden';
+        }
+    });
 
-// Event Listeners for Buttons
-button1.addEventListener('click', () => {
-    if (activePanel === panel1) return; // Do nothing if same panel is already active
-    hideActivePanel();
-    panel1.classList.add('visible');
-    panel1.classList.remove('hidden');
-    activePanel = panel1;
-    setActiveButton(button1);
-});
-
-button2.addEventListener('click', () => {
-    if (activePanel === panel2) return; // Do nothing if same panel is already active
-    hideActivePanel();
-    panel2.classList.add('visible');
-    panel2.classList.remove('hidden');
-    activePanel = panel2;
-    setActiveButton(button2);
-});
-
-// Event Listeners for Close Buttons
-closePanel1.addEventListener('click', () => {
-    hideActivePanel();
-    activePanel = null;
-});
-
-closePanel2.addEventListener('click', () => {
-    hideActivePanel();
-    activePanel = null;
-});
-
-// Function to hide currently active panel
-function hideActivePanel() {
-    if (activePanel) {
-        activePanel.classList.remove('visible');
-        activePanel.classList.add('hidden');
-    }
-    if (activeButton) {
-        activeButton.classList.remove('active-button');
-    }
+    // Button-Status aktualisieren
+    buttons.forEach(button => {
+        let targetPanel = button.getAttribute('data-target');
+        if (targetPanel === panelId) {
+            // Aktuellen Button hervorheben
+            button.classList.toggle('active-button');
+        } else {
+            // Hervorhebung bei den anderen Buttons entfernen
+            button.classList.remove('active-button');
+        }
+    });
 }
 
-// Function to set the active button
-function setActiveButton(button) {
-    activeButton = button;
-    activeButton.classList.add('active-button');
-}
+// Klick außerhalb des Panels zum Schließen
+document.addEventListener('click', function(event) {
+    let panels = document.querySelectorAll('.glass-panel');
+    let buttons = document.querySelectorAll('.glass-button');
 
-// Keep panel open when clicking on links
-const linksPanel1 = panel1.querySelectorAll('.panel-link');
-const linksPanel2 = panel2.querySelectorAll('.panel-link');
+    let clickedInsidePanel = false;
 
-linksPanel1.forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.stopPropagation(); // Stop the event from bubbling
+    // Prüfen, ob der Klick in einem der Panels oder Buttons war
+    panels.forEach(panel => {
+        if (panel.contains(event.target)) {
+            clickedInsidePanel = true;
+        }
     });
-});
 
-linksPanel2.forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.stopPropagation();
+    buttons.forEach(button => {
+        if (button.contains(event.target)) {
+            clickedInsidePanel = true;
+        }
     });
-});
 
-// Close panels when clicking outside, unless clicking the panel or the button
-document.addEventListener('click', (e) => {
-    if (activePanel && !activePanel.contains(e.target) && !activeButton.contains(e.target)) {
-        hideActivePanel();
-        activePanel = null;
+    // Wenn außerhalb geklickt wurde, alle Panels schließen
+    if (!clickedInsidePanel) {
+        panels.forEach(panel => panel.style.visibility = 'hidden');
+        buttons.forEach(button => button.classList.remove('active-button'));
     }
-}, true);
+});
+
+// Event Listener für alle Buttons
+document.querySelectorAll('.glass-button').forEach(button => {
+    button.addEventListener('click', function(event) {
+        event.stopPropagation(); // Verhindert, dass das Event auch das document erreicht
+
+        // Hole das Ziel-Panel von der data-target-Attribut des Buttons
+        let targetPanel = button.getAttribute('data-target');
+        togglePanel(targetPanel); // Panel ein/ausblenden
+    });
+});
