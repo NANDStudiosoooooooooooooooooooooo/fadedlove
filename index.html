@@ -46,6 +46,28 @@
      </div>
     </div>
 
+    <div id="panel3" class="glass-panel">
+        <button class="close-btn" onclick="togglePanel(3)">X</button>
+        <div class="headline">SUBSCRIBE</div>
+        <form id="emailForm">
+            <input 
+                type="email" 
+                id="email" 
+                placeholder="ENTER YOUR EMAIL" 
+                required 
+                class="email-input"
+            />
+            <div class="form-buttons">
+                <button id="subscribeButton" class="glass-button small-button">
+                    SUBSCRIBE
+                </button>
+                <button id="unsubscribeButton" class="glass-button small-button">
+                    UNSUBSCRIBE
+                </button>
+            </div>
+        </form>
+    </div>
+
     <script src="newscripts.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js"></script>
     <script>
