@@ -231,6 +231,12 @@ h2 {
 
 }
 
+@media screen and (max-width: 1000px) {
+    :root {
+      --m: 3rem;
+    }
+  }
+
 /* HREFs in Panels */
 .glass-panel .panel-link {
     color: white;
