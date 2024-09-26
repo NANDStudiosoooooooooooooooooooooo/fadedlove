@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>FADEDCLOTH</title>
-    <link rel="stylesheet" href="newstyles23.css">
+    <link rel="stylesheet" href="newstyles24.css">
 </head>
 <body>
     <div id="loader" class="loader-container">
@@ -25,7 +25,7 @@
     <div class="buttons-container">
         <button id="button1" class="glass-button" data-target="panel1">MENU</button>
         <button id="button2" class="glass-button" data-target="panel2">LEGAL</button>
-        <button id="button3" class="glass-button" data-target="panel3">SUBSCRIBE</button>
+        <button id="button3" class="glass-button" data-target="panel3">NEWSLETTER</button>
     </div>
 
     <!-- Panel für Button 1 -->
@@ -47,7 +47,7 @@
     <!-- Panel für Button 3 (Subscribe Panel) -->
     <div id="panel3" class="glass-panel hidden">
         <button class="close-btn" onclick="togglePanel('panel3')">X</button>
-        <div class="headline">SUBSCRIBE</div>
+        <div class="headline">NEWSLETTER</div>
         <form id="emailForm">
             <input 
                 type="email" 
@@ -55,15 +55,12 @@
                 placeholder="ENTER YOUR EMAIL" 
                 class="email-input"
                 required 
-                style="border: none; outline: none; background: none; color: white; text-transform: uppercase; font-size: 16px; width: 100%; padding: 10px; box-sizing: border-box;"
             />
             <div class="form-buttons">
-                <button id="subscribeButton" class="glass-button small-button"
-                    style="background: none; border: none; color: white; text-decoration: underline; cursor: pointer; font-size: 16px; padding: 10px; margin-right: 10px;">
+                <button id="subscribeButton" class="email-button small-button">
                     SUBSCRIBE
                 </button>
-                <button id="UnsubscribeSendButton" class="glass-button small-button"
-                    style="background: none; border: none; color: white; text-decoration: underline; cursor: pointer; font-size: 16px; padding: 10px;">
+                <button id="UnsubscribeSendButton" class="email-button small-button">
                     UNSUBSCRIBE
                 </button>
             </div>
