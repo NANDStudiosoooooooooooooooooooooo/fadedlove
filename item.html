@@ -6,6 +6,30 @@
     <title>Item Details</title>
     <link rel="stylesheet" href="newstyles30.css">
     <style>
+
+:root {
+  --m: 4rem;
+  --logo-scale: 1; /* Skalierungsfaktor für das Logo */
+}
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: black;
+  color: white;
+  font-family: "IBM Plex Sans";
+  font-weight: 300;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  color: #d5d5d5;
+  font-size: calc(0.3 * var(--m));
+  overflow-x: hidden; /* Verhindert horizontales Scrollen */
+}
         video {
             width: 80px;
             height: auto;
