@@ -122,7 +122,7 @@ body {
 .glass-panel {
     position: absolute;
     bottom: 20px;
-    left: calc(150px + 20px); /* Rechts von den Buttons */
+    left: calc(150px + 40px); /* Rechts von den Buttons */
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(15px); /* Blur/Glas-Effekt */
     padding: 40px 20px;
@@ -314,7 +314,7 @@ input:-webkit-autofill:active {
 input[type="email"],
 input[type="text"],
 button {
-    background-color: rgba(255, 255, 255, 0.1) !important; /* Behalte den leicht transparenten Hintergrund */
+    background-color: rgba(255, 255, 255, 0) !important; /* Behalte den leicht transparenten Hintergrund */
     color: white !important; /* Textfarbe bleibt weiß */
     -webkit-appearance: none; /* iOS-spezifische Stile entfernen */
     appearance: none;
@@ -322,7 +322,7 @@ button {
 }
 
 input::placeholder {
-    color: rgba(255, 255, 255, 0.5); /* Platzhalterfarbe leicht transparent */
+    color: rgba(255, 255, 255, 0); /* Platzhalterfarbe leicht transparent */
 }
 
 button:focus, input:focus {
