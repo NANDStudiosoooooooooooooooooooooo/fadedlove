@@ -314,7 +314,6 @@ input:-webkit-autofill:active {
 input[type="email"],
 input[type="text"],
 button {
-    background-color: rgba(255, 255, 255, 0) !important; /* Behalte den leicht transparenten Hintergrund */
     color: white !important; /* Textfarbe bleibt weiß */
     -webkit-appearance: none; /* iOS-spezifische Stile entfernen */
     appearance: none;
@@ -322,7 +321,8 @@ button {
 }
 
 input::placeholder {
-    color: rgba(255, 255, 255, 0); /* Platzhalterfarbe leicht transparent */
+    color: rgba(255, 255, 255, 0.1); /* Platzhalterfarbe leicht transparent */
+    background-color: #ffffff00;
 }
 
 button:focus, input:focus {
