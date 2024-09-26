@@ -249,10 +249,11 @@ body {
 .email-input {
     width: 100%;
     padding: 10px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0);
     border: none;
     outline: none;
     color: #fff;
+    text-align: center;
     font-size: 16px;
     text-transform: uppercase;
     margin-bottom: 20px;
@@ -260,6 +261,11 @@ body {
     -webkit-appearance: none; /*For Chrome*/
     -moz-appearance: none;/*For Mozilla*/
     appearance: none;
+    text-decoration: none;
+}
+
+.email-input:focus{
+    text-decoration: underline;
 }
 
 /* Subscribe/Unsubscribe Buttons */
@@ -279,16 +285,18 @@ body {
 }
 
 input[type="email"] {
-    -webkit-appearance: none; /* Entfernt iOS Standard-Styling */
+    -webkit-appearance: none;
     appearance: none;
-    border-radius: 12; /* Verhindert abgerundete Ecken */
-    background-color: transparent !important; /* Verhindert Autofill-Hintergrund */
-    box-shadow: none; /* Entfernt Schatten auf iOS */
+    border-radius: 12;
+    background-color: transparent !important;
+    box-shadow: none;
     color: #fff;
     padding: 10px;
+    text-align: center;
     font-size: 16px;
     text-transform: uppercase;
-    outline: none; /* Verhindert Standard-Umrandung */
+    outline: none;
+    text-decoration: none;
 }
 
 /* CSS Reset BEGIN */
