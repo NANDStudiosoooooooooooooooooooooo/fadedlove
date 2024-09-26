@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Item Details</title>
-    <link rel="stylesheet" href="index51.css">
+    <link rel="stylesheet" href="newstyles29.css">
     <style>
         video {
             width: 80px;
@@ -45,7 +45,7 @@
 <body>
 
     <div class="main-header">
-        <div class="top-buttons">
+        <div class="top-left nav-link">
             <a href="https://fadedcloth.de/shop" id="backbutton">BACK TO SHOP</a>
         </div>
         <div class="logo-container">
@@ -72,6 +72,52 @@
         <a href="/privacy-policy">PRIVACY POLICY</a>
         <a href="/terms-of-service">TERMS OF SERVICE</a>
         <a href="mailto:help@fadedcloth.de">CONTACT</a>
+    </div>
+
+    <!-- Buttons unten links (untereinander) -->
+    <div class="buttons-container">
+        <button id="button1" class="glass-button" data-target="panel1">MENU</button>
+        <button id="button2" class="glass-button" data-target="panel2">LEGAL</button>
+        <button id="button3" class="glass-button" data-target="panel3">NEWSLETTER</button>
+    </div>
+
+    <!-- Panel für Button 1 -->
+    <div id="panel1" class="glass-panel hidden">
+        <button class="close-btn" onclick="togglePanel('panel1')">X</button>
+        <a href="https://fadedcloth.de/" class="panel-link">MAINPAGE</a>
+        <a href="https://fadedcloth.de/shop" class="panel-link">SHOP</a>
+    </div>
+
+    <!-- Panel für Button 2 -->
+    <div id="panel2" class="glass-panel hidden">
+        <button class="close-btn" onclick="togglePanel('panel2')">X</button>
+        <a href="mailto:help@fadedcloth.de" class="panel-link">CONTACT</a>
+        <a href="https://fadedcloth.de/privacy-policy" class="panel-link">PRIVACY POLICY</a>
+        <a href="https://fadedcloth.de/terms-of-service" class="panel-link">TERMS OF SERVICE</a>
+        <div class="copyright">&copy; FADEDCLOTH 2024</div>
+    </div>
+
+    <!-- Panel für Button 3 (Subscribe Panel) -->
+    <div id="panel3" class="glass-panel hidden">
+        <button class="close-btn" onclick="togglePanel('panel3')">X</button>
+        <div class="headline">NEWSLETTER</div>
+        <form id="emailForm">
+            <input 
+                type="email" 
+                id="email" 
+                placeholder="ENTER YOUR EMAIL" 
+                class="email-input"
+                required 
+            />
+            <div class="form-buttons">
+                <button id="subscribeButton" class="email-button small-button">
+                    SUBSCRIBE
+                </button>
+                <button id="UnsubscribeSendButton" class="email-button small-button">
+                    UNSUBSCRIBE
+                </button>
+            </div>
+        </form>
     </div>
 
     <script src="buy4.js"></script>
