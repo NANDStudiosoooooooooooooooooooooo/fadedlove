@@ -53,6 +53,7 @@ h2 {
   a {
     text-decoration: none;
     color: inherit;
+    color: #d5d5d5;
   }
 
 /* Logo Container */
@@ -79,7 +80,6 @@ h2 {
     position: absolute;
     top: 0px;
     padding: 10px;
-    color: white;
     text-decoration: none;
 }
 
