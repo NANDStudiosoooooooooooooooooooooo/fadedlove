@@ -37,7 +37,7 @@ body {
     appearance: none;
     font-weight: 300;
     color: #d5d5d5;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 h2 {
