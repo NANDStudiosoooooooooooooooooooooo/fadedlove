@@ -1,0 +1,18 @@
+{
+    "terms-of-service": {
+        "title": "Terms of Service",
+        "body": "<p>Here are the terms of service...</p>"
+    },
+    "shipping": {
+        "title": "Shipping Information",
+        "body": "<p>Here are the shipping details...</p>"
+    },
+    "privacy-policy": {
+        "title": "Privacy Policy",
+        "body": "<p>Here is the privacy policy...</p>"
+    },
+    "default": {
+        "title": "Welcome",
+        "body": "<p>Welcome to our website! Please select a section from the menu.</p>"
+    }
+}

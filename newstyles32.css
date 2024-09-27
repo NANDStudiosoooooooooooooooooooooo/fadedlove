@@ -575,4 +575,10 @@ video::-webkit-media-controls {
     user-select: none; 
     pointer-events: none; /* Verhindert Interaktionen wie Rechtsklick */
   }
+
+  #content-body {
+    margin-top: 20px;
+    line-height: 1.5;
+    font-size: calc(0.4 * var(--m));
+}
   
