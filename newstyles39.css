@@ -59,6 +59,11 @@ h2 {
     color: #d5d5d5;
   }
 
+  .text {
+    text-decoration: none;
+    color: #ffffff;
+  }
+
 /* Logo Container */
 .logo-container {
     width: 70vw;
