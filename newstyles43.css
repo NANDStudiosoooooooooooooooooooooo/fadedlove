@@ -610,7 +610,7 @@ video::-webkit-media-controls {
         width: 100%; /* Nimmt die volle Breite des Containers ein */
         margin: 20px auto; /* Abstand oben und unten, zentriert in der Mitte */
         padding: 20px; /* Innenabstand für etwas Platz */
-        background: rgba(255, 255, 255, 0.1); /* Optional: Hintergrund im Glas-Effekt */
+        background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(15px); /* Optional: Glas-Effekt */
         border-radius: 12px; /* Abgerundete Ecken */
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional: Schatten für Tiefe */
@@ -638,7 +638,6 @@ video::-webkit-media-controls {
     background-color: rgba(255, 255, 255, 0.7); /* Farbe des Scrollbalkens bei Hover */
 }
 
-/* Minimalistische Scrollbar für Webkit-Browser (Chrome, Safari) */
 .main-body::-webkit-scrollbar {
     width: 8px; /* Breite der vertikalen Scrollbar */
 }
@@ -656,6 +655,17 @@ video::-webkit-media-controls {
 
 .main-body::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.7); /* Farbe des Scrollbalkens bei Hover */
+}
+
+/* Verstecke die Pfeile in Firefox */
+.main-body {
+    scrollbar-width: thin; /* Macht die Scrollbar schmaler */
+    scrollbar-color: rgba(255, 255, 255, 0.5) transparent; /* Scrollbalkenfarbe und transparente Spur */
+}
+
+/* Verstecke die Pfeile in IE und Edge */
+.main-body::-ms-scrollbar {
+    display: none; /* Entfernt die Scrollbar (inkl. Pfeile) in IE/Edge */
 }
 
 /* Für Firefox */
