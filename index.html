@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>FADEDCLOTH</title>
-    <link rel="stylesheet" href="newstyles45.css">
+    <link rel="stylesheet" href="newstyles46.css">
 </head>
 <body>
     <div id="loader" class="loader-container">
@@ -26,6 +26,7 @@
         <button id="button1" class="glass-button" data-target="panel1">MENU</button>
         <button id="button2" class="glass-button" data-target="panel2">LEGAL</button>
         <button id="button3" class="glass-button" data-target="panel3">NEWSLETTER</button>
+        <button id="button4" class="glass-button" data-target="panel4">SMS</button>
     </div>
 
     <!-- Panel für Button 1 -->
@@ -47,7 +48,7 @@
     <!-- Panel für Button 3 (Subscribe Panel) -->
     <div id="panel3" class="glass-panel hidden">
         <button class="close-btn" onclick="togglePanel('panel3')">X</button>
-        <div class="headline">NEWSLETTER</div>
+        <div class="headline">EMAIL NEWSLETTER</div>
         <form id="emailForm">
             <input 
                 type="email" 
@@ -67,8 +68,29 @@
         </form>
     </div>
 
+    <div id="panel4" class="glass-panel hidden">
+        <button class="close-btn" onclick="togglePanel('sms-panel')">X</button>
+        <div class="headline">SMS NEWSLETTER</div>
+        <form id="smsForm">
+            <input 
+                type="text" 
+                id="phoneNumber" 
+                placeholder="ENTER YOUR PHONE NUMBER" 
+                class="email-input" 
+                required 
+            />
+            <div class="form-buttons">
+                <button id="email-button small-button" class="form-button" type="submit"> <!-- Verwende die gleiche Klasse für den Button -->
+                    SUBSCRIBE
+                </button>
+            </div>
+        </form>
+        <div id="smsMessage" class="sms-message"></div>
+    </div>
+
     <script src="newscripts5.js"></script>
     <script src="scripts/loader.js"></script>
+    <script src="scripts/sendsms.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js"></script>
     <script src="https://subscribe.fadedcloth.de/scripts/fadedsub.js"></script>
     <script src="https://subscribe.fadedcloth.de/scripts/fadedsendunsub.js"></script>

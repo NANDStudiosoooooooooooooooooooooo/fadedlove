@@ -684,3 +684,8 @@ video::-webkit-media-controls {
     scrollbar-width: thin; /* Macht die Scrollbar schmaler */
     scrollbar-color: rgba(255, 255, 255, 0.5) transparent; /* Scrollbalkenfarbe und transparente Spur */
 }
+
+.sms-message {
+    color: white; /* Farbe der Statusnachricht */
+    margin-top: 10px; /* Abstand nach oben */
+}
