@@ -17,12 +17,14 @@
  // Function to display the item details
  function displayItem(item) {
      const itemDetails = document.getElementById('itemDetails');
+     const itemShipping = document.getElementById('itemShipping');
      const imagesContainer = document.querySelector('.item-images-container');
 
      // Display item name, description, and price
      itemDetails.innerHTML = `
          <h2>${item.name}</h2>
          <p>${item.description}</p>
+         <p>${item.shipping}</p>
          <p><strong>PRICE: ${item.price}</strong></p>
      `;
 
