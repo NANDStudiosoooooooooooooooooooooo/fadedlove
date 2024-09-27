@@ -634,3 +634,27 @@ video::-webkit-media-controls {
 #content-body::-webkit-scrollbar-thumb:hover {
     background-color: rgba(255, 255, 255, 0.7); /* Farbe des Scrollbalkens bei Hover */
 }
+
+.main-body::-webkit-scrollbar {
+    width: 8px; /* Breite der vertikalen Scrollbar */
+}
+
+.main-body::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1); /* Hintergrund der Scrollbar-Spur */
+    border-radius: 10px; /* Abgerundete Ecken für die Spur */
+}
+
+.main-body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5); /* Farbe des Scrollbalkens */
+    border-radius: 10px; /* Abgerundete Ecken für den Scrollbalken */
+}
+
+.main-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.7); /* Farbe des Scrollbalkens bei Hover */
+}
+
+/* Für Firefox */
+.main-body {
+    scrollbar-width: thin; /* Macht die Scrollbar schmaler */
+    scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.1); /* Scrollbalkenfarbe und Spurfarbe */
+}
