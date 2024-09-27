@@ -28,13 +28,16 @@ body {
     font-family: "IBM Plex Sans";
     font-size: calc(0.3 * var(--m));
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 0;
     position: relative;
     -webkit-appearance: none; /* Entfernt iOS/Safari-Standardbutton-Styling */
     appearance: none;
     font-weight: 300;
     color: #d5d5d5;
+    overflow-x: hidden;
 }
 
 h2 {
@@ -491,4 +494,71 @@ border-radius: 0;
     width: 100%;
     height: auto;
     margin-bottom: 20px;
+  }
+
+  .item-images-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+    padding: 80px 10px 10px 10px;
+}
+
+.item-images-container img {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+
+@media (min-width: 768px) {
+    .item-images-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.item-images-container img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    transition: 0.3s;
+}
+.header-logo {
+    width: 80px;
+    height: auto;
+    display: block;
+}
+
+video::-webkit-media-controls {
+    display: none !important; /* Versteckt die Steuerungselemente in WebKit-basierten Browsern */
+  }
+  
+  video::-moz-media-controls {
+    display: none !important; /* Versteckt die Steuerungselemente in Mozilla-basierten Browsern */
+  }
+  
+  video::-ms-media-controls {
+    display: none !important; /* Versteckt die Steuerungselemente in Microsoft Edge/IE */
+  }
+  
+  video::-webkit-media-controls-picture-in-picture-button {
+    display: none !important; /* Verhindert den Bild-in-Bild-Modus in WebKit-basierten Browsern */
+  }
+  
+  video::-webkit-media-controls-fullscreen-button {
+    display: none !important; /* Verhindert die Vollbildschaltfläche in WebKit-basierten Browsern */
+  }
+  
+  /* Für mobile Geräte: Verhindert, dass lange Drücken oder Doppeltippen Interaktionen auslösen */
+  video {
+    -webkit-touch-callout: none; /* iOS */
+    -webkit-user-select: none;   /* Safari */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Andere */
+    touch-action: none;          /* Deaktiviert Swipe-Gesten auf Touch-Geräten */
+    pointer-events: none; 
+    pointer-events: none; 
+    user-select: none;      /* Kein Klicken oder Tippen möglich */
   }

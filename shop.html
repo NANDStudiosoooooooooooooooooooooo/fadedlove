@@ -6,44 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faded Love Collection</title>
     <link rel="stylesheet" href="newstyles30.css">
-    <style>
-        
-        video {
-            width: 80px;
-            height: auto;
-            display: block;
-        }
-
-        :root {
-  --m: 4rem;
-  --logo-scale: 1; /* Skalierungsfaktor für das Logo */
-}
-
-* {
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-}
-
-body {
-  background-color: black;
-  color: white;
-  font-family: "IBM Plex Sans";
-  font-weight: 300;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0;
-  color: #d5d5d5;
-  font-size: calc(0.3 * var(--m));
-  overflow-x: hidden; /* Verhindert horizontales Scrollen */
-}
-
-@media screen and (max-width: 1000px) {
-    :root {
-      --m: 3rem;
-    }
-  }
-    </style>
+    
 </head>
 
 <body>
@@ -53,7 +16,7 @@ body {
             <a href="https://fadedcloth.de/" id="backbutton">MAINPAGE</a>
         </div>
         <div class="logo-container">
-            <video autoplay loop muted>
+            <video autoplay loop muted class="header-logo">
                 <source src="logo.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -110,52 +73,14 @@ body {
         </form>
     </div>
 
-    <script>
-        // Fetch the items from external JSON
-fetch('items.json')
-  .then(response => response.json())
-  .then(items => {
-    const shopContainer = document.querySelector('.shop-container'); // Using class selector for 'shop-container'
-
-    items.forEach(item => {
-      const itemDiv = document.createElement('div');
-      itemDiv.classList.add('shop-item');
-
-      const itemImage = document.createElement('img');
-      itemImage.src = item.images[0];  // Set first image
-      itemImage.alt = item.name;
-
-      // Change to second image on hover
-      itemDiv.addEventListener('mouseenter', () => {
-        itemImage.src = item.images[1];  // Switch to second image
-      });
-      itemDiv.addEventListener('mouseleave', () => {
-        itemImage.src = item.images[0];  // Switch back to first image
-      });
-
-      // Add the item name and price
-      const itemInfo = document.createElement('div');
-      itemInfo.classList.add('item-info'); // Using 'item-info' class for hover effect
-      itemInfo.innerHTML = `<h3>${item.name}</h3><p>${item.price}</p>`;
-
-      // Add the link to the item page
-      const itemLink = document.createElement('a');
-      itemLink.href = `/item?item=${item.id}`;
-      itemLink.appendChild(itemImage);
-      
-      // Append everything to the itemDiv
-      itemDiv.appendChild(itemLink);
-      itemDiv.appendChild(itemInfo);
-      
-      // Append to the container
-      shopContainer.appendChild(itemDiv);
-    });
-  })
-  .catch(error => console.error('Error fetching items:', error));
-
-    </script>
+    
     <script src="buy4.js"></script>
+    <script src="scripts/shop.js"></script>
     <script src="newscripts5.js"></script>
+    <script src="scripts/loader.js"></script>
+    <script src="https://subscribe.fadedcloth.de/scripts/fadedsub.js"></script>
+    <script src="https://subscribe.fadedcloth.de/scripts/fadedsendunsub.js"></script>
+
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>FADEDCLOTH</title>
+    <title>FADEDCLOTH - TERMS OF SERVICE</title>
     <link rel="stylesheet" href="newstyles30.css">
 </head>
 <body>
@@ -11,15 +11,15 @@
         <l-zoomies size="80" stroke="5" bg-opacity="0.1" speed="1.4" color="white"></l-zoomies>
     </div>
 
-    <div class="logo-container" id="load-container">
-        <video class="logo" id="load-obj" autoplay loop muted playsinline>
+    <div class="logo-container" id="logo-container">
+        <video class="logo" id="logo-video" autoplay loop muted playsinline>
             <source src="logo.mp4" type="video/mp4">
             Dein Browser unterstützt dieses Video nicht.
         </video>
     </div>
 
     <!-- Navigation link -->
-    <a href="https://fadedcloth.de/shop" class="nav-link top-left underlineonhover">SHOP</a>
+    <a href="https://fadedcloth.de/" class="nav-link top-left underlineonhover">MAINPAGE</a>
 
     <!-- Buttons unten links (untereinander) -->
     <div class="buttons-container">
@@ -68,18 +68,18 @@
     </div>
 
     <script src="newscripts5.js"></script>
-    <script src="scripts/loader.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js"></script>
     <script>
-        //const video = document.getElementById('logo-video');
-        //const loader = document.getElementById('loader');
-        //const logocontainerRef = document.getElementById('logo-container');
+        // Warten, bis das Video geladen ist
+        const video = document.getElementById('logo-video');
+        const loader = document.getElementById('loader');
+        const logocontainerRef = document.getElementById('logo-container');
 
-       // video.addEventListener('canplaythrough', function () {
+        video.addEventListener('canplaythrough', function () {
             // Wenn das Video vollständig geladen ist, Ladeanimation ausblenden und Video anzeigen
-      //      loader.style.display = 'none';
-     //       logocontainerRef.style.display = 'flex';
-     //   });
+            loader.style.display = 'none';
+            logocontainerRef.style.display = 'flex';
+        });
     </script>
     <script src="https://subscribe.fadedcloth.de/scripts/fadedsub.js"></script>
     <script src="https://subscribe.fadedcloth.de/scripts/fadedsendunsub.js"></script>
