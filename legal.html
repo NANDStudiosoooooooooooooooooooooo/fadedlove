@@ -28,13 +28,6 @@
         </div>
     </div>
 
-    <div id="page-view" class="page-container hidden">
-        <h2 id="page-title">Loading...</h2>
-        <div id="page-content">
-            <div id="page-text-content">Bitte warten, während der Inhalt geladen wird...</div>
-        </div>
-    </div>
-
     <!-- Buttons unten links (untereinander) -->
     <div class="buttons-container">
         <button id="button1" class="glass-button" data-target="panel1">MENU</button>
@@ -86,6 +79,31 @@
     <script src="scripts/legal.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js"></script>
     <script src="https://subscribe.fadedcloth.de/scripts/fadedsub.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const queryParams = new URLSearchParams(window.location.search);
+            const contentId = queryParams.get('id') || 'default'; // Fallback falls kein id vorhanden ist
+            
+            // Lade die Inhalte von der externen JSON-Datei
+            fetch('/json/legal.json')
+                .then(response => response.json())
+                .then(data => {
+                    const content = data[contentId];
+                    if (content) {
+                        document.getElementById('content-title').textContent = content.title;
+                        document.getElementById('text-content').innerHTML = content.body; // HTML-Inhalt
+                    } else {
+                        document.getElementById('content-title').textContent = '404 - Not Found';
+                        document.getElementById('text-content').innerHTML = 'Der angeforderte Inhalt konnte nicht gefunden werden.';
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('content-title').textContent = 'Error';
+                    document.getElementById('text-content').innerHTML = 'Ein Fehler ist aufgetreten beim Laden des Inhalts.';
+                    console.error('Error loading content:', error);
+                });
+        });
+    </script>
     <script src="https://subscribe.fadedcloth.de/scripts/fadedsendunsub.js"></script>
 </body>
 </html>
