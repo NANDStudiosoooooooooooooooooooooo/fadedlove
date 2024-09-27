@@ -121,6 +121,12 @@ h2 {
     left: 0px;
 }
 
+.href {
+    text-decoration: underline;
+    color: #ffffff;
+    
+}
+
 /* Buttons Container - untereinander angeordnet */
 .buttons-container {
     position: absolute;
