@@ -635,15 +635,17 @@ video::-webkit-media-controls {
     background-color: rgba(255, 255, 255, 0.7); /* Farbe des Scrollbalkens bei Hover */
 }
 
+/* Minimalistische Scrollbar für Webkit-Browser (Chrome, Safari) */
 .main-body::-webkit-scrollbar {
     width: 8px; /* Breite der vertikalen Scrollbar */
 }
 
+/* Hintergrund der Scrollbar-Spur (versteckt) */
 .main-body::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1); /* Hintergrund der Scrollbar-Spur */
-    border-radius: 10px; /* Abgerundete Ecken für die Spur */
+    background: transparent; /* Hintergrund transparent, sodass er nicht sichtbar ist */
 }
 
+/* Farbe und Stil des Scrollbalkens */
 .main-body::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.5); /* Farbe des Scrollbalkens */
     border-radius: 10px; /* Abgerundete Ecken für den Scrollbalken */
@@ -656,5 +658,5 @@ video::-webkit-media-controls {
 /* Für Firefox */
 .main-body {
     scrollbar-width: thin; /* Macht die Scrollbar schmaler */
-    scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.1); /* Scrollbalkenfarbe und Spurfarbe */
+    scrollbar-color: rgba(255, 255, 255, 0.5) transparent; /* Scrollbalkenfarbe und transparente Spur */
 }
