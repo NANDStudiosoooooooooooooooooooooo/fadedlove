@@ -2,7 +2,7 @@
 The data controller responsible for the collection, processing, and use of your personal data is:
 
 Faded Cloth 
-Email: help@fadedcloth.de
+Email: <a href="mailto:help@fadedcloth.de" class="href">help@fadedcloth.de</a>
 
 If you have any questions or concerns regarding your personal data, feel free to contact us at the email provided.
 
