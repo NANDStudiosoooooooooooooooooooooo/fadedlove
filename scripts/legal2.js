@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Funktion zum Laden der Markdown-Datei
     function loadMarkdown(contentId) {
-        const filePath = `/legal/terms-of-service.md`; // Pfad zu den Markdown-Dateien
+        const filePath = `/legal/${contentId}.md`; // Pfad zu den Markdown-Dateien
         
         fetch(filePath)
             .then(response => {
