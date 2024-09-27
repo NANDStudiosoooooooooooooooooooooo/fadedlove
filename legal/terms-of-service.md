@@ -1,32 +1,59 @@
-1. Introduction
-Welcome to fadedcloth.de ("we", "us", "our"). By using our website and making a purchase, you agree to the following Terms and Conditions. Please read them carefully.
+1. Scope
+These Terms of Service (TOS) apply to all orders placed by consumers (§ 13 BGB) and businesses (§ 14 BGB) via the website <a href="fadedcloth.de" class="href">fadedcloth.de</a>(referred to as "we", "us", or "our").
 
-2. Contract Formation
-By placing an order on our website, you are making an offer to purchase the products. A contract is only formed once we confirm your order and send you an order confirmation email.
-
-3. Prices and Payment
-All prices are listed in Euros (€) and include applicable VAT. We accept payments through Shopify Payments, which supports various payment methods such as credit cards, direct debit, and other common payment options. Payment is due at the time of purchase.
-
-4. Shipping and Delivery
-We will make every effort to deliver your order within the estimated delivery timeframes. However, delivery dates are not guaranteed, and we are not responsible for any delays caused by shipping carriers.
-
-5. Final Sale and No Returns
-All sales are final. Returns or exchanges of products purchased through our website are not accepted. Please review your order carefully before completing the purchase.
-
-6. Liability
-Our liability is limited to the maximum extent permitted by law. We are not liable for any indirect, incidental, or consequential damages arising from the use of our website or the purchase of our products.
-
-7. Intellectual Property
-All content on our website, including but not limited to text, images, and logos, is the property of fadedcloth.de and protected by intellectual property laws. You may not reproduce or use any content without our prior written consent.
-
-8. Governing Law
-These Terms and Conditions are governed by and construed in accordance with the laws of Germany. Any disputes arising from these terms will be subject to the exclusive jurisdiction of the courts in Berlin.
-
-9. Changes to Terms
-We reserve the right to update these Terms and Conditions at any time. Changes will be posted on this page. Please review this page periodically to stay informed of any updates.
-
-10. Contact Us
-If you have any questions or concerns about these Terms and Conditions, please contact us at:
+2. Contractual Partner
+The purchase contract is concluded with:
 
 Faded Cloth
-<a href="mailto:help@fadedcloth.de" class="href">help@fadedcloth.de</a>
+Email: <a href="mailto:help@fadedcloth.de" class="href">help@fadedcloth.de</a>
+
+3. Conclusion of Contract
+The presentation of products in the online store does not constitute a legally binding offer but an invitation to place an order.
+You can add products to the shopping cart without obligation. Before submitting the order, you can change the entered data at any time.
+By clicking the order button, you place a binding order for the products in the shopping cart.
+The purchase contract is concluded once we confirm your order via an order confirmation email.
+
+4. Prices and Payment
+The prices displayed on the product pages include VAT and other applicable charges.
+Shipping costs are shown separately during the order process.
+Available payment methods include:
+Credit card
+PayPal
+Sofortüberweisung (Immediate Transfer)
+Klarna (if available)
+
+5. Shipping
+Orders are shipped to the delivery address provided by you.
+We ship within Germany only unless otherwise agreed upon.
+Delivery time is typically 10 business days unless otherwise specified in the product listing.
+
+6. Ownership
+The goods remain our property until full payment is received.
+
+7. Right of Withdrawal for Consumers
+Right of Withdrawal:
+
+You have the right to withdraw from this contract within 14 days without providing any reason. The withdrawal period is 14 days from the date you or a third party, other than the carrier, take possession of the goods.
+
+To exercise your right of withdrawal, you must inform us (Faded Cloth, help@fadedcloth.de) of your decision by means of a clear statement (e.g., an email).
+
+Consequences of Withdrawal:
+
+If you withdraw from this contract, we will refund all payments received from you, excluding the shipping costs, within 14 days of receiving your withdrawal notification. Refunds will be issued using the same payment method you used for the original transaction, unless otherwise agreed.
+
+8. Return Shipping Costs
+In the case of a return, you bear the direct costs of returning the goods.
+
+9. Warranty and Liability
+You are entitled to statutory warranty rights for goods.
+For defects in delivered goods, we are liable in accordance with statutory provisions unless otherwise stated below.
+Claims for damages by the customer are excluded, except where the damage was caused intentionally or through gross negligence on our part or by our vicarious agents.
+10. Dispute Resolution
+The European Commission provides a platform for online dispute resolution (ODR), which you can access at <a href="https://ec.europa.eu/consumers/odr/" class="href">https://ec.europa.eu/consumers/odr/</a>. We are not obligated and generally not willing to participate in a dispute resolution procedure before a consumer arbitration board.
+
+11. Final Provisions
+The laws of the Federal Republic of Germany apply, excluding the UN Convention on Contracts for the International Sale of Goods (CISG).
+If any provision of these TOS is found to be invalid, the rest of the contract remains in effect.
+Last updated: 27/09/2024 (DD/MM/YYYY)
+Faded Cloth
+Email: <a href="mailto:help@fadedcloth.de" class="href">help@fadedcloth.de</a>
