@@ -581,12 +581,13 @@ video::-webkit-media-controls {
     margin-top: 20px;
     max-width: 300px;
     line-height: 1.5;
-    font-size: calc(0.4 * var(--m));
     max-height: 400px; /* Höhe für den scrollbaren Bereich */
     overflow-y: auto;  /* Ermöglicht vertikales Scrollen */
     padding: 10px;     /* Polsterung für etwas Abstand */
     border: 1px solid rgba(255, 255, 255, 0.2); /* Optional: Rahmen für Sichtbarkeit */
-    border-radius: 12px; /* Optional: abgerundete Ecken */
+    border-radius: 12px;
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
 }
 
 /* Optional: Scrollbalken anpassen (nur für Webkit-basierte Browser) */
@@ -601,9 +602,4 @@ video::-webkit-media-controls {
 
 #content-body::-webkit-scrollbar-thumb:hover {
     background-color: rgba(255, 255, 255, 0.7); /* Farbe des Scrollbalkens bei Hover */
-}
-
-.page-container {
-    padding: 20px;
-    color: white;
 }
