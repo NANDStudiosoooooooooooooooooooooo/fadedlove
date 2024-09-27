@@ -372,7 +372,20 @@ input[type="email"] {
     outline: none;
     text-decoration: none;
 }
-
+input[type="text"] {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 12;
+    background-color: transparent !important;
+    box-shadow: none;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    text-transform: uppercase;
+    outline: none;
+    text-decoration: none;
+}
 /* CSS Reset BEGIN */
 /* Autofill-Styling für iOS verhindern */
 input:-webkit-autofill,
