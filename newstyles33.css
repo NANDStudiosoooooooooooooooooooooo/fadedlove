@@ -178,7 +178,7 @@ h2 {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 280px;
+    width: 300px;
     max-width: calc(100vw - 80px); /* Anpassung an kleine Bildschirme */
     
     z-index: 10;
