@@ -29,4 +29,4 @@ We reserve the right to update these Terms and Conditions at any time. Changes w
 If you have any questions or concerns about these Terms and Conditions, please contact us at:
 
 Faded Cloth
-help@fadedcloth.de
+<a href="mailto:help@fadedcloth.de" class="href">help@fadedcloth.de</a>

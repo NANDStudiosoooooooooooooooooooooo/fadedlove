@@ -43,11 +43,11 @@ Right to correct inaccurate or incomplete data.
 Right to request deletion of your data, provided there are no legal retention requirements.
 Right to restrict processing of your data.
 Right to object to the processing of your data.
-To exercise these rights, please contact us at help@fadedcloth.de.
+To exercise these rights, please contact us at <a href="mailto:help@fadedcloth.de" class="href">help@fadedcloth.de</a>.
 
 9. Changes to this Privacy Policy
 We reserve the right to update this privacy policy at any time to reflect changes in legal or technical requirements. The most recent version will always be available on our website.
 
 Last updated: 27/09/2024 (DD/MM/YYYY)
 Faded Cloth
-Email: help@fadedcloth.de
+Email: <a href="mailto:help@fadedcloth.de" class="href">help@fadedcloth.de</a>
