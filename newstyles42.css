@@ -62,6 +62,9 @@ h2 {
   .text {
     text-decoration: none;
     color: #ffffff;
+    margin: 0; /* Sicherstellen, dass keine Margen den Container sprengen */
+    padding: 10px; /* Innenabstand für den Text */
+    line-height: 1.5; /* Zeilenhöhe für besseren Lesefluss */
   }
 
 /* Logo Container */
