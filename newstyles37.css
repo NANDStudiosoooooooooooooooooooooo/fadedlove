@@ -37,7 +37,7 @@ body {
     appearance: none;
     font-weight: 300;
     color: #d5d5d5;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 h2 {
@@ -405,6 +405,7 @@ border-radius: 0;
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
+    overflow-y: auto;
   }
   
   .main-header{
@@ -516,6 +517,7 @@ border-radius: 0;
 @media (min-width: 768px) {
     .item-images-container {
         grid-template-columns: 1fr 1fr;
+        margin-top: 100px;
     }
 }
 
@@ -593,8 +595,8 @@ video::-webkit-media-controls {
     .main-body {
         display: flex; /* Flexbox aktivieren, um das Zentrieren zu ermöglichen */
         justify-content: center; /* Horizontale Zentrierung */
-        align-items: center; /* Vertikale Zentrierung */
-        height: 80vh; /* Höhe 80% der Viewport-Höhe */
+        align-items: normal; /* Vertikale Zentrierung */
+        height: 70vh; /* Höhe 80% der Viewport-Höhe */
         max-width: 800px; /* Maximale Breite von 800px */
         width: 100%; /* Nimmt die volle Breite des Containers ein */
         margin: 20px auto; /* Abstand oben und unten, zentriert in der Mitte */
