@@ -590,6 +590,29 @@ video::-webkit-media-controls {
     overflow-wrap: break-word;
 }
 
+    .main-body {
+        display: flex; /* Flexbox aktivieren, um das Zentrieren zu ermöglichen */
+        justify-content: center; /* Horizontale Zentrierung */
+        align-items: center; /* Vertikale Zentrierung */
+        height: 80vh; /* Höhe 80% der Viewport-Höhe */
+        max-width: 800px; /* Maximale Breite von 800px */
+        width: 100%; /* Nimmt die volle Breite des Containers ein */
+        margin: 20px auto; /* Abstand oben und unten, zentriert in der Mitte */
+        padding: 20px; /* Innenabstand für etwas Platz */
+        background: rgba(255, 255, 255, 0.1); /* Optional: Hintergrund im Glas-Effekt */
+        backdrop-filter: blur(15px); /* Optional: Glas-Effekt */
+        border-radius: 12px; /* Abgerundete Ecken */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional: Schatten für Tiefe */
+    }
+
+    /* Responsive Anpassungen für kleinere Bildschirme */
+    @media (max-width: 800px) {
+        .main-body {
+            width: calc(100% - 40px); /* Breite 100% minus etwas Abstand */
+            margin: 20px; /* Abstand von den Rändern */
+        }
+    }
+
 /* Optional: Scrollbalken anpassen (nur für Webkit-basierte Browser) */
 #content-body::-webkit-scrollbar {
     width: 8px; /* Breite des Scrollbalkens */
