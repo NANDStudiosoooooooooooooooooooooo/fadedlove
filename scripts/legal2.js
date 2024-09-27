@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(text => {
                 const html = marked(text); // Umwandlung von Markdown in HTML
                 document.getElementById('text-content').innerHTML = html; // Anzeige des Inhalts
+                document.getElementById('content-title').textContent = contentId.replace(/-/g, ' ').toUpperCase(); // Setze den Titel dynamisch
             })
             .catch(error => {
                 document.getElementById('text-content').innerHTML = '<p>Inhalt konnte nicht geladen werden.</p>';
