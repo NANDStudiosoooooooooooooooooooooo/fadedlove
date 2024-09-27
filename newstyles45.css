@@ -127,6 +127,10 @@ h2 {
     
 }
 
+.underline {
+    text-decoration: underline;
+}
+
 /* Buttons Container - untereinander angeordnet */
 .buttons-container {
     position: absolute;
