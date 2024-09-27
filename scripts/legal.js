@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const queryParams = new URLSearchParams(window.location.search);
     const contentId = queryParams.get('id') || 'default'; // Fallback falls kein id vorhanden ist
-    const showType = queryParams.get('show') || 'panel'; // Standard auf "panel"
+    const showType = queryParams.get('show') || 'page'; // Standard auf "panel"
 
     // Lade die Inhalte von der externen JSON-Datei
     fetch('/json/legal.json')
