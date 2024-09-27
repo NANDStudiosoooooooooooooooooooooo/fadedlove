@@ -1,33 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
     const queryParams = new URLSearchParams(window.location.search);
-    const contentId = queryParams.get('id') || 'default'; // Fallback falls kein id vorhanden ist
-    const showType = queryParams.get('show') || 'page'; // Standard auf "panel"
+    const contentId = queryParams.get('id') || 'terms-of-service'; // Fallback auf 'terms-of-service'
 
-    // Lade die Inhalte von der externen JSON-Datei
-    fetch('/json/legal.json')
-        .then(response => response.json())
-        .then(data => {
-            const content = data[contentId];
-            if (content) {
-                if (showType === 'page') {
-                    // Zeige den Inhalt auf der Seite an
-                    document.getElementById('content-container').style.display = 'none'; // Verstecke das Panel
-                    document.body.style.backgroundColor = "#000"; // Hintergrundfarbe für die Seitenansicht
-                    document.getElementById('content-title').textContent = content.title;
-                    document.getElementById('text-content').innerHTML = content.body; // HTML-Inhalt
-                } else {
-                    // Der Inhalt bleibt im Panel
-                    document.getElementById('content-title').textContent = content.title;
-                    document.getElementById('text-content').innerHTML = content.body; // HTML-Inhalt
+    // Funktion zum Laden der Markdown-Datei
+    function loadMarkdown(contentId) {
+        const filePath = `/leagl/${contentId}.md`; // Pfad zu den Markdown-Dateien
+        
+        fetch(filePath)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Datei nicht gefunden'); // Fehler, wenn die Datei nicht geladen werden kann
                 }
-            } else {
-                document.getElementById('content-title').textContent = '404 - Not Found';
-                document.getElementById('text-content').innerHTML = 'Der angeforderte Inhalt konnte nicht gefunden werden.';
-            }
-        })
-        .catch(error => {
-            document.getElementById('content-title').textContent = 'Error';
-            document.getElementById('text-content').innerHTML = 'Ein Fehler ist aufgetreten beim Laden des Inhalts.';
-            console.error('Error loading content:', error);
-        });
+                return response.text();
+            })
+            .then(text => {
+                const html = marked(text); // Umwandlung von Markdown in HTML
+                document.getElementById('text-content').innerHTML = html; // Anzeige des Inhalts
+            })
+            .catch(error => {
+                document.getElementById('text-content').innerHTML = '<p>Inhalt konnte nicht geladen werden.</p>';
+                console.error('Fehler beim Laden:', error);
+            });
+    }
+
+    loadMarkdown(contentId); // Lade die Markdown-Datei beim Laden der Seite
 });
