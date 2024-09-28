@@ -60,6 +60,7 @@ function addButtonEventListeners() {
             event.preventDefault();
             const email = document.getElementById("email").value;
             if (email) {
+                // Lade das externe Abonnieren-Skript
                 loadScripts(['https://subscribe.fadedcloth.de/scripts/fadedsub.js']);
             } else {
                 alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
@@ -74,12 +75,23 @@ function addButtonEventListeners() {
             event.preventDefault();
             const email = document.getElementById("email").value;
             if (email) {
+                // Lade das externe Unsubscribe-Skript
                 loadScripts(['https://subscribe.fadedcloth.de/scripts/fadedsendunsub.js']);
             } else {
                 alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
             }
         });
     }
+}
+
+// Funktion zum Laden von Skripten
+function loadScripts(scripts) {
+    scripts.forEach(script => {
+        const scriptElement = document.createElement('script');
+        scriptElement.src = script;
+        scriptElement.async = true; // Skripte können gleichzeitig geladen werden
+        document.body.appendChild(scriptElement);
+    });
 }
 
 // Funktion, um die Buttons zu laden
