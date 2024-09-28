@@ -712,3 +712,47 @@ video::-webkit-media-controls {
     color: white; /* Farbe der Statusnachricht */
     margin-top: 10px; /* Abstand nach oben */
 }
+
+@media (max-width: 767px) {
+    .buttons-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      gap: 10px;
+      width: 100vw; /* Take the full width of the screen */
+      overflow-x: scroll; /* Allow horizontal scrolling */
+      padding: 10px;
+      margin: 0;
+    }
+  
+    .buttons-container::-webkit-scrollbar {
+      display: none; /* Hide scrollbar for a cleaner UI */
+    }
+  
+    .buttons-container {
+      -ms-overflow-style: none;  /* Internet Explorer 10+ */
+      scrollbar-width: none;  /* Firefox */
+    }
+  
+    .buttons-container:active, 
+    .buttons-container:hover {
+      scroll-behavior: smooth;
+    }
+  
+    .buttons-container:focus-within {
+      overflow-x: auto; /* Allow scroll on focus */
+    }
+  
+    .glass-button {
+      white-space: nowrap; /* Prevent buttons from breaking into multiple lines */
+      flex-shrink: 0; /* Prevent buttons from shrinking */
+    }
+  }
+  
+  /* For screens wider than 767px (reset behavior) */
+  @media (min-width: 768px) {
+    .buttons-container {
+      flex-direction: column;
+      overflow-x: hidden; /* No horizontal scroll */
+    }
+  }
