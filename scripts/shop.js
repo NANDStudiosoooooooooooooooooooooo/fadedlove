@@ -1,4 +1,4 @@
-fetch('items.json')
+fetch('JSON/items.json')
   .then(response => response.json())
   .then(items => {
     const shopContainer = document.querySelector('.shop-container'); // Using class selector for 'shop-container'

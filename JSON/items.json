@@ -7,8 +7,8 @@
         "description2": "SOON",
         "id": "9587523944791",
         "images": [
-            "front1.svg",
-            "back1.svg"
+            "media/PRODUCTS/front1.svg",
+            "media/PRODUCTS/back1.svg"
           ]
     },
     {
@@ -19,8 +19,8 @@
         "description2": "SOON",
         "id": "958752394479188",
         "images": [
-            "front1.svg",
-            "back1.svg"
+            "media/PRODUCTS/front1.svg",
+            "media/PRODUCTS/back1.svg"
           ]
     }
 ]

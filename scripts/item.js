@@ -3,7 +3,7 @@
  const itemId = params.get('item');
 
  // Fetch item data from external JSON file
- fetch('items.json')
+ fetch('JSON/items.json')
      .then(response => response.json())
      .then(data => {
          const item = data.find(i => i.id === itemId);
