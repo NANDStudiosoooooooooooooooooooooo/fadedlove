@@ -753,6 +753,5 @@ video::-webkit-media-controls {
   @media (min-width: 768px) {
     .buttons-container {
       flex-direction: column;
-      overflow-x: hidden; /* No horizontal scroll */
     }
   }
