@@ -135,7 +135,7 @@ h2 {
 
 /* Buttons Container - untereinander angeordnet */
 .buttons-container {
-    position: absolute;
+    position: fixed;
     bottom: 20px; /* Weiter nach unten verschoben für größere Bildschirme */
     left: 20px;
     display: flex;
