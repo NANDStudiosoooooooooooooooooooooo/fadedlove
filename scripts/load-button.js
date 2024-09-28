@@ -71,7 +71,7 @@ function addButtonEventListeners() {
 
 // Funktion, um die Buttons zu laden
 function loadButtons() {
-    fetch('buttons.html')
+    fetch('components/buttons.html')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
