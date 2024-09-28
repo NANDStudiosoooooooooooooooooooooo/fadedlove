@@ -5,6 +5,7 @@
     padding: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
+    cursor: none;
 }
 
 :root {
@@ -766,3 +767,23 @@ video::-webkit-media-controls {
     color: rgba(255, 255, 255, 0.5); /* Leicht transparent */
     text-align: center;
   }
+
+  .custom-cursor {
+    position: fixed;
+    width: 40px; /* Ausgangsgröße des Kreises */
+    height: 40px;
+    border-radius: 50%; /* Macht den Cursor rund */
+    background-color: rgba(255, 255, 255, 0.2); /* Leicht transparenter Hintergrund */
+    pointer-events: none; /* Cursor darf nicht klickbar sein */
+    transform: translate(-50%, -50%); /* Zentriert den Cursor an der Maus */
+    transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, background-color 0.3s ease; /* Animation */
+    z-index: 1000; /* Cursor bleibt über allem */
+}
+
+/* Hover-Effekt: Der Kreis wird größer und animiert sich */
+.custom-cursor.hover {
+    width: 80px; /* Vergrößert den Cursor */
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.4); /* Weniger transparent */
+    transform: translate(-50%, -50%) scale(1.2); /* Optionale zusätzliche Vergrößerung */
+}
