@@ -548,6 +548,13 @@ border-radius: 0;
   transition: 0.3s;
 }
 
+.item-container{
+    margin-top: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 50px;
+}
+
 @media (min-width: 768px) {
     .item-images-container {
         grid-template-columns: 1fr 1fr;
