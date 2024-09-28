@@ -8,13 +8,13 @@ const cursor = document.createElement('div');
             cursor.style.top = `${e.pageY}px`;
         });
 
-        // Hover-Effekt bei Links
-        const hoverElements = document.querySelectorAll('a');
+        // Hover-Effekt bei Links und Buttons
+        const hoverElements = document.querySelectorAll('a, button');
         hoverElements.forEach(element => {
             element.addEventListener('mouseenter', () => {
-                cursor.classList.add('hover'); // Klasse hinzufügen
+                cursor.classList.add('hover'); // Klasse hinzufügen, wenn man über Link/Button fährt
             });
             element.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hover'); // Klasse entfernen
+                cursor.classList.remove('hover'); // Klasse entfernen, wenn man den Link/Button verlässt
             });
         });
