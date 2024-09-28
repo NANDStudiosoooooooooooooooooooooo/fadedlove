@@ -1,4 +1,4 @@
-<div class="terms">
+<div class="terms">Last Updated: September 28, 2024.
 
 1. SCOPE
 These Terms of Service (TOS) apply to all orders placed by consumers (§ 13 BGB) and businesses (§ 14 BGB) via the website <a href="fadedcloth.de" class="href">fadedcloth.de</a>(referred to as "we", "us", or "our").
@@ -56,7 +56,7 @@ The European Commission provides a platform for online dispute resolution (ODR),
 11. Final Provisions
 The laws of the Federal Republic of Germany apply, excluding the UN Convention on Contracts for the International Sale of Goods (CISG).
 If any provision of these TOS is found to be invalid, the rest of the contract remains in effect.
-Last updated: 27/09/2024 (DD/MM/YYYY)
+
 Faded Cloth
 Email: <a href="mailto:help@fadedcloth.de" class="href">help@fadedcloth.de</a></div>
 <style>
