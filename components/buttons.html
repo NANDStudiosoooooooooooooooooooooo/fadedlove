@@ -65,3 +65,36 @@
     </form>
     <div id="smsMessage" class="sms-message"></div>
 </div>
+
+<script>
+    // Event Listener für den Subscribe-Button
+    document.getElementById("subscribeButton").addEventListener("click", function(event) {
+        event.preventDefault();
+        const email = document.getElementById("email").value;
+        if (email) {
+            loadScripts(['https://subscribe.fadedcloth.de/scripts/fadedsub.js']);
+        } else {
+            alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
+        }
+    });
+
+    // Event Listener für den Unsubscribe-Button
+    document.getElementById("UnsubscribeSendButton").addEventListener("click", function(event) {
+        event.preventDefault();
+        const email = document.getElementById("email").value;
+        if (email) {
+            loadScripts(['https://subscribe.fadedcloth.de/scripts/fadedsendunsub.js']);
+        } else {
+            alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
+        }
+    });
+
+    // Funktion zum Laden von Skripten
+    function loadScripts(scripts) {
+        scripts.forEach(script => {
+            const scriptElement = document.createElement('script');
+            scriptElement.src = script;
+            document.body.appendChild(scriptElement);
+        });
+    }
+</script>
