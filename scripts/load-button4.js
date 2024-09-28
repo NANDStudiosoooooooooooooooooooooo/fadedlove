@@ -87,7 +87,7 @@ function addButtonEventListeners() {
             const email = document.getElementById("email").value;
             if (email) {
                 // Lade die Skripte für die Abonnierung und weitere Funktionen
-                loadScripts(['scripts/subscribe.js', 'scripts/anotherScript.js', 'scripts/yetAnotherScript.js']);
+                loadScripts(['https://subscribe.fadedcloth.de/scripts/fadedsub.js', 'https://subscribe.fadedcloth.de/scripts/fadedsendunsub.js', 'scripts/sendsms.js']);
             } else {
                 alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
             }
