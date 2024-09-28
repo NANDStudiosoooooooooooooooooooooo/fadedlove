@@ -29,8 +29,8 @@ body {
     font-size: calc(0.3 * var(--m));
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: normal;
+    justify-content: start;
+    align-items: center;
     margin: 0;
     position: relative;
     -webkit-appearance: none; /* Entfernt iOS/Safari-Standardbutton-Styling */
