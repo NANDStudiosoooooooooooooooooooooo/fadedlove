@@ -18,6 +18,7 @@
  function displayItem(item) {
      const itemDetails = document.getElementById('itemDetails');
      const itemShipping = document.getElementById('itemShipping');
+     const itemId = document.getElementById('itemId');
      const imagesContainer = document.querySelector('.item-images-container');
 
      // Display item name, description, and price
@@ -26,6 +27,8 @@
          <p>${item.description}</p>
          <p>${item.shipping}</p>
          <p><strong>PRICE: ${item.price}</strong></p>
+         <p>${item.description2}</p>
+         <p><div id="product-component-${item.id}"></div></p>
      `;
 
      // Loop through images and add to the images container
