@@ -1,8 +1,17 @@
-fetch('buttons.html')
-            .then(response => response.text())
-            .then(data => {
-                document.body.insertAdjacentHTML('beforeend', data);
-                // Rufe die Funktion zur Initialisierung der Buttons auf, nachdem sie geladen sind
-                initializeButtons(); // Hier die Initialisierung aufrufen
-            })
-            .catch(error => console.error('Error loading buttons:', error));
+function loadButtons() {
+    fetch('buttons.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.body.insertAdjacentHTML('beforeend', data);
+            addButtonEventListeners(); // Füge Event-Listener hinzu
+        })
+        .catch(error => console.error('Error loading buttons:', error));
+}
+
+// Rufe die Funktion zum Laden der Buttons auf
+document.addEventListener('DOMContentLoaded', loadButtons);
