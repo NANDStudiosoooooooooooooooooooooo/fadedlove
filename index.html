@@ -18,9 +18,7 @@
         </video>
     </div>
 
-    <div class="logo-container hidden" id="spline-container">
-        <spline-viewer url="https://prod.spline.design/xNqDYD6J0Y1iuBDE/scene.splinecode" background="rgba(218,81,221,0.0)"></spline-viewer>
-    </div>
+    <div id="threejs-container" class="hidden logo-container"></div>
 
     <!-- Navigation link -->
     <a href="https://fadedcloth.de/shop" class="nav-link top-left underlineonhover">SHOP</a>
@@ -33,21 +31,82 @@
         // JavaScript to toggle between video and 3D viewer
         const toggleButton = document.getElementById('toggle-button');
         const videoContainer = document.getElementById('load-container');
-        const splineContainer = document.getElementById('spline-container');
+        const modellContainer = document.getElementById('threejs-container');
 
         toggleButton.addEventListener('click', () => {
             if (videoContainer.classList.contains('hidden')) {
                 videoContainer.classList.remove('hidden');
-                splineContainer.classList.add('hidden');
+                modellContainer.classList.add('hidden');
                 toggleButton.textContent = '3D';
             } else {
                 videoContainer.classList.add('hidden');
-                splineContainer.classList.remove('hidden');
+                modellContainer.classList.remove('hidden');
                 toggleButton.textContent = '3D̶';
             }
         });
     </script>
-    <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
+
+<script>
+    // Scene, Camera, Renderer
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Resize listener to adjust canvas size dynamically
+    window.addEventListener('resize', function () {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        renderer.setSize(width, height);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+    });
+
+    // Add lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1); // Soft white light
+    scene.add(ambientLight);
+
+    // Load the GLTF model
+    const loader = new THREE.GLTFLoader();
+    loader.load('media/PRODUCTS/3d1.glb', function(gltf) {
+        const model = gltf.scene;
+        scene.add(model);
+
+        // Optional: Position, Scale and Rotate the model
+        model.position.set(0, 0, 0);
+        model.scale.set(1, 1, 1);
+    }, undefined, function(error) {
+        console.error(error);
+    });
+
+    // Camera positioning
+    camera.position.z = 5;
+
+    // OrbitControls for rotating the 3D model with mouse
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true; // Optional damping for smoother controls
+    controls.dampingFactor = 0.05;
+    controls.screenSpacePanning = false; // Lock panning to horizontal and vertical movements
+    controls.maxPolarAngle = Math.PI; // Limit vertical rotation
+
+    // Animation loop to render the scene
+    function animate() {
+        requestAnimationFrame(animate);
+
+        // Update controls
+        controls.update();
+
+        renderer.render(scene, camera);
+    }
+    animate();
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GLTF Loader for loading .glb/.gltf models -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <!-- OrbitControls for interactivity -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="scripts/loader.js"></script>
     <script src="scripts/sendsms.js"></script>
     <script src="scripts/load-button.js"></script>
