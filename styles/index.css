@@ -508,7 +508,8 @@ border-radius: 0;
   .item-details {
     text-align: center;
     max-width: 600px;
-    padding: 0px 10px 10px 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
   
   .item-details img {
