@@ -9,21 +9,23 @@
 <body>
 
     <div class="main-header">
-      <div class="top-buttons">
-          <a href="https://fadedcloth.de/" id="backbutton">MAINPAGE</a>
-          <a href="https://fadedcloth.de/shop" id="shopbutton" class="href">SHOP</a>
-      </div>
-      <div class="logo-container">
-          <video autoplay loop muted>
-              <source src="media/logo.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-          </video>
-      </div>
-  </div>
+        <div class="top-left nav-link">
+            <a href="https://fadedcloth.de/" id="backbutton">MAINPAGE</a>
+        </div>
+        <div class="logo-container" id="load-container">
+            <video autoplay loop muted class="header-logo" id="load-obj">
+                <source src="media/logo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div id="loader" class="loader-container">
+            <l-zoomies size="80" stroke="5" bg-opacity="0.1" speed="1.4" color="white"></l-zoomies>
+          </div>
+    </div>
 
 <p><div id="page-error" class="headline">404 NOT FOUND</div></p>
 
-<div class="col col3">
+<div class="panel">
     <p><div class="headline">SUBSCRIBE TO GET NOTIFIED</div></p>
     <p><form id="emailForm">
         <input 
