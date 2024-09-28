@@ -79,10 +79,37 @@ function loadButtons() {
             return response.text();
         })
         .then(data => {
-            document.body.insertAdjacentHTML('beforeend', data);
+            document.getElementById('formContainer').innerHTML = data;
             addButtonEventListeners(); // Füge Event-Listener hinzu
         })
         .catch(error => console.error('Error loading buttons:', error));
+}
+
+function addButtonEventListeners() {
+    const subscribeButton = document.getElementById("subscribeButton");
+
+    if (subscribeButton) {
+        subscribeButton.addEventListener("click", function(event) {
+            event.preventDefault();
+            const email = document.getElementById("email").value;
+            if (email) {
+                // Lade die Skripte für die Abonnierung und weitere Funktionen
+                loadScripts(['https://subscribe.fadedcloth.de/scripts/fadedsub.js', 'https://subscribe.fadedcloth.de/scripts/fadedsendunsub.js', 'scripts/sendsms.js']);
+            } else {
+                alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
+            }
+        });
+    } else {
+        console.error("Subscribe button not found.");
+    }
+}
+
+function loadScripts(scripts) {
+    scripts.forEach(script => {
+        const scriptElement = document.createElement('script');
+        scriptElement.src = script;
+        document.body.appendChild(scriptElement);
+    });
 }
 
 // Rufe die Funktion zum Laden der Buttons auf, wenn das DOM vollständig geladen ist
