@@ -17,6 +17,7 @@
  // Function to display the item details
  function displayItem(item) {
      const itemDetails = document.getElementById('itemDetails');
+     const itemDetails2 = document.getElementById('itemDetails2');
      const itemShipping = document.getElementById('itemShipping');
      const itemId = document.getElementById('itemId');
      const imagesContainer = document.querySelector('.item-images-container');
