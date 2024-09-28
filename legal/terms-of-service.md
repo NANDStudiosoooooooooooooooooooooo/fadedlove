@@ -1,4 +1,6 @@
-<div class="terms">1. Scope
+<div class="terms">
+
+1. SCOPE
 These Terms of Service (TOS) apply to all orders placed by consumers (§ 13 BGB) and businesses (§ 14 BGB) via the website <a href="fadedcloth.de" class="href">fadedcloth.de</a>(referred to as "we", "us", or "our").
 
 2. Contractual Partner

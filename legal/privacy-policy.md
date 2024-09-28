@@ -1,4 +1,6 @@
-<div class="terms">1. Data Controller
+<div class="terms">
+
+1. Data Controller
 The data controller responsible for the collection, processing, and use of your personal data is:
 
 Faded Cloth 
