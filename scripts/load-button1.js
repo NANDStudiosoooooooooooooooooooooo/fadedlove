@@ -1,6 +1,7 @@
+// scripts/load-buttons.js
+
 // Funktion zum Öffnen und Schließen der Panels
 function togglePanel(panelId) {
-    // Alle Panels und Buttons auswählen
     let panels = document.querySelectorAll('.glass-panel');
     let buttons = document.querySelectorAll('.glass-button');
     let currentPanel = document.getElementById(panelId);
@@ -67,6 +68,23 @@ function addButtonEventListeners() {
             togglePanel(targetPanel);
         });
     });
+
+    // Füge Event Listener für den Subscribe-Button hinzu
+    const subscribeButton = document.getElementById("subscribeButton");
+    if (subscribeButton) {
+        subscribeButton.addEventListener("click", function(event) {
+            event.preventDefault();
+            const email = document.getElementById("email").value;
+            if (email) {
+                // Lade die Skripte für die Abonnierung und weitere Funktionen
+                loadScripts(['scripts/subscribe.js', 'scripts/anotherScript.js', 'scripts/yetAnotherScript.js']);
+            } else {
+                alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
+            }
+        });
+    } else {
+        console.error("Subscribe button not found.");
+    }
 }
 
 // Funktion, um die Buttons zu laden
@@ -84,35 +102,6 @@ function loadButtons() {
             addButtonEventListeners(); // Füge Event-Listener hinzu
         })
         .catch(error => console.error('Error loading buttons:', error));
-}
-
-// Funktion zum Hinzufügen von Event Listenern für die Buttons
-function addButtonEventListeners() {
-    const subscribeButton = document.getElementById("subscribeButton");
-
-    if (subscribeButton) {
-        subscribeButton.addEventListener("click", function(event) {
-            event.preventDefault();
-            const email = document.getElementById("email").value;
-            if (email) {
-                // Lade die Skripte für die Abonnierung und weitere Funktionen
-                loadScripts(['scripts/subscribe.js', 'scripts/anotherScript.js', 'scripts/yetAnotherScript.js']);
-            } else {
-                alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
-            }
-        });
-    } else {
-        console.error("Subscribe button not found.");
-    }
-}
-
-// Funktion zum Laden von Skripten
-function loadScripts(scripts) {
-    scripts.forEach(script => {
-        const scriptElement = document.createElement('script');
-        scriptElement.src = script;
-        document.body.appendChild(scriptElement);
-    });
 }
 
 // Rufe die Funktion zum Laden der Buttons auf, wenn das DOM vollständig geladen ist
