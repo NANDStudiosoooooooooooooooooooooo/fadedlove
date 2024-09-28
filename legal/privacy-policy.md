@@ -54,5 +54,6 @@ Email: <a href="mailto:help@fadedcloth.de" class="href">help@fadedcloth.de</a></
 <style>
   .terms {
     text-transform: uppercase;
+    text-align: justify;
   }
 </style>
