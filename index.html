@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>FADEDCLOTH</title>
-    <link rel="stylesheet" href="styles/index3.css">
+    <link rel="stylesheet" href="styles/index4.css">
 </head>
 <body>
     <div id="loader" class="loader-container">
@@ -23,90 +23,93 @@
     <!-- Navigation link -->
     <a href="https://fadedcloth.de/shop" class="nav-link top-left underlineonhover">SHOP</a>
 
-    <button id="toggle-button" class="glass-button top-right">3D</button>
+    <div class="switch-container">
+        <span class="switch-label" id="switch-label">3D</span>
+        <div id="toggle-switch" class="glass-switch">
+            <div class="glass-switch-circle"></div>
+        </div>
+    </div>
 
     
-
-    <script>
-        // JavaScript to toggle between video and 3D viewer
-        const toggleButton = document.getElementById('toggle-button');
-        const videoContainer = document.getElementById('load-container');
-        const modellContainer = document.getElementById('threejs-container');
-
-        toggleButton.addEventListener('click', () => {
-            if (videoContainer.classList.contains('hidden')) {
-                videoContainer.classList.remove('hidden');
-                modellContainer.classList.add('hidden');
-                toggleButton.textContent = '3D';
-            } else {
-                videoContainer.classList.add('hidden');
-                modellContainer.classList.remove('hidden');
-                toggleButton.textContent = '3D̶';
-            }
-        });
-    </script>
-
-<script>
-    // Scene, Camera, Renderer
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
-
-    // Resize listener to adjust canvas size dynamically
-    window.addEventListener('resize', function () {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        renderer.setSize(width, height);
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
-    });
-
-    // Add lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1); // Soft white light
-    scene.add(ambientLight);
-
-    // Load the GLTF model
-    const loader = new THREE.GLTFLoader();
-    loader.load('media/PRODUCTS/3d1.glb', function(gltf) {
-        const model = gltf.scene;
-        scene.add(model);
-
-        // Optional: Position, Scale and Rotate the model
-        model.position.set(0, 0, 0);
-        model.scale.set(1, 1, 1);
-    }, undefined, function(error) {
-        console.error(error);
-    });
-
-    // Camera positioning
-    camera.position.z = 5;
-
-    // OrbitControls for rotating the 3D model with mouse
-    const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true; // Optional damping for smoother controls
-    controls.dampingFactor = 0.05;
-    controls.screenSpacePanning = false; // Lock panning to horizontal and vertical movements
-    controls.maxPolarAngle = Math.PI; // Limit vertical rotation
-
-    // Animation loop to render the scene
-    function animate() {
-        requestAnimationFrame(animate);
-
-        // Update controls
-        controls.update();
-
-        renderer.render(scene, camera);
-    }
-    animate();
-</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- GLTF Loader for loading .glb/.gltf models -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     <!-- OrbitControls for interactivity -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <script>
+        // Scene, Camera, Renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // Append the renderer canvas to the threejs-container
+        const threejsContainer = document.getElementById('threejs-container');
+        threejsContainer.appendChild(renderer.domElement);
+
+        // Resize listener to adjust canvas size dynamically
+        window.addEventListener('resize', function () {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+
+        // Add lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1); // Soft white light
+        scene.add(ambientLight);
+
+        // Load the GLTF model
+        const loader = new THREE.GLTFLoader();
+        loader.load('media/PRODUCTS/3d1.glb', function(gltf) {
+            const model = gltf.scene;
+            scene.add(model);
+
+            // Optional: Position, Scale and Rotate the model
+            model.position.set(0, 0, 0);
+            model.scale.set(1, 1, 1);
+        }, undefined, function(error) {
+            console.error(error);
+        });
+
+        // Camera positioning
+        camera.position.z = 5;
+
+        // OrbitControls for rotating the 3D model with mouse
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true; // Optional damping for smoother controls
+        controls.dampingFactor = 0.05;
+        controls.screenSpacePanning = false; // Lock panning to horizontal and vertical movements
+        controls.maxPolarAngle = Math.PI; // Limit vertical rotation
+
+        // Animation loop to render the scene
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update(); // Update controls
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // JavaScript to toggle between video and 3D viewer
+        const videoContainer = document.getElementById('load-container');
+        const toggleSwitch = document.getElementById('toggle-switch');
+        const switchLabel = document.getElementById('switch-label');
+
+        toggleSwitch.addEventListener('click', () => {
+            toggleSwitch.classList.toggle('active');
+            if (videoContainer.classList.contains('hidden')) {
+                videoContainer.classList.remove('hidden');
+                threejsContainer.classList.add('hidden');
+                switchLabel.textContent = '3D';
+            } else {
+                videoContainer.classList.add('hidden');
+                threejsContainer.classList.remove('hidden');
+                switchLabel.textContent = '3D̶';
+            }
+        });
+    </script>
     <script src="scripts/loader.js"></script>
     <script src="scripts/sendsms.js"></script>
     <script src="scripts/load-button.js"></script>
