@@ -1,4 +1,4 @@
-1. Data Controller
+<div class="terms">1. Data Controller
 The data controller responsible for the collection, processing, and use of your personal data is:
 
 Faded Cloth 
@@ -50,4 +50,9 @@ We reserve the right to update this privacy policy at any time to reflect change
 
 Last updated: 27/09/2024 (DD/MM/YYYY)
 Faded Cloth
-Email: <a href="mailto:help@fadedcloth.de" class="href">help@fadedcloth.de</a>
+Email: <a href="mailto:help@fadedcloth.de" class="href">help@fadedcloth.de</a></div>
+<style>
+  .terms {
+    text-transform: uppercase;
+  }
+</style>

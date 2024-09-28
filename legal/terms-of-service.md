@@ -1,4 +1,4 @@
-1. Scope
+<div class="terms">1. Scope
 These Terms of Service (TOS) apply to all orders placed by consumers (§ 13 BGB) and businesses (§ 14 BGB) via the website <a href="fadedcloth.de" class="href">fadedcloth.de</a>(referred to as "we", "us", or "our").
 
 2. Contractual Partner
@@ -56,4 +56,9 @@ The laws of the Federal Republic of Germany apply, excluding the UN Convention o
 If any provision of these TOS is found to be invalid, the rest of the contract remains in effect.
 Last updated: 27/09/2024 (DD/MM/YYYY)
 Faded Cloth
-Email: <a href="mailto:help@fadedcloth.de" class="href">help@fadedcloth.de</a>
+Email: <a href="mailto:help@fadedcloth.de" class="href">help@fadedcloth.de</a></div>
+<style>
+  .terms {
+    text-transform: uppercase;
+  }
+</style>
