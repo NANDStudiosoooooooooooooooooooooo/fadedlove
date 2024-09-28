@@ -604,6 +604,7 @@ video::-webkit-media-controls {
     touch-action: none;          /* Deaktiviert Swipe-Gesten */
     pointer-events: none; 
     pointer-events: none; 
+    background-color: transparent;
     user-select: none;      /* Kein Klicken oder Tippen möglich */
   }
 
