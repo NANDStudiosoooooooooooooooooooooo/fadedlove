@@ -142,6 +142,7 @@ h2 {
     flex-direction: column;
     gap: 10px;
     width: auto;
+    overflow: visible;
 }
 
 .glass-button {
@@ -701,6 +702,7 @@ video::-webkit-media-controls {
     .buttons-container {
       display: flex;
       flex-direction: row;
+      overflow: visible;
       justify-content: flex-start;
       gap: 10px;
       width: 100vw; /* Take the full width of the screen */
