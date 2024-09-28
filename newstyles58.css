@@ -743,8 +743,8 @@ video::-webkit-media-controls {
     }
 
     .glass-panel {
-        left: 20px; /* Abstand zwischen Panel und Buttons auf mobilen Geräten */
-        bottom: 60px; 
+        left: 30px; /* Abstand zwischen Panel und Buttons auf mobilen Geräten */
+        bottom: 80px; 
         padding-right: 20px;
     }
   }
