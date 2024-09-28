@@ -189,7 +189,7 @@ h2 {
 
 /* Panels */
 .glass-panel {
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     left: calc(150px + 40px); /* Rechts von den Buttons */
     background: rgba(255, 255, 255, 0.1);
