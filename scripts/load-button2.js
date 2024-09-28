@@ -1,5 +1,15 @@
 // scripts/load-buttons.js
 
+// Funktion zum Laden von Skripten
+function loadScripts(scripts) {
+    scripts.forEach(script => {
+        const scriptElement = document.createElement('script');
+        scriptElement.src = script;
+        scriptElement.async = false; // Sicherstellen, dass die Skripte in der Reihenfolge geladen werden
+        document.body.appendChild(scriptElement);
+    });
+}
+
 // Funktion zum Öffnen und Schließen der Panels
 function togglePanel(panelId) {
     let panels = document.querySelectorAll('.glass-panel');
