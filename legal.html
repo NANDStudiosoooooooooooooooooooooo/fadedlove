@@ -49,54 +49,7 @@
         </div>
     </div>
 
-    <!-- Buttons unten links (untereinander) -->
-    <div class="buttons-container">
-        <button id="button1" class="glass-button" data-target="panel1">MENU</button>
-        <button id="button2" class="glass-button" data-target="panel2">LEGAL</button>
-        <button id="button3" class="glass-button" data-target="panel3">NEWSLETTER</button>
-    </div>
-
-    <!-- Panel für Button 1 -->
-    <div id="panel1" class="glass-panel hidden">
-        <button class="close-btn" onclick="togglePanel('panel1')">X</button>
-        <a href="https://fadedcloth.de/" class="panel-link">MAINPAGE</a>
-        <a href="https://fadedcloth.de/shop" class="panel-link">SHOP</a>
-    </div>
-
-    <!-- Panel für Button 2 -->
-    <div id="panel2" class="glass-panel hidden">
-        <button class="close-btn" onclick="togglePanel('panel2')">X</button>
-        <a href="mailto:help@fadedcloth.de" class="panel-link">CONTACT</a>
-        <a href="https://fadedcloth.de/legal?id=privacy-policy" class="panel-link">PRIVACY POLICY</a>
-        <a href="https://fadedcloth.de/legal?id=terms-of-service" class="panel-link">TERMS OF SERVICE</a>
-        <div class="copyright">&copy; FADEDCLOTH 2024</div>
-    </div>
-
-    <!-- Panel für Button 3 (Subscribe Panel) -->
-    <div id="panel3" class="glass-panel hidden">
-        <button class="close-btn" onclick="togglePanel('panel3')">X</button>
-        <div class="headline">NEWSLETTER</div>
-        <form id="emailForm">
-            <input 
-                type="email" 
-                id="email" 
-                placeholder="ENTER YOUR EMAIL" 
-                class="email-input"
-                required 
-            />
-            <div class="info-text"><a>I ACCEPT THE </a><a class="href" href="/legal?id=terms-of-service">TERMS</a></div>
-            <div class="form-buttons">
-                <button id="subscribeButton" class="email-button small-button">
-                    SUBSCRIBE
-                </button>
-                <button id="UnsubscribeSendButton" class="email-button small-button">
-                    UNSUBSCRIBE
-                </button>
-            </div>
-        </form>
-    </div>
-
-    <script src="newscripts5.js"></script>
+    <script src="scripts/load-button.js"></script>
     <script src="scripts/loader.js"></script>
     <script src="scripts/legal2.js"></script>
     <script src="scripts/sendsms.js"></script>
