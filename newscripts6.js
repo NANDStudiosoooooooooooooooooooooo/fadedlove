@@ -70,9 +70,4 @@ function addButtonEventListeners() {
 }
 
 // Diese Funktion wird aufgerufen, nachdem die Buttons geladen wurden
-function initializeButtons() {
-    addButtonEventListeners();
-}
-
-// Rufe initializeButtons nach dem Laden der Buttons auf
-document.addEventListener('DOMContentLoaded', initializeButtons);
+document.addEventListener('DOMContentLoaded', addButtonEventListeners);
