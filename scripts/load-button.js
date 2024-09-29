@@ -70,21 +70,20 @@ function addButtonEventListeners() {
 }
 
 // Funktion, um die Buttons zu laden
-function loadButtons() {
-    fetch('components/buttons.html')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.text();
-        })
-        .then(data => {
-            document.body.insertAdjacentHTML('beforeend', data);
-            // Initialize event listeners after buttons are loaded
-            ButtonModule.addButtonEventListeners();
-        })
-        .catch(error => console.error('Error loading buttons:', error));
-}
+   // function loadButtons() {
+   //     fetch('components/buttons.html')
+   //         .then(response => {
+   //             if (!response.ok) {
+   //                 throw new Error('Network response was not ok ' + response.statusText);
+   //             }
+   //             return response.text();
+   //         })
+   //         .then(data => {
+   ////             document.body.insertAdjacentHTML('beforeend', data);
+    //            addButtonEventListeners(); // Füge Event-Listener hinzu
+     //       })
+    //        .catch(error => console.error('Error loading buttons:', error));
+   // }
 
-// Call loadButtons to load buttons and set up event listeners
-loadButtons();
+    // Rufe die Funktion zum Laden der Buttons auf, wenn das DOM vollständig geladen ist
+   // document.addEventListener('DOMContentLoaded', loadButtons);
