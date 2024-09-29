@@ -546,6 +546,7 @@ border-radius: 0;
 .item-container{
     margin-top: 20px;
     margin-bottom: 50px;
+    justify-content: center;
 }
 
 @media (min-width: 768px) {
