@@ -82,6 +82,7 @@ h2 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    animation: slideInTop 0.5s forwards;
 }
 
 .logo {
@@ -108,20 +109,24 @@ h2 {
 
 .right {
     right: 0px;
+    animation: slideInRight 0.5s forwards;
 }
 
 .left {
     left: 0px;
+    animation: slideInLeft 0.5s forwards;
 }
 
 .top-right {
     top: 0px;
     right: 0px;
+    animation: slideInRight 0.5s forwards;
 }
 
 .top-left {
     left: 0px;
     left: 0px;
+    animation: slideInLeft 0.5s forwards;
 }
 
 .href {
@@ -833,4 +838,37 @@ video::-webkit-media-controls {
     z-index: 100;
     display: flex;
     align-items: center;
+}
+
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInTop {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
