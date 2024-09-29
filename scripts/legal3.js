@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .catch(error => {
                 document.getElementById('text-content').innerHTML = '<a href="https://fadedcloth.de">404 NOT FOUND.</a>';
-                document.getElementById('content-title').textContent ="404"
+                document.getElementById('content-title').textContent ="404";
                 console.error('Fehler beim Laden:', error);
             });
     }
