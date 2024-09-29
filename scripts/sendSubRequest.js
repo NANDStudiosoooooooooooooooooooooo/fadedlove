@@ -19,35 +19,53 @@ const ButtonModule = (function() {
     }
 
     // Add event listeners for subscribe and unsubscribe buttons
-    function addButtonEventListeners() {
-        const subscribeButton = document.getElementById("subscribeButton");
-        const unsubscribeButton = document.getElementById("UnsubscribeSendButton");
-        const emailInput = document.getElementById("email");
+    // Function to shake the input field
+function shakeInput(input) {
+    input.classList.add('shake');
+    // Remove the shake class after the animation completes
+    setTimeout(() => {
+        input.classList.remove('shake');
+    }, 500); // Match this duration with the CSS animation duration
+}
 
-        if (subscribeButton) {
-            subscribeButton.addEventListener("click", function(event) {
-                event.preventDefault();
-                const email = emailInput.value;
-                if (email) {
-                    sendRequest("https://subscribe.fadedcloth.de/sub", email, "SUBSCRIBED");
-                } else {
-                    alert("Please enter a valid email.");
-                }
-            });
-        }
+// Add event listeners for subscribe and unsubscribe buttons
+function addButtonEventListeners() {
+    const subscribeButton = document.getElementById("subscribeButton");
+    const unsubscribeButton = document.getElementById("UnsubscribeSendButton");
+    const emailInput = document.getElementById("email");
 
-        if (unsubscribeButton) {
-            unsubscribeButton.addEventListener("click", function(event) {
-                event.preventDefault();
-                const email = emailInput.value;
-                if (email) {
-                    sendRequest("https://subscribe.fadedcloth.de/unsubsend", email, "UNSUBSCRIBESENT");
-                } else {
-                    alert("Please enter a valid email.");
-                }
-            });
-        }
+    if (subscribeButton) {
+        subscribeButton.addEventListener("click", function(event) {
+            event.preventDefault();
+            const email = emailInput.value;
+            if (validateEmail(email)) {
+                sendRequest("https://subscribe.fadedcloth.de/sub", email, "SUBSCRIBED");
+            } else {
+                alert("Please enter a valid email."); // Optional: Alert for additional feedback
+                shakeInput(emailInput); // Shake the input field
+            }
+        });
     }
+
+    if (unsubscribeButton) {
+        unsubscribeButton.addEventListener("click", function(event) {
+            event.preventDefault();
+            const email = emailInput.value;
+            if (validateEmail(email)) {
+                sendRequest("https://subscribe.fadedcloth.de/unsubsend", email, "UNSUBSCRIBESENT");
+            } else {
+                alert("Please enter a valid email."); // Optional: Alert for additional feedback
+                shakeInput(emailInput); // Shake the input field
+            }
+        });
+    }
+}
+
+// Simple email validation function
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic regex for email validation
+    return re.test(email);
+}
 
     // Expose the init function to be called after buttons are loaded
     return {
