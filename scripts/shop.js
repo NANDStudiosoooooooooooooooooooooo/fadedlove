@@ -1,4 +1,4 @@
-fetch('JSON/items.json')
+fetch('https://fadedcloth.de/JSON/items.json')
   .then(response => response.json())
   .then(items => {
     const shopContainer = document.querySelector('.shop-container'); // Using class selector for 'shop-container'
