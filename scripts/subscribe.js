@@ -5,21 +5,21 @@ document.getElementById("subscribeButton").addEventListener("click", function(ev
 
     // Validate email
     if (isValidEmail(email)) {
-        fetch("https://subscribe.fadedcloth.de/sub", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email: email })
-        })
-        .then(response => response.json())
-        .then(data => {
-            const currentUrl = encodeURIComponent(window.location.href);
-            window.location.href = `https://subscribe.fadedcloth.de/success?SUBSCRIBED&referrer=${currentUrl}`;
-        })
-        .catch(error => {
-            alert("An error occurred: " + error.message);
-        });
+            fetch("https://subscribe.fadedcloth.de/sub", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const currentUrl = encodeURIComponent(window.location.href);
+                window.location.href = `https://subscribe.fadedcloth.de/success?SUBSCRIBED&referrer=${currentUrl}`;
+            })
+            .catch(error => {
+                alert("An error occurred: " + error.message);
+            });
     } else {
         shakeEmailInput(emailInput);
     }
