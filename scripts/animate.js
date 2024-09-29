@@ -12,6 +12,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Animate elements with classes
     animateElements('top-left', 'slideInLeft');
-    animateElements('logo-container', 'slideInTop');
-    animateElements('loader-container', 'slideInRight');
+    animateElements('top', 'slideInTop');
+    animateElements('top-right', 'slideInRight');
 });
