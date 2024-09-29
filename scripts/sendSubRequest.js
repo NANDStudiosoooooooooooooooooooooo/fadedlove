@@ -20,12 +20,11 @@ function sendRequest(url, email, successMessage) {
 }
 
 // Add event listeners for subscribe and unsubscribe buttons
-document.addEventListener("DOMContentLoaded", function() {
+function addButtonEventListeners() {
     const subscribeButton = document.getElementById("subscribeButton");
     const unsubscribeButton = document.getElementById("UnsubscribeSendButton");
     const emailInput = document.getElementById("email");
 
-    // Subscribe event listener
     if (subscribeButton) {
         subscribeButton.addEventListener("click", function(event) {
             event.preventDefault();
@@ -38,7 +37,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Unsubscribe event listener
     if (unsubscribeButton) {
         unsubscribeButton.addEventListener("click", function(event) {
             event.preventDefault();
@@ -50,4 +48,4 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-});
+}
