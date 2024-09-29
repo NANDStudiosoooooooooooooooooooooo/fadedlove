@@ -67,34 +67,53 @@
 </div>
 
 <script>
-    // Event Listener für den Subscribe-Button
+    // Subscribe Button
     document.getElementById("subscribeButton").addEventListener("click", function(event) {
         event.preventDefault();
         const email = document.getElementById("email").value;
         if (email) {
-            loadScripts(['https://subscribe.fadedcloth.de/scripts/fadedsub.js']);
+            fetch("https://subscribe.fadedcloth.de/sub", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const currentUrl = encodeURIComponent(window.location.href);
+                window.location.href = `https://subscribe.fadedcloth.de/success?SUBSCRIBED&referrer=${currentUrl}`;
+            })
+            .catch(error => {
+                alert("An error occurred: " + error.message);
+            });
         } else {
-            alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
+            alert("Please enter a valid email.");
         }
     });
 
-    // Event Listener für den Unsubscribe-Button
+    // Unsubscribe Button
     document.getElementById("UnsubscribeSendButton").addEventListener("click", function(event) {
         event.preventDefault();
         const email = document.getElementById("email").value;
         if (email) {
-            loadScripts(['https://subscribe.fadedcloth.de/scripts/fadedsendunsub.js']);
+            fetch("https://subscribe.fadedcloth.de/unsubsend", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const currentUrl = encodeURIComponent(window.location.href);
+                window.location.href = `https://subscribe.fadedcloth.de/success?UNSUBSCRIBESENT&referrer=${currentUrl}`;
+            })
+            .catch(error => {
+                alert("An error occurred: " + error.message);
+            });
         } else {
-            alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
+            alert("Please enter a valid email.");
         }
     });
-
-    // Funktion zum Laden von Skripten
-    function loadScripts(scripts) {
-        scripts.forEach(script => {
-            const scriptElement = document.createElement('script');
-            scriptElement.src = script;
-            document.body.appendChild(scriptElement);
-        });
-    }
 </script>
