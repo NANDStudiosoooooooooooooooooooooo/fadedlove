@@ -38,78 +38,87 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
     <script>
-        // Scene, Camera, Renderer
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-
-        // Append the renderer canvas to the threejs-container
-        const threejsContainer = document.getElementById('threejs-container');
-        threejsContainer.appendChild(renderer.domElement);
-
-        // Resize listener to adjust canvas size dynamically
-        window.addEventListener('resize', function () {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            renderer.setSize(width, height);
-            camera.aspect = width / height;
+        let scene, camera, renderer, model;
+    
+        function initThreeJS() {
+            const container = document.getElementById('threejs-container');
+    
+            // Set up the scene
+            scene = new THREE.Scene();
+    
+            // Set up the camera (PerspectiveCamera with field of view, aspect ratio, near, far)
+            camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(0, 1, 5); // Adjust camera position if needed
+    
+            // Set up the renderer and append it to the container
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+    
+            // Add lighting to the scene
+            const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+            scene.add(ambientLight);
+    
+            // Load the 3D model using GLTFLoader
+            const loader = new THREE.GLTFLoader();
+            loader.load('media/PRODUCTS/3d1.glb', function(gltf) {
+                model = gltf.scene;
+                scene.add(model);
+    
+                // Optional: Adjust model size and position
+                model.scale.set(1, 1, 1); // Change if model is too big/small
+                model.position.set(0, 0, 0); // Position it at the center
+    
+                animate();
+            }, undefined, function(error) {
+                console.error('Error loading 3D model:', error);
+            });
+    
+            // Handle window resizing
+            window.addEventListener('resize', onWindowResize, false);
+        }
+    
+        // Adjust rendering when the window is resized
+        function onWindowResize() {
+            const container = document.getElementById('threejs-container');
+            camera.aspect = container.clientWidth / container.clientHeight;
             camera.updateProjectionMatrix();
-        });
-
-        // Add lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1); // Soft white light
-        scene.add(ambientLight);
-
-        // Load the GLTF model
-        const loader = new THREE.GLTFLoader();
-        loader.load('media/PRODUCTS/3d1.glb', function(gltf) {
-            const model = gltf.scene;
-            scene.add(model);
-
-            // Optional: Position, Scale and Rotate the model
-            model.position.set(0, 0, 0);
-            model.scale.set(1, 1, 1);
-        }, undefined, function(error) {
-            console.error(error);
-        });
-
-        // Camera positioning
-        camera.position.z = 5;
-
-        // OrbitControls for rotating the 3D model with mouse
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true; // Optional damping for smoother controls
-        controls.dampingFactor = 0.05;
-        controls.screenSpacePanning = false; // Lock panning to horizontal and vertical movements
-        controls.maxPolarAngle = Math.PI; // Limit vertical rotation
-
-        // Animation loop to render the scene
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+    
+        // Animation loop
         function animate() {
             requestAnimationFrame(animate);
-            controls.update(); // Update controls
+    
+            // Optional: Rotate model for a dynamic effect
+            if (model) {
+                model.rotation.y += 0.01;
+            }
+    
             renderer.render(scene, camera);
         }
-        animate();
-
-        // JavaScript to toggle between video and 3D viewer
-        const videoContainer = document.getElementById('load-container');
-        const toggleSwitch = document.getElementById('toggle-switch');
-        const switchLabel = document.getElementById('switch-label');
-
-        toggleSwitch.addEventListener('click', () => {
-            toggleSwitch.classList.toggle('active');
-            if (videoContainer.classList.contains('hidden')) {
-                videoContainer.classList.remove('hidden');
-                threejsContainer.classList.add('hidden');
-                switchLabel.textContent = '3D';
+    
+        // Initialize Three.js when the switch is activated
+        document.getElementById("toggle-switch").addEventListener("click", function() {
+            const videoContainer = document.getElementById("load-obj");
+            const threejsContainer = document.getElementById("threejs-container");
+    
+            if (threejsContainer.classList.contains("hidden")) {
+                videoContainer.classList.add("hidden");
+                threejsContainer.classList.remove("hidden");
+    
+                // Initialize the 3D scene only if it's not already initialized
+                if (!renderer) {
+                    initThreeJS();
+                }
             } else {
-                videoContainer.classList.add('hidden');
-                threejsContainer.classList.remove('hidden');
-                switchLabel.textContent = '3D̶';
+                threejsContainer.classList.add("hidden");
+                videoContainer.classList.remove("hidden");
             }
         });
     </script>
+    
     <script src="scripts/loader.js"></script>
     <script src="scripts/load-button.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js"></script>
