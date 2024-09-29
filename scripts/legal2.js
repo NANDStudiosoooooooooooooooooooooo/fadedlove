@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById('content-title').textContent = contentId.replace(/-/g, ' ').toUpperCase(); // Setze den Titel dynamisch
             })
             .catch(error => {
-                document.getElementById('text-content').innerHTML = '<p>Inhalt konnte nicht geladen werden.</p>';
+                document.getElementById('text-content').innerHTML = '<a href="https://fadedcloth.de">404 NOT FOUND.</a>';
                 console.error('Fehler beim Laden:', error);
             });
     }
