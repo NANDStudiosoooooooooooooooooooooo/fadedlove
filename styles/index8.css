@@ -197,20 +197,19 @@ h2 {
     box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5);
 }
 
-/* Panels */
 .glass-panel {
     position: fixed;
     bottom: 20px;
-    left: calc(150px + 40px); /* Rechts von den Buttons */
+    left: calc(150px + 40px);
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px); /* Blur/Glas-Effekt */
+    backdrop-filter: blur(15px);
     padding: 40px 20px;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
     gap: 20px;
     width: auto;/*300px;*/
-    max-width: calc(100vw - 80px); /* Anpassung an kleine Bildschirme */
+    max-width: calc(100vw - 80px);
     
     z-index: 10;
 }
@@ -435,7 +434,7 @@ border-radius: 0;
     width: 100%;
     margin: 0 auto;
     overflow-y: auto;
-  }
+}
   
   .main-header{
     position: fixed;
@@ -546,8 +545,6 @@ border-radius: 0;
 
 .item-container{
     margin-top: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
     margin-bottom: 50px;
 }
 
@@ -773,13 +770,13 @@ video::-webkit-media-controls {
 
   .info-text{
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.5); /* Leicht transparent */
+    color: rgba(255, 255, 255, 0.5);
     text-align: center;
   }
 
   .custom-cursor {
     position: fixed;
-    width: 40px; /* Ausgangsgröße des Kreises */
+    width: 40px;
     height: 40px;
     border-radius: 50%; /* Macht den Kreis rund */
     background-color: rgba(255, 255, 255, 0.2); /* Leicht transparenter Hintergrund */
