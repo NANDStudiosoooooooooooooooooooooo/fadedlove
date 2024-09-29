@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const queryParams = new URLSearchParams(window.location.search);
-    const contentId = queryParams.get('id') || 'terms-of-service'; // Fallback auf 'terms-of-service'
+    const contentId = queryParams.get('id') || '404';
 
     // Funktion zum Laden der Markdown-Datei
     function loadMarkdown(contentId) {
