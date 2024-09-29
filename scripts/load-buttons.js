@@ -56,18 +56,16 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// Funktion zum Hinzufügen von Event Listenern für die Buttons
-function addButtonEventListeners() {
-    document.querySelectorAll('.glass-button').forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.stopPropagation(); // Verhindert, dass das Event auch das document erreicht
+// Event Listener für alle Buttons
+document.querySelectorAll('.glass-button').forEach(button => {
+    button.addEventListener('click', function(event) {
+        event.stopPropagation(); // Verhindert, dass das Event auch das document erreicht
 
-            // Hole das Ziel-Panel von der data-target des Buttons
-            let targetPanel = button.getAttribute('data-target');
-            togglePanel(targetPanel);
-        });
+        // Hole das Ziel-Panel von der data-target des Buttons
+        let targetPanel = button.getAttribute('data-target');
+        togglePanel(targetPanel);
     });
-}
+});
 
 // Funktion, um die Buttons zu laden
    // function loadButtons() {
