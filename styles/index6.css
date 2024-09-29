@@ -111,7 +111,7 @@ h2 {
     animation: slideInRight 0.5s forwards;
 }
 
-.top{
+.top {
     animation: slideInTop 0.5s forwards;
 }
 
@@ -346,10 +346,11 @@ h2 {
     -webkit-appearance: none; /*For Chrome*/
     -moz-appearance: none;/*For Mozilla*/
     appearance: none;
+    justify-content: center;
 }
 
 .small-button {
-    font-size: 14px;
+    font-size: 16px;
     padding: 8px 15px;
     border-radius: 10px;
 }
@@ -874,4 +875,16 @@ video::-webkit-media-controls {
         transform: translateX(0);
         opacity: 1;
     }
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+.shake {
+    animation: shake 0.5s forwards;
 }

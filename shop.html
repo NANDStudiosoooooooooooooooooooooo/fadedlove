@@ -16,7 +16,7 @@
         <a href="https://fadedcloth.de/" id="backbutton">MAINPAGE</a>
     </div>
     <div class="logo-container" id="load-container">
-        <video autoplay loop muted class="header-logo" id="load-obj">
+        <video autoplay loop muted class="header-logo top" id="load-obj">
             <source src="media/logo.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -56,7 +56,7 @@
     <!-- Panel für Button 3 (Subscribe Panel) -->
     <div id="panel3" class="glass-panel hidden">
         <button class="close-btn" onclick="togglePanel('panel3')">X</button>
-        <div class="headline">EMAIL NEWSLETTER</div>
+        <div class="headline">SUBSCRIBE FORM UPDATES</div>
         <form id="emailForm">
             <input 
                 type="email" 
@@ -68,10 +68,7 @@
             <div class="info-text"><a>I ACCEPT THE </a><a class="href" href="/legal?id=terms-of-service">TERMS</a></div>
             <div class="form-buttons">
                 <button id="subscribeButton" class="email-button small-button">
-                    SUBSCRIBE
-                </button>
-                <button id="UnsubscribeSendButton" class="email-button small-button">
-                    UNSUBSCRIBE
+                    SUBMIT
                 </button>
             </div>
         </form>
@@ -104,9 +101,8 @@
     <script src="scripts/loader.js"></script>
     <script src="scripts/sendsms.js"></script>
     <script src="scripts/animate.js"></script> 
+    <script src="scripts/subscribe.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js"></script>
-    <script src="https://subscribe.fadedcloth.de/scripts/fadedsub.js"></script>
-    <script src="https://subscribe.fadedcloth.de/scripts/fadedsendunsub.js"></script>
 </body>
 
 </html>

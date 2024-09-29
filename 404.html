@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faded Love 404</title>
-    <link rel="stylesheet" href="styles/index4.css">
+    <link rel="stylesheet" href="styles/index6.css">
 </head>
 <body>
 
@@ -13,7 +13,7 @@
             <a href="https://fadedcloth.de/" id="backbutton">MAINPAGE</a>
         </div>
         <div class="logo-container" id="load-container">
-            <video autoplay loop muted class="header-logo" id="load-obj">
+            <video autoplay loop muted class="header-logo top" id="load-obj">
                 <source src="media/logo.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -23,26 +23,25 @@
           </div>
     </div>
 
-<p><div id="page-error" class="headline">404 NOT FOUND</div></p>
+<p><a id="page-error" href="https://fadedcloth.de" class="headline">404 NOT FOUND</a></p>
 
 <div class="panel">
-    <p><div class="headline">SUBSCRIBE TO GET NOTIFIED</div></p>
-    <p><form id="emailForm">
-        <input 
+  <div class="headline">SUBSCRIBE FORM UPDATES</div>
+  <form id="emailForm">
+      <input 
           type="email" 
           id="email" 
           placeholder="ENTER YOUR EMAIL" 
+          class="email-input"
           required 
-          style="border: none; outline: none; background: none; color: #fff; text-transform: uppercase;"
-        />
-        <br><br>
-        <button id="subscribeButton" style="background: none; border: none; color: rgb(255, 255, 255); text-decoration: underline; cursor: pointer;">
-          SUBSCRIBE
-        </button>
-        <button id="unsubscribeButton" style="background: none; border: none; color: rgb(255, 255, 255); text-decoration: underline; cursor: pointer;">
-          UNSUBSCRIBE
-        </button>
-      </form></p>
+      />
+      <div class="info-text"><a>I ACCEPT THE </a><a class="href" href="/legal?id=terms-of-service">TERMS</a></div>
+      <div class="form-buttons">
+          <button id="subscribeButton" class="email-button small-button">
+              SUBMIT
+          </button>
+      </div>
+  </form>
   </div>
 
   <script src="https://subscribe.fadedcloth.de/scripts/fadedsub.js"></script>
