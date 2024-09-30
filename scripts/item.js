@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
             itemDetails.innerHTML = `
                 <h2>${item.name}</h2>
                 <p>${item.description}</p>
-                <p><strong>PRICE: <span id="item-price">${(currentVariant.price ? parseFloat(currentVariant.price).toFixed(2) : "0.00")} EUR</span></strong></p>
+                <p><strong>PRICE: <span id="item-price">${(currentVariant.price / 100).toFixed(2)} EUR</span></strong></p>
                 <p>${item.shipping}</p>
                 <p>${item.description2}</p>
                 <label for="size-select">Select Size:</label>
@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const sizeSelect = document.getElementById('size-select');
             product.variants.forEach(variant => {
                 const option = document.createElement('option');
-                option.value = variant.id;
-                option.textContent = variant.title;
+                option.value = variant.id; // ID der Variante verwenden
+                option.textContent = variant.title; // Titel der Variante anzeigen
                 sizeSelect.appendChild(option);
             });
 
@@ -69,6 +69,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 addToCart(selectedVariantId, quantity);
             });
             document.getElementById('shopify-cart-button').appendChild(addToCartButton);
+
+            // Bilder zur Container hinzufügen
+            const imagesContainer = document.querySelector('.item-images-container');
+            if (imagesContainer) {
+                item.images.forEach(image => {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = image;
+                    imgElement.alt = item.name;
+                    imagesContainer.appendChild(imgElement);
+                });
+            }
         }).catch((error) => {
             console.error("Error fetching Shopify product:", error);
             itemDetails.innerHTML = '<p>Failed to fetch product details.</p>';
@@ -78,13 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function updatePriceDisplay(variant) {
         const priceElement = document.getElementById('item-price');
         if (priceElement) {
-            const price = variant.price ? parseFloat(variant.price) : NaN;
-            if (!isNaN(price)) {
-                priceElement.textContent = `${price.toFixed(2)} EUR`;
-            } else {
-                console.error("Variant price is not a valid number");
-                priceElement.textContent = "Price unavailable";
-            }
+            priceElement.textContent = `${(variant.price / 100).toFixed(2)} EUR`;
         } else {
             console.error("Price element not found");
         }
@@ -93,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function addToCart(variantId, quantity) {
         const checkoutId = localStorage.getItem('checkoutId');
 
+        // Wenn kein Checkout vorhanden ist, erstellen Sie einen neuen
         if (!checkoutId) {
             client.checkout.create().then((checkout) => {
                 localStorage.setItem('checkoutId', checkout.id);
@@ -107,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error("Error adding item to cart:", error);
             });
         } else {
+            // Wenn Checkout vorhanden ist, fügen Sie einfach die Linie hinzu
             client.checkout.addLineItems(checkoutId, [{
                 variantId: variantId,
                 quantity: quantity
