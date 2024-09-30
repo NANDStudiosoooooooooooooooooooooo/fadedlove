@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
             itemDetails.innerHTML = `
                 <h2>${item.name}</h2>
                 <p>${item.description}</p>
-                <p><strong>PRICE: <span id="item-price">${(currentVariant.price).toFixed(2)} EUR</span></strong></p>
+                <p><strong>PRICE: <span id="item-price">${(currentVariant.price ? parseFloat(currentVariant.price).toFixed(2) : "0.00")} EUR</span></strong></p>
                 <p>${item.shipping}</p>
                 <p>${item.description2}</p>
                 <label for="size-select">Select Size:</label>
@@ -69,17 +69,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 addToCart(selectedVariantId, quantity);
             });
             document.getElementById('shopify-cart-button').appendChild(addToCartButton);
-
-            // Bilder zur Container hinzufügen
-            const imagesContainer = document.querySelector('.item-images-container');
-            if (imagesContainer) {
-                item.images.forEach(image => {
-                    const imgElement = document.createElement('img');
-                    imgElement.src = image;
-                    imgElement.alt = item.name;
-                    imagesContainer.appendChild(imgElement);
-                });
-            }
         }).catch((error) => {
             console.error("Error fetching Shopify product:", error);
             itemDetails.innerHTML = '<p>Failed to fetch product details.</p>';
@@ -89,7 +78,13 @@ document.addEventListener('DOMContentLoaded', function () {
     function updatePriceDisplay(variant) {
         const priceElement = document.getElementById('item-price');
         if (priceElement) {
-            priceElement.textContent = `${parseFloat(variant.price).toFixed(2)} EUR`; // Preis korrekt umrechnen
+            const price = variant.price ? parseFloat(variant.price) : NaN;
+            if (!isNaN(price)) {
+                priceElement.textContent = `${price.toFixed(2)} EUR`;
+            } else {
+                console.error("Variant price is not a valid number");
+                priceElement.textContent = "Price unavailable";
+            }
         } else {
             console.error("Price element not found");
         }
