@@ -902,7 +902,7 @@ video::-webkit-media-controls {
     -moz-appearance: none;
     width: 12px;
     height: 12px;
-    border: 2px solid rgb(255, 255, 255, 0,5);
+    border: 1px solid;
     border-radius: 50%;
     position: relative;
     outline: none;
