@@ -902,17 +902,13 @@ video::-webkit-media-controls {
     -moz-appearance: none;
     width: 12px;
     height: 12px;
-    border: 1px solid;
+    border: 1px solid white;
     border-radius: 50%;
     position: relative;
     outline: none;
     cursor: pointer;
     margin-right: 10px;
     transition: background 0.3s ease;
-}
-
-.custom-checkbox:checked {
-    background-color: white;
 }
 
 .custom-checkbox:checked::after {
