@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
         client.product.fetch(productId).then((product) => {
             // Standardvariante setzen
             let currentVariant = product.variants[0];
-            updatePriceDisplay(currentVariant); // Hier sollte der Preis initial gesetzt werden
+            updatePriceDisplay(currentVariant); // Preis initial setzen
 
             // Anzeige des Artikels
             itemDetails.innerHTML = `
@@ -46,12 +46,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const sizeSelect = document.getElementById('size-select');
             product.variants.forEach(variant => {
                 const option = document.createElement('option');
-                option.value = variant.id; // Die ID der Variante wird als Wert verwendet
-                option.textContent = variant.title; // Der Titel der Variante wird angezeigt
+                option.value = variant.id; // ID der Variante verwenden
+                option.textContent = variant.title; // Titel der Variante anzeigen
                 sizeSelect.appendChild(option);
             });
 
-            // Event Listener für den Dropdown, um den Preis bei Auswahl zu aktualisieren
+            // Event Listener für den Dropdown
             sizeSelect.addEventListener('change', function () {
                 const selectedVariantId = this.value;
                 currentVariant = product.variants.find(v => v.id === selectedVariantId);
@@ -96,7 +96,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function addToCart(variantId, quantity) {
         client.checkout.create().then((checkout) => {
-            // Speichern Sie die Checkout-ID, damit Sie später darauf zugreifen können
             localStorage.setItem('checkoutId', checkout.id);
             return client.checkout.addLineItems(checkout.id, [{
                 variantId: variantId,
@@ -104,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }]);
         }).then((checkout) => {
             alert('Item added to cart!');
-            updateCartCount();
+            updateCartCount(); // Diese Funktion muss in cart.js definiert sein
         }).catch((error) => {
             console.error("Error adding item to cart:", error);
         });
