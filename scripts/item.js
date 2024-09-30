@@ -27,16 +27,14 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayItem(item) {
         const itemDetails = document.getElementById('itemDetails');
         const imagesContainer = document.querySelector('.item-images-container');
-        
+
         // Kodierung der Produkt-ID für den API-Aufruf
         const productId = `gid://shopify/Product/${item.id}`;
-        
+
         // Fetch die Shopify-Produktdaten
         client.product.fetch(productId).then((product) => {
             const variant = product.variants[0]; // Nimm die Standard-Variante an
-            
-            // Ensure the price is fetched correctly
-            const price = parseFloat(variant.price).toFixed(2); // Convert price to number and format
+            const price = (variant.price / 100).toFixed(2); // Preis in Euro umwandeln (in Cent)
 
             // Anzeige des Artikels
             itemDetails.innerHTML = `
@@ -44,13 +42,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 <p>${item.description}</p>
                 <p><strong>PRICE: ${price} EUR</strong></p>
                 <p>${item.description2}</p>
-                <div id="sizeDropdownContainer">
-                    <label for="sizeDropdown">Select Size:</label>
-                    <select id="sizeDropdown" class="glass-button">
-                        ${product.variants.map(v => `<option value="${v.id}">${v.title}</option>`).join('')}
-                    </select>
-                </div>
                 <div id="shopify-cart-button"></div> <!-- Hier wird der Button platziert -->
+                <label for="size-select">Select Size:</label>
+                <select id="size-select"></select> <!-- Dropdown für Größen -->
             `;
 
             // Shopify "Add to Cart" Button generieren
@@ -60,12 +54,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Event-Listener hinzufügen für den "Add to Cart" Button
             addToCartButton.addEventListener('click', () => {
+                const sizeSelect = document.getElementById('size-select');
+                const selectedVariantId = sizeSelect.value; // Die ID der ausgewählten Variante
+
                 const quantity = 1;
-                const selectedSizeId = document.getElementById('sizeDropdown').value; // Get the selected size variant ID
                 client.checkout.create().then((checkout) => {
                     client.checkout.addLineItems(checkout.id, [
                         {
-                            variantId: selectedSizeId,
+                            variantId: selectedVariantId,
                             quantity: quantity
                         }
                     ]).then((checkout) => {
@@ -77,17 +73,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Button zum Container hinzufügen
             document.getElementById('shopify-cart-button').appendChild(addToCartButton);
+
+            // Bilder zur Container hinzufügen
+            item.images.forEach(image => {
+                const imgElement = document.createElement('img');
+                imgElement.src = image;
+                imgElement.alt = item.name;
+                imagesContainer.appendChild(imgElement);
+            });
+
+            // Größenauswahl laden
+            loadSizes(product.variants);
         }).catch((error) => {
             console.error("Error fetching Shopify product:", error); // Fehler ausgeben
             itemDetails.innerHTML = '<p>Failed to fetch product details.</p>';
         });
+    }
 
-        // Bilder zur Container hinzufügen
-        item.images.forEach(image => {
-            const imgElement = document.createElement('img');
-            imgElement.src = image;
-            imgElement.alt = item.name;
-            imagesContainer.appendChild(imgElement);
+    // Funktion zum Laden der Größen in das Dropdown
+    function loadSizes(variants) {
+        const sizeSelect = document.getElementById('size-select');
+        variants.forEach(variant => {
+            const option = document.createElement('option');
+            option.value = variant.id; // Hier wird die ID des Varianten-Items gesetzt
+            option.textContent = variant.title; // Hier wird der Titel der Variante (Größe) gesetzt
+            sizeSelect.appendChild(option);
         });
     }
 });
