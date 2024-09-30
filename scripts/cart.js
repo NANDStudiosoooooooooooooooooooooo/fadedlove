@@ -1,7 +1,7 @@
 // Hier wird die Shopify-Clientinitialisierung gemacht
 const client = ShopifyBuy.buildClient({
     domain: '8d16c7-e5.myshopify.com',
-    storefrontAccessToken: '906f6d35af6057d33826372f56504a5b'
+    storefrontAccessToken: '4c5fbcdc72435c7a75e2d99c337f5ed0'
 });
 
 // Funktion zum Aktualisieren der Anzahl im Warenkorb
