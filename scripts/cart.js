@@ -9,17 +9,17 @@ document.addEventListener('DOMContentLoaded', function () {
         if (checkoutId) {
             client.checkout.fetch(checkoutId).then((checkout) => {
                 const itemCount = checkout.lineItems.reduce((count, lineItem) => count + lineItem.quantity, 0);
-                document.getElementById('cart-count').textContent = itemCount; // Hier sollte die ID des Cart-Counts sein
+                document.getElementById('cart-count').textContent = itemCount;
             }).catch((error) => {
                 console.error("Error fetching checkout:", error);
             });
         } else {
-            document.getElementById('cart-count').textContent = '0'; // Setze auf 0, wenn kein Checkout vorhanden ist
+            document.getElementById('cart-count').textContent = '0';
         }
     }
 
     // Event Listener für den Cart Button
-    const cartButton = document.getElementById('cart-button'); // Hier sollte die ID des Cart-Buttons sein
+    const cartButton = document.getElementById('cart-button');
     if (cartButton) {
         cartButton.addEventListener('click', () => {
             const checkoutId = localStorage.getItem('checkoutId');
@@ -31,6 +31,5 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Initiale Aktualisierung der Warenkorbanzeige
-    updateCartCount();
+    updateCartCount(); // Cart-Count beim Laden aktualisieren
 });

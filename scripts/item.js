@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
             itemDetails.innerHTML = `
                 <h2>${item.name}</h2>
                 <p>${item.description}</p>
-                <p><strong>PRICE: <span id="item-price">${(currentVariant.price / 100).toFixed(2)} EUR</span></strong></p>
+                <p><strong>PRICE: <span id="item-price">${(currentVariant.price).toFixed(2)} EUR</span></strong></p>
                 <p>${item.shipping}</p>
                 <p>${item.description2}</p>
                 <label for="size-select">Select Size:</label>
@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const sizeSelect = document.getElementById('size-select');
             product.variants.forEach(variant => {
                 const option = document.createElement('option');
-                option.value = variant.id; // ID der Variante verwenden
-                option.textContent = variant.title; // Titel der Variante anzeigen
+                option.value = variant.id;
+                option.textContent = variant.title;
                 sizeSelect.appendChild(option);
             });
 
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function updatePriceDisplay(variant) {
         const priceElement = document.getElementById('item-price');
         if (priceElement) {
-            priceElement.textContent = `${(variant.price / 100).toFixed(2)} EUR`;
+            priceElement.textContent = `${parseFloat(variant.price).toFixed(2)} EUR`; // Preis korrekt umrechnen
         } else {
             console.error("Price element not found");
         }
@@ -98,7 +98,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function addToCart(variantId, quantity) {
         const checkoutId = localStorage.getItem('checkoutId');
 
-        // Wenn kein Checkout vorhanden ist, erstellen Sie einen neuen
         if (!checkoutId) {
             client.checkout.create().then((checkout) => {
                 localStorage.setItem('checkoutId', checkout.id);
@@ -113,7 +112,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error("Error adding item to cart:", error);
             });
         } else {
-            // Wenn Checkout vorhanden ist, fügen Sie einfach die Linie hinzu
             client.checkout.addLineItems(checkoutId, [{
                 variantId: variantId,
                 quantity: quantity
