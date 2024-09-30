@@ -5,29 +5,30 @@ document.getElementById("subscribeButton").addEventListener("click", function(ev
     const termsCheckbox = document.getElementById("termsCheckbox");
     const checkboxContainer = document.querySelector('.checkbox-container');
 
-    // Validate email and checkbox
-    if (isValidEmail(email) && termsCheckbox.checked) {
-        fetch("https://subscribe.fadedcloth.de/sub", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email: email })
-        })
-        .then(response => response.json())
-        .then(data => {
-            const currentUrl = encodeURIComponent(window.location.href);
-            window.location.href = `https://subscribe.fadedcloth.de/success?SUBSCRIBED&referrer=${currentUrl}`;
-        })
-        .catch(error => {
-            alert("An error occurred: " + error.message);
-        });
+    // Zuerst die E-Mail validieren
+    if (!isValidEmail(email)) {
+        shakeElement(emailInput); // Nur das E-Mail-Feld wackelt
     } else {
+        // E-Mail ist gültig, dann prüfen, ob die Checkbox angeklickt ist
         if (!termsCheckbox.checked) {
-            shakeElement(checkboxContainer);
-        }
-        if (!isValidEmail(email)) {
-            shakeElement(emailInput);
+            shakeElement(checkboxContainer); // Jetzt nur die Checkbox und der Text wackeln
+        } else {
+            // Wenn beides korrekt ist, den normalen Submit-Prozess starten
+            fetch("https://subscribe.fadedcloth.de/sub", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const currentUrl = encodeURIComponent(window.location.href);
+                window.location.href = `https://subscribe.fadedcloth.de/success?SUBSCRIBED&referrer=${currentUrl}`;
+            })
+            .catch(error => {
+                alert("An error occurred: " + error.message);
+            });
         }
     }
 });

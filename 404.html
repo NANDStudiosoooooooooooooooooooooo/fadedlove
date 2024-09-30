@@ -37,7 +37,12 @@
           class="email-input"
           required 
       />
-      <div class="info-text"><a>I ACCEPT THE <a class="href" href="/legal?id=terms-of-service">TERMS</a></a></div>
+      <div class="checkbox-container">
+                <input type="checkbox" id="termsCheckbox" class="custom-checkbox">
+                <label for="termsCheckbox" class="checkbox-label">
+                  I ACCEPT THE <a class="href" href="/legal?id=terms-of-service">TERMS</a>
+                </label>
+            </div>
       <div class="form-buttons">
           <button id="subscribeButton" class="email-button small-button">
               SUBMIT
@@ -50,6 +55,6 @@
     
     <script src="scripts/animate.js" defer></script> 
     <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js" defer></script>
-    <script src="scripts/subscribe.js" defer></script>
+    <script src="scripts/subscribe.js?v=1.2" defer></script>
 </body>
 </html>
