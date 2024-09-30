@@ -3,14 +3,14 @@
  const itemId = params.get('item');
 
  // Fetch item data from external JSON file
- fetch('JSON/items.json')
+ fetch('https://fadedcloth.de/JSON/items.json')
      .then(response => response.json())
      .then(data => {
          const item = data.find(i => i.id === itemId);
          if (item) {
              displayItem(item);
          } else {
-             document.getElementById('itemDetails').innerHTML = '<p>Item not found.</p>';
+             document.getElementById('itemDetails').innerHTML = '<p>ITEM NOT FOUND.</p>';
          }
      });
 
