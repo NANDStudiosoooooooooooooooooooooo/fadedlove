@@ -927,3 +927,22 @@ video::-webkit-media-controls {
     border-radius: 50%;
     transform: translate(-50%, -50%);
 }
+
+.cart-button {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+    white-space: nowrap; /* Verhindert Zeilenumbruch */
+    -webkit-appearance: none; /* Entfernt iOS/Safari-Standardbutton-Styling */
+    appearance: none;
+}
+
+.cart-button:hover {
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5);
+}
