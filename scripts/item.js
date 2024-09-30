@@ -33,7 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Fetch die Shopify-Produktdaten
         client.product.fetch(productId).then((product) => {
-            const variant = product.variants[0]; // Nimm die Standard-Variante an
+            // Die erste Variante als Standard verwenden
+            const variant = product.variants[0]; 
             const price = (variant.price / 100).toFixed(2); // Preis umrechnen, da Shopify Preis in Cent gibt
 
             // Anzeige des Artikels
