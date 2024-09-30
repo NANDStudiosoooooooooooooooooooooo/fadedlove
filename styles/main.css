@@ -941,6 +941,8 @@ video::-webkit-media-controls {
     white-space: nowrap; /* Verhindert Zeilenumbruch */
     -webkit-appearance: none; /* Entfernt iOS/Safari-Standardbutton-Styling */
     appearance: none;
+    top: 0px;
+    right: 0px;
 }
 
 .cart-button:hover {
