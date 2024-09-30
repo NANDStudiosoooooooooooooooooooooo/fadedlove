@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }).catch((error) => {
                 console.error("Error fetching checkout:", error);
             });
+        } else {
+            document.getElementById('cart-count').textContent = '0'; // Setze auf 0, wenn kein Checkout vorhanden ist
         }
     }
 
@@ -23,7 +25,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const checkoutId = localStorage.getItem('checkoutId');
             if (checkoutId) {
                 window.location.href = `https://8d16c7-e5.myshopify.com/cart/${checkoutId}`;
+            } else {
+                alert('Cart is empty!');
             }
         });
     }
+
+    // Initiale Aktualisierung der Warenkorbanzeige
+    updateCartCount();
 });

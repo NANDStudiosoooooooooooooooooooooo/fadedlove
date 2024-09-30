@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const params = new URLSearchParams(window.location.search);
     const itemId = params.get('item');
 
+    // Produktdaten abrufen
     fetch('https://fadedcloth.de/JSON/items.json')
         .then(response => response.json())
         .then(data => {
@@ -87,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updatePriceDisplay(variant) {
         const priceElement = document.getElementById('item-price');
-        if (priceElement) { // Überprüfen, ob priceElement existiert
+        if (priceElement) {
             priceElement.textContent = `${(variant.price / 100).toFixed(2)} EUR`;
         } else {
             console.error("Price element not found");
@@ -95,17 +96,33 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function addToCart(variantId, quantity) {
-        client.checkout.create().then((checkout) => {
-            localStorage.setItem('checkoutId', checkout.id);
-            return client.checkout.addLineItems(checkout.id, [{
+        const checkoutId = localStorage.getItem('checkoutId');
+
+        // Wenn kein Checkout vorhanden ist, erstellen Sie einen neuen
+        if (!checkoutId) {
+            client.checkout.create().then((checkout) => {
+                localStorage.setItem('checkoutId', checkout.id);
+                return client.checkout.addLineItems(checkout.id, [{
+                    variantId: variantId,
+                    quantity: quantity
+                }]);
+            }).then((checkout) => {
+                alert('Item added to cart!');
+                updateCartCount(); // Diese Funktion muss in cart.js definiert sein
+            }).catch((error) => {
+                console.error("Error adding item to cart:", error);
+            });
+        } else {
+            // Wenn Checkout vorhanden ist, fügen Sie einfach die Linie hinzu
+            client.checkout.addLineItems(checkoutId, [{
                 variantId: variantId,
                 quantity: quantity
-            }]);
-        }).then((checkout) => {
-            alert('Item added to cart!');
-            updateCartCount(); // Diese Funktion muss in cart.js definiert sein
-        }).catch((error) => {
-            console.error("Error adding item to cart:", error);
-        });
+            }]).then((checkout) => {
+                alert('Item added to cart!');
+                updateCartCount(); // Diese Funktion muss in cart.js definiert sein
+            }).catch((error) => {
+                console.error("Error adding item to cart:", error);
+            });
+        }
     }
 });
