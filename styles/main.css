@@ -520,6 +520,7 @@ border-radius: 0;
     max-width: 600px;
     padding-top: 10px;
     padding-bottom: 10px;
+    margin: 0 auto;
   }
   
   .item-details img {
@@ -547,6 +548,7 @@ border-radius: 0;
 .item-container{
     margin-top: 20px;
     margin-bottom: 50px;
+    display: flex;
     justify-content: center;
 }
 
