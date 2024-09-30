@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayItem(item) {
         const itemDetails = document.getElementById('itemDetails');
-        const imagesContainer = document.querySelector('.item-images-container');
         const productId = `gid://shopify/Product/${item.id}`;
 
         client.product.fetch(productId).then((product) => {
