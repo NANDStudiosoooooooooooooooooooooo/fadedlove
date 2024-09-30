@@ -1,7 +1,7 @@
 // Shopify Client initialisieren
 const client = ShopifyBuy.buildClient({
     domain: '8d16c7-e5.myshopify.com', // Ersetze mit deinem Shopify-Shop-Domainnamen
-    storefrontAccessToken: 'your-storefront-access-token' // Ersetze mit deinem API Access Token
+    storefrontAccessToken: '4c5fbcdc72435c7a75e2d99c337f5ed0' // Ersetze mit deinem API Access Token
 });
 
 // Fetch the item ID from the query parameter
