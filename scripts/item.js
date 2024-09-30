@@ -24,66 +24,70 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Error fetching items JSON:", error);
         });
 
-        function displayItem(item) {
-            const itemDetails = document.getElementById('itemDetails');
-            const imagesContainer = document.querySelector('.item-images-container');
+    function displayItem(item) {
+        const itemDetails = document.getElementById('itemDetails');
+        const imagesContainer = document.querySelector('.item-images-container');
         
-            // Kodierung der Produkt-ID für den API-Aufruf
-            const productId = `gid://shopify/Product/${item.id}`;
+        // Kodierung der Produkt-ID für den API-Aufruf
+        const productId = `gid://shopify/Product/${item.id}`;
         
-            // Fetch die Shopify-Produktdaten
-            client.product.fetch(productId).then((product) => {
-                const variant = product.variants[0]; // Nimm die Standard-Variante an
-                const price = (variant.price / 100).toFixed(2); // Convert price from cents to euros
-        
-                // Anzeige des Artikels
-                itemDetails.innerHTML = `
-                    <h2>${item.name}</h2>
-                    <p>${item.description}</p>
-                    <p><strong>PRICE: ${price} EUR</strong></p>
-                    <p>${item.shipping}</p> <!-- Shipping info -->
-                    <p>${item.description2}</p>
-                    <div id="shopify-cart-button"></div> <!-- Hier wird der Button platziert -->
-                `;
-        
-                // Shopify "Add to Cart" Button generieren
-                const addToCartButton = document.createElement('button');
-                addToCartButton.textContent = "Add to Cart";
-                addToCartButton.classList.add('add-to-cart-button');
-        
-                // Event-Listener hinzufügen für den "Add to Cart" Button
-                addToCartButton.addEventListener('click', () => {
-                    const quantity = 1;
-                    client.checkout.create().then((checkout) => {
-                        client.checkout.addLineItems(checkout.id, [
-                            {
-                                variantId: variant.id,
-                                quantity: quantity
-                            }
-                        ]).then((checkout) => {
-                            alert('Item added to cart!');
-                            console.log('Checkout URL:', checkout.webUrl); // Checkout URL für externen Checkout
-                        }).catch((error) => {
-                            console.error("Error adding item to cart:", error);
-                        });
-                    }).catch((error) => {
-                        console.error("Error creating checkout:", error);
+        // Fetch die Shopify-Produktdaten
+        client.product.fetch(productId).then((product) => {
+            const variant = product.variants[0]; // Nimm die Standard-Variante an
+            
+            // Ensure the price is fetched correctly
+            const price = parseFloat(variant.price).toFixed(2); // Convert price to number and format
+
+            // Anzeige des Artikels
+            itemDetails.innerHTML = `
+                <h2>${item.name}</h2>
+                <p>${item.description}</p>
+                <p><strong>PRICE: ${price} EUR</strong></p>
+                <p>${item.description2}</p>
+                <div id="sizeDropdownContainer">
+                    <label for="sizeDropdown">Select Size:</label>
+                    <select id="sizeDropdown" class="glass-button">
+                        ${product.variants.map(v => `<option value="${v.id}">${v.title}</option>`).join('')}
+                    </select>
+                </div>
+                <div id="shopify-cart-button"></div> <!-- Hier wird der Button platziert -->
+            `;
+
+            // Shopify "Add to Cart" Button generieren
+            const addToCartButton = document.createElement('button');
+            addToCartButton.textContent = "Add to Cart";
+            addToCartButton.classList.add('add-to-cart-button');
+
+            // Event-Listener hinzufügen für den "Add to Cart" Button
+            addToCartButton.addEventListener('click', () => {
+                const quantity = 1;
+                const selectedSizeId = document.getElementById('sizeDropdown').value; // Get the selected size variant ID
+                client.checkout.create().then((checkout) => {
+                    client.checkout.addLineItems(checkout.id, [
+                        {
+                            variantId: selectedSizeId,
+                            quantity: quantity
+                        }
+                    ]).then((checkout) => {
+                        alert('Item added to cart!');
+                        console.log('Checkout URL:', checkout.webUrl); // Checkout URL für externen Checkout
                     });
                 });
-        
-                // Button zum Container hinzufügen
-                document.getElementById('shopify-cart-button').appendChild(addToCartButton);
-            }).catch((error) => {
-                console.error("Error fetching Shopify product:", error); // Fehler ausgeben
-                itemDetails.innerHTML = '<p>Failed to fetch product details.</p>';
             });
-        
-            // Bilder zur Container hinzufügen
-            item.images.forEach(image => {
-                const imgElement = document.createElement('img');
-                imgElement.src = image;
-                imgElement.alt = item.name;
-                imagesContainer.appendChild(imgElement);
-            });
-        }
+
+            // Button zum Container hinzufügen
+            document.getElementById('shopify-cart-button').appendChild(addToCartButton);
+        }).catch((error) => {
+            console.error("Error fetching Shopify product:", error); // Fehler ausgeben
+            itemDetails.innerHTML = '<p>Failed to fetch product details.</p>';
+        });
+
+        // Bilder zur Container hinzufügen
+        item.images.forEach(image => {
+            const imgElement = document.createElement('img');
+            imgElement.src = image;
+            imgElement.alt = item.name;
+            imagesContainer.appendChild(imgElement);
+        });
+    }
 });
