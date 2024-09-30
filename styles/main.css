@@ -903,7 +903,7 @@ video::-webkit-media-controls {
     -moz-appearance: none;
     width: 12px;
     height: 12px;
-    border: 1px solid white;
+    border: 1px solid whitesmoke;
     border-radius: 50%;
     position: relative;
     outline: none;
@@ -919,7 +919,7 @@ video::-webkit-media-controls {
     left: 50%;
     width: 12px;
     height: 12px;
-    background: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
     border-radius: 50%;
     transform: translate(-50%, -50%);
 }
