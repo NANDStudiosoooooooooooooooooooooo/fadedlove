@@ -33,28 +33,27 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Fetch die Shopify-Produktdaten
         client.product.fetch(productId).then((product) => {
-            // Die erste Variante als Standard verwenden
-            const variant = product.variants[0]; 
-            const price = (variant.price / 100).toFixed(2); // Preis umrechnen, da Shopify Preis in Cent gibt
+            const variant = product.variants[0]; // Nimm die erste Variante als Standard
+            const price = (variant ? (variant.price / 100).toFixed(2) : "0.00"); // Preis umrechnen
 
             // Anzeige des Artikels
             itemDetails.innerHTML = `
                 <h2>${item.name}</h2>
                 <p>${item.description}</p>
                 <p><strong>PRICE: ${price} EUR</strong></p>
-                <p>${item.shipping}</p> <!-- Shipping information -->
-                <p>${item.description2}</p> <!-- Hier die description2 hinzufügen -->
+                <p>${item.shipping}</p>
+                <p>${item.description2}</p>
                 <label for="size-select">Select Size:</label>
-                <select id="size-select"></select> <!-- Dropdown für die Größen -->
-                <div id="shopify-cart-button"></div> <!-- Hier wird der Button platziert -->
+                <select id="size-select"></select>
+                <div id="shopify-cart-button"></div>
             `;
 
             // Dropdown mit Größen befüllen
             const sizeSelect = document.getElementById('size-select');
             product.variants.forEach(variant => {
                 const option = document.createElement('option');
-                option.value = variant.id; // Die ID der Variante wird als Wert verwendet
-                option.textContent = variant.title; // Der Titel der Variante wird angezeigt
+                option.value = variant.id; // ID der Variante
+                option.textContent = variant.title; // Titel der Variante
                 sizeSelect.appendChild(option);
             });
 
@@ -65,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Event-Listener hinzufügen für den "Add to Cart" Button
             addToCartButton.addEventListener('click', () => {
-                const selectedVariantId = sizeSelect.value; // Die ausgewählte Variant-ID holen
+                const selectedVariantId = sizeSelect.value; // Die ausgewählte Variant-ID
                 const quantity = 1;
                 addToCart(selectedVariantId, quantity); // Hier die `addToCart`-Funktion aufrufen
             });
@@ -73,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Button zum Container hinzufügen
             document.getElementById('shopify-cart-button').appendChild(addToCartButton);
         }).catch((error) => {
-            console.error("Error fetching Shopify product:", error); // Fehler ausgeben
+            console.error("Error fetching Shopify product:", error);
             itemDetails.innerHTML = '<p>Failed to fetch product details.</p>';
         });
 
@@ -95,14 +94,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }).then((checkout) => {
             alert('Item added to cart!');
             console.log('Checkout URL:', checkout.webUrl); // Checkout URL für externen Checkout
-            updateCartCount();
+            updateCartCount(checkout.id); // Update der Warenkorb-Anzahl
         }).catch((error) => {
             console.error("Error adding item to cart:", error);
         });
     }
 
-    function updateCartCount() {
-        client.checkout.getCurrent().then((checkout) => {
+    function updateCartCount(checkoutId) {
+        client.checkout.fetch(checkoutId).then((checkout) => {
             const itemCount = checkout.lineItems.reduce((total, lineItem) => total + lineItem.quantity, 0);
             document.getElementById('cart-count').textContent = itemCount;
         }).catch((error) => {
