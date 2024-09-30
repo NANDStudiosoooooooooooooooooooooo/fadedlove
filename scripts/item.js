@@ -34,13 +34,14 @@ document.addEventListener('DOMContentLoaded', function() {
             // Fetch die Shopify-Produktdaten
             client.product.fetch(productId).then((product) => {
                 const variant = product.variants[0]; // Nimm die Standard-Variante an
-                const price = variant.price;
+                const price = (variant.price / 100).toFixed(2); // Convert price from cents to euros
         
                 // Anzeige des Artikels
                 itemDetails.innerHTML = `
                     <h2>${item.name}</h2>
                     <p>${item.description}</p>
                     <p><strong>PRICE: ${price} EUR</strong></p>
+                    <p>${item.shipping}</p> <!-- Shipping info -->
                     <p>${item.description2}</p>
                     <div id="shopify-cart-button"></div> <!-- Hier wird der Button platziert -->
                 `;
@@ -62,7 +63,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         ]).then((checkout) => {
                             alert('Item added to cart!');
                             console.log('Checkout URL:', checkout.webUrl); // Checkout URL für externen Checkout
+                        }).catch((error) => {
+                            console.error("Error adding item to cart:", error);
                         });
+                    }).catch((error) => {
+                        console.error("Error creating checkout:", error);
                     });
                 });
         
