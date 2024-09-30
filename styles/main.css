@@ -917,8 +917,8 @@ video::-webkit-media-controls {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 13px;
-    height: 13px;
+    width: 12px;
+    height: 12px;
     background: rgb(255, 255, 255);
     border-radius: 50%;
     transform: translate(-50%, -50%);
