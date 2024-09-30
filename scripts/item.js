@@ -27,10 +27,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayItem(item) {
         const itemDetails = document.getElementById('itemDetails');
         const imagesContainer = document.querySelector('.item-images-container');
-        
+
         // Kodierung der Produkt-ID für den API-Aufruf
         const productId = `gid://shopify/Product/${item.id}`;
-        
+
         // Fetch die Shopify-Produktdaten
         client.product.fetch(productId).then((product) => {
             const variant = product.variants[0]; // Nimm die Standard-Variante an
@@ -56,21 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 option.textContent = variant.title; // Der Titel der Variante wird angezeigt
                 sizeSelect.appendChild(option);
             });
-
-            // Shopify "Add to Cart" Button generieren
-            const addToCartButton = document.createElement('button');
-            addToCartButton.textContent = "Add to Cart";
-            addToCartButton.classList.add('add-to-cart-button');
-            
-            // Event-Listener hinzufügen für den "Add to Cart" Button
-            addToCartButton.addEventListener('click', () => {
-                const selectedVariantId = sizeSelect.value; // Die ausgewählte Variant-ID holen
-                const quantity = 1;
-                addToCart(selectedVariantId, quantity); // Hier die `addToCart`-Funktion aufrufen
-            });
-            
-            // Button zum Container hinzufügen
-            document.getElementById('shopify-cart-button').appendChild(addToCartButton);
         }).catch((error) => {
             console.error("Error fetching Shopify product:", error); // Fehler ausgeben
             itemDetails.innerHTML = '<p>Failed to fetch product details.</p>';
@@ -82,30 +67,6 @@ document.addEventListener('DOMContentLoaded', function() {
             imgElement.src = image;
             imgElement.alt = item.name;
             imagesContainer.appendChild(imgElement);
-        });
-    }
-
-    function addToCart(variantId, quantity) {
-        client.checkout.create().then((checkout) => {
-            return client.checkout.addLineItems(checkout.id, [{
-                variantId: variantId,
-                quantity: quantity
-            }]);
-        }).then((checkout) => {
-            alert('Item added to cart!');
-            console.log('Checkout URL:', checkout.webUrl); // Checkout URL für externen Checkout
-            updateCartCount();
-        }).catch((error) => {
-            console.error("Error adding item to cart:", error);
-        });
-    }
-
-    function updateCartCount() {
-        client.checkout.create().then((checkout) => {
-            const itemCount = checkout.lineItems.reduce((total, lineItem) => total + lineItem.quantity, 0);
-            document.getElementById('cart-count').textContent = itemCount;
-        }).catch((error) => {
-            console.error("Error fetching cart:", error);
         });
     }
 });
