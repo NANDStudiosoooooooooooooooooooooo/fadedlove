@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const client = ShopifyBuy.buildClient({
         domain: '8d16c7-e5.myshopify.com',
         storefrontAccessToken: '4c5fbcdc72435c7a75e2d99c337f5ed0'
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         client.product.fetch(productId).then((product) => {
             // Standardvariante setzen
             let currentVariant = product.variants[0];
-            updatePriceDisplay(currentVariant);
+            updatePriceDisplay(currentVariant); // Hier sollte der Preis initial gesetzt werden
 
             // Anzeige des Artikels
             itemDetails.innerHTML = `
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             // Event Listener für den Dropdown, um den Preis bei Auswahl zu aktualisieren
-            sizeSelect.addEventListener('change', function() {
+            sizeSelect.addEventListener('change', function () {
                 const selectedVariantId = this.value;
                 currentVariant = product.variants.find(v => v.id === selectedVariantId);
                 updatePriceDisplay(currentVariant);
@@ -68,26 +68,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 addToCart(selectedVariantId, quantity);
             });
             document.getElementById('shopify-cart-button').appendChild(addToCartButton);
+
+            // Bilder zur Container hinzufügen
+            const imagesContainer = document.querySelector('.item-images-container');
+            if (imagesContainer) {
+                item.images.forEach(image => {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = image;
+                    imgElement.alt = item.name;
+                    imagesContainer.appendChild(imgElement);
+                });
+            }
         }).catch((error) => {
             console.error("Error fetching Shopify product:", error);
             itemDetails.innerHTML = '<p>Failed to fetch product details.</p>';
         });
-
-        // Bilder zur Container hinzufügen
-        const imagesContainer = document.querySelector('.item-images-container');
-        if (imagesContainer) {
-            item.images.forEach(image => {
-                const imgElement = document.createElement('img');
-                imgElement.src = image;
-                imgElement.alt = item.name;
-                imagesContainer.appendChild(imgElement);
-            });
-        }
     }
 
     function updatePriceDisplay(variant) {
         const priceElement = document.getElementById('item-price');
-        priceElement.textContent = `${(variant.price / 100).toFixed(2)} EUR`;
+        if (priceElement) { // Überprüfen, ob priceElement existiert
+            priceElement.textContent = `${(variant.price / 100).toFixed(2)} EUR`;
+        } else {
+            console.error("Price element not found");
+        }
     }
 
     function addToCart(variantId, quantity) {
