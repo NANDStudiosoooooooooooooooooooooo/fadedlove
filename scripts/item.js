@@ -33,38 +33,55 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Fetch die Shopify-Produktdaten
         client.product.fetch(productId).then((product) => {
-            const variant = product.variants[0]; // Nimm die Standard-Variante an
+            const sizeSelect = document.getElementById('size-select');
+
+            // Initialisiere den Preis mit der Standard-Variante
+            const variant = product.variants[0];
             const price = (variant.price / 100).toFixed(2); // Preis umrechnen, da Shopify Preis in Cent gibt
 
             // Anzeige des Artikels
             itemDetails.innerHTML = `
                 <h2>${item.name}</h2>
                 <p>${item.description}</p>
-                <p><strong>PRICE: ${price} EUR</strong></p>
-                <p>${item.shipping}</p> <!-- Shipping information -->
-                <p>${item.description2}</p> <!-- Hier die description2 hinzufügen -->
+                <p><strong>PRICE: <span id="current-price">${price} EUR</span></strong></p>
+                <p>${item.shipping}</p>
+                <p>${item.description2}</p>
                 <label for="size-select">Select Size:</label>
-                <select id="size-select"></select> <!-- Dropdown für die Größen -->
-                <button id="add-to-cart-button" class="glass-button">ADD TO CART</button> <!-- Add to Cart Button -->
-                <div id="shopify-cart-button"></div> <!-- Hier wird der Button platziert -->
+                <select id="size-select"></select>
+                <div id="shopify-cart-button"></div>
             `;
 
             // Dropdown mit Größen befüllen
-            const sizeSelect = document.getElementById('size-select');
             product.variants.forEach(variant => {
                 const option = document.createElement('option');
-                option.value = variant.id; // Die ID der Variante wird als Wert verwendet
-                option.textContent = variant.title; // Der Titel der Variante wird angezeigt
+                option.value = variant.id;
+                option.textContent = variant.title;
                 sizeSelect.appendChild(option);
             });
 
-            // Event Listener für den "Add to Cart"-Button
-            document.getElementById('add-to-cart-button').addEventListener('click', () => {
-                const selectedVariantId = sizeSelect.value; // ID der gewählten Variante
-                addToCart(selectedVariantId, 1); // Füge 1 Stück hinzu
+            // Preis aktualisieren bei Auswahl der Variante
+            sizeSelect.addEventListener('change', (event) => {
+                const selectedVariant = product.variants.find(v => v.id === event.target.value);
+                const selectedPrice = (selectedVariant.price / 100).toFixed(2);
+                document.getElementById('current-price').textContent = `${selectedPrice} EUR`;
             });
+
+            // Shopify "Add to Cart" Button generieren
+            const addToCartButton = document.createElement('button');
+            addToCartButton.textContent = "Add to Cart";
+            addToCartButton.classList.add('add-to-cart-button');
+
+            // Event-Listener für den "Add to Cart" Button
+            addToCartButton.addEventListener('click', () => {
+                const selectedVariantId = sizeSelect.value;
+                const quantity = 1;
+                addToCart(selectedVariantId, quantity);
+            });
+
+            // Button zum Container hinzufügen
+            document.getElementById('shopify-cart-button').appendChild(addToCartButton);
         }).catch((error) => {
-            console.error("Error fetching Shopify product:", error); // Fehler ausgeben
+            console.error("Error fetching Shopify product:", error);
             itemDetails.innerHTML = '<p>Failed to fetch product details.</p>';
         });
 
@@ -85,19 +102,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }]);
         }).then((checkout) => {
             alert('Item added to cart!');
-            console.log('Checkout URL:', checkout.webUrl); // Checkout URL für externen Checkout
+            console.log('Checkout URL:', checkout.webUrl);
             updateCartCount();
         }).catch((error) => {
             console.error("Error adding item to cart:", error);
-        });
-    }
-
-    function updateCartCount() {
-        client.checkout.getCurrent().then((checkout) => {
-            const itemCount = checkout.lineItems.reduce((total, lineItem) => total + lineItem.quantity, 0);
-            document.getElementById('cart-count').textContent = itemCount;
-        }).catch((error) => {
-            console.error("Error fetching cart:", error);
         });
     }
 });

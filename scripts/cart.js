@@ -6,24 +6,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const cartButton = document.getElementById('custom-cart-button');
     cartButton.addEventListener('click', () => {
-        client.checkout.create().then((checkout) => {
-            // Hier könnte eine Logik zum Öffnen des Checkouts hinzugefügt werden
-            window.location.href = checkout.webUrl; // Leitet den Benutzer zur Checkout-Seite
-        });
+        openCart();
     });
 
-    function addToCart(variantId, quantity) {
+    function openCart() {
         client.checkout.create().then((checkout) => {
-            return client.checkout.addLineItems(checkout.id, [{
-                variantId: variantId,
-                quantity: quantity
-            }]);
-        }).then((checkout) => {
-            alert('Item added to cart!');
-            console.log('Checkout URL:', checkout.webUrl); // Checkout URL für externen Checkout
-            updateCartCount();
+            window.open(checkout.webUrl, '_blank'); // Öffnet den Shopify-Cart in einem neuen Tab
         }).catch((error) => {
-            console.error("Error adding item to cart:", error);
+            console.error("Error opening cart:", error);
         });
     }
 
@@ -35,4 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Error fetching cart:", error);
         });
     }
+
+    // Initialisiere die Anzahl der Artikel im Cart
+    updateCartCount();
 });
