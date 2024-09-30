@@ -933,6 +933,8 @@ video::-webkit-media-controls {
     backdrop-filter: blur(10px);
     border: none;
     padding: 10px;
+    margin-top: 200px;
+    z-index: 2000;
     font-size: 16px;
     color: white;
     border-radius: 12px;
