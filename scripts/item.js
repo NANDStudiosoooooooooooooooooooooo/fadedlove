@@ -1,6 +1,6 @@
 // Shopify Client initialisieren
 const client = ShopifyBuy.buildClient({
-    domain: 'your-shop-name.myshopify.com', // Ersetze mit deinem Shopify-Shop-Domainnamen
+    domain: '8d16c7-e5.myshopify.com', // Ersetze mit deinem Shopify-Shop-Domainnamen
     storefrontAccessToken: 'your-storefront-access-token' // Ersetze mit deinem API Access Token
 });
 
