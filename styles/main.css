@@ -1026,3 +1026,17 @@ select:focus {
     outline: none; /* Entfernt das Standard-iOS-Outlining */
     border: none;
 }
+
+.link-button {
+    background: none; /* Kein Hintergrund */
+    border: none; /* Keine Umrandung */
+    color: inherit; /* Textfarbe erben */
+    cursor: pointer; /* Zeiger als Cursor */
+    font: inherit; /* Schriftart erben */
+    padding: 0; /* Kein Innenabstand */
+    text-decoration: none; /* Keine Unterstreichung */
+}
+
+.link-button:hover {
+    text-decoration: underline; /* Unterstreichen beim Hover */
+}
