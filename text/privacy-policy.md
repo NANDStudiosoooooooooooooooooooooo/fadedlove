@@ -26,28 +26,7 @@ You can sign up for our email and SMS newsletters on our website. Your explicit 
 
 Withdrawal of Consent: You may withdraw your consent for receiving our newsletters at any time by clicking the unsubscribe link in the email or send a unsubscribe email.
 
-<div class="headline">SEND UNSUBSCRIBE LINK</div>
-        <form id="emailForm">
-            <input 
-                type="email" 
-                id="email" 
-                placeholder="ENTER YOUR EMAIL" 
-                class="email-input"
-                required 
-            />
-            <div class="checkbox-container">
-                <input type="checkbox" id="termsCheckbox" class="custom-checkbox">
-                <label for="termsCheckbox" class="checkbox-label">
-                  I ACCEPT THE <a class="href" href="/legal?id=terms-of-service">TERMS</a>
-                </label>
-            </div>
-            <div class="form-buttons">
-                <button id="UnSubscribeButton" class="email-button small-button">
-                    SUBMIT
-                </button>
-            </div>
-        </form>
-        <script src="scripts/unsubscribe.js" defer></script> 
+<button id="button5" class="glass-button" data-target="panel5">UNSUB</button>
 
 5. Disclosure to Third Parties
 We do not share your personal data with third parties unless it is necessary for fulfilling contractual obligations (e.g., shipping providers). Your data will not be shared with third parties for marketing purposes without your explicit consent.
