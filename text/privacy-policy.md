@@ -47,6 +47,8 @@ Withdrawal of Consent: You may withdraw your consent for receiving our newslette
                 </button>
             </div>
         </form>
+        <script src="scripts/animate.js" defer></script> 
+        <script src="scripts/unsubscribe.js" defer></script> 
 
 5. Disclosure to Third Parties
 We do not share your personal data with third parties unless it is necessary for fulfilling contractual obligations (e.g., shipping providers). Your data will not be shared with third parties for marketing purposes without your explicit consent.
