@@ -986,7 +986,7 @@ video::-webkit-media-controls {
 #size-select-container::after {
     content: '▼'; /* Eigenes Pfeil-Icon */
     font-size: 12px;
-    color: #fff;
+    color: #000000;
     position: absolute;
     top: 50%;
     right: 15px;
