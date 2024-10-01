@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
             itemDetails.innerHTML = `
                 <h2>${item.name}</h2>
                 <p>${item.description}</p>
-                <p>${item.description2}</p>
+                <p>${item.shipping}</p>
                 <p><strong>PRICE: <span id="item-price">${(currentVariant.price / 100).toFixed(2)} EUR</span></strong></p>
                 <label for="size-select">Select Size:</label>
                 <select id="size-select"></select>
