@@ -1,4 +1,4 @@
-<div class="terms">Last Updated: September 28, 2024.
+<div class="terms">Last Updated: October 1, 2024.
 
 1. Data Controller
 The data controller responsible for the collection, processing, and use of your personal data is:
