@@ -121,12 +121,14 @@ h2 {
 }
 
 .top-right {
+    position: absolute;
     top: 0px;
     right: 0px;
     animation: slideInRight 0.5s forwards;
 }
 
 .top-left {
+    position: absolute;
     left: 0px;
     left: 0px;
     animation: slideInLeft 0.5s forwards;
@@ -156,7 +158,8 @@ h2 {
 
 .glass-button {
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     border: none;
     padding: 10px 20px; /* Du kannst dies anpassen, um den Abstand zu ändern */
     font-size: 16px;
@@ -210,7 +213,7 @@ h2 {
     gap: 20px;
     width: auto;/*300px;*/
     max-width: calc(100vw - 80px);
-    
+    -webkit-backdrop-filter: blur(15px);
     z-index: 10;
 }
 
