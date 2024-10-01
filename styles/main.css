@@ -970,6 +970,17 @@ video::-webkit-media-controls {
     cursor: pointer;
 }
 
+#size-select option {
+    background: rgba(0, 0, 0, 0.7); /* Hintergrundfarbe des Dropdown-Menüs */
+    color: #fff; /* Textfarbe der Optionen */
+    padding: 10px; /* Abstand innerhalb der Optionen */
+}
+
+#size-select option:hover, #size-select option:focus {
+    background: rgba(255, 255, 255, 0.2); /* Hover-Effekt für die Optionen */
+    color: #fff; /* Textfarbe bei Hover */
+}
+
 #size-select:focus, #size-select option:checked {
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); /* Leuchtender Schatten bei Fokus oder ausgewählter Option */
 }
@@ -986,10 +997,32 @@ video::-webkit-media-controls {
 #size-select-container::after {
     content: '▼'; /* Eigenes Pfeil-Icon */
     font-size: 12px;
-    color: #000000;
+    color: #ffffff;
     position: absolute;
     top: 50%;
     right: 15px;
     transform: translateY(-50%);
     pointer-events: none; /* Icon nicht klickbar */
+}
+
+/* iOS-Spezifisches Styling anpassen */
+select::-webkit-inner-spin-button,
+select::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* Entfernt iOS Standardpfeile */
+    margin: 0;
+}
+
+select::-webkit-search-cancel-button,
+select::-webkit-search-decoration {
+    -webkit-appearance: none; /* Entfernt iOS Default-Styles */
+}
+
+select::-webkit-select {
+    -webkit-appearance: none; /* Verhindert das iOS-Select-Styling */
+}
+
+/* iOS fixes for select element */
+select:focus {
+    outline: none; /* Entfernt das Standard-iOS-Outlining */
+    border: none;
 }
