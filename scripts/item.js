@@ -61,16 +61,16 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             // Shopify "Add to Cart" Button generieren
-            const addToCartButton = document.createElement('button');
-            addToCartButton.textContent = "ADD";
-            addToCartButton.classList.add('add-to-cart-button');
-            addToCartButton.classList.add('cart-button');
-            addToCartButton.addEventListener('click', () => {
-                const selectedVariantId = sizeSelect.value;
-                const quantity = 1;
-                addToCart(selectedVariantId, quantity);
-            });
-            document.getElementById('shopify-cart-button').appendChild(addToCartButton);
+         //   const addToCartButton = document.createElement('button');
+         //   addToCartButton.textContent = "ADD";
+         //   addToCartButton.classList.add('add-to-cart-button');
+         //   addToCartButton.classList.add('cart-button');
+         //   addToCartButton.addEventListener('click', () => {
+         //       const selectedVariantId = sizeSelect.value;
+         //       const quantity = 1;
+         //       addToCart(selectedVariantId, quantity);
+         //   });
+         //   document.getElementById('shopify-cart-button').appendChild(addToCartButton);
 
             // "Buy Now" Button generieren
             const buyNowButton = document.createElement('button');
