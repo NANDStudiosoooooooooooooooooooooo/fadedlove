@@ -26,7 +26,7 @@ You can sign up for our email and SMS newsletters on our website. Your explicit 
 
 Withdrawal of Consent: You may withdraw your consent for receiving our newsletters at any time by clicking the unsubscribe link in the email or send a unsubscribe email.
 
-<button id="button5" class="glass-button" data-target="panel5">UNSUB</button>
+<button id="button5" class="glass-button" data-target="panel5">UNSUBSCRIBE</button>
 
 5. Disclosure to Third Parties
 We do not share your personal data with third parties unless it is necessary for fulfilling contractual obligations (e.g., shipping providers). Your data will not be shared with third parties for marketing purposes without your explicit consent.
