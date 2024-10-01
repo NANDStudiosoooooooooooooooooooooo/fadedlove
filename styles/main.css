@@ -956,16 +956,17 @@ video::-webkit-media-controls {
     appearance: none; /* Entfernt das Standard-Dropdown-Styling */
     -webkit-appearance: none;
     -moz-appearance: none;
-    background: rgba(255, 255, 255, 0.2); /* Glas-Effekt */
+    background: rgba(255, 255, 255, 0.5); /* Glas-Effekt */
     border: none; /* Entfernt den Standardrahmen */
-    border-radius: 10px; /* Abgerundete Ecken */
-    padding: 10px; /* Abstand innerhalb des Dropdowns */
+    border-radius: 12px; /* Abgerundete Ecken */
+    text-align: center;
+    padding: 5px; /* Abstand innerhalb des Dropdowns */
     color: #fff; /* Textfarbe */
     font-size: 16px; /* Schriftgröße */
     outline: none; /* Entfernt den Standard-Fokus-Rahmen */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Weicher Schatten */
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px); /* Verschwommener Glas-Effekt */
+    backdrop-filter: blur(15px); /* Verschwommener Glas-Effekt */
     cursor: pointer;
 }
 
