@@ -933,7 +933,6 @@ video::-webkit-media-controls {
     backdrop-filter: blur(10px);
     border: none;
     padding: 10px;
-    margin-top: 200px;
     z-index: 2000;
     font-size: 16px;
     color: white;
@@ -943,8 +942,6 @@ video::-webkit-media-controls {
     white-space: nowrap; /* Verhindert Zeilenumbruch */
     -webkit-appearance: none; /* Entfernt iOS/Safari-Standardbutton-Styling */
     appearance: none;
-    top: 0px;
-    right: 0px;
 }
 
 .cart-button:hover {
