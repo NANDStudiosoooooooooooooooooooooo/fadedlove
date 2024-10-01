@@ -971,7 +971,7 @@ video::-webkit-media-controls {
 }
 
 #size-select option {
-    background: rgba(0, 0, 0, 0.7); /* Hintergrundfarbe des Dropdown-Menüs */
+    background: rgb(0, 0, 0); /* Hintergrundfarbe des Dropdown-Menüs */
     color: #fff; /* Textfarbe der Optionen */
     padding: 10px; /* Abstand innerhalb der Optionen */
 }
