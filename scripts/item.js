@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // "Buy Now" Button generieren
             const buyNowButton = document.createElement('button');
-            buyNowButton.textContent = "Buy Now";
+            buyNowButton.textContent = "BUY";
             buyNowButton.classList.add('buy-now-button');
             buyNowButton.classList.add('cart-button');
             buyNowButton.addEventListener('click', () => {
