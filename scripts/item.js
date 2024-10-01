@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <label for="size-select">Select Size:</label>
                 <select id="size-select"></select>
                 <div id="shopify-cart-button"></div>
+                <div id="buy-now-button"></div> <!-- Platz für Buy Now Button -->
             `;
 
             // Dropdown mit Größen befüllen
@@ -69,6 +70,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 addToCart(selectedVariantId, quantity);
             });
             document.getElementById('shopify-cart-button').appendChild(addToCartButton);
+
+            // "Buy Now" Button generieren
+            const buyNowButton = document.createElement('button');
+            buyNowButton.textContent = "Buy Now";
+            buyNowButton.classList.add('buy-now-button');
+            buyNowButton.addEventListener('click', () => {
+                const selectedVariantId = sizeSelect.value;
+                const quantity = 1;
+                buyNow(selectedVariantId, quantity);
+            });
+            document.getElementById('buy-now-button').appendChild(buyNowButton);
 
             // Bilder zur Container hinzufügen
             const imagesContainer = document.querySelector('.item-images-container');
@@ -124,5 +136,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error("Error adding item to cart:", error);
             });
         }
+    }
+
+    // Sofortiger Kauf-Button-Funktionalität
+    function buyNow(variantId, quantity) {
+        client.checkout.create().then((checkout) => {
+            return client.checkout.addLineItems(checkout.id, [{
+                variantId: variantId,
+                quantity: quantity
+            }]);
+        }).then((checkout) => {
+            // Weiterleitung zum Shopify Checkout
+            window.location.href = checkout.webUrl;
+        }).catch((error) => {
+            console.error("Error during buy now:", error);
+        });
     }
 });
