@@ -73,7 +73,8 @@ document.addEventListener('DOMContentLoaded', function () {
             // "Buy Now" Button generieren
             const buyNowButton = document.createElement('button');
             buyNowButton.textContent = "Buy Now";
-            buyNowButton.classList.add('buy-now-button cart-button');
+            buyNowButton.classList.add('buy-now-button');
+            buyNowButton.classList.add('cart-button');
             buyNowButton.addEventListener('click', () => {
                 const selectedVariantId = sizeSelect.value;
                 const quantity = 1;
