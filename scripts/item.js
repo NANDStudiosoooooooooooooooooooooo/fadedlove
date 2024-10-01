@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <p>${item.shipping}</p>
                 <p>${item.description2}</p>
                 <p><strong>PRICE: <span id="item-price">${(currentVariant.price / 100).toFixed(2)} EUR</span></strong></p>
-                <label for="size-select">Select Size:</label>
+                <label for="size-select">SIZE:</label>
                 <select id="size-select"></select>
                 <!--<div id="shopify-cart-button"></div>-->
                 <div id="buy-now-button"></div>
