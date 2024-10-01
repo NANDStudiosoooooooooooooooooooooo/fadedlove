@@ -8,6 +8,7 @@ The purchase contract is concluded with:
 
 Faded Cloth
 Email: <a href="mailto:help@fadedcloth.de" class="href">help@fadedcloth.de</a>
+
 For general inquiries, questions about orders, or for exercising your right of withdrawal, please use this email address.
 
 3. Conclusion of Contract
