@@ -951,3 +951,44 @@ video::-webkit-media-controls {
 .cart-button:hover {
     box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5);
 }
+
+#size-select {
+    appearance: none; /* Entfernt das Standard-Dropdown-Styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: rgba(255, 255, 255, 0.2); /* Glas-Effekt */
+    border: none; /* Entfernt den Standardrahmen */
+    border-radius: 10px; /* Abgerundete Ecken */
+    padding: 10px; /* Abstand innerhalb des Dropdowns */
+    color: #fff; /* Textfarbe */
+    font-size: 16px; /* Schriftgröße */
+    outline: none; /* Entfernt den Standard-Fokus-Rahmen */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Weicher Schatten */
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px); /* Verschwommener Glas-Effekt */
+    cursor: pointer;
+}
+
+#size-select:focus, #size-select option:checked {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); /* Leuchtender Schatten bei Fokus oder ausgewählter Option */
+}
+
+#size-select::-ms-expand {
+    display: none; /* Entfernt den Standard-Dropdown-Pfeil im Internet Explorer */
+}
+
+#size-select-container {
+    position: relative;
+    display: inline-block;
+}
+
+#size-select-container::after {
+    content: '▼'; /* Eigenes Pfeil-Icon */
+    font-size: 12px;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    pointer-events: none; /* Icon nicht klickbar */
+}
