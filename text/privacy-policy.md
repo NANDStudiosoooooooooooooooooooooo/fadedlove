@@ -47,7 +47,6 @@ Withdrawal of Consent: You may withdraw your consent for receiving our newslette
                 </button>
             </div>
         </form>
-        <script src="scripts/animate.js" defer></script> 
         <script src="scripts/unsubscribe.js" defer></script> 
 
 5. Disclosure to Third Parties
