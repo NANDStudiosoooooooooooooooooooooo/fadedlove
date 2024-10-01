@@ -35,13 +35,12 @@ document.addEventListener('DOMContentLoaded', function () {
             itemDetails.innerHTML = `
                 <h2>${item.name}</h2>
                 <p>${item.description}</p>
-                <p><strong>PRICE: <span id="item-price">${(currentVariant.price / 100).toFixed(2)} EUR</span></strong></p>
-                <p>${item.shipping}</p>
                 <p>${item.description2}</p>
+                <p><strong>PRICE: <span id="item-price">${(currentVariant.price / 100).toFixed(2)} EUR</span></strong></p>
                 <label for="size-select">Select Size:</label>
                 <select id="size-select"></select>
                 <div id="shopify-cart-button"></div>
-                <div id="buy-now-button"></div> <!-- Platz für Buy Now Button -->
+                <div id="buy-now-button"></div>
             `;
 
             // Dropdown mit Größen befüllen
@@ -63,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Shopify "Add to Cart" Button generieren
             const addToCartButton = document.createElement('button');
             addToCartButton.textContent = "Add to Cart";
-            addToCartButton.classList.add('add-to-cart-button');
+            addToCartButton.classList.add('add-to-cart-button cart-button');
             addToCartButton.addEventListener('click', () => {
                 const selectedVariantId = sizeSelect.value;
                 const quantity = 1;
@@ -74,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // "Buy Now" Button generieren
             const buyNowButton = document.createElement('button');
             buyNowButton.textContent = "Buy Now";
-            buyNowButton.classList.add('buy-now-button');
+            buyNowButton.classList.add('buy-now-button cart-button');
             buyNowButton.addEventListener('click', () => {
                 const selectedVariantId = sizeSelect.value;
                 const quantity = 1;
@@ -104,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
             priceElement.textContent = `${(variant.price / 100).toFixed(2)} EUR`;
         } else {
             console.error("Price element not found");
+            console.error(`${(variant.price / 100).toFixed(2)} EUR`);
         }
     }
 
