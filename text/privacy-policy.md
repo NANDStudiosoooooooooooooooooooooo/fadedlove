@@ -24,7 +24,7 @@ Customer Support: To respond to your inquiries or resolve issues related to our 
 4. Newsletter and Consent
 You can sign up for our email and SMS newsletters on our website. Your explicit consent is required for this, and we use a double opt-in process, which means you will need to confirm your subscription via a confirmation message.
 
-Withdrawal of Consent: You may withdraw your consent for receiving our newsletters at any time by clicking the unsubscribe link in the email or send a unsubscribe email.
+Withdrawal of Consent: You may withdraw your consent for receiving our newsletters at any time by clicking the unsubscribe link in the email or <a href="https://fadedcloth.de/unsub" class="href">send a unsubscribe email</a>.
 
 5. Disclosure to Third Parties
 We do not share your personal data with third parties unless it is necessary for fulfilling contractual obligations (e.g., shipping providers). Your data will not be shared with third parties for marketing purposes without your explicit consent.
