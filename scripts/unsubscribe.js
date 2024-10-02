@@ -1,8 +1,8 @@
-document.getElementById("UnSubscribeButton").addEventListener("click", function(event) {
+document.getElementById("subscribeButton").addEventListener("click", function(event) {
     event.preventDefault();
-    const emailInput = document.getElementById("UNemail");
+    const emailInput = document.getElementById("email");
     const email = emailInput.value;
-    const UNtermsCheckbox = document.getElementById("UNtermsCheckbox");
+    const termsCheckbox = document.getElementById("termsCheckbox");
     const checkboxContainer = document.querySelector('.checkbox-container');
 
     // Zuerst die E-Mail validieren
