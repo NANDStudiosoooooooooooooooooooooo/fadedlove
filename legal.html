@@ -10,21 +10,7 @@
     <link rel="stylesheet" href="styles/main.css?v=3.5">
     <style>
         body {
-            background-color: #000;
-            color: white;
-            font-family: "IBM Plex Sans";
-            font-size: calc(0.3 * var(--m));
-            display: flex;
-            flex-direction: column;
             justify-content: start;
-            align-items: center;
-            margin: 0;
-            position: relative;
-            -webkit-appearance: none; /* Entfernt iOS/Safari-Standardbutton-Styling */
-            appearance: none;
-            font-weight: 300;
-            color: #d5d5d5;
-            overflow-x: hidden;
 }
     </style>
 </head>
@@ -53,7 +39,7 @@
 
     <div class="buttons-container">
         <button id="button1" class="glass-button" data-target="panel1">MENU</button>
-        <button id="button2" class="glass-button" data-target="panel2">LEGAL</button>
+        <button id="button2" class="glass-button" data-target="panel2">INFO</button>
         <button id="button3" class="glass-button" data-target="panel3">NEWSLETTER</button>
         <!--<button id="button4" class="glass-button" data-target="panel4">SMS</button>-->
     </div>
@@ -61,6 +47,7 @@
     <!-- Panel für Button 1 -->
     <div id="panel1" class="glass-panel hidden">
         <button class="close-btn" onclick="togglePanel('panel1')">X</button>
+        <div class="headline">MENU</div>
         <a href="https://fadedcloth.de/" class="panel-link">MAINPAGE</a>
         <a href="https://shop.fadedcloth.de" class="panel-link">SHOP</a>
     </div>
@@ -68,6 +55,7 @@
     <!-- Panel für Button 2 -->
     <div id="panel2" class="glass-panel hidden">
         <button class="close-btn" onclick="togglePanel('panel2')">X</button>
+        <div class="headline">INFO</div>
         <a href="mailto:help@fadedcloth.de" class="panel-link">CONTACT</a>
         <a href="https://fadedcloth.de/legal?id=privacy-policy" class="panel-link">PRIVACY POLICY</a>
         <a href="https://fadedcloth.de/legal?id=terms-of-service" class="panel-link">TERMS OF SERVICE</a>
