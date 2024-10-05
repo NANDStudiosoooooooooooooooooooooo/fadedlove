@@ -1043,3 +1043,43 @@ select:focus {
 .link-button:hover {
     text-decoration: underline; /* Unterstreichen beim Hover */
 }
+
+/* General Styles */
+#archive-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .floating-item {
+    width: 100px; /* Adjust size */
+    animation: floatItem 15s linear infinite;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .floating-item:hover {
+    transform: scale(1.2); /* Zoom on hover */
+  }
+  
+  .item-details {
+    position: absolute;
+    top: 120px; /* Adjust based on image position */
+    text-align: center;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  /* Floating animation keyframes */
+  @keyframes floatItem {
+    0% {
+      transform: translateX(0) translateY(0);
+    }
+    100% {
+      transform: translateX(100vw) translateY(-100vh);
+    }
+  }
+  

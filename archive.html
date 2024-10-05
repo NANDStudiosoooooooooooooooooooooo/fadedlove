@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.1.3/marked.min.js"></script> 
+    <title>FADEDCLOTH - LEGAL</title>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:500|IBM+Plex+Sans:300&display=swap" rel="stylesheet">
+    <meta name="description" content="The offical FADEDCLOTH shop. Subscribe for updates.">
+    <link rel="stylesheet" href="styles/main.css?v=3.5">
+</head>
+<body>
+    <div class="main-header">
+        <div class="top-left nav-link">
+            <a href="https://fadedcloth.de/" id="backbutton">MAINPAGE</a>
+        </div>
+        <div class="logo-container" id="load-container">
+            <video autoplay loop muted playsinline class="header-logo top" id="load-obj">
+                <source src="media/logoC.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div id="loader" class="loader-container">
+            <l-zoomies size="80" stroke="5" bg-opacity="0.1" speed="1.4" color="white"></l-zoomies>
+          </div>
+    </div>
+
+    <main id="archive-container">
+        <div id="loading">Loading...</div> <!-- Loading animation -->
+    </main>
+
+    <div class="buttons-container">
+        <button id="button1" class="glass-button" data-target="panel1">MENU</button>
+        <button id="button2" class="glass-button" data-target="panel2">INFO</button>
+        <button id="button3" class="glass-button" data-target="panel3">NEWSLETTER</button>
+        <!--<button id="button4" class="glass-button" data-target="panel4">SMS</button>-->
+    </div>
+    
+    <!-- Panel für Button 1 -->
+    <div id="panel1" class="glass-panel hidden">
+        <button class="close-btn" onclick="togglePanel('panel1')">X</button>
+        <div class="headline">MENU</div>
+        <a href="https://fadedcloth.de/" class="panel-link">MAINPAGE</a>
+        <a href="https://shop.fadedcloth.de" class="panel-link">SHOP</a>
+    </div>
+    
+    <!-- Panel für Button 2 -->
+    <div id="panel2" class="glass-panel hidden">
+        <button class="close-btn" onclick="togglePanel('panel2')">X</button>
+        <div class="headline">INFO</div>
+        <a href="mailto:help@fadedcloth.de" class="panel-link">CONTACT</a>
+        <a href="https://fadedcloth.de/legal?id=privacy-policy" class="panel-link">PRIVACY POLICY</a>
+        <a href="https://fadedcloth.de/legal?id=terms-of-service" class="panel-link">TERMS OF SERVICE</a>
+        <!--<button id="button5" class="button-link glass-button" data-target="panel5">UNSUBSCRIBE</button>-->
+        <div class="copyright">&copy; FADEDCLOTH 2024</div>
+    </div>
+    
+    <!-- Panel für Button 3 (Subscribe Panel) -->
+    <div id="panel3" class="glass-panel hidden">
+        <button class="close-btn" onclick="togglePanel('panel3')">X</button>
+        <div class="headline">SUBSCRIBE FORM UPDATES</div>
+        <form id="emailForm">
+            <input 
+                type="email" 
+                id="email" 
+                placeholder="ENTER YOUR EMAIL" 
+                class="email-input"
+                required 
+            />
+            <div class="checkbox-container">
+                <input type="checkbox" id="termsCheckbox" class="custom-checkbox">
+                <label for="termsCheckbox" class="checkbox-label">
+                  I ACCEPT THE <a class="href" href="/legal?id=terms-of-service">TERMS</a>
+                </label>
+            </div>
+            <div class="form-buttons">
+                <button id="subscribeButton" class="email-button small-button">
+                    SUBMIT
+                </button>
+            </div>
+        </form>
+    </div>
+    
+    <div id="panel4" class="glass-panel hidden">
+        <button class="close-btn" onclick="togglePanel('panel4')">X</button>
+        <div class="headline">SMS NEWSLETTER</div>
+        <form id="smsForm">
+            <input 
+                type="text" 
+                id="phoneNumber" 
+                placeholder="ENTER YOUR PHONE NUMBER" 
+                class="email-input" 
+                required 
+            />
+            <div class="form-buttons">
+                <button id="email-button small-button" class="form-button" type="submit"> <!-- Verwende die gleiche Klasse für den Button -->
+                    SUBSCRIBE
+                </button>
+            </div>
+        </form>
+        <div id="smsMessage" class="sms-message"></div>
+    </div>
+
+    <div id="panel5" class="glass-panel hidden">
+        <button class="close-btn" onclick="togglePanel('panel5')">X</button>
+        <div class="headline">SEND UNSUBSCRIBE EMAIL</div>
+        <form id="emailForm">
+            <input 
+                type="email" 
+                id="UNemail" 
+                placeholder="ENTER YOUR EMAIL" 
+                class="email-input"
+                required 
+            />
+            <div class="UNcheckbox-container">
+                <input type="checkbox" id="termsCheckbox" class="custom-checkbox">
+                <label for="termsCheckbox" class="checkbox-label">
+                  I ACCEPT THE <a class="href" href="/legal?id=terms-of-service">TERMS</a>
+                </label>
+            </div>
+            <div class="form-buttons">
+                <button id="UnSubscribeButton" class="email-button small-button">
+                    SUBMIT
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="scripts/load-buttons.js"></script>
+    <script src="scripts/loader.js"></script>
+    <script src="scripts/archive.js"></script>
+    <script src="scripts/animate.js"></script> 
+    <script src="scripts/sendsms.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js"></script>
+    <script src="scripts/subscribe.js"></script>
+    <script src="scripts/unsubscribe.js"></script>
+</body>
+</html>
