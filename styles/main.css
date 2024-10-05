@@ -1044,7 +1044,6 @@ select:focus {
     text-decoration: underline; /* Unterstreichen beim Hover */
 }
 
-/* General Styles */
 #archive-container {
     position: relative;
     width: 100vw;
@@ -1054,7 +1053,8 @@ select:focus {
   
   .floating-item {
     width: 100px; /* Adjust size */
-    animation: floatItem 15s linear infinite;
+    position: absolute;
+    animation-play-state: running; /* Start moving */
     transition: transform 0.2s ease-in-out;
   }
   
@@ -1076,10 +1076,9 @@ select:focus {
   /* Floating animation keyframes */
   @keyframes floatItem {
     0% {
-      transform: translateX(0) translateY(0);
+      transform: translate(0, 0);
     }
     100% {
-      transform: translateX(100vw) translateY(-100vh);
+      transform: translate(var(--x-move), var(--y-move)); /* Move randomly */
     }
   }
-  

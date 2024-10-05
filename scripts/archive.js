@@ -12,25 +12,22 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch(error => console.error('Error loading archive items:', error));
   
     function spawnItems(items) {
+      // Initially spawn items offscreen
       items.forEach(item => createFloatingItem(item));
-      // Repeatedly spawn new items
+  
+      // Continuously spawn new items
       setInterval(() => {
         const randomItem = items[Math.floor(Math.random() * items.length)];
         createFloatingItem(randomItem);
-      }, 2000); // Adjust the interval for infinite spawning
+      }, 2000); // Adjust the interval for continuous spawning
     }
   
     function createFloatingItem(item) {
       const imgElement = document.createElement('img');
-      imgElement.src = item.image; // Image from JSON
+      imgElement.src = item.image; // Set the image source from JSON
       imgElement.alt = item.name;
       imgElement.classList.add('floating-item');
-      imgElement.style.position = 'absolute';
-  
-      const startPos = randomStartPosition();
-      imgElement.style.left = `${startPos.x}px`;
-      imgElement.style.top = `${startPos.y}px`;
-  
+      
       const itemDetails = document.createElement('div');
       itemDetails.classList.add('item-details');
       itemDetails.innerHTML = `<p>${item.name}</p><p>${item.price} EUR</p>`;
@@ -52,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   
     function handleItemClick(event, item) {
+      // Handle two taps/clicks for mobile
       if (event.detail === 1) {
         // First click: Show details
       } else if (event.detail === 2) {
@@ -61,13 +59,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   
     function moveItem(item) {
+      const direction = randomDirection(); // Assign random direction
       const duration = Math.random() * 10 + 5; // Varying speeds
       item.style.animation = `floatItem ${duration}s linear infinite`;
+      item.style.transform = `translate(${direction.x}vw, ${direction.y}vh)`;
     }
   
     function randomStartPosition() {
-      const x = Math.random() * window.innerWidth;
+      const x = Math.random() < 0.5 ? -100 : window.innerWidth + 100; // Offscreen left or right
       const y = Math.random() * window.innerHeight;
+      return { x, y };
+    }
+  
+    function randomDirection() {
+      const x = (Math.random() - 0.5) * 200; // Random horizontal movement
+      const y = (Math.random() - 0.5) * 200; // Random vertical movement
       return { x, y };
     }
   });
