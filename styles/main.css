@@ -77,8 +77,6 @@ h2 {
     justify-content: center;
     align-items: center;
     position: absolute;
-    user-select: none;
-    pointer-events: none;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
