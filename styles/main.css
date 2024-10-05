@@ -1089,3 +1089,30 @@ select:focus {
     position: relative;
     overflow: hidden;
 }
+
+.hover-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 2rem;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.hover-text.hidden {
+    opacity: 0;
+}
+
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 10;
+}

@@ -6,7 +6,7 @@
     <title>FADEDCLOTH</title>
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:500|IBM+Plex+Sans:300&display=swap" rel="stylesheet">
     <meta name="description" content="The offical FADEDCLOTH site. Subscribe for updates.">
-    <link rel="stylesheet" href="styles/main.css?v=3.93">
+    <link rel="stylesheet" href="styles/main.css?v=3.94">
 </head>
 <body>
     <div id="loader" class="loader-container">
@@ -14,10 +14,15 @@
     </div>
 
     <div class="logo-container" id="load-container">
-        <video class="logo" id="load-obj" autoplay loop muted playsinline>
-            <source src="media/logoC.mp4" type="video/mp4">
-            Dein Browser unterstützt dieses Video nicht.
-        </video>
+        <div class="video-wrapper" id="videoWrapper"></div>
+            <video class="logo" id="load-obj" autoplay loop muted playsinline>
+                <source src="media/logoC.mp4" type="video/mp4">
+                Dein Browser unterstützt dieses Video nicht.
+            </video>
+            <div class="hover-text hidden" id="hoverText">FADEDLOVE</div>
+        </div>
+        <button class="nav-button left" id="prevButton">&lt;</button>
+        <button class="nav-button right" id="nextButton">&gt;</button>
     </div>
 
     <!-- Navigation link -->
@@ -103,6 +108,7 @@
     </div>
     
     <script src="scripts/loader.js" defer></script>
+    <script src="scripts/switch.js?v=1.0" defer></script>
     <script src="scripts/load-buttons.js" defer></script>
     <script src="scripts/animate.js" defer></script> 
     <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js" defer></script>
