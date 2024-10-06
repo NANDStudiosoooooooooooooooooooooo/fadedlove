@@ -6,7 +6,7 @@
     <title>FADEDCLOTH</title>
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:500|IBM+Plex+Sans:300&display=swap" rel="stylesheet">
     <meta name="description" content="The offical FADEDCLOTH site. Subscribe for updates.">
-    <link rel="stylesheet" href="styles/main.css?v=2.13">
+    <link rel="stylesheet" href="styles/main.css?v=2.14">
 </head>
 <body>
     <div id="loader" class="loader-container">
@@ -50,6 +50,14 @@
     <div id="panel2" class="glass-panel hidden">
         <button class="close-btn" onclick="togglePanel('panel2')">X</button>
         <div class="small-headline">INFO</div>
+        <div class="social-container">
+            <select id="social-select">
+                <option value="instagram">INSTAGRAM</option>
+                <option value="tiktok">TIKTOK</option>
+                <option value="twitter">TWITTER</option>
+            </select>
+            <a id="social-select-link" href="https://instagram.com/fadedcloth.de">Instagram Link</a>
+        </div>
         <a href="mailto:help@fadedcloth.de" class="panel-link">CONTACT</a>
         <a href="/legal?id=privacy-policy" class="panel-link">PRIVACY POLICY</a>
         <a href="/legal?id=terms-of-service" class="panel-link">TERMS OF SERVICE</a>
@@ -112,6 +120,7 @@
     
     <script src="scripts/loader.js" defer></script>
     <script src="scripts/switch.js?v=1.26" defer></script>
+    <script src="scripts/social.js?v=1.0" defer></script>
     <script src="scripts/load-buttons.js?v=1.1" defer></script>
     <script src="scripts/animate.js" defer></script> 
     <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js" defer></script>

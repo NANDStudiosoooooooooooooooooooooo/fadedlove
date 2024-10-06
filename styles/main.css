@@ -1219,3 +1219,9 @@ select:focus {
 #social-select:focus {
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Weißer Glanz beim Fokussieren */
 }
+
+.social-container {
+    display: flex;
+    align-items: center; /* Zentriert die Elemente vertikal */
+    gap: 20px; /* Abstand zwischen den Elementen */
+}
