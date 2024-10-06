@@ -1052,6 +1052,10 @@ select:focus {
     text-decoration: none; /* Keine Unterstreichung */
 }
 
+select {
+    -webkit-appearance: none;
+}
+
 .link-button:hover {
     text-decoration: underline; /* Unterstreichen beim Hover */
 }
