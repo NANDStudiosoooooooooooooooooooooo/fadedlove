@@ -63,27 +63,26 @@ window.addEventListener("wheel", (event) => {
     }
 });
 
-// Swipe event to navigate videos (mobile)
+// Prevent default touch scrolling and implement swipe (mobile)
 videoWrapper.addEventListener("touchstart", (event) => {
-    startX = event.touches[0].clientX;
-    startY = event.touches[0].clientY;
+    startY = event.touches[0].clientY; // Capture the Y position where the touch started
+    event.preventDefault(); // Prevent default touch scrolling
+});
+
+videoWrapper.addEventListener("touchmove", (event) => {
+    event.preventDefault(); // Prevent default touch scrolling while moving
 });
 
 videoWrapper.addEventListener("touchend", (event) => {
-    endX = event.changedTouches[0].clientX;
-    endY = event.changedTouches[0].clientY;
+    endY = event.changedTouches[0].clientY; // Capture the Y position where the touch ended
 
-    let diffX = startX - endX;
     let diffY = startY - endY;
 
-    // Check if the swipe is more vertical than horizontal
-    if (Math.abs(diffY) > Math.abs(diffX)) {
-        if (Math.abs(diffY) > 50) { // Minimum swipe distance to trigger
-            if (diffY > 0) {
-                nextVideo(); // Swipe up -> next video
-            } else {
-                prevVideo(); // Swipe down -> previous video
-            }
+    if (Math.abs(diffY) > 50) { // Minimum swipe distance to trigger
+        if (diffY > 0) {
+            nextVideo(); // Swipe up -> next video
+        } else {
+            prevVideo(); // Swipe down -> previous video
         }
     }
 });
