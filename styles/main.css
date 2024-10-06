@@ -1179,7 +1179,6 @@ select:focus {
 /* Styling für das gesamte select Element */
 #social-select {
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
     border: none;
     text-align: center;
     padding: 10px 20px;
