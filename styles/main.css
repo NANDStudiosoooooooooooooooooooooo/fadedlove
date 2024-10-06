@@ -1181,6 +1181,7 @@ select:focus {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(15px);
     border: none;
+    text-align: center;
     padding: 10px 20px;
     font-size: 16px;
     color: white;
@@ -1208,6 +1209,7 @@ select:focus {
     font-size: 16px;
     border-radius: 8px;
     cursor: pointer;
+    text-align: center;
 }
 
 /* Optional: Hover-Effekt für die Optionen */
