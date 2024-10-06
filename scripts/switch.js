@@ -52,9 +52,9 @@ window.addEventListener("wheel", (event) => {
         scrollCooldown = true;
 
         if (event.deltaY > 0) {
-            nextVideo();
+            prevVideo(); // Scroll down -> previous video
         } else {
-            prevVideo();
+            nextVideo(); // Scroll up -> next video
         }
 
         setTimeout(() => {
@@ -72,14 +72,15 @@ videoWrapper.addEventListener("touchend", (event) => {
     endX = event.changedTouches[0].clientX;
 
     if (startX > endX + 50) {
-        nextVideo(); // Swipe left, move to next video
+        prevVideo(); // Swipe left -> previous video
     } else if (startX < endX - 50) {
-        prevVideo(); // Swipe right, move to previous video
+        nextVideo(); // Swipe right -> next video
     }
 });
 
-nextButton.addEventListener("click", nextVideo);
-prevButton.addEventListener("click", prevVideo);
+// Button functions are reversed
+nextButton.addEventListener("click", prevVideo); // Next button shows previous video
+prevButton.addEventListener("click", nextVideo); // Prev button shows next video
 
 function nextVideo() {
     // Slide out animation (move right)
