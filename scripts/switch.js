@@ -5,7 +5,7 @@ const videos = [
         link: "https://example.com/1"
     },
     {
-        src: "media/fadedcloth.mp4",
+        src: "media/main.mp4",
         hoverText: "ANOTHER TEXT",
         link: "https://example.com/2"
     },
