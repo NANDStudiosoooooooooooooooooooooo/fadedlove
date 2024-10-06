@@ -5,7 +5,7 @@ const videos = [
         link: "https://example.com/1"
     },
     {
-        src: "media/logo.mp4", // Update to a different video for variety
+        src: "media/logoC.mp4",
         hoverText: "ANOTHER TEXT",
         link: "https://example.com/2"
     },
@@ -21,9 +21,13 @@ const prevButton = document.getElementById("prevButton");
 const nextButton = document.getElementById("nextButton");
 
 function updateVideo() {
+    // Update video source and hover text
     videoElement.src = videos[currentIndex].src;
     videoElement.load();
     hoverText.textContent = videos[currentIndex].hoverText;
+
+    // Make sure the text is hidden after updating the video
+    hoverText.classList.add("hidden");
 }
 
 videoWrapper.addEventListener("mouseover", () => {
@@ -39,21 +43,45 @@ videoWrapper.addEventListener("click", () => {
 });
 
 nextButton.addEventListener("click", () => {
-    currentIndex = (currentIndex + 1) % videos.length;
-    videoElement.style.transform = 'translateX(100%)'; // Slide out animation
+    // Slide out animation (move right)
+    videoElement.style.transition = 'transform 0.5s ease-out';
+    videoElement.style.transform = 'translateX(100vw)'; // Slide out to the right
+
     setTimeout(() => {
+        currentIndex = (currentIndex + 1) % videos.length;
         updateVideo();
-        videoElement.style.transform = 'translateX(-100%)'; // Slide in animation
-    }, 500); // Wait for the slide-out animation
+        
+        // Instantly reset position off-screen (left side)
+        videoElement.style.transition = 'none';
+        videoElement.style.transform = 'translateX(-100vw)'; // Start from left, but offscreen
+        
+        setTimeout(() => {
+            // Slide in to the center
+            videoElement.style.transition = 'transform 0.5s ease-in';
+            videoElement.style.transform = 'translateX(0)'; // Centered again
+        }, 10); // Small delay to ensure the transition is reset before sliding in
+    }, 500); // Wait for the slide-out animation to finish
 });
 
 prevButton.addEventListener("click", () => {
-    currentIndex = (currentIndex - 1 + videos.length) % videos.length;
-    videoElement.style.transform = 'translateX(-100%)'; // Slide out animation
+    // Slide out animation (move left)
+    videoElement.style.transition = 'transform 0.5s ease-out';
+    videoElement.style.transform = 'translateX(-100vw)'; // Slide out to the left
+
     setTimeout(() => {
+        currentIndex = (currentIndex - 1 + videos.length) % videos.length;
         updateVideo();
-        videoElement.style.transform = 'translateX(100%)'; // Slide in animation
-    }, 500); // Wait for the slide-out animation
+        
+        // Instantly reset position off-screen (right side)
+        videoElement.style.transition = 'none';
+        videoElement.style.transform = 'translateX(100vw)'; // Start from right, but offscreen
+        
+        setTimeout(() => {
+            // Slide in to the center
+            videoElement.style.transition = 'transform 0.5s ease-in';
+            videoElement.style.transform = 'translateX(0)'; // Centered again
+        }, 10); // Small delay to ensure the transition is reset before sliding in
+    }, 500); // Wait for the slide-out animation to finish
 });
 
 // Initialize the first video
