@@ -1202,9 +1202,9 @@ select:focus {
 
 /* Styling für die Optionsliste */
 #social-select option {
-    background: transparent; /* Kein Hintergrund */
-    color: white; /* Weiße Schrift */
-    padding: 10px 15px; /* Abstand zwischen den Optionen */
+    background: transparent;
+    color: white;
+    padding: 10px 15px;
     font-size: 16px;
     border-radius: 8px;
     cursor: pointer;
@@ -1213,7 +1213,8 @@ select:focus {
 
 /* Optional: Hover-Effekt für die Optionen */
 #social-select option:hover {
-    background: rgba(255, 255, 255, 0.1); /* Leichtes Hintergrund beim Hover */
+    background: rgba(255, 255, 255, 0.1);
+    text-decoration: underline;
 }
 
 /* Fokus-Effekt beim Klicken */
