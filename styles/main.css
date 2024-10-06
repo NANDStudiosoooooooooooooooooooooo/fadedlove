@@ -734,6 +734,7 @@ video::-webkit-media-controls {
       justify-content: flex-start;
       gap: 10px;
       width: 100vw; /* Take the full width of the screen */
+      margin-right: 20px;
       overflow-x: scroll; /* Allow horizontal scrolling */
       padding: 10px;
       margin: 0;
