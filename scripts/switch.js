@@ -1,11 +1,11 @@
 const videos = [
     {
-        src: "media/logoC.mp4",
+        src: "media/fadedcloth.mp4",
         hoverText: "FADEDLOVE",
         link: "https://example.com/1"
     },
     {
-        src: "media/logoC.mp4",
+        src: "media/fadedcloth.mp4",
         hoverText: "ANOTHER TEXT",
         link: "https://example.com/2"
     },
