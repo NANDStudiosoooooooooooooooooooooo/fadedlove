@@ -1175,3 +1175,47 @@ select:focus {
 .collection-links a:hover {
     background-color: rgba(200, 200, 200, 0.8); /* Hintergrundfarbe beim Hover */
 }
+
+/* Styling für das gesamte select Element */
+#social-select {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    appearance: none; /* Entfernt Standard-Browser-Styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.8); /* Weißer Schattentext */
+}
+
+/* Entfernt das Dropdown-Symbol bei WebKit-basierten Browsern (z.B. Chrome, Safari) */
+#social-select::-webkit-appearance {
+    appearance: none;
+}
+
+/* Styling für die Optionsliste */
+#social-select option {
+    background: transparent; /* Kein Hintergrund */
+    color: white; /* Weiße Schrift */
+    padding: 10px 15px; /* Abstand zwischen den Optionen */
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Optional: Hover-Effekt für die Optionen */
+#social-select option:hover {
+    background: rgba(255, 255, 255, 0.1); /* Leichtes Hintergrund beim Hover */
+}
+
+/* Fokus-Effekt beim Klicken */
+#social-select:focus {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Weißer Glanz beim Fokussieren */
+}
