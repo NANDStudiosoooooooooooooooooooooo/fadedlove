@@ -31,10 +31,25 @@ function togglePanel(panelId) {
     }
 }
 
+// Funktion zum Umschalten der Collection Links
+function toggleCollectionLinks() {
+    const links = document.querySelector('.collection-links');
+    const isHidden = links.classList.contains('hidden');
+    
+    if (isHidden) {
+        links.classList.remove('hidden');
+        links.style.display = 'flex'; // Links anzeigen
+    } else {
+        links.classList.add('hidden');
+        links.style.display = 'none'; // Links ausblenden
+    }
+}
+
 // Klick außerhalb des Panels zum Schließen
 document.addEventListener('click', function(event) {
     let panels = document.querySelectorAll('.glass-panel');
     let buttons = document.querySelectorAll('.glass-button');
+    let links = document.querySelector('.collection-links');
 
     let clickedInsidePanel = false;
 
@@ -53,6 +68,8 @@ document.addEventListener('click', function(event) {
     if (!clickedInsidePanel) {
         panels.forEach(panel => panel.classList.add('hidden'));
         buttons.forEach(button => button.classList.remove('active-button'));
+        links.classList.add('hidden'); // Links ausblenden
+        links.style.display = 'none'; // Links ausblenden
     }
 });
 
@@ -63,25 +80,10 @@ document.querySelectorAll('.glass-button').forEach(button => {
 
         // Hole das Ziel-Panel von der data-target des Buttons
         let targetPanel = button.getAttribute('data-target');
-        togglePanel(targetPanel);
+        if (button.id === 'collectionToggler') {
+            toggleCollectionLinks(); // Spezielle Funktion für den Toggler
+        } else {
+            togglePanel(targetPanel);
+        }
     });
 });
-
-// Funktion, um die Buttons zu laden
-   // function loadButtons() {
-   //     fetch('components/buttons.html')
-   //         .then(response => {
-   //             if (!response.ok) {
-   //                 throw new Error('Network response was not ok ' + response.statusText);
-   //             }
-   //             return response.text();
-   //         })
-   //         .then(data => {
-   ////             document.body.insertAdjacentHTML('beforeend', data);
-    //            addButtonEventListeners(); // Füge Event-Listener hinzu
-     //       })
-    //        .catch(error => console.error('Error loading buttons:', error));
-   // }
-
-    // Rufe die Funktion zum Laden der Buttons auf, wenn das DOM vollständig geladen ist
-   // document.addEventListener('DOMContentLoaded', loadButtons);
