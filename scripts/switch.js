@@ -22,8 +22,6 @@ let endY = 0;
 const videoElement = document.getElementById("load-obj");
 const hoverText = document.getElementById("hoverText");
 const videoWrapper = document.getElementById("videoWrapper");
-const prevButton = document.getElementById("prevButton");
-const nextButton = document.getElementById("nextButton");
 
 function updateVideo() {
     // Update video source and hover text
@@ -78,21 +76,17 @@ videoWrapper.addEventListener("touchend", (event) => {
     let diffX = startX - endX;
     let diffY = startY - endY;
 
-    // Check if the swipe is more horizontal than vertical to prevent accidental navigation
-    if (Math.abs(diffX) > Math.abs(diffY)) {
-        if (Math.abs(diffX) > 50) { // Minimum swipe distance to trigger
-            if (diffX > 0) {
-                prevVideo(); // Swipe left -> previous video
+    // Check if the swipe is more vertical than horizontal
+    if (Math.abs(diffY) > Math.abs(diffX)) {
+        if (Math.abs(diffY) > 50) { // Minimum swipe distance to trigger
+            if (diffY > 0) {
+                nextVideo(); // Swipe up -> next video
             } else {
-                nextVideo(); // Swipe right -> next video
+                prevVideo(); // Swipe down -> previous video
             }
         }
     }
 });
-
-// Button functions are reversed
-nextButton.addEventListener("click", prevVideo); // Next button shows previous video
-prevButton.addEventListener("click", nextVideo); // Prev button shows next video
 
 function nextVideo() {
     // Slide out animation (move right)
