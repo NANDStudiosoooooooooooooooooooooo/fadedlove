@@ -1058,6 +1058,8 @@ select:focus {
 
 select {
     -webkit-appearance: none;
+    appearance: none;
+    -moz-appearance: none;
 }
 
 .link-button:hover {
