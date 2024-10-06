@@ -1,16 +1,28 @@
 document.getElementById('social-select').addEventListener('change', function() {
-    const socialLink = document.getElementById('social-select-link');
-    const selectedPlatform = this.value;
+    const linkElement = document.getElementById('social-select-link');
+    const platform = this.value;
 
-    switch (selectedPlatform) {
-        case 'instagram':
-            socialLink.href = 'https://instagram.com/fadedcloth.de';
-            break;
+    // Links je nach ausgewählter Plattform anpassen
+    let href;
+    switch (platform) {
         case 'tiktok':
-            socialLink.href = 'https://tiktok.com/@fadedcloth.de';
+            href = 'https://tiktok.com/@fadedcloth.de';
             break;
         case 'twitter':
-            socialLink.href = 'https://x.com/fadedcloth';
+            href = 'https://x.com/fadedcloth';
+            break;
+        case 'instagram':
+        default:
+            href = 'https://instagram.com/fadedcloth.de';
             break;
     }
+
+    // Link aktualisieren
+    linkElement.href = href;
+
+    // Animation hinzufügen und nach Ende entfernen
+    linkElement.classList.add('jump');
+    linkElement.addEventListener('animationend', function() {
+        linkElement.classList.remove('jump');
+    });
 });
