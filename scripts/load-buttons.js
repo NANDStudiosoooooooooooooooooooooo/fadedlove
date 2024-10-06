@@ -34,11 +34,15 @@ function togglePanel(panelId) {
 // Funktion zum Umschalten der Collection Links
 function toggleCollectionLinks() {
     const links = document.querySelector('.collection-links');
-    const isHidden = links.classList.contains('hidden');
-    
-    if (isHidden) {
+    const toggler = document.getElementById('collectionToggler');
+
+    if (links.classList.contains('hidden')) {
         links.classList.remove('hidden');
         links.style.display = 'flex'; // Links anzeigen
+
+        // Position der Links anpassen
+        const togglerRect = toggler.getBoundingClientRect();
+        links.style.top = `${togglerRect.top - links.offsetHeight}px`; // Links über dem Toggler positionieren
     } else {
         links.classList.add('hidden');
         links.style.display = 'none'; // Links ausblenden
