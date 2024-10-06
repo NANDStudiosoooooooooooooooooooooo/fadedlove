@@ -1178,6 +1178,9 @@ select:focus {
 
 /* Styling für das gesamte select Element */
 #social-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     background: rgba(255, 255, 255, 0.1);
     border: none;
     text-align: center;
@@ -1205,10 +1208,12 @@ select:focus {
     background: transparent;
     color: white;
     padding: 10px 15px;
+    border: none;
+    text-shadow: none;
     font-size: 16px;
-    border-radius: 8px;
+    white-space: nowrap;
     cursor: pointer;
-    text-align: center;
+    border-radius: 0;
 }
 
 /* Optional: Hover-Effekt für die Optionen */
@@ -1226,4 +1231,15 @@ select:focus {
     display: flex;
     align-items: center; /* Zentriert die Elemente vertikal */
     gap: 20px; /* Abstand zwischen den Elementen */
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    #social-select {
+        font-size: 16px; /* Passe die Schriftgröße für iOS an */
+        padding: 10px 20px;
+    }
+    #social-select option {
+        background: rgba(0, 0, 0, 0.1); /* Schwarzer Hintergrund mit 0.1-Deckkraft */
+        color: white;
+    }
 }
