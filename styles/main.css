@@ -21,6 +21,7 @@ html, body {
     -webkit-font-smoothing: antialiased; /* Bessere Kantenglättung in iOS/Safari */
     -moz-osx-font-smoothing: grayscale; /* Bessere Kantenglättung in macOS */
     overflow-x: hidden;
+    user-select: none;
 }
 
 body {
