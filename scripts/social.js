@@ -1,24 +1,16 @@
-// Funktion zur Aktualisierung des Links basierend auf der Auswahl
-function updateSocialLink() {
-    const selectBox = document.getElementById('social-select');
-    const link = document.getElementById('social-select-link');
+document.getElementById('social-select').addEventListener('change', function() {
+    const socialLink = document.getElementById('social-select-link');
+    const selectedPlatform = this.value;
 
-    // Definieren der URLs für jede Social-Media-Plattform
-    const links = {
-        instagram: 'https://instagram.com/fadedcloth.de',
-        tiktok: 'https://tiktok.com/@fadedcloth.de',
-        twitter: 'https://x.com/fadedcloth'
-    };
-
-    // Hole den ausgewählten Wert und aktualisiere den href-Link
-    const selectedPlatform = selectBox.value;
-    link.href = links[selectedPlatform];
-}
-
-// Event Listener, um den Link zu aktualisieren, wenn der Benutzer eine Option wählt
-document.getElementById('social-select').addEventListener('change', updateSocialLink);
-
-// Standardmäßig Instagram auswählen und den Link setzen
-document.addEventListener('DOMContentLoaded', function() {
-    updateSocialLink();
+    switch (selectedPlatform) {
+        case 'instagram':
+            socialLink.href = 'https://instagram.com/fadedcloth.de';
+            break;
+        case 'tiktok':
+            socialLink.href = 'https://tiktok.com/@fadedcloth.de';
+            break;
+        case 'twitter':
+            socialLink.href = 'https://x.com/fadedcloth';
+            break;
+    }
 });
