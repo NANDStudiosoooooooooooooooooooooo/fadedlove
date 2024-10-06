@@ -15,7 +15,9 @@ const videos = [
 let currentIndex = 0;
 let scrollCooldown = false; // Prevent multiple scrolls in a short period
 let startX = 0;
+let startY = 0;
 let endX = 0;
+let endY = 0;
 
 const videoElement = document.getElementById("load-obj");
 const hoverText = document.getElementById("hoverText");
@@ -66,15 +68,25 @@ window.addEventListener("wheel", (event) => {
 // Swipe event to navigate videos (mobile)
 videoWrapper.addEventListener("touchstart", (event) => {
     startX = event.touches[0].clientX;
+    startY = event.touches[0].clientY;
 });
 
 videoWrapper.addEventListener("touchend", (event) => {
     endX = event.changedTouches[0].clientX;
+    endY = event.changedTouches[0].clientY;
 
-    if (startX > endX + 50) {
-        prevVideo(); // Swipe left -> previous video
-    } else if (startX < endX - 50) {
-        nextVideo(); // Swipe right -> next video
+    let diffX = startX - endX;
+    let diffY = startY - endY;
+
+    // Check if the swipe is more horizontal than vertical to prevent accidental navigation
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+        if (Math.abs(diffX) > 50) { // Minimum swipe distance to trigger
+            if (diffX > 0) {
+                prevVideo(); // Swipe left -> previous video
+            } else {
+                nextVideo(); // Swipe right -> next video
+            }
+        }
     }
 });
 
