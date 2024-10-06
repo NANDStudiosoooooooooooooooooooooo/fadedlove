@@ -17,31 +17,18 @@ let scrollCooldown = false; // Verhindert mehrfache Scrolls in kurzer Zeit
 let startY = 0;
 
 const videoElement = document.getElementById("load-obj");
-const hoverText = document.getElementById("hoverText");
 const videoWrapper = document.getElementById("videoWrapper");
 
 function updateVideo() {
     // Videoquelle aktualisieren
     videoElement.src = videos[currentIndex].src;
     videoElement.load();
-    hoverText.textContent = videos[currentIndex].hoverText;
-    hoverText.classList.add("hidden"); // Verstecke den Hover-Text beim Aktualisieren
 }
-
-// Hover-Effekte für den Text
-videoWrapper.addEventListener("mouseover", () => {
-    hoverText.classList.remove("hidden");
-});
-
-videoWrapper.addEventListener("mouseout", () => {
-    hoverText.classList.add("hidden");
-});
 
 // Scroll-Event zum Navigieren zwischen Videos (Desktop)
 window.addEventListener("wheel", (event) => {
     if (!scrollCooldown) {
         scrollCooldown = true;
-        hoverText.classList.add("hidden"); // Verstecke den Hover-Text beim Scrollen
 
         if (event.deltaY > 0) {
             prevVideo(); // Nach unten scrollen -> vorheriges Video
@@ -58,7 +45,6 @@ window.addEventListener("wheel", (event) => {
 // Touch-Events für Wischen (Mobile)
 videoWrapper.addEventListener("touchstart", (event) => {
     startY = event.touches[0].clientY; // Y-Position zum Starten des Touchs erfassen
-    hoverText.classList.add("hidden"); // Verstecke den Hover-Text beim Wischen
     event.preventDefault(); // Standard-Touch-Scrolling verhindern
 });
 
