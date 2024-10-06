@@ -1140,8 +1140,7 @@ select:focus {
 }
 
 .collection-links {
-    position: absolute; /* Absolute Positionierung */
-    display: none; /* Standardmäßig ausblenden */
+    position: absolute;
     left: 50%; /* Horizontale Zentrierung */
     transform: translateX(-50%); /* Zentrierungsfix */
 }
@@ -1161,4 +1160,18 @@ select:focus {
         bottom: 10px; /* Abstand vom unteren Rand */
         right: 10px; /* Abstand vom rechten Rand */
     }
+}
+
+.collection-links a {
+    padding: 5px 10px; /* Padding für jeden Link */
+    margin: 5px 0; /* Abstand zwischen den Links */
+    text-decoration: none; /* Unterstreichung entfernen */
+    color: black; /* Link-Farbe */
+    border-radius: 5px; /* Abgerundete Ecken */
+    background-color: rgba(255, 255, 255, 0.8); /* Hintergrundfarbe mit Transparenz */
+    transition: background-color 0.3s; /* Übergangseffekt */
+}
+
+.collection-links a:hover {
+    background-color: rgba(200, 200, 200, 0.8); /* Hintergrundfarbe beim Hover */
 }
