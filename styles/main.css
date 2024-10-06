@@ -1139,3 +1139,26 @@ select:focus {
     margin-right: 10px;
 }
 
+.collection-links {
+    position: absolute; /* Absolute Positionierung */
+    display: none; /* Standardmäßig ausblenden */
+    left: 50%; /* Horizontale Zentrierung */
+    transform: translateX(-50%); /* Zentrierungsfix */
+}
+
+@media (max-width: 800px) {
+    .collection-links {
+        top: -50px; /* Positionieren über dem Toggler */
+        display: flex; /* Flex-Layout für die Links */
+        flex-direction: row; /* Links horizontal anordnen */
+    }
+}
+
+@media (min-width: 800px) {
+    .collection-links {
+        display: flex; /* Flex-Layout für die Links */
+        flex-direction: column; /* Links untereinander anordnen */
+        bottom: 10px; /* Abstand vom unteren Rand */
+        right: 10px; /* Abstand vom rechten Rand */
+    }
+}
