@@ -1036,6 +1036,10 @@ select::-webkit-select {
     -webkit-appearance: none; /* Verhindert das iOS-Select-Styling */
 }
 
+select::-ms-expand {
+    display: none;
+}
+
 /* iOS fixes for select element */
 select:focus {
     outline: none; /* Entfernt das Standard-iOS-Outlining */
