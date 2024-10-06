@@ -13,9 +13,9 @@ const videos = [
 ];
 
 let currentIndex = 0;
-let scrollCount = 0; // Track how many times the user scrolls
+let scrollCooldown = false; // Prevent multiple scrolls in a short period
 let startX = 0;
-let startY = 0;
+let endX = 0;
 
 const videoElement = document.getElementById("load-obj");
 const hoverText = document.getElementById("hoverText");
@@ -24,11 +24,16 @@ const prevButton = document.getElementById("prevButton");
 const nextButton = document.getElementById("nextButton");
 
 function updateVideo() {
+    // Update video source and hover text
     videoElement.src = videos[currentIndex].src;
     videoElement.load();
     hoverText.textContent = videos[currentIndex].hoverText;
+
+    // Make sure the text is hidden after updating the video
+    hoverText.classList.add("hidden");
 }
 
+// Hover effect for the text
 videoWrapper.addEventListener("mouseover", () => {
     hoverText.classList.remove("hidden");
 });
@@ -41,74 +46,82 @@ videoWrapper.addEventListener("click", () => {
     window.open(videos[currentIndex].link);
 });
 
-nextButton.addEventListener("click", () => {
-    currentIndex = (currentIndex + 1) % videos.length;
-    videoElement.style.transform = 'translateX(100%)'; // Slide out animation
-    setTimeout(() => {
-        updateVideo();
-        videoElement.style.transform = 'translateX(-100%)'; // Slide in animation
-    }, 500); // Wait for the slide-out animation
-});
+// Scroll event to navigate videos (desktop)
+window.addEventListener("wheel", (event) => {
+    if (!scrollCooldown) {
+        scrollCooldown = true;
 
-prevButton.addEventListener("click", () => {
-    currentIndex = (currentIndex - 1 + videos.length) % videos.length;
-    videoElement.style.transform = 'translateX(-100%)'; // Slide out animation
-    setTimeout(() => {
-        updateVideo();
-        videoElement.style.transform = 'translateX(100%)'; // Slide in animation
-    }, 500); // Wait for the slide-out animation
-});
-
-// Mouse scroll handler
-function handleScroll(event) {
-    const delta = Math.sign(event.deltaY); // Normalize scroll direction (positive = down, negative = up)
-
-    // Only trigger horizontal scroll after two vertical scroll events
-    scrollCount += delta;
-
-    if (scrollCount >= 2) {
-        nextButton.click(); // Scroll down triggers next video
-        scrollCount = 0;    // Reset scroll count
-    } else if (scrollCount <= -2) {
-        prevButton.click(); // Scroll up triggers previous video
-        scrollCount = 0;    // Reset scroll count
-    }
-}
-
-// Listen for the scroll event on the window
-window.addEventListener('wheel', handleScroll);
-
-// Handle swipe gestures for mobile
-function handleTouchStart(event) {
-    const touch = event.touches[0];
-    startX = touch.clientX;
-    startY = touch.clientY;
-}
-
-function handleTouchMove(event) {
-    if (!startX || !startY) return;
-
-    const touch = event.touches[0];
-    const diffX = touch.clientX - startX;
-    const diffY = touch.clientY - startY;
-
-    // Check if the swipe is more horizontal than vertical
-    if (Math.abs(diffX) > Math.abs(diffY)) {
-        if (diffX > 50) {
-            prevButton.click(); // Swipe right triggers previous video
-        } else if (diffX < -50) {
-            nextButton.click(); // Swipe left triggers next video
+        if (event.deltaY > 0) {
+            nextVideo();
+        } else {
+            prevVideo();
         }
-    }
 
-    // Reset touch coordinates after handling the move
-    startX = 0;
-    startY = 0;
+        setTimeout(() => {
+            scrollCooldown = false;
+        }, 1000); // 1 second delay to prevent excessive scrolling
+    }
+});
+
+// Swipe event to navigate videos (mobile)
+videoWrapper.addEventListener("touchstart", (event) => {
+    startX = event.touches[0].clientX;
+});
+
+videoWrapper.addEventListener("touchend", (event) => {
+    endX = event.changedTouches[0].clientX;
+
+    if (startX > endX + 50) {
+        nextVideo(); // Swipe left, move to next video
+    } else if (startX < endX - 50) {
+        prevVideo(); // Swipe right, move to previous video
+    }
+});
+
+nextButton.addEventListener("click", nextVideo);
+prevButton.addEventListener("click", prevVideo);
+
+function nextVideo() {
+    // Slide out animation (move right)
+    videoElement.style.transition = 'transform 0.5s ease-out';
+    videoElement.style.transform = 'translateX(100vw)'; // Slide out to the right
+
+    setTimeout(() => {
+        currentIndex = (currentIndex + 1) % videos.length;
+        updateVideo();
+
+        // Instantly reset position off-screen (left side)
+        videoElement.style.transition = 'none';
+        videoElement.style.transform = 'translateX(-100vw)'; // Start from left, but offscreen
+
+        setTimeout(() => {
+            // Slide in to the center
+            videoElement.style.transition = 'transform 0.5s ease-in';
+            videoElement.style.transform = 'translateX(0)'; // Centered again
+        }, 10); // Small delay to ensure the transition is reset before sliding in
+    }, 500); // Wait for the slide-out animation to finish
 }
 
-// Add touch event listeners for mobile
-window.addEventListener('touchstart', handleTouchStart);
-window.addEventListener('touchmove', handleTouchMove);
+function prevVideo() {
+    // Slide out animation (move left)
+    videoElement.style.transition = 'transform 0.5s ease-out';
+    videoElement.style.transform = 'translateX(-100vw)'; // Slide out to the left
+
+    setTimeout(() => {
+        currentIndex = (currentIndex - 1 + videos.length) % videos.length;
+        updateVideo();
+
+        // Instantly reset position off-screen (right side)
+        videoElement.style.transition = 'none';
+        videoElement.style.transform = 'translateX(100vw)'; // Start from right, but offscreen
+
+        setTimeout(() => {
+            // Slide in to the center
+            videoElement.style.transition = 'transform 0.5s ease-in';
+            videoElement.style.transform = 'translateX(0)'; // Centered again
+        }, 10); // Small delay to ensure the transition is reset before sliding in
+    }, 500); // Wait for the slide-out animation to finish
+}
 
 // Initialize the first video
 updateVideo();
