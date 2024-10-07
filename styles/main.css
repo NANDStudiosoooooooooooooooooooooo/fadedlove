@@ -1267,6 +1267,7 @@ select {
 }
 
 .mainshop-container {
+    top: 120px;
     max-width: 880px;
     margin: 0 auto;
     padding: 20px;
