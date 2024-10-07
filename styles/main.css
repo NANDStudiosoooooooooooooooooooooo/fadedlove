@@ -1267,6 +1267,7 @@ select {
 }
 
 .mainshop-container {
+    top: 120px;
     max-width: 880px;
     margin: 0 auto;
     padding: 20px;
@@ -1300,9 +1301,8 @@ select {
 
 .mainshop-item img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    aspect-ratio: 1/1; /* Erzeugt quadratische Bilder */
+    height: auto;
+    aspect-ratio: 1/1; /* Quadratische Bilder */
 }
 
 .mainshop-item .info {
@@ -1339,7 +1339,13 @@ select {
 
 /* Media query to adjust layout on smaller screens */
 @media (max-width: 920px) {
+    .mainshop-container {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
     .mainshop-item {
-        width: 100%; /* Full width for single column layout */
+        width: calc(50vw - 1px); /* Zwei Spalten, abhängig von der Bildschirmbreite */
     }
 }
