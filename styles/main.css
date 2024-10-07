@@ -1287,7 +1287,7 @@ select {
 /* Zwei Spalten für die Items */
 .mainshop-item {
     display: inline-block;
-    width: calc(50%);
+    width: calc(50% - 1px); /* Korrigierte Berechnung für 2 Spalten mit Zwischenraum */
     box-sizing: border-box;
     text-align: center;
     background-color: black;
@@ -1324,20 +1324,16 @@ select {
 }
 
 /* Horizontale Linie über jeder Zeile */
-.mainshop-item:nth-child(odd)::before {
+.mainshop-item::before {
     content: "";
     display: block;
     width: 100%;
     height: 1px;
     background-color: rgba(255, 255, 255, 0.3);
     position: absolute;
-    top: 0; /* Platzierung über dem Element */
+    top: -10px; /* Platzierung über dem Element */
     left: 0;
     z-index: 6000;
-}
-
-.mainshop-item:nth-child(2n)::before {
-    display: none;
 }
 
 /* Vertikale Linie zwischen den Items */
@@ -1361,10 +1357,6 @@ select {
     }
 
     .mainshop-item {
-        width: calc(50vw); /* Zwei Spalten auch bei kleineren Bildschirmen */
-    }
-
-    .mainshop-shadow {
-        width: 100vw;
+        width: calc(50vw - 1px); /* Zwei Spalten auch bei kleineren Bildschirmen */
     }
 }
