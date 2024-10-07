@@ -1292,7 +1292,7 @@ select {
 /* Zwei Spalten für die Items */
 .mainshop-item {
     display: inline-block;
-    width: calc(50% - 1px); /* Korrigierte Berechnung für 2 Spalten mit Zwischenraum */
+    width: calc(50%); /* Korrigierte Berechnung für 2 Spalten mit Zwischenraum */
     box-sizing: border-box;
     text-align: center;
     background-color: black;
@@ -1300,6 +1300,8 @@ select {
     position: relative;
     overflow: hidden; /* Bild bleibt im Rahmen */
     vertical-align: top;
+    border-top: 1px solid rgba(255, 255, 255, 0.3); /* Obere Grenze */
+    border-right: 1px solid rgba(255, 255, 255, 0.3); /* Rechte Grenze */
 }
 
 /* Bild quadratisch mit 20px margin, aber nur für das Bild */
@@ -1326,6 +1328,11 @@ select {
 .mainshop-item .price {
     font-size: 1rem; /* Standardgröße */
     margin-top: 10px;
+}
+
+/* Spezielle Klasse für das letzte Element in der letzten Zeile */
+.mainshop-item:last-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Untere Grenze für das letzte Element */
 }
 
 /* Horizontale Linie über jeder Zeile */
