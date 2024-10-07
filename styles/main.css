@@ -1330,7 +1330,7 @@ select {
     height: 1px;
     background-color: rgba(255, 255, 255, 0.3);
     position: absolute;
-    top: -10px; /* Platzierung über dem Element */
+    top: 0; /* Platzierung über dem Element */
     left: 0;
 }
 
