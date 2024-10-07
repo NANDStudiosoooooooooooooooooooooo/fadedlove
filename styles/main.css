@@ -1337,7 +1337,7 @@ select {
 }
 
 .mainshop-item:nth-child(2n)::before {
-    display: none; /* Verhindert doppelte Linien zwischen den Spalten */
+    display: none;
 }
 
 /* Vertikale Linie zwischen den Items */
