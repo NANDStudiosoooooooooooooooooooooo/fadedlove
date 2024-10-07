@@ -1332,6 +1332,7 @@ select {
     position: absolute;
     top: 0; /* Platzierung über dem Element */
     left: 0;
+    z-index: 6000;
 }
 
 .mainshop-item:nth-child(2n)::before {
