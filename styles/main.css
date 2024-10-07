@@ -1269,7 +1269,7 @@ select {
 .mainshop-container {
     max-width: 880px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0;
     height: 80vh;
     overflow-y: scroll;
     box-sizing: border-box;
@@ -1285,13 +1285,15 @@ select {
 /* Zwei Spalten für die Items */
 .mainshop-item {
     display: inline-block;
-    width: calc(50% - 20px); /* Zwei Spalten */
+    width: calc(50% - 10px); /* Korrigierte Berechnung für 2 Spalten mit Zwischenraum */
+    margin-bottom: 20px;
     box-sizing: border-box;
     text-align: center;
     background-color: black;
     cursor: pointer;
     position: relative;
     overflow: hidden; /* Bild bleibt im Rahmen */
+    vertical-align: top;
 }
 
 /* Bild quadratisch mit 20px margin, aber nur für das Bild */
@@ -1321,8 +1323,8 @@ select {
 }
 
 /* Horizontale Linie nach jeder Zeile */
-.mainshop-item:nth-child(2n) {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+.mainshop-item:nth-child(odd) {
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* Linie über der ersten Zeile */
@@ -1371,7 +1373,7 @@ select {
     }
 
     .mainshop-item {
-        width: calc(50vw - 20px); /* Zwei Spalten auch bei kleineren Bildschirmen */
+        width: calc(50vw - 10px); /* Zwei Spalten auch bei kleineren Bildschirmen */
     }
 
     .mainshop-shadow {
