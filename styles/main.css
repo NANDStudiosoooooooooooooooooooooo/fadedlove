@@ -1275,17 +1275,17 @@ select {
     overflow-y: scroll;
     box-sizing: border-box;
     position: relative;
-    scrollbar-width: none; /* Versteckt die Scrollbar */
+    scrollbar-width: none; /* Verhindert sichtbare Scrollbar */
 }
 
 .mainshop-container::-webkit-scrollbar {
-    display: none; /* Scroll-Leiste unsichtbar in Webkit-Browsern (Chrome, Safari) */
+    display: none; /* Versteckt die Scroll-Leiste in Webkit-Browsern */
 }
 
 .mainshop-item {
     display: inline-block;
-    width: calc(50% - 1px); /* Two columns with a slight adjustment for border */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Sanfte Linie mit transparentem Weiß */
+    width: calc(50% - 1px); /* Zwei Spalten */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Sanfte Linie */
     border-bottom: none;
     box-sizing: border-box;
     text-align: center;
@@ -1296,17 +1296,20 @@ select {
 }
 
 .mainshop-item:hover {
-    border-color: rgba(255, 255, 255, 0.6); /* Leichter Hover-Effekt */
+    border-color: rgba(255, 255, 255, 0.6); /* Hover-Effekt */
 }
 
+/* Bild quadratisch und skaliert */
 .mainshop-item img {
     width: 100%;
-    height: auto;
-    aspect-ratio: 1/1; /* Quadratische Bilder */
+    height: 100%;
+    object-fit: cover; /* Skaliert das Bild proportional */
+    aspect-ratio: 1/1; /* Stellt sicher, dass das Bild quadratisch bleibt */
 }
 
 .mainshop-item .info {
-    height: 80px; /* Fixed height for the info text */
+    padding: 10px 0;
+    height: 80px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1322,22 +1325,30 @@ select {
     margin-top: 10px;
 }
 
-/* Ensure there’s only one vertical line between items */
+/* Linie am Ende der Items */
+.mainshop-item:last-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Verhindert doppelte Linien zwischen Items */
 .mainshop-item:nth-child(2n) {
     border-left: none;
 }
 
-/* Shadow at the bottom of the container */
+/* Fester Schatten am unteren Rand des Containers */
 .mainshop-shadow {
-    position: absolute;
+    position: fixed;
     bottom: 0;
-    left: 0;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 880px;
     height: 50px;
+    pointer-events: none;
     background: linear-gradient(to top, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0));
+    z-index: 2;
 }
 
-/* Media query to adjust layout on smaller screens */
+/* Medienabfrage für kleinere Bildschirme */
 @media (max-width: 920px) {
     .mainshop-container {
         max-width: 100%;
@@ -1346,6 +1357,10 @@ select {
     }
 
     .mainshop-item {
-        width: calc(50vw - 1px); /* Zwei Spalten, abhängig von der Bildschirmbreite */
+        width: calc(50vw - 1px); /* Zwei Spalten auch bei kleineren Bildschirmen */
+    }
+
+    .mainshop-shadow {
+        width: 100vw;
     }
 }
