@@ -1267,14 +1267,14 @@ select {
 }
 
 .mainshop-container {
-    top: 120px;
     max-width: 880px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 0 20px;
     height: 80vh;
     overflow-y: scroll;
     box-sizing: border-box;
     position: relative;
+    top: 120px;
     scrollbar-width: none; /* Verhindert sichtbare Scrollbar */
 }
 
@@ -1282,29 +1282,24 @@ select {
     display: none; /* Versteckt die Scroll-Leiste in Webkit-Browsern */
 }
 
+/* Abstand und Bildanpassung */
 .mainshop-item {
     display: inline-block;
-    width: calc(50% - 1px); /* Zwei Spalten */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Sanfte Linie */
-    border-bottom: none;
+    width: calc(50% - 20px); /* Zwei Spalten */
     box-sizing: border-box;
     text-align: center;
     background-color: black;
     cursor: pointer;
     position: relative;
-    transition: border-color 0.3s ease;
+    margin: 20px;
+    overflow: hidden; /* Bild bleibt im Rahmen */
 }
 
-.mainshop-item:hover {
-    border-color: rgba(255, 255, 255, 0.6); /* Hover-Effekt */
-}
-
-/* Bild quadratisch und skaliert */
+/* Bild quadratisch und vollständig sichtbar */
 .mainshop-item img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Skaliert das Bild proportional */
-    aspect-ratio: 1/1; /* Stellt sicher, dass das Bild quadratisch bleibt */
+    object-fit: contain; /* Verhindert das Zuschneiden des Bildes */
 }
 
 .mainshop-item .info {
@@ -1325,17 +1320,34 @@ select {
     margin-top: 10px;
 }
 
-/* Linie am Ende der Items */
-.mainshop-item:last-child {
+/* Horizontale Linie nach jeder Zeile */
+.mainshop-item:nth-child(2n) {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* Verhindert doppelte Linien zwischen Items */
-.mainshop-item:nth-child(2n) {
-    border-left: none;
+/* Linie über der ersten Zeile */
+.mainshop-container::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.3);
+    position: absolute;
+    top: 0;
 }
 
-/* Fester Schatten am unteren Rand des Containers */
+/* Linie zwischen den Items von oben bis unten */
+.mainshop-container::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Schatten-Effekt links und rechts mit Fade */
 .mainshop-shadow {
     position: fixed;
     bottom: 0;
@@ -1344,7 +1356,9 @@ select {
     width: 880px;
     height: 50px;
     pointer-events: none;
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0));
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0)),
+                linear-gradient(to right, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0)),
+                linear-gradient(to left, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0));
     z-index: 2;
 }
 
@@ -1357,7 +1371,7 @@ select {
     }
 
     .mainshop-item {
-        width: calc(50vw - 1px); /* Zwei Spalten auch bei kleineren Bildschirmen */
+        width: calc(50vw - 20px); /* Zwei Spalten auch bei kleineren Bildschirmen */
     }
 
     .mainshop-shadow {
