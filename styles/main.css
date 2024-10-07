@@ -1275,7 +1275,8 @@ select {
     box-sizing: border-box;
     position: relative;
     top: 120px;
-    scrollbar-width: none; /* Verhindert sichtbare Scrollbar */
+    scrollbar-width: none;
+    z-index: 5000;
 }
 
 .mainshop-container::-webkit-scrollbar {
