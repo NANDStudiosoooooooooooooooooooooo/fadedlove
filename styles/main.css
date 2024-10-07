@@ -1278,10 +1278,9 @@ select {
 
 .mainshop-container {
     max-width: 880px;
-    margin: 0 auto;
+    margin: 0;
     padding: 0;
     height: 100%;
-    margin-bottom: 0px;
     overflow-y: scroll;
     box-sizing: border-box;
     position: relative;
