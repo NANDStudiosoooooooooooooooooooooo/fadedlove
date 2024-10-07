@@ -76,5 +76,18 @@
             "https://fadedcloth.de/media/PRODUCTS/front2.webp?v1.1",
             "https://fadedcloth.de/media/PRODUCTS/back2.webp"
           ]
+    },
+    {
+        "name": "FADEDLOVE TEE #1",
+        "price": "50€",
+        "description": "100% COTTON | MADE IN CHINA | COLOR: BLACK | BOXY FIT",
+        "shipping": "SHIPS WITHIN 14 DAYS | PRE ORDER",
+        "description2": "SOON",
+        "collection": "FADEDLOVE",
+        "id": "10227247350091",
+        "images": [
+            "https://fadedcloth.de/media/PRODUCTS/front.webp",
+            "https://fadedcloth.de/media/PRODUCTS/back.webp"
+          ]
     }
 ]
