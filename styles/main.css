@@ -1381,3 +1381,8 @@ select {
         font-size: 0.8rem; /* Noch kleinere Schriftgröße */
     }
 }
+
+#label-toggle-container {
+    margin-top: 20px;
+    margin-right: 20px;
+}
