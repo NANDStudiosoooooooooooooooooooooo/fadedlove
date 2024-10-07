@@ -1276,9 +1276,9 @@ select {
 
 /* Bild quadratisch mit 20px margin, aber nur für das Bild */
 .mainshop-item img {
-    width: calc(100% - 40px); /* Bild innerhalb des Containers */
+    width: calc(100% - 80px); /* Bild innerhalb des Containers */
     height: auto; /* Höhe automatisch */
-    margin: 20px;
+    margin: 40px;
     object-fit: contain; /* Verhindert das Zuschneiden des Bildes */
     flex-grow: 1; /* Bild füllt den verfügbaren Platz aus */
 }
