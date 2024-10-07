@@ -787,7 +787,6 @@ video::-webkit-media-controls {
     
     .mainshop-container {
         margin-bottom: 20px;
-        height: calc(100%-100PX);
     }
 
     .main-body{
