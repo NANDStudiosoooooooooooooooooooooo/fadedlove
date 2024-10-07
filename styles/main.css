@@ -1286,7 +1286,7 @@ select {
 /* Zwei Spalten für die Items */
 .mainshop-item {
     display: inline-block;
-    width: calc(50% - 1px);
+    width: calc(50%);
     box-sizing: border-box;
     text-align: center;
     background-color: black;
