@@ -1291,7 +1291,7 @@ select {
 
 /* Container für die Items */
 .mainshop-items {
-    display: flex;
+    display: flex; /* Flexbox verwenden */
     flex-wrap: wrap; /* Items in Zeilen anordnen */
 }
 
