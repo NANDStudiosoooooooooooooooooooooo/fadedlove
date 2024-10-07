@@ -1352,21 +1352,6 @@ select {
     z-index: 6000; /* Sicherstellen, dass die Linie hinter den Items bleibt */
 }
 
-/* Angepasster, dezenter Schatten-Effekt mit Übergang */
-.mainshop-shadow {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 880px;
-    height: 50px;
-    pointer-events: none;
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0)),
-                linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0)),
-                linear-gradient(to left, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0));
-    z-index: 2;
-}
-
 /* Medienabfrage für kleinere Bildschirme */
 @media (max-width: 920px) {
     .mainshop-container {
