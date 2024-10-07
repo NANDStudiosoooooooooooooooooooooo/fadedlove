@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const client = ShopifyBuy.buildClient({
-        domain: '8d16c7-e5.myshopify.com',
-        storefrontAccessToken: '4c5fbcdc72435c7a75e2d99c337f5ed0'
+        domain: 'f9556c-eb.myshopify.com',
+        storefrontAccessToken: '285c3960e72934cbc0a6104d426b2566'
     });
 
     const params = new URLSearchParams(window.location.search);
