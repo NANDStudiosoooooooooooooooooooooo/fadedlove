@@ -114,6 +114,7 @@ h2 {
 
 .top {
     animation: slideInTop 0.5s forwards;
+    z-index: 10000;
 }
 
 .left {
@@ -126,6 +127,7 @@ h2 {
     top: 0px;
     right: 0px;
     animation: slideInRight 0.5s forwards;
+    z-index: 10000;
 }
 
 .top-left {
@@ -133,6 +135,7 @@ h2 {
     left: 0px;
     left: 0px;
     animation: slideInLeft 0.5s forwards;
+    z-index: 10000;
 }
 
 .href {
