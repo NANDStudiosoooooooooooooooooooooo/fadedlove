@@ -1280,7 +1280,7 @@ select {
     max-width: 880px;
     margin: 0;
     padding: 0;
-    height: 100%;
+    height: calc(100%-80PX);
     overflow-y: scroll;
     box-sizing: border-box;
     position: relative;
