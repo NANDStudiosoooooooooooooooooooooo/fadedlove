@@ -297,6 +297,7 @@ h2 {
 /* Versteckte Elemente */
 .hidden {
     display: none;
+    visibility: hidden;
 }
 
 .visible {
