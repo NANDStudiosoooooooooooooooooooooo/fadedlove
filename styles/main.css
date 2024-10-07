@@ -1292,7 +1292,7 @@ select {
 /* Zwei Spalten für die Items */
 .mainshop-item {
     display: inline-block;
-    width: calc(50%); /* Korrigierte Berechnung für 2 Spalten mit Zwischenraum */
+    width: calc(50% - 1px); /* Korrigierte Berechnung für 2 Spalten mit Zwischenraum */
     box-sizing: border-box;
     text-align: center;
     background-color: black;
@@ -1336,7 +1336,7 @@ select {
     height: 1px;
     background-color: rgba(255, 255, 255, 0.3);
     position: absolute;
-    top: -10px; /* Platzierung über dem Element */
+    top: -20px; /* Platzierung über dem Element */
     left: 0;
     z-index: 6000;
 }
@@ -1362,6 +1362,6 @@ select {
     }
 
     .mainshop-item {
-        width: calc(50vw); /* Zwei Spalten auch bei kleineren Bildschirmen */
+        width: calc(50vw - 1px); /* Zwei Spalten auch bei kleineren Bildschirmen */
     }
 }
