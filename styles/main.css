@@ -1360,8 +1360,4 @@ select {
         margin: 0;
         padding: 0;
     }
-
-    .mainshop-item {
-        width: calc(50vw - 1px); /* Zwei Spalten auch bei kleineren Bildschirmen */
-    }
 }
