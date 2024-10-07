@@ -1375,7 +1375,7 @@ select {
     }
 
     .mainshop-item {
-        width: calc(50vw - 10px); /* Zwei Spalten auch bei kleineren Bildschirmen */
+        width: calc(50vw); /* Zwei Spalten auch bei kleineren Bildschirmen */
     }
 
     .mainshop-shadow {
