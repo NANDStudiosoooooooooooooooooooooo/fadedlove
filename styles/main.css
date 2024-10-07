@@ -1280,7 +1280,7 @@ select {
     overflow-y: scroll;
     box-sizing: border-box;
     position: relative;
-    top: 100px;
+    top: 80px;
     scrollbar-width: none;
     z-index: 5000;
 }
