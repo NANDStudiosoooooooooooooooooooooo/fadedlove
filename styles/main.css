@@ -1282,7 +1282,7 @@ select {
     display: none; /* Versteckt die Scroll-Leiste in Webkit-Browsern */
 }
 
-/* Abstand und Bildanpassung */
+/* Zwei Spalten für die Items */
 .mainshop-item {
     display: inline-block;
     width: calc(50% - 20px); /* Zwei Spalten */
@@ -1291,14 +1291,14 @@ select {
     background-color: black;
     cursor: pointer;
     position: relative;
-    margin: 20px;
     overflow: hidden; /* Bild bleibt im Rahmen */
 }
 
-/* Bild quadratisch und vollständig sichtbar */
+/* Bild quadratisch mit 20px margin, aber nur für das Bild */
 .mainshop-item img {
-    width: 100%;
-    height: 100%;
+    width: calc(100% - 40px); /* Bild innerhalb des Containers */
+    height: auto;
+    margin: 20px;
     object-fit: contain; /* Verhindert das Zuschneiden des Bildes */
 }
 
@@ -1347,7 +1347,7 @@ select {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Schatten-Effekt links und rechts mit Fade */
+/* Angepasster, dezenter Schatten-Effekt mit Übergang */
 .mainshop-shadow {
     position: fixed;
     bottom: 0;
@@ -1356,9 +1356,9 @@ select {
     width: 880px;
     height: 50px;
     pointer-events: none;
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0)),
-                linear-gradient(to right, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0)),
-                linear-gradient(to left, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0));
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0)),
+                linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0)),
+                linear-gradient(to left, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0));
     z-index: 2;
 }
 
