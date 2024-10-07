@@ -1289,9 +1289,16 @@ select {
     display: none; /* Versteckt die Scroll-Leiste in Webkit-Browsern */
 }
 
+/* Container für die Items */
+.mainshop-items {
+    display: flex;
+    flex-wrap: wrap; /* Items in Zeilen anordnen */
+}
+
 /* Zwei Spalten für die Items */
 .mainshop-item {
-    display: inline-block;
+    display: flex; /* Flexbox verwenden */
+    flex-direction: column; /* Elemente innerhalb des Items untereinander anordnen */
     width: calc(50%);
     box-sizing: border-box;
     text-align: center;
@@ -1306,14 +1313,15 @@ select {
 /* Bild quadratisch mit 20px margin, aber nur für das Bild */
 .mainshop-item img {
     width: calc(100% - 40px); /* Bild innerhalb des Containers */
-    height: auto;
+    height: auto; /* Höhe automatisch */
     margin: 20px;
     object-fit: contain; /* Verhindert das Zuschneiden des Bildes */
+    flex-grow: 1; /* Bild füllt den verfügbaren Platz aus */
 }
 
 .mainshop-item .info {
     padding: 10px 0;
-    height: 80px;
+    height: auto; /* Höhe anpassen */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1340,18 +1348,6 @@ select {
     top: -20px; /* Platzierung über dem Element */
     left: 0;
     z-index: 6000;
-}
-
-/* Vertikale Linie zwischen den Items */
-.mainshop-container::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background-color: rgba(255, 255, 255, 0.3);
-    z-index: 6000; /* Sicherstellen, dass die Linie hinter den Items bleibt */
 }
 
 /* Medienabfrage für kleinere Bildschirme */
