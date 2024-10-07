@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <p>${item.description}</p>
                 <p>${item.shipping}</p>
                 <p>${item.description2}</p>
-                <p>${item.price}</p>
+                <p><strong>${item.price}</strong></p>
       
                 <label for="size-select">SIZE:</label>
                 <select id="size-select"></select>
