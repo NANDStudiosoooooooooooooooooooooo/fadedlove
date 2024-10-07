@@ -1275,8 +1275,7 @@ select {
     box-sizing: border-box;
     position: relative;
     top: 120px;
-    scrollbar-width: none;
-    margin-bottom: 100px;
+    scrollbar-width: none; /* Verhindert sichtbare Scrollbar */
 }
 
 .mainshop-container::-webkit-scrollbar {
@@ -1323,23 +1322,23 @@ select {
     margin-top: 10px;
 }
 
-/* Horizontale Linie nach jeder Zeile */
-.mainshop-item:nth-child(odd) {
-    border-right: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-/* Linie über der ersten Zeile */
-.mainshop-container::before {
+/* Horizontale Linie über jeder Zeile */
+.mainshop-item:nth-child(odd)::before {
     content: "";
     display: block;
     width: 100%;
     height: 1px;
     background-color: rgba(255, 255, 255, 0.3);
     position: absolute;
-    top: 0;
+    top: -10px; /* Platzierung über dem Element */
+    left: 0;
 }
 
-/* Linie zwischen den Items von oben bis unten */
+.mainshop-item:nth-child(2n)::before {
+    display: none; /* Verhindert doppelte Linien zwischen den Spalten */
+}
+
+/* Vertikale Linie zwischen den Items */
 .mainshop-container::after {
     content: "";
     position: absolute;
@@ -1348,6 +1347,7 @@ select {
     bottom: 0;
     width: 1px;
     background-color: rgba(255, 255, 255, 0.3);
+    z-index: 1; /* Sicherstellen, dass die Linie hinter den Items bleibt */
 }
 
 /* Angepasster, dezenter Schatten-Effekt mit Übergang */
