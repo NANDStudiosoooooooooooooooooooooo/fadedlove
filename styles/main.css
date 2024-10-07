@@ -1319,12 +1319,12 @@ select {
 }
 
 .mainshop-item .name {
-    font-size: 2vw;
+    font-size: 1.2rem; /* Standardgröße */
     margin: 0;
 }
 
 .mainshop-item .price {
-    font-size: 1.5vw;
+    font-size: 1rem; /* Standardgröße */
     margin-top: 10px;
 }
 
@@ -1359,5 +1359,23 @@ select {
         max-width: 100%;
         margin: 0;
         padding: 0;
+    }
+
+    .mainshop-item .name {
+        font-size: 1rem; /* Kleinere Schriftgröße */
+    }
+
+    .mainshop-item .price {
+        font-size: 0.9rem; /* Kleinere Schriftgröße */
+    }
+}
+
+@media (max-width: 600px) {
+    .mainshop-item .name {
+        font-size: 0.9rem; /* Noch kleinere Schriftgröße für sehr kleine Bildschirme */
+    }
+
+    .mainshop-item .price {
+        font-size: 0.8rem; /* Noch kleinere Schriftgröße */
     }
 }
