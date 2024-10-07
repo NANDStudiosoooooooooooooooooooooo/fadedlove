@@ -32,13 +32,14 @@ document.addEventListener('DOMContentLoaded', function () {
             updatePriceDisplay(currentVariant); // Preis initial setzen
 
             // Anzeige des Artikels
+            //          <p><strong>PRICE: <span id="item-price">${(currentVariant.price / 100).toFixed(2)} EUR</span></strong></p>
             itemDetails.innerHTML = `
                 <h2>${item.name}</h2>
                 <p>${item.description}</p>
                 <p>${item.shipping}</p>
                 <p>${item.description2}</p>
                 <p>${item.price}</p>
-                <!-- <p><strong>PRICE: <span id="item-price">${(currentVariant.price / 100).toFixed(2)} EUR</span></strong></p> -->
+      
                 <label for="size-select">SIZE:</label>
                 <select id="size-select"></select>
                 <!--<div id="shopify-cart-button"></div>-->
