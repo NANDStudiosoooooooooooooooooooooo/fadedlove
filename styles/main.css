@@ -1285,8 +1285,7 @@ select {
 /* Zwei Spalten für die Items */
 .mainshop-item {
     display: inline-block;
-    width: calc(50% - 10px); /* Korrigierte Berechnung für 2 Spalten mit Zwischenraum */
-    margin-bottom: 20px;
+    width: calc(50% - 1px);
     box-sizing: border-box;
     text-align: center;
     background-color: black;
