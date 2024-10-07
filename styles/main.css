@@ -1299,7 +1299,7 @@ select {
 .mainshop-item {
     display: flex; /* Flexbox verwenden */
     flex-direction: column; /* Elemente innerhalb des Items untereinander anordnen */
-    width: calc(50%);
+    width: 50%; /* Breite ohne Abzug für Zwischenraum */
     box-sizing: border-box;
     text-align: center;
     background-color: black;
