@@ -585,6 +585,7 @@ border-radius: 0;
     transition: 0.3s;
 }
 .header-logo {
+    z-index: 10000;
     width: 80px;
     height: auto;
     display: block;
@@ -1283,6 +1284,7 @@ select {
     top: 80px;
     scrollbar-width: none;
     z-index: 5000;
+    overflow: auto;
 }
 
 .mainshop-container::-webkit-scrollbar {
