@@ -329,6 +329,36 @@
                     }
                 });
             }
+
+            function formatUpcomingDate(date) {
+            const options = {
+                weekday: 'short', // Wochentag (TUE)
+                month: 'short', // Monat (OCT)
+                day: '2-digit', // Tag (22)
+                year: '2-digit', // Jahr (24)
+                hour: '2-digit', // Stunden (12)
+                hour12: true // 12-Stunden-Format
+            };
+
+            const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+            const ampm = date.getHours() >= 12 ? 'PM' : 'AM'; // AM/PM
+
+            // Kombinierung der Informationen im gewünschten Format
+            return `${formattedDate.replace(/,\s/g, ' ').replace(/\b\d{4}\b/, '')} UTC+2`.replace(/ +/, ' ').trim(); // Vermeidung doppelter Leerzeichen
+        }
+
+        // Erweiterte Countdown-Funktion
+        function getExtendedCountdown(date) {
+            const now = new Date();
+            const diff = date - now;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24)); // Tage
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); // Stunden
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)); // Minuten
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000); // Sekunden
+
+            return `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
     
             // Funktion zur Verarbeitung der E-Mail-Validierung und Einreichung
             function processSubscription(email, newsletterLabel, emailInput) {
