@@ -15,43 +15,53 @@
             margin: 0;
             padding: 0;
         }
+
         .drop_container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
+            max-width: 100%;
+            overflow-x: auto; /* Ermöglicht horizontalen Scroll bei Bedarf */
+        }
+
+        .drop_item {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+            padding: 5px 0;
+            font-size: 4vw; /* Dynamische Schriftgröße */
+            white-space: nowrap; /* Verhindert Zeilenumbruch */
+        }
+
+        .drop_item:hover {
+            color: white;
+        }
+
+        .drop_number {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            overflow-x: auto; /* Ermöglicht Scrollen bei kleineren Bildschirmen */
+            width: 10%; /* Für die Nummer #XX */
+            font-size: 0.9em; /* Kleinere Schrift für die Nummer */
+            padding-right: 5px; /* Abstand zum nächsten Element */
         }
-        .drop {
-            margin-bottom: 15px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            white-space: nowrap; /* Sorgt dafür, dass der Text nicht umbricht */
+
+        .drop_name {
+            width: 70%; /* Name nimmt den größten Teil ein */
+            overflow: hidden;
+            text-overflow: ellipsis; /* Zeigt '...' bei Überlauf */
         }
-        .drop a {
-            text-decoration: none;
-            color: white;
-            font-size: 16px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start; /* Text linksbündig */
+
+        .drop_countdown {
+            width: 20%; /* Countdown nimmt weniger Platz ein */
+            text-align: right; /* Countdown nach rechts */
         }
-        .drop .drop-number {
-            font-size: 14px;
-        }
-        .drop .drop-countdown {
-            font-size: 16px; /* Größe für Countdown */
-        }
-        @media (max-width: 500px) {
-            body {
-                font-size: 14px;
-            }
-            .drop a {
-                font-size: 14px;
+
+        @media (min-width: 500px) {
+            .drop_item {
+                font-size: 24px; /* Feste größere Größe für Bildschirme über 500px */
             }
         }
     </style>
@@ -168,39 +178,30 @@
                     const isUpcoming = dropDate > now;
 
                     const dropElement = document.createElement('div');
-                    dropElement.className = 'drop';
+                    dropElement.className = 'drop_item';
 
                     // Formatiertes Datum und Zeit für die Anzeige
                     const formattedDate = formatDateTime(dropDate);
 
-                    // Erstellen der Drop-Nummer und des Links
-                    const dropLink = document.createElement('a');
-                    const dropNumber = String(index + 1).padStart(2, '0'); // Nummer immer mit zwei Ziffern
-
                     // Drop-Nummer (z.B. 01) in einem separaten Element
-                    const numberElement = document.createElement('span');
-                    numberElement.className = 'drop-number';
-                    numberElement.textContent = `#${dropNumber}`;
+                    const dropNumber = String(index + 1).padStart(2, '0'); // Nummer immer mit zwei Ziffern
+                    const numberElement = document.createElement('div');
+                    numberElement.className = 'drop_number';
+                    numberElement.innerHTML = `#${dropNumber}<span style="font-size: 1.5em;">${dropNumber}</span>`; // Größe anpassen
 
                     // Countdown oder Name anzeigen
-                    const countdownText = document.createElement('span');
-                    countdownText.className = 'drop-countdown';
-                    countdownText.textContent = isUpcoming ? getExtendedCountdown(dropDate) : drop.name;
+                    const countdownText = document.createElement('div');
+                    countdownText.className = 'drop_countdown';
+                    countdownText.textContent = isUpcoming ? getExtendedCountdown(dropDate) + ' ' + formattedDate : drop.name;
 
-                    // Nur formatierte Zeit hinzufügen, wenn der Drop noch nicht erschienen ist
-                    if (isUpcoming) {
-                        countdownText.textContent += ` (${formattedDate})`;
-                    }
-
-                    dropLink.appendChild(numberElement);
-                    dropLink.appendChild(countdownText);
-                    dropElement.appendChild(dropLink);
+                    dropElement.appendChild(numberElement);
+                    dropElement.appendChild(countdownText);
                     container.appendChild(dropElement);
 
                     // Countdown regelmäßig aktualisieren
                     if (isUpcoming) {
                         setInterval(() => {
-                            countdownText.textContent = getExtendedCountdown(dropDate);
+                            countdownText.textContent = getExtendedCountdown(dropDate) + ' ' + formattedDate;
                         }, 1000);
                     }
                 });
@@ -209,16 +210,16 @@
             // Funktion zur Formatierung des Datums und der Zeit
             function formatDateTime(date) {
                 const options = {
-                    weekday: 'short',   // Wochentag (Mon)
-                    year: '2-digit',    // Nur die letzten zwei Ziffern des Jahres
-                    month: 'short',     // Monat (Jan)
-                    day: 'numeric',
-                    hour: '2-digit',    // Uhrzeit (02PM)
-                    minute: '2-digit',  // Minuten
+                    weekday: 'short', // Wochentag (Mon)
+                    year: '2-digit', // Nur die letzten zwei Ziffern des Jahres
+                    month: 'short', // Monat (Jan)
+                    day: 'numeric', // Tag
+                    hour: '2-digit', // Stunde
+                    minute: '2-digit', // Minuten
                     timeZoneName: 'short', // Zeitzone (UTC+2)
-                    hour12: true        // 12-Stunden-Format
+                    hour12: true // 12-Stunden-Format
                 };
-                return new Intl.DateTimeFormat('en-US', options).format(date).toUpperCase();
+                return new Intl.DateTimeFormat('en-US', options).format(date).toUpperCase().replace(',', '');
             }
 
             // Erweiterte Countdown-Funktion
