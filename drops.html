@@ -225,7 +225,7 @@
                     dropLink.className = 'drop_link';
     
                     if (isUpcoming) {
-                        dropLink.textContent = `${getExtendedCountdown(dropDate)} ${formatDateTime(dropDate)}`;
+                        dropLink.textContent = `${drop.name} ${getExtendedCountdown(dropDate)} ${formatDateTime(dropDate)}`;
                     } else {
                         dropLink.textContent = `${drop.name} - ${drop.subname || ''}`;
                         if (drop.link) {
@@ -240,7 +240,7 @@
                     // Countdown regelmäßig aktualisieren
                     if (isUpcoming) {
                         setInterval(() => {
-                            dropLink.textContent = `${getExtendedCountdown(dropDate)} ${formatDateTime(dropDate)}`;
+                            dropLink.textContent = `${drop.name} ${getExtendedCountdown(dropDate)} ${formatDateTime(dropDate)}`;
                         }, 1000);
                     }
                 });
@@ -290,7 +290,7 @@
                 const ampm = date.getHours() >= 12 ? 'PM' : 'AM'; // AM/PM
     
                 // Umwandlung in das gewünschte Format
-                return formattedDate.replace(/,\s/g, ' ') + ` ${hours}${ampm} UTC+2`;
+                return `${formattedDate} ${hours} ${ampm} UTC+2`.replace(/ +/, ' ').trim(); // Vermeidung doppelter Leerzeichen
             }
     
             // Erweiterte Countdown-Funktion
@@ -307,6 +307,7 @@
             }
         });
     </script>
+    
     
     
     
