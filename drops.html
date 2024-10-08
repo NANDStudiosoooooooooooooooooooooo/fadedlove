@@ -225,7 +225,7 @@
                     dropLink.className = 'drop_link';
     
                     if (isUpcoming) {
-                        dropLink.textContent = `${drop.name} ${getExtendedCountdown(dropDate)}`;
+                        dropLink.textContent = `${getExtendedCountdown(dropDate)} ${formatDateTime(dropDate)}`;
                     } else {
                         dropLink.textContent = `${drop.name} - ${drop.subname || ''}`;
                         if (drop.link) {
@@ -240,7 +240,7 @@
                     // Countdown regelmäßig aktualisieren
                     if (isUpcoming) {
                         setInterval(() => {
-                            dropLink.textContent = `${drop.name} ${getExtendedCountdown(dropDate)}`;
+                            dropLink.textContent = `${getExtendedCountdown(dropDate)} ${formatDateTime(dropDate)}`;
                         }, 1000);
                     }
                 });
@@ -275,6 +275,24 @@
                 });
             }
     
+            // Funktion zur Formatierung des Datums und der Zeit
+            function formatDateTime(date) {
+                const options = {
+                    weekday: 'short',   // Wochentag (Mon)
+                    month: 'short',     // Monat (Mar)
+                    day: '2-digit',     // Datum (24)
+                    hour: '2-digit',    // Uhrzeit (02)
+                    hour12: true        // 12-Stunden-Format
+                };
+    
+                const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+                const hours = date.getHours() % 12 || 12; // Umwandlung in 12-Stunden-Format
+                const ampm = date.getHours() >= 12 ? 'PM' : 'AM'; // AM/PM
+    
+                // Umwandlung in das gewünschte Format
+                return formattedDate.replace(/,\s/g, ' ') + ` ${hours}${ampm} UTC+2`;
+            }
+    
             // Erweiterte Countdown-Funktion
             function getExtendedCountdown(date) {
                 const now = new Date();
@@ -289,6 +307,7 @@
             }
         });
     </script>
+    
     
     
     
