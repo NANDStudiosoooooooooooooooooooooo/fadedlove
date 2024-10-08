@@ -291,11 +291,10 @@
                 };
     
                 const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
-                const hours = date.getHours() % 12 || 12; // Umwandlung in 12-Stunden-Format
                 const ampm = date.getHours() >= 12 ? 'PM' : 'AM'; // AM/PM
     
                 // Kombinierung der Informationen im gewünschten Format
-                return `${formattedDate.replace(/,\s/g, ' ').replace(/\b\d{4}\b/, '')} ${hours}${ampm} UTC+2`.replace(/ +/, ' ').trim(); // Vermeidung doppelter Leerzeichen
+                return `${formattedDate.replace(/,\s/g, ' ').replace(/\b\d{4}\b/, '')} UTC+2`.replace(/ +/, ' ').trim(); // Vermeidung doppelter Leerzeichen
             }
     
             // Erweiterte Countdown-Funktion
@@ -312,13 +311,6 @@
             }
         });
     </script>
-    
-    
-    
-    
-    
-    
-    
     
     
     <script src="scripts/loader.js" defer></script>
