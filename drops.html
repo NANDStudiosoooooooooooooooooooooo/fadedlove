@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>FADEDCLOTH - UPCOMING DROPS</title>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:500|IBM+Plex+Sans:300&display=swap" rel="stylesheet">
+    <meta name="description" content="The offical FADEDCLOTH site. Subscribe for updates.">
+    <link rel="stylesheet" href="styles/main.css?v=2.21">
+    <style>
+        body {
+            background-color: black;
+            color: gray;
+            font-family: monospace;
+            margin: 0;
+            padding: 0;
+        }
+
+        .drop_container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .drop_item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 5px 0;
+            font-size: 4vw; /* Dynamic font size */
+        }
+
+        .drop_upcoming {
+            color: darkgray;
+        }
+
+        .drop_item:hover {
+            color: white;
+        }
+
+        .drop_image {
+            max-height: 4vw;
+            margin-left: 10px;
+        }
+
+        @media (min-width: 500px) {
+            .drop_item {
+                font-size: 24px; /* Fixed larger size for screens above 500px */
+            }
+        }
+
+        .drop_number {
+            width: 5%;
+            text-align: left;
+        }
+
+        .drop_name {
+            width: 70%;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+
+        .drop_time {
+            width: 25%;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .drop_countdown {
+            width: 25%;
+            text-align: right;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-header">
+        <div class="top-left nav-link">
+            <a href="https://fadedcloth.de/" id="backbutton">MAINPAGE</a>
+        </div>
+        <div class="logo-container" id="load-container">
+            <video autoplay loop muted playsinline class="header-logo top" id="load-obj">
+                <source src="media/fadedcloth.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div id="loader" class="loader-container">
+            <l-zoomies size="80" stroke="5" bg-opacity="0.1" speed="1.4" color="white"></l-zoomies>
+          </div>
+    </div>
+
+    <div class="drop_container" id="dropList">
+        <!-- Drop items will be appended here -->
+    </div>
+
+    <!-- Navigation link -->
+    <a href="https://shop.fadedcloth.de" class="nav-link top-left underlineonhover">SHOP</a>
+
+    <div class="buttons-container">
+        <button id="button1" class="glass-button" data-target="panel1">COLLECTION</button>
+        <button id="button2" class="glass-button" data-target="panel2">INFO</button>
+        <button id="button3" class="glass-button" data-target="panel3">NEWSLETTER</button>
+        <!--<button id="button4" class="glass-button" data-target="panel4">SMS</button>-->
+    </div>
+    
+    <!-- Panel für Button 1 -->
+    <div id="panel1" class="glass-panel hidden">
+        <button class="close-btn" onclick="togglePanel('panel1')">X</button>
+        <a href="https://shop.fadedcloth.de/?collection=all&hide=FALSE" class="panel-link">SHOP ALL</a>
+        <a href="https://shop.fadedcloth.de/?collection=FADEDLOVE&hide=TRUE" class="panel-link">FADEDLOVE</a>
+        <a href="https://fadedcloth.de/" class="panel-link">MAINPAGE</a>
+    </div>
+    
+    <!-- Panel für Button 2 -->
+    <div id="panel2" class="glass-panel hidden">
+        <button class="close-btn" onclick="togglePanel('panel2')">X</button>
+        <div class="social-container">
+            <select id="social-select">
+                <option value="instagram">INSTAGRAM</option>
+                <option value="tiktok">TIKTOK</option>
+                <option value="twitter">TWITTER</option>
+            </select>
+            <a class="underlineonhover" id="social-select-link" href="https://instagram.com/fadedcloth.de">fadedcloth.de</a>
+        </div>
+        <a href="mailto:help@fadedcloth.de" class="panel-link">CONTACT</a>
+        <a href="/legal?id=privacy-policy" class="panel-link">PRIVACY POLICY</a>
+        <a href="/legal?id=terms-of-service" class="panel-link">TERMS OF SERVICE</a>
+        <div class="copyright">&copy; FADEDCLOTH 2024</div>
+    </div>
+    
+    <!-- Panel für Button 3 (Subscribe Panel) -->
+    <div id="panel3" class="glass-panel hidden">
+        <button class="close-btn" onclick="togglePanel('panel3')">X</button>
+        <div class="headline">SUBSCRIBE FOR UPDATES</div>
+        <form id="emailForm">
+            <input 
+                type="email" 
+                id="email" 
+                placeholder="ENTER YOUR EMAIL" 
+                class="email-input"
+                required 
+            />
+            <div class="checkbox-container">
+                <input type="checkbox" id="termsCheckbox" class="custom-checkbox">
+                <label for="termsCheckbox" class="checkbox-label">
+                  I ACCEPT THE <a class="href" href="/legal?id=terms-of-service">TERMS</a>
+                </label>
+            </div>
+            <div class="form-buttons">
+                <button id="subscribeButton" class="email-button small-button">
+                    SUBMIT
+                </button>
+            </div>
+        </form>
+    </div>
+    
+    <div id="panel4" class="glass-panel hidden">
+        <button class="close-btn" onclick="togglePanel('panel4')">X</button>
+        <div class="headline">SMS NEWSLETTER</div>
+        <form id="smsForm">
+            <input 
+                type="text" 
+                id="phoneNumber" 
+                placeholder="ENTER YOUR PHONE NUMBER" 
+                class="email-input" 
+                required 
+            />
+            <div class="form-buttons">
+                <button id="email-button small-button" class="form-button" type="submit"> <!-- Verwende die gleiche Klasse für den Button -->
+                    SUBSCRIBE
+                </button>
+            </div>
+        </form>
+        <div id="smsMessage" class="sms-message"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    fetch('/JSON/drops.json')
+        .then(response => response.json())
+        .then(data => displayDrops(data));
+
+    function displayDrops(drops) {
+        const container = document.getElementById('drops-container');
+        const now = new Date();
+
+        drops.forEach((drop, index) => {
+            const dropDate = new Date(drop.date + 'T' + drop.time + ':00');
+            const isUpcoming = dropDate > now;
+
+            const dropElement = document.createElement('div');
+            dropElement.className = `drop ${isUpcoming ? 'upcoming' : ''}`;
+
+            // Formatted date and time for display
+            const formattedDate = formatDateTime(dropDate);
+
+            // Creating drop number and link
+            const dropLink = document.createElement('a');
+            dropLink.href = drop.link;
+
+            // Drop number + countdown or name + formatted date/time display
+            dropLink.textContent = `#${index + 1} ${isUpcoming ? getExtendedCountdown(dropDate) : drop.name + " (" + formattedDate + ")"}`;
+
+            // Adding image if available and not upcoming
+            if (!isUpcoming && drop.images && drop.images.length > 0) {
+                const img = document.createElement('img');
+                img.src = drop.images[0];
+                dropElement.appendChild(img);
+            }
+
+            dropElement.appendChild(dropLink);
+            container.appendChild(dropElement);
+
+            // Update countdown regularly for upcoming drops
+            if (isUpcoming) {
+                setInterval(() => {
+                    dropLink.textContent = `#${index + 1} ${getExtendedCountdown(dropDate)}`;
+                }, 1000);
+            }
+        });
+    }
+
+    // Function to format date and time
+    function formatDateTime(date) {
+        const options = {
+            weekday: 'short',   // Weekday (Mon)
+            year: 'numeric',
+            month: 'short',     // Month (Jan)
+            day: 'numeric',
+            hour: '2-digit',    // Time (02PM)
+            minute: '2-digit',  // Minutes
+            timeZoneName: 'short', // Timezone (UTC+2)
+            hour12: true        // 12-hour format
+        };
+        return new Intl.DateTimeFormat('en-US', options).format(date);
+    }
+
+    // Extended countdown function
+    function getExtendedCountdown(date) {
+        const now = new Date();
+        const diff = date - now;
+
+        const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30)); // Months
+        const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24)); // Days
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); // Hours
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)); // Minutes
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000); // Seconds
+
+        return `${months}:${days}:${hours}:${minutes}:${seconds} ${formatDateTime(date)}`;
+    }
+});
+
+    </script>
+    
+    <script src="scripts/loader.js" defer></script>
+    <script src="scripts/switch.js?v=1.27" defer></script>
+    <script src="scripts/social.js?v=1.2" defer></script>
+    <script src="scripts/load-buttons.js?v=1.1" defer></script>
+    <script src="scripts/animate.js" defer></script> 
+    <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js" defer></script>
+    <script src="scripts/subscribe.js?v=1.2" defer></script>
+</body>
+</html>

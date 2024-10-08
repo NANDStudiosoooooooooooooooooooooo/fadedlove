@@ -1,0 +1,23 @@
+[
+    {
+      "name": "Drop 1",
+      "date": "2024-01-26",
+      "time": "14:00",
+      "link": "https://example.com/drop1",
+      "images": ["https://via.placeholder.com/50"]
+    },
+    {
+      "name": "Drop 2",
+      "date": "2024-01-30",
+      "time": "14:00",
+      "link": "https://example.com/drop2",
+      "images": ["https://via.placeholder.com/50"]
+    },
+    {
+      "name": "",
+      "date": "2024-02-03",
+      "time": "14:00",
+      "link": "",
+      "images": []
+    }
+  ]
