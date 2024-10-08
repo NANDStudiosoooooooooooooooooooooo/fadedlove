@@ -202,7 +202,7 @@
     
                     const dropElement = document.createElement('div');
                     dropElement.className = 'drop_item';
-    
+                    
                     // Füge das data-drop-date Attribut hinzu
                     dropElement.setAttribute('data-drop-date', dropDate.toISOString());
     
@@ -223,18 +223,15 @@
                     // Countdown oder Name als Link für gedroppte Items
                     const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
                     dropLink.className = 'drop_link';
-                    
-                    // Textinhalt anpassen: für anstehende oder erschienene Drops
-                    if (isUpcoming) {
-                        dropLink.textContent = `${drop.name ? drop.name + ' ' : ''}${getExtendedCountdown(dropDate)} ${formatDateTime(dropDate)}`;
-                    } else {
-                        dropLink.textContent = `${drop.name ? drop.name + ' - ' + (drop.subname || '') : ''}`;
-                    }
     
-                    // Setzt den href-Wert für bereits erschienene Drops
-                    if (!isUpcoming && drop.link) {
-                        dropLink.href = drop.link;
-                        dropLink.target = "_blank"; // Öffnet den Link in einem neuen Tab
+                    if (isUpcoming) {
+                        dropLink.textContent = `${drop.name} ${getExtendedCountdown(dropDate)}`;
+                    } else {
+                        dropLink.textContent = `${drop.name} - ${drop.subname || ''}`;
+                        if (drop.link) {
+                            dropLink.href = drop.link;
+                            dropLink.target = "_blank"; // Öffnet den Link in einem neuen Tab
+                        }
                     }
     
                     dropElement.appendChild(dropLink);
@@ -243,7 +240,7 @@
                     // Countdown regelmäßig aktualisieren
                     if (isUpcoming) {
                         setInterval(() => {
-                            dropLink.textContent = `${drop.name ? drop.name + ' ' : ''}${getExtendedCountdown(dropDate)} ${formatDateTime(dropDate)}`;
+                            dropLink.textContent = `${drop.name} ${getExtendedCountdown(dropDate)}`;
                         }, 1000);
                     }
                 });
@@ -278,19 +275,6 @@
                 });
             }
     
-            // Funktion zur Formatierung des Datums und der Zeit
-            function formatDateTime(date) {
-                const options = {
-                    weekday: 'short',   // Wochentag (Thu)
-                    month: 'short',     // Monat (Mar)
-                    day: 'numeric',     // Datum (05)
-                    hour: '2-digit',    // Uhrzeit (02PM)
-                    hour12: true        // 12-Stunden-Format (PM)
-                };
-    
-                return new Intl.DateTimeFormat('en-US', options).format(date).replace(/,\s/g, ' ') + ' UTC+2'; // Entfernt Komma und Leerzeichen, fügt Zeitzone hinzu
-            }
-    
             // Erweiterte Countdown-Funktion
             function getExtendedCountdown(date) {
                 const now = new Date();
@@ -305,6 +289,7 @@
             }
         });
     </script>
+    
     
     
     
