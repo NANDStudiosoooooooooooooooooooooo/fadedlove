@@ -24,6 +24,8 @@
             width: 100%;
             max-width: 100%;
             z-index: 11000;
+            overflow-x: auto; /* Allows horizontal scrolling */
+            white-space: nowrap; /* Prevents wrapping of the text */
         }
 
         .drop_item {
@@ -64,7 +66,6 @@
             text-align: left;
             white-space: nowrap;
             overflow: hidden;
-            text-overflow: ellipsis;
             font-size: 4vw; /* Match the font size */
         }
 
@@ -107,7 +108,8 @@
         margin-right: 20px ;
         margin-left: 200px; /* Abstand zwischen NEWSLETTER und Eingabefeld */
         width: 100%; /* Breite des Eingabefelds */
-        outline: none;
+        outline: none;overflow-x: auto; /* Allows horizontal scrolling */
+        white-space: nowrap; /* Prevents wrapping of the text */
         text-align: left;
     }
 
@@ -217,69 +219,65 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('/JSON/drops.json?v=1.1')
-                .then(response => response.json())
-                .then(data => displayDrops(data));
-    
-            function displayDrops(drops) {
-                const container = document.getElementById('drops-container');
-                const now = new Date();
-                drops.forEach((drop, index) => {
-                    const dropDate = new Date(drop.date + 'T' + drop.time + ':00');
-                    const isUpcoming = dropDate > now;
-    
-                    const dropElement = document.createElement('div');
-                    dropElement.className = 'drop_item';
-    
-                    // Füge das data-drop-date Attribut hinzu
-                    dropElement.setAttribute('data-drop-date', dropDate.toISOString());
-    
-                    // Erstellen der Drop-Nummer
-                    const dropNumberContainer = document.createElement('div');
-                    dropNumberContainer.className = 'drop_number_container';
-    
-                    const dropNumberHash = document.createElement('div');
-                    dropNumberHash.textContent = '#';
-                    const dropNumber = document.createElement('div');
-                    dropNumber.textContent = String(index + 1).padStart(2, '0'); // Zwei-stelliges Format
-    
-                    dropNumberContainer.appendChild(dropNumberHash);
-                    dropNumberContainer.appendChild(dropNumber);
-    
-                    dropElement.appendChild(dropNumberContainer);
-    
-                    // Countdown oder Name als Link für gedroppte Items
-                    const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
-                    dropLink.className = 'drop_link';
-    
-                    if (isUpcoming) {
+        fetch('/JSON/drops.json?v=1.1')
+            .then(response => response.json())
+            .then(data => displayDrops(data));
+
+        function displayDrops(drops) {
+            const container = document.getElementById('drops-container');
+            const now = new Date();
+            drops.forEach((drop, index) => {
+                const dropDate = new Date(drop.date + 'T' + drop.time + ':00');
+                const isUpcoming = dropDate > now;
+
+                const dropElement = document.createElement('div');
+                dropElement.className = 'drop_item';
+
+                dropElement.setAttribute('data-drop-date', dropDate.toISOString());
+
+                // Erstellen der Drop-Nummer
+                const dropNumberContainer = document.createElement('div');
+                dropNumberContainer.className = 'drop_number_container';
+
+                const dropNumberHash = document.createElement('div');
+                dropNumberHash.textContent = '#';
+                const dropNumber = document.createElement('div');
+                dropNumber.textContent = String(index + 1).padStart(2, '0');
+
+                dropNumberContainer.appendChild(dropNumberHash);
+                dropNumberContainer.appendChild(dropNumber);
+
+                dropElement.appendChild(dropNumberContainer);
+
+                const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
+                dropLink.className = 'drop_link';
+
+                if (isUpcoming) {
+                    dropLink.textContent = drop.name 
+                        ? `${drop.name} ${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}` 
+                        : `${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`;
+                } else {
+                    dropLink.textContent = drop.name + (drop.subname ? ` - ${drop.subname}` : '');
+                    if (drop.link) {
+                        dropLink.href = drop.link;
+                        dropLink.target = "_blank"; // Öffnet den Link in einem neuen Tab
+                    }
+                }
+
+                dropElement.appendChild(dropLink);
+                container.appendChild(dropElement);
+
+                if (isUpcoming) {
+                    setInterval(() => {
                         dropLink.textContent = drop.name 
                             ? `${drop.name} ${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`
                             : `${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`;
-                    } else {
-                        dropLink.textContent = `${drop.name} - ${drop.subname || ''}`;
-                        if (drop.link) {
-                            dropLink.href = drop.link;
-                            dropLink.target = "_blank"; // Öffnet den Link in einem neuen Tab
-                        }
-                    }
-    
-                    dropElement.appendChild(dropLink);
-                    container.appendChild(dropElement);
-    
-                    // Countdown regelmäßig aktualisieren
-                    if (isUpcoming) {
-                        setInterval(() => {
-                            dropLink.textContent = drop.name 
-                                ? `${drop.name} ${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`
-                                : `${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`;
-                        }, 1000);
-                    }
-                });
-    
-                // Füge Newsletter-Eingabe hinzu
-                addNewsletterInput(drops.length + 1); // # der nächsten Zeile
-            }
+                    }, 1000);
+                }
+            });
+
+            addNewsletterInput(drops.length + 1);
+        }
     
             // Funktion zur Hinzufügung der Newsletter-Eingabe
             function addNewsletterInput(nextDropNumber) {
