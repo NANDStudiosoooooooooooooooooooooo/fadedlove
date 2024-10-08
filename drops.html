@@ -9,12 +9,11 @@
     <link rel="stylesheet" href="styles/main.css?v=2.21">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            background-color: black;
+            color: gray;
+            font-family: monospace;
             margin: 0;
             padding: 0;
-            background-color: black;
-            color: white;
-            overflow-x: hidden; /* verhindert horizontales Scrollen im Normalfall */
         }
         .drop_container {
             width: 100%;
@@ -23,26 +22,29 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            overflow-x: auto; /* ermöglicht Scrollen bei kleineren Bildschirmen */
+            overflow-x: auto; /* Ermöglicht Scrollen bei kleineren Bildschirmen */
         }
         .drop {
             margin-bottom: 15px;
-            border-bottom: 1px solid white;
             width: 100%;
             display: flex;
             align-items: center;
-            white-space: nowrap; /* sorgt dafür, dass Text nicht umbricht */
-        }
-        .drop img {
-            max-width: 50px;
-            margin-right: 10px;
+            white-space: nowrap; /* Sorgt dafür, dass der Text nicht umbricht */
         }
         .drop a {
             text-decoration: none;
             color: white;
             font-size: 16px;
             width: 100%;
-            display: block;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Text linksbündig */
+        }
+        .drop .drop-number {
+            font-size: 14px;
+        }
+        .drop .drop-countdown {
+            font-size: 16px; /* Größe für Countdown */
         }
         @media (max-width: 500px) {
             body {
@@ -51,16 +53,13 @@
             .drop a {
                 font-size: 14px;
             }
-            .drop img {
-                max-width: 40px;
-            }
         }
     </style>
 </head>
 <body>
     <div class="main-header">
         <div class="top-left nav-link">
-            <a href="https://fadedcloth.de/" id="backbutton">MAINPAGE</a>
+            <a href="https://shop.fadedcloth.de/" id="backbutton">SHOP</a>
         </div>
         <div class="logo-container" id="load-container">
             <video autoplay loop muted playsinline class="header-logo top" id="load-obj">
@@ -76,9 +75,6 @@
     <div class="drop_container" id="dropList">
         <!-- Drop items will be appended here -->
     </div>
-
-    <!-- Navigation link -->
-    <a href="https://shop.fadedcloth.de" class="nav-link top-left underlineonhover">SHOP</a>
 
     <div class="buttons-container">
         <button id="button1" class="glass-button" data-target="panel1">COLLECTION</button>
@@ -181,28 +177,30 @@
                     const dropLink = document.createElement('a');
                     const dropNumber = String(index + 1).padStart(2, '0'); // Nummer immer mit zwei Ziffern
 
-                    // Nummer des Drops + Countdown oder Name anzeigen
-                    dropLink.textContent = `#${dropNumber} ${isUpcoming ? getExtendedCountdown(dropDate) : drop.name}`;
-                    
+                    // Drop-Nummer (z.B. 01) in einem separaten Element
+                    const numberElement = document.createElement('span');
+                    numberElement.className = 'drop-number';
+                    numberElement.textContent = `#${dropNumber}`;
+
+                    // Countdown oder Name anzeigen
+                    const countdownText = document.createElement('span');
+                    countdownText.className = 'drop-countdown';
+                    countdownText.textContent = isUpcoming ? getExtendedCountdown(dropDate) : drop.name;
+
                     // Nur formatierte Zeit hinzufügen, wenn der Drop noch nicht erschienen ist
                     if (isUpcoming) {
-                        dropLink.textContent += ` (${formattedDate})`;
+                        countdownText.textContent += ` (${formattedDate})`;
                     }
 
-                    // Bild hinzufügen, falls verfügbar
-                    if (!isUpcoming && drop.images && drop.images.length > 0) {
-                        const img = document.createElement('img');
-                        img.src = drop.images[0];
-                        dropElement.appendChild(img);
-                    }
-
+                    dropLink.appendChild(numberElement);
+                    dropLink.appendChild(countdownText);
                     dropElement.appendChild(dropLink);
                     container.appendChild(dropElement);
 
                     // Countdown regelmäßig aktualisieren
                     if (isUpcoming) {
                         setInterval(() => {
-                            dropLink.textContent = `#${dropNumber} ${getExtendedCountdown(dropDate)}`;
+                            countdownText.textContent = getExtendedCountdown(dropDate);
                         }, 1000);
                     }
                 });
@@ -234,7 +232,7 @@
                 const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)); // Minuten
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000); // Sekunden
 
-                return `${months}:${days}:${hours}:${minutes}:${seconds}`.padStart(20, ' '); // Countdown im gewünschten Format
+                return `${String(months).padStart(2, '0')}:${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`; // Countdown im gewünschten Format
             }
         });
     </script>
