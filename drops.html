@@ -195,13 +195,6 @@
                     // Formatiertes Datum und Zeit für die Anzeige
                     const formattedDate = formatDateTime(dropDate);
 
-                    // Countdown oder Name
-                    const dropLink = document.createElement('span');
-                    dropLink.className = 'drop_link';
-                    dropLink.textContent = isUpcoming 
-                        ? getExtendedCountdown(dropDate) 
-                        : drop.name;
-
                     // Erstellen der Drop-Nummer
                     const dropNumberContainer = document.createElement('div');
                     dropNumberContainer.className = 'drop_number_container';
@@ -215,8 +208,21 @@
                     dropNumberContainer.appendChild(dropNumber);
 
                     dropElement.appendChild(dropNumberContainer);
-                    dropElement.appendChild(dropLink);
 
+                    // Countdown oder Name als Link für gedroppte Items
+                    const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
+                    dropLink.className = 'drop_link';
+                    dropLink.textContent = isUpcoming 
+                        ? getExtendedCountdown(dropDate) 
+                        : drop.name;
+
+                    // Setzt den href-Wert für bereits erschienene Drops
+                    if (!isUpcoming && drop.link) {
+                        dropLink.href = drop.link;
+                        dropLink.target = "_blank"; // Öffnet den Link in einem neuen Tab
+                    }
+
+                    dropElement.appendChild(dropLink);
                     container.appendChild(dropElement);
 
                     // Countdown regelmäßig aktualisieren
