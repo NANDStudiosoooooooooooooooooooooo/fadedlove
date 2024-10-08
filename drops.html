@@ -230,7 +230,9 @@
                             ? `${drop.name} ${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`
                             : `${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`;
                     } else {
-                        dropLink.textContent = `${drop.name} - ${drop.subname || ''}`;
+                        // Zeige den Bindestrich nur an, wenn subname existiert
+                        const subnameText = drop.subname ? ` - ${drop.subname}` : '';
+                        dropLink.textContent = `${drop.name}${subnameText}`;
                         if (drop.link) {
                             dropLink.href = drop.link;
                             dropLink.target = "_blank"; // Öffnet den Link in einem neuen Tab
@@ -312,6 +314,7 @@
             }
         });
     </script>
+    
     
     
     <script src="scripts/loader.js" defer></script>
