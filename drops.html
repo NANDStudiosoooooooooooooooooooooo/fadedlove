@@ -73,6 +73,14 @@
             white-space: nowrap;
         }
 
+        .drop.active-drop {
+            color: pink; /* Farbe für den aktiven Drop */
+        }
+
+        .drop.active-drop:hover {
+            color: white; /* Farbe beim Hover über den aktiven Drop */
+        }
+
         @media (min-width: 500px) {
             .drop_item {
                 font-size: 24px; /* Fixed larger size for screens above 500px */
@@ -262,6 +270,33 @@
                 return `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} ${formatDateTime(date)}`;
             }
         });
+
+        const drops = document.querySelectorAll('.drop_item'); // Ersetze '.drop' durch deine tatsächliche Klasse
+        let lastDropIndex = -1; // Index des letzten Drops
+
+        function updateDrops() {
+            drops.forEach((drop, index) => {
+                const dropDate = new Date(drop.getAttribute('data-drop-date')); // Setze das entsprechende Attribut
+
+                // Überprüfe, ob dieser Drop das späteste Datum hat
+                if (dropDate > lastDropDate) {
+                    lastDropDate = dropDate; // Setze das letzte Datum
+                    lastDropIndex = index; // Aktualisiere den Index des letzten Drops
+                }
+            });
+
+            // Füge die Klasse nur zum letzten Drop hinzu
+            drops.forEach((drop, index) => {
+                if (index === lastDropIndex) {
+                    drop.classList.add('active-drop'); // Füge die aktive Klasse hinzu
+                } else {
+                    drop.classList.remove('active-drop'); // Entferne die aktive Klasse von anderen Drops
+                }
+            });
+}
+
+// Diese Funktion sollte aufgerufen werden, wenn der Status aktualisiert wird
+updateDrops();
     </script>
     
     <script src="scripts/loader.js" defer></script>
