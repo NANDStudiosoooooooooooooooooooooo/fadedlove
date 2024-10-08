@@ -189,119 +189,91 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('/JSON/drops.json')
-                .then(response => response.json())
-                .then(data => displayDrops(data));
-        
-            function displayDrops(drops) {
-                const container = document.getElementById('drops-container');
-                const now = new Date();
-                let lastDropIndex = -1;
-                let lastDropDate = new Date(0); // Startwert für das früheste Datum
-        
-                drops.forEach((drop, index) => {
-                    const dropDate = new Date(drop.date + 'T' + drop.time + ':00');
-                    const isUpcoming = dropDate > now;
-        
-                    const dropElement = document.createElement('div');
-                    dropElement.className = 'drop_item';
-                    dropElement.setAttribute('data-drop-date', drop.date + 'T' + drop.time + ':00');
-        
-                    // Überprüfen, ob dieser Drop das späteste Datum hat
-                    if (dropDate > lastDropDate) {
-                        lastDropDate = dropDate;
-                        lastDropIndex = index;
-                    }
-        
-                    // Formatiertes Datum und Zeit für die Anzeige
-                    const formattedDate = formatDateTime(dropDate);
-        
-                    // Erstellen der Drop-Nummer
-                    const dropNumberContainer = document.createElement('div');
-                    dropNumberContainer.className = 'drop_number_container';
-        
-                    const dropNumberHash = document.createElement('div');
-                    dropNumberHash.textContent = '#';
-                    const dropNumber = document.createElement('div');
-                    dropNumber.textContent = String(index + 1).padStart(2, '0'); // Zwei-stelliges Format
-        
-                    dropNumberContainer.appendChild(dropNumberHash);
-                    dropNumberContainer.appendChild(dropNumber);
-        
-                    dropElement.appendChild(dropNumberContainer);
-        
-                    // Name und Subname (oder Countdown bei anstehenden Drops)
-                    let displayText = '';
-                    if (drop.name) {
-                        if (isUpcoming) {
-                            displayText = `${drop.name} `;
-                        } else {
-                            displayText = `${drop.name} - ${drop.subname || ''} `;
-                        }
-                    }
-        
-                    const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
-                    dropLink.className = 'drop_link';
-                    dropLink.textContent = displayText + (isUpcoming 
-                        ? getExtendedCountdown(dropDate) 
-                        : '');
-        
-                    if (!isUpcoming && drop.link) {
-                        dropLink.href = drop.link;
-                        dropLink.target = "_blank"; // Öffnet den Link in einem neuen Tab
-                    }
-        
-                    if (isUpcoming && !drop.name) {
-                        dropLink.textContent = getExtendedCountdown(dropDate) + ' ...';
-                    }
-        
-                    dropElement.appendChild(dropLink);
-                    container.appendChild(dropElement);
-        
-                    if (isUpcoming) {
-                        setInterval(() => {
-                            dropLink.textContent = (drop.name ? `${drop.name} ` : '') + getExtendedCountdown(dropDate);
-                        }, 1000);
-                    }
-                });
-        
-                // Setze die Klasse nur für den letzten Drop
-                const drops = document.querySelectorAll('.drop_item');
-                drops.forEach((drop, index) => {
-                    if (index === lastDropIndex) {
-                        drop.classList.add('active-drop');
-                    } else {
-                        drop.classList.remove('active-drop');
-                    }
-                });
+    fetch('/JSON/drops.json')
+        .then(response => response.json())
+        .then(data => {
+            displayDrops(data);
+            updateDrops(data); // Rufe die Funktion hier auf, wenn die Drops geladen sind.
+        });
+
+    function displayDrops(drops) {
+        const container = document.getElementById('drops-container');
+        const now = new Date();
+        drops.forEach((drop, index) => {
+            const dropDate = new Date(drop.date + 'T' + drop.time + ':00');
+            const isUpcoming = dropDate > now;
+
+            const dropElement = document.createElement('div');
+            dropElement.className = 'drop_item';
+
+            // Formatiertes Datum und Zeit für die Anzeige
+            const formattedDate = formatDateTime(dropDate);
+
+            // Erstellen der Drop-Nummer
+            const dropNumberContainer = document.createElement('div');
+            dropNumberContainer.className = 'drop_number_container';
+
+            const dropNumberHash = document.createElement('div');
+            dropNumberHash.textContent = '#';
+            const dropNumber = document.createElement('div');
+            dropNumber.textContent = String(index + 1).padStart(2, '0'); // Zwei-stelliges Format
+
+            dropNumberContainer.appendChild(dropNumberHash);
+            dropNumberContainer.appendChild(dropNumber);
+
+            dropElement.appendChild(dropNumberContainer);
+
+            // Countdown oder Name als Link für gedroppte Items
+            const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
+            dropLink.className = 'drop_link';
+            dropLink.textContent = isUpcoming 
+                ? `${drop.name || ''} ${getExtendedCountdown(dropDate)}` 
+                : `${drop.name || ''} - ${drop.subname || ''}`;
+
+            // Setzt den href-Wert für bereits erschienene Drops
+            if (!isUpcoming && drop.link) {
+                dropLink.href = drop.link;
+                dropLink.target = "_blank"; // Öffnet den Link in einem neuen Tab
             }
-        
-            // Funktion zur Formatierung des Datums und der Zeit
-            function formatDateTime(date) {
-                const options = {
-                    weekday: 'short',   // Wochentag (Tue)
-                    month: 'short',     // Monat (Oct)
-                    day: 'numeric',     // Datum
-                    hour: '2-digit',    // Uhrzeit (02PM)
-                    hour12: true        // 12-Stunden-Format
-                };
-        
-                return new Intl.DateTimeFormat('en-US', options).format(date).replace(/,\s/g, ' ') + ' UTC+2'; // Entfernt Komma und Leerzeichen, fügt Zeitzone hinzu
-            }
-        
-            // Erweiterte Countdown-Funktion
-            function getExtendedCountdown(date) {
-                const now = new Date();
-                const diff = date - now;
-        
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24)); // Tage
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); // Stunden
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)); // Minuten
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000); // Sekunden
-        
-                return `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} ${formatDateTime(date)}`;
+
+            dropElement.appendChild(dropLink);
+            container.appendChild(dropElement);
+
+            // Countdown regelmäßig aktualisieren
+            if (isUpcoming) {
+                setInterval(() => {
+                    dropLink.textContent = `${drop.name || ''} ${getExtendedCountdown(dropDate)}`;
+                }, 1000);
             }
         });
+    }
+
+    // Funktion zur Formatierung des Datums und der Zeit
+    function formatDateTime(date) {
+        const options = {
+            weekday: 'short',   // Wochentag (Tue)
+            month: 'short',     // Monat (Oct)
+            day: 'numeric',     // Datum
+            hour: '2-digit',    // Uhrzeit (02PM)
+            hour12: true        // 12-Stunden-Format
+        };
+
+        return new Intl.DateTimeFormat('en-US', options).format(date).replace(/,\s/g, ' ') + ' UTC+2'; // Entfernt Komma und Leerzeichen, fügt Zeitzone hinzu
+    }
+
+    // Erweiterte Countdown-Funktion
+    function getExtendedCountdown(date) {
+        const now = new Date();
+        const diff = date - now;
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24)); // Tage
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); // Stunden
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)); // Minuten
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000); // Sekunden
+
+        return `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+});
         </script>
     
     
