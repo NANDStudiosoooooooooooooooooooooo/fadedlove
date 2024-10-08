@@ -4,27 +4,27 @@
       "date": "2024-01-26",
       "time": "14:00",
       "link": "https://shop.fadedcloth.de/?collection=all&drop=drop1",
-      "images": ["https://via.placeholder.com/50"]
+      "images": [""]
     },
     {
       "name": "Drop 2",
       "date": "2024-01-30",
       "time": "14:00",
       "link": "https://shop.fadedcloth.de/?collection=all&drop=drop2",
-      "images": ["https://via.placeholder.com/50"]
+      "images": [""]
     },
     {
       "name": "Drop 3",
       "date": "2024-02-03",
       "time": "14:00",
       "link": "https://shop.fadedcloth.de/?collection=all&drop=drop3",
-      "images": []
+      "images": [""]
     },
     {
         "name": "Drop 60",
         "date": "2024-12-24",
         "time": "12:00",
         "link": "",
-        "images": []
+        "images": [""]
       }
   ]
