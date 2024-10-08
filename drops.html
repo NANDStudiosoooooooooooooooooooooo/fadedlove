@@ -28,26 +28,36 @@
             display: flex;
             align-items: center;
             width: 100%;
-            padding: 5px 0;
+            padding: 10px 0; /* Increased padding for better spacing */
             font-size: 4vw; /* Dynamic font size */
         }
 
-        .drop_item:hover {
-            color: white;
+        .drop_item:hover .drop_link {
+            color: white; /* Hover effect only on drop text */
         }
 
         .drop_number {
             width: 5%;
             text-align: left;
-            font-size: 4vw; /* Adjust font size to match the item */
+            font-size: 4vw; /* Match the font size */
         }
 
-        .drop_name {
+        .drop_number_container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align to the left */
+            justify-content: center;
+            height: 100%; /* Align vertically with the text */
+            margin-right: 5px; /* Minimal margin to the number */
+        }
+
+        .drop_link {
             flex-grow: 1;
             text-align: left;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            font-size: 4vw; /* Match the font size */
         }
 
         .drop_time,
@@ -61,14 +71,6 @@
             .drop_item {
                 font-size: 24px; /* Fixed larger size for screens above 500px */
             }
-        }
-
-        .drop_number_container {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start; /* Align to the left */
-            justify-content: center;
-            height: 100%; /* Align vertically with the text */
         }
     </style>
 </head>
@@ -189,11 +191,14 @@
                     // Formatiertes Datum und Zeit für die Anzeige
                     const formattedDate = formatDateTime(dropDate);
 
-                    // Erstellen der Drop-Nummer und des Links
-                    const dropLink = document.createElement('a');
-                    dropLink.href = drop.link;
+                    // Countdown oder Name
+                    const dropLink = document.createElement('span');
+                    dropLink.className = 'drop_link';
+                    dropLink.textContent = isUpcoming 
+                        ? getExtendedCountdown(dropDate) 
+                        : drop.name;
 
-                    // Nummer des Drops anzeigen
+                    // Erstellen der Drop-Nummer
                     const dropNumberContainer = document.createElement('div');
                     dropNumberContainer.className = 'drop_number_container';
 
@@ -204,11 +209,6 @@
 
                     dropNumberContainer.appendChild(dropNumberHash);
                     dropNumberContainer.appendChild(dropNumber);
-
-                    // Countdown oder Name
-                    dropLink.textContent = isUpcoming 
-                        ? getExtendedCountdown(dropDate) 
-                        : drop.name;
 
                     dropElement.appendChild(dropNumberContainer);
                     dropElement.appendChild(dropLink);
@@ -234,7 +234,7 @@
                     hour12: true        // 12-Stunden-Format
                 };
 
-                return new Intl.DateTimeFormat('en-US', options).format(date).replace(/,\s/g, ' '); // Remove comma and space
+                return new Intl.DateTimeFormat('en-US', options).format(date).replace(/,\s/g, ' ') + ' UTC+2'; // Remove comma and space, add timezone
             }
 
             // Erweiterte Countdown-Funktion
