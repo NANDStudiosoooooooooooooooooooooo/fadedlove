@@ -32,6 +32,10 @@
             font-size: 4vw; /* Dynamic font size */
         }
 
+        .drop_upcoming {
+            color: darkgray;
+        }
+
         .drop_item:hover .drop_link {
             color: white; /* Hover effect only on drop text */
         }
@@ -205,7 +209,7 @@
                     const dropNumberHash = document.createElement('div');
                     dropNumberHash.textContent = '#';
                     const dropNumber = document.createElement('div');
-                    dropNumber.textContent = String(index + 1).padStart(2, '0'); // Two-digit format
+                    dropNumber.textContent = String(index + 1).padStart(2, '0'); // Zwei-stelliges Format
 
                     dropNumberContainer.appendChild(dropNumberHash);
                     dropNumberContainer.appendChild(dropNumber);
@@ -234,7 +238,7 @@
                     hour12: true        // 12-Stunden-Format
                 };
 
-                return new Intl.DateTimeFormat('en-US', options).format(date).replace(/,\s/g, ' ') + ' UTC+2'; // Remove comma and space, add timezone
+                return new Intl.DateTimeFormat('en-US', options).format(date).replace(/,\s/g, ' ') + ' UTC+2'; // Entfernt Komma und Leerzeichen, fügt Zeitzone hinzu
             }
 
             // Erweiterte Countdown-Funktion
