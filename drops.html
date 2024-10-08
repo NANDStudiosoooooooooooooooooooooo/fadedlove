@@ -369,6 +369,29 @@
     
             // Restliche vorhandene Funktionen (formatUpcomingDate, getExtendedCountdown) bleiben wie oben
         });
+
+        function getExtendedCountdown(futureDate) {
+        const now = new Date();
+        const diff = futureDate - now;
+
+        if (diff <= 0) {
+            return '00:00:00:00:00';
+        }
+
+        const seconds = Math.floor((diff / 1000) % 60);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const days = Math.floor((diff / (1000 * 60 * 60 * 24)) % 30);
+        const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
+
+        return [
+            String(months).padStart(2, '0'),
+            String(days).padStart(2, '0'),
+            String(hours).padStart(2, '0'),
+            String(minutes).padStart(2, '0'),
+            String(seconds).padStart(2, '0')
+        ].join(':');
+    }
     </script>
     
     
