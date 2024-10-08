@@ -193,7 +193,7 @@
 
                     // Erstellen der Drop-Nummer und des Links
                     const dropLink = document.createElement('a');
-                    dropLink.href = !isUpcoming ? drop.link : '#'; // Nur Links für bereits gedroppten Drops
+                    dropLink.href = !isUpcoming ? drop.link : ''; // Nur Links für bereits gedroppten Drops
 
                     // Nummer des Drops + Countdown oder Datum/Zeit anzeigen
                     dropLink.textContent = `#${String(index + 1).padStart(2, '0')} ${isUpcoming ? getExtendedCountdown(dropDate) : drop.name}`;
