@@ -30,5 +30,13 @@
         "time": "12:00",
         "link": "",
         "images": ["https://shop.fadedcloth.de/?collection=all&drop=drop4"]
+      },
+      {
+        "name": "SHOP ALL",
+        "subname": "",
+        "date": "2024-1-1",
+        "time": "12:00",
+        "link": "",
+        "images": ["https://shop.fadedcloth.de/?collection=all&drop=all"]
       }
   ]
