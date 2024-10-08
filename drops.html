@@ -224,11 +224,11 @@
                     const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
                     dropLink.className = 'drop_link';
                     
-                    // Textinhalt anpassen
+                    // Textinhalt anpassen: für anstehende oder erschienene Drops
                     if (isUpcoming) {
-                        dropLink.textContent = `${drop.name ? drop.name + ' ' : ''}${getExtendedCountdown(dropDate)}`;
+                        dropLink.textContent = `${drop.name ? drop.name + ' ' : ''}${getExtendedCountdown(dropDate)} ${formatDateTime(dropDate)}`;
                     } else {
-                        dropLink.textContent = `${drop.name ? drop.name + ' - ' + (drop.subname || '') : ''}`;
+                        dropLink.textContent = `${drop.name ? drop.name + ' - ' + (drop.subname || '') : ''} ${formatDateTime(dropDate)}`;
                     }
     
                     // Setzt den href-Wert für bereits erschienene Drops
@@ -243,7 +243,7 @@
                     // Countdown regelmäßig aktualisieren
                     if (isUpcoming) {
                         setInterval(() => {
-                            dropLink.textContent = `${drop.name ? drop.name + ' ' : ''}${getExtendedCountdown(dropDate)}`;
+                            dropLink.textContent = `${drop.name ? drop.name + ' ' : ''}${getExtendedCountdown(dropDate)} ${formatDateTime(dropDate)}`;
                         }, 1000);
                     }
                 });
@@ -281,11 +281,11 @@
             // Funktion zur Formatierung des Datums und der Zeit
             function formatDateTime(date) {
                 const options = {
-                    weekday: 'short',   // Wochentag (Tue)
-                    month: 'short',     // Monat (Oct)
-                    day: 'numeric',     // Datum
+                    weekday: 'short',   // Wochentag (Thu)
+                    month: 'short',     // Monat (Mar)
+                    day: 'numeric',     // Datum (05)
                     hour: '2-digit',    // Uhrzeit (02PM)
-                    hour12: true        // 12-Stunden-Format
+                    hour12: true        // 12-Stunden-Format (PM)
                 };
     
                 return new Intl.DateTimeFormat('en-US', options).format(date).replace(/,\s/g, ' ') + ' UTC+2'; // Entfernt Komma und Leerzeichen, fügt Zeitzone hinzu
@@ -305,6 +305,7 @@
             }
         });
     </script>
+    
     
     
     <script src="scripts/loader.js" defer></script>
