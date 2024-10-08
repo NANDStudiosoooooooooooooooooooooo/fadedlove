@@ -28,15 +28,15 @@
         "subname": "JERSEY #1",
         "date": "2024-12-24",
         "time": "12:00",
-        "link": "",
-        "images": ["https://shop.fadedcloth.de/?collection=all&drop=drop4"]
+        "link": "https://shop.fadedcloth.de/?collection=all&drop=drop4",
+        "images": [""]
       },
       {
         "name": "SHOP ALL",
         "subname": "",
         "date": "2024-1-1",
         "time": "12:00",
-        "link": "",
-        "images": ["https://shop.fadedcloth.de/?collection=all&drop=all"]
+        "link": "https://shop.fadedcloth.de/?collection=all&drop=all",
+        "images": [""]
       }
   ]
