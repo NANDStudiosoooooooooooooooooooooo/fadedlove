@@ -228,7 +228,7 @@
                     if (isUpcoming) {
                         dropLink.textContent = `${drop.name ? drop.name + ' ' : ''}${getExtendedCountdown(dropDate)} ${formatDateTime(dropDate)}`;
                     } else {
-                        dropLink.textContent = `${drop.name ? drop.name + ' - ' + (drop.subname || '') : ''} ${formatDateTime(dropDate)}`;
+                        dropLink.textContent = `${drop.name ? drop.name + ' - ' + (drop.subname || '') : ''}`;
                     }
     
                     // Setzt den href-Wert für bereits erschienene Drops
@@ -305,6 +305,7 @@
             }
         });
     </script>
+    
     
     
     
