@@ -178,76 +178,80 @@
     </div>
 
     <script>
-        function formatDateTime(dateString) {
-            const options = { weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC', timeZoneName: 'short' };
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', options);
-        }
-
-        function updateCountdown(dropTime, element) {
-            const now = new Date().getTime();
-            const distance = new Date(dropTime).getTime() - now;
-
-            if (distance < 0) {
-                element.textContent = "00:00:00:00";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            element.textContent = `${days}:${hours}:${minutes}:${seconds}`;
-        }
-
-        async function loadDrops() {
-            const response = await fetch('/JSON/drops.json');
-            const drops = await response.json();
-            const dropList = document.getElementById('dropList');
-
-            drops.forEach((drop, index) => {
-                const dropItem = document.createElement('div');
-                dropItem.classList.add('drop_item');
-
-                const dropNumber = document.createElement('div');
-                dropNumber.classList.add('drop_number');
-                dropNumber.textContent = `# ${index + 1}`;
-                dropItem.appendChild(dropNumber);
-
-                const dropName = document.createElement('div');
-                dropName.classList.add('drop_name');
-
-                const dropTime = document.createElement('div');
-                dropTime.classList.add('drop_time');
-
-                if (new Date(drop.date + ' ' + drop.time) > new Date()) {
-                    dropName.classList.add('drop_upcoming');
-                    dropTime.classList.add('drop_countdown');
-                    updateCountdown(drop.date + ' ' + drop.time, dropTime);
-                    setInterval(() => updateCountdown(drop.date + ' ' + drop.time, dropTime), 1000);
-                } else {
-                    dropName.innerHTML = `<a href="${drop.link}" style="color: gray;">${drop.name}</a>`;
-                    dropTime.textContent = formatDateTime(drop.date + ' ' + drop.time);
-
-                    // Add image if it has been dropped
-                    if (drop.images && drop.images.length > 0) {
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/JSON/drops.json')
+                .then(response => response.json())
+                .then(data => displayDrops(data));
+        
+            function displayDrops(drops) {
+                const container = document.getElementById('dropList');
+                const now = new Date();
+                drops.forEach((drop, index) => {
+                    const dropDate = new Date(drop.date + 'T' + drop.time + ':00');
+                    const isUpcoming = dropDate > now;
+        
+                    const dropElement = document.createElement('div');
+                    dropElement.className = `drop ${isUpcoming ? 'upcoming' : ''}`;
+        
+                    // Formatted date and time
+                    const formattedDate = formatDateTime(dropDate);
+        
+                    // Create drop number and link
+                    const dropLink = document.createElement('a');
+                    dropLink.href = drop.link;
+        
+                    // Drop number + countdown or formatted date/time
+                    dropLink.textContent = `#${index + 1} ${isUpcoming ? getExtendedCountdown(dropDate) : drop.name + " " + formattedDate}`;
+        
+                    // Add image if available and drop is not upcoming
+                    if (!isUpcoming && drop.images && drop.images.length > 0) {
                         const img = document.createElement('img');
                         img.src = drop.images[0];
-                        img.classList.add('drop_image');
-                        dropItem.appendChild(img);
+                        dropElement.appendChild(img);
                     }
-                }
-
-                dropItem.appendChild(dropName);
-                dropItem.appendChild(dropTime);
-                dropList.appendChild(dropItem);
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', loadDrops);
-
-    </script>
+        
+                    dropElement.appendChild(dropLink);
+                    container.appendChild(dropElement);
+        
+                    // Regularly update countdown if drop is upcoming
+                    if (isUpcoming) {
+                        setInterval(() => {
+                            dropLink.textContent = `#${index + 1} ${getExtendedCountdown(dropDate)}`;
+                        }, 1000);
+                    }
+                });
+            }
+        
+            // Date and time formatting function
+            function formatDateTime(date) {
+                const options = {
+                    weekday: 'short',   // TUE
+                    year: 'numeric',
+                    month: 'short',     // OCT
+                    day: 'numeric',
+                    hour: '2-digit',    // 02PM
+                    minute: '2-digit',  // Minutes
+                    timeZoneName: 'short', // UTC+2
+                    hour12: true        // 12-hour format
+                };
+                return new Intl.DateTimeFormat('en-US', options).format(date).toUpperCase().replace(/, /g, ' ');
+            }
+        
+            // Extended countdown function
+            function getExtendedCountdown(date) {
+                const now = new Date();
+                const diff = date - now;
+        
+                const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30)); // Months
+                const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24)); // Days
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); // Hours
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)); // Minutes
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000); // Seconds
+        
+                return `${months}:${days}:${hours}:${minutes}:${seconds} ${formatDateTime(date)}`;
+            }
+        });
+        </script>
     
     <script src="scripts/loader.js" defer></script>
     <script src="scripts/switch.js?v=1.27" defer></script>
