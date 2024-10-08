@@ -14,10 +14,17 @@
       "images": ["https://via.placeholder.com/50"]
     },
     {
-      "name": "",
+      "name": "Drop 65",
       "date": "2024-02-03",
       "time": "14:00",
       "link": "",
       "images": []
-    }
+    },
+    {
+        "name": "Drop 60",
+        "date": "2024-12-24",
+        "time": "12:00",
+        "link": "",
+        "images": []
+      }
   ]
