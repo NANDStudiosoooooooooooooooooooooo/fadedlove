@@ -22,17 +22,14 @@
             align-items: center;
             width: 100%;
             max-width: 100%;
-            overflow-x: auto; /* Ermöglicht horizontalen Scroll bei Bedarf */
         }
 
         .drop_item {
             display: flex;
-            justify-content: flex-start;
             align-items: center;
             width: 100%;
             padding: 5px 0;
-            font-size: 4vw; /* Dynamische Schriftgröße */
-            white-space: nowrap; /* Verhindert Zeilenumbruch */
+            font-size: 4vw; /* Dynamic font size */
         }
 
         .drop_item:hover {
@@ -40,29 +37,38 @@
         }
 
         .drop_number {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            width: 10%; /* Für die Nummer #XX */
-            font-size: 0.9em; /* Kleinere Schrift für die Nummer */
-            padding-right: 5px; /* Abstand zum nächsten Element */
+            width: 5%;
+            text-align: left;
+            font-size: 4vw; /* Adjust font size to match the item */
         }
 
         .drop_name {
-            width: 70%; /* Name nimmt den größten Teil ein */
+            flex-grow: 1;
+            text-align: left;
+            white-space: nowrap;
             overflow: hidden;
-            text-overflow: ellipsis; /* Zeigt '...' bei Überlauf */
+            text-overflow: ellipsis;
         }
 
+        .drop_time,
         .drop_countdown {
-            width: 20%; /* Countdown nimmt weniger Platz ein */
-            text-align: right; /* Countdown nach rechts */
+            width: 25%;
+            text-align: left; /* Align to the left */
+            white-space: nowrap;
         }
 
         @media (min-width: 500px) {
             .drop_item {
-                font-size: 24px; /* Feste größere Größe für Bildschirme über 500px */
+                font-size: 24px; /* Fixed larger size for screens above 500px */
             }
+        }
+
+        .drop_number_container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align to the left */
+            justify-content: center;
+            height: 100%; /* Align vertically with the text */
         }
     </style>
 </head>
@@ -171,7 +177,7 @@
                 .then(data => displayDrops(data));
 
             function displayDrops(drops) {
-                const container = document.getElementById('dropList');
+                const container = document.getElementById('drops-container');
                 const now = new Date();
                 drops.forEach((drop, index) => {
                     const dropDate = new Date(drop.date + 'T' + drop.time + ':00');
@@ -183,25 +189,36 @@
                     // Formatiertes Datum und Zeit für die Anzeige
                     const formattedDate = formatDateTime(dropDate);
 
-                    // Drop-Nummer (z.B. 01) in einem separaten Element
-                    const dropNumber = String(index + 1).padStart(2, '0'); // Nummer immer mit zwei Ziffern
-                    const numberElement = document.createElement('div');
-                    numberElement.className = 'drop_number';
-                    numberElement.innerHTML = `#${dropNumber}<span style="font-size: 1.5em;">${dropNumber}</span>`; // Größe anpassen
+                    // Erstellen der Drop-Nummer und des Links
+                    const dropLink = document.createElement('a');
+                    dropLink.href = drop.link;
 
-                    // Countdown oder Name anzeigen
-                    const countdownText = document.createElement('div');
-                    countdownText.className = 'drop_countdown';
-                    countdownText.textContent = isUpcoming ? getExtendedCountdown(dropDate) + ' ' + formattedDate : drop.name;
+                    // Nummer des Drops anzeigen
+                    const dropNumberContainer = document.createElement('div');
+                    dropNumberContainer.className = 'drop_number_container';
 
-                    dropElement.appendChild(numberElement);
-                    dropElement.appendChild(countdownText);
+                    const dropNumberHash = document.createElement('div');
+                    dropNumberHash.textContent = '#';
+                    const dropNumber = document.createElement('div');
+                    dropNumber.textContent = String(index + 1).padStart(2, '0'); // Two-digit format
+
+                    dropNumberContainer.appendChild(dropNumberHash);
+                    dropNumberContainer.appendChild(dropNumber);
+
+                    // Countdown oder Name
+                    dropLink.textContent = isUpcoming 
+                        ? getExtendedCountdown(dropDate) 
+                        : drop.name;
+
+                    dropElement.appendChild(dropNumberContainer);
+                    dropElement.appendChild(dropLink);
+
                     container.appendChild(dropElement);
 
                     // Countdown regelmäßig aktualisieren
                     if (isUpcoming) {
                         setInterval(() => {
-                            countdownText.textContent = getExtendedCountdown(dropDate) + ' ' + formattedDate;
+                            dropLink.textContent = getExtendedCountdown(dropDate);
                         }, 1000);
                     }
                 });
@@ -210,16 +227,14 @@
             // Funktion zur Formatierung des Datums und der Zeit
             function formatDateTime(date) {
                 const options = {
-                    weekday: 'short', // Wochentag (Mon)
-                    year: '2-digit', // Nur die letzten zwei Ziffern des Jahres
-                    month: 'short', // Monat (Jan)
-                    day: 'numeric', // Tag
-                    hour: '2-digit', // Stunde
-                    minute: '2-digit', // Minuten
-                    timeZoneName: 'short', // Zeitzone (UTC+2)
-                    hour12: true // 12-Stunden-Format
+                    weekday: 'short',   // Wochentag (Tue)
+                    month: 'short',     // Monat (Oct)
+                    day: 'numeric',     // Datum
+                    hour: '2-digit',    // Uhrzeit (02PM)
+                    hour12: true        // 12-Stunden-Format
                 };
-                return new Intl.DateTimeFormat('en-US', options).format(date).toUpperCase().replace(',', '');
+
+                return new Intl.DateTimeFormat('en-US', options).format(date).replace(/,\s/g, ' '); // Remove comma and space
             }
 
             // Erweiterte Countdown-Funktion
@@ -227,13 +242,12 @@
                 const now = new Date();
                 const diff = date - now;
 
-                const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30)); // Monate
-                const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24)); // Tage
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24)); // Tage
                 const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); // Stunden
                 const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)); // Minuten
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000); // Sekunden
 
-                return `${String(months).padStart(2, '0')}:${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`; // Countdown im gewünschten Format
+                return `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} ${formatDateTime(date)}`;
             }
         });
     </script>
