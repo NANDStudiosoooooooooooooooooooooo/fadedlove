@@ -190,7 +190,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('/JSON/drops.json')
+            fetch('/JSON/drops.json?v=1.1')
                 .then(response => response.json())
                 .then(data => displayDrops(data));
     
