@@ -9,70 +9,51 @@
     <link rel="stylesheet" href="styles/main.css?v=2.21">
     <style>
         body {
-            background-color: black;
-            color: gray;
-            font-family: monospace;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: black;
+            color: white;
+            overflow-x: hidden; /* verhindert horizontales Scrollen im Normalfall */
         }
-
         .drop_container {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 100%;
+            align-items: flex-start;
+            overflow-x: auto; /* ermöglicht Scrollen bei kleineren Bildschirmen */
         }
-
-        .drop_item {
+        .drop {
+            margin-bottom: 15px;
+            border-bottom: 1px solid white;
+            width: 100%;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            width: 100%;
-            padding: 5px 0;
-            font-size: 4vw; /* Dynamic font size */
+            white-space: nowrap; /* sorgt dafür, dass Text nicht umbricht */
         }
-
-        .drop_upcoming {
-            color: darkgray;
+        .drop img {
+            max-width: 50px;
+            margin-right: 10px;
         }
-
-        .drop_item:hover {
+        .drop a {
+            text-decoration: none;
             color: white;
+            font-size: 16px;
+            width: 100%;
+            display: block;
         }
-
-        .drop_image {
-            max-height: 4vw;
-            margin-left: 10px;
-        }
-
-        @media (min-width: 500px) {
-            .drop_item {
-                font-size: 24px; /* Fixed larger size for screens above 500px */
+        @media (max-width: 500px) {
+            body {
+                font-size: 14px;
             }
-        }
-
-        .drop_number {
-            width: 5%;
-            text-align: left;
-        }
-
-        .drop_name {
-            width: 70%;
-            white-space: nowrap;
-            overflow-x: auto;
-        }
-
-        .drop_time {
-            width: 25%;
-            text-align: right;
-            white-space: nowrap;
-        }
-
-        .drop_countdown {
-            width: 25%;
-            text-align: right;
-            white-space: nowrap;
+            .drop a {
+                font-size: 14px;
+            }
+            .drop img {
+                max-width: 40px;
+            }
         }
     </style>
 </head>
@@ -182,76 +163,81 @@
             fetch('/JSON/drops.json')
                 .then(response => response.json())
                 .then(data => displayDrops(data));
-        
+
             function displayDrops(drops) {
                 const container = document.getElementById('dropList');
                 const now = new Date();
                 drops.forEach((drop, index) => {
                     const dropDate = new Date(drop.date + 'T' + drop.time + ':00');
                     const isUpcoming = dropDate > now;
-        
+
                     const dropElement = document.createElement('div');
-                    dropElement.className = `drop ${isUpcoming ? 'upcoming' : ''}`;
-        
-                    // Formatted date and time
+                    dropElement.className = 'drop';
+
+                    // Formatiertes Datum und Zeit für die Anzeige
                     const formattedDate = formatDateTime(dropDate);
-        
-                    // Create drop number and link
+
+                    // Erstellen der Drop-Nummer und des Links
                     const dropLink = document.createElement('a');
-                    dropLink.href = drop.link;
-        
-                    // Drop number + countdown or formatted date/time
-                    dropLink.textContent = `#${index + 1} ${isUpcoming ? getExtendedCountdown(dropDate) : drop.name + " " + formattedDate}`;
-        
-                    // Add image if available and drop is not upcoming
+                    const dropNumber = String(index + 1).padStart(2, '0'); // Nummer immer mit zwei Ziffern
+
+                    // Nummer des Drops + Countdown oder Name anzeigen
+                    dropLink.textContent = `#${dropNumber} ${isUpcoming ? getExtendedCountdown(dropDate) : drop.name}`;
+                    
+                    // Nur formatierte Zeit hinzufügen, wenn der Drop noch nicht erschienen ist
+                    if (isUpcoming) {
+                        dropLink.textContent += ` (${formattedDate})`;
+                    }
+
+                    // Bild hinzufügen, falls verfügbar
                     if (!isUpcoming && drop.images && drop.images.length > 0) {
                         const img = document.createElement('img');
                         img.src = drop.images[0];
                         dropElement.appendChild(img);
                     }
-        
+
                     dropElement.appendChild(dropLink);
                     container.appendChild(dropElement);
-        
-                    // Regularly update countdown if drop is upcoming
+
+                    // Countdown regelmäßig aktualisieren
                     if (isUpcoming) {
                         setInterval(() => {
-                            dropLink.textContent = `#${index + 1} ${getExtendedCountdown(dropDate)}`;
+                            dropLink.textContent = `#${dropNumber} ${getExtendedCountdown(dropDate)}`;
                         }, 1000);
                     }
                 });
             }
-        
-            // Date and time formatting function
+
+            // Funktion zur Formatierung des Datums und der Zeit
             function formatDateTime(date) {
                 const options = {
-                    weekday: 'short',   // TUE
-                    year: 'numeric',
-                    month: 'short',     // OCT
+                    weekday: 'short',   // Wochentag (Mon)
+                    year: '2-digit',    // Nur die letzten zwei Ziffern des Jahres
+                    month: 'short',     // Monat (Jan)
                     day: 'numeric',
-                    hour: '2-digit',    // 02PM
-                    minute: '2-digit',  // Minutes
-                    timeZoneName: 'short', // UTC+2
-                    hour12: true        // 12-hour format
+                    hour: '2-digit',    // Uhrzeit (02PM)
+                    minute: '2-digit',  // Minuten
+                    timeZoneName: 'short', // Zeitzone (UTC+2)
+                    hour12: true        // 12-Stunden-Format
                 };
-                return new Intl.DateTimeFormat('en-US', options).format(date).toUpperCase().replace(/, /g, ' ');
+                return new Intl.DateTimeFormat('en-US', options).format(date).toUpperCase();
             }
-        
-            // Extended countdown function
+
+            // Erweiterte Countdown-Funktion
             function getExtendedCountdown(date) {
                 const now = new Date();
                 const diff = date - now;
-        
-                const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30)); // Months
-                const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24)); // Days
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); // Hours
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)); // Minutes
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000); // Seconds
-        
-                return `${months}:${days}:${hours}:${minutes}:${seconds} ${formatDateTime(date)}`;
+
+                const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30)); // Monate
+                const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24)); // Tage
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); // Stunden
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)); // Minuten
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000); // Sekunden
+
+                return `${months}:${days}:${hours}:${minutes}:${seconds}`.padStart(20, ' '); // Countdown im gewünschten Format
             }
         });
-        </script>
+    </script>
     
     <script src="scripts/loader.js" defer></script>
     <script src="scripts/switch.js?v=1.27" defer></script>
