@@ -89,11 +89,11 @@
             }
         }
 
-        .newsletter_form {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
+    .newsletter_form {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
 
     /* Stil für das Eingabefeld */
     .newsletter_form input[type="email"] {
@@ -101,7 +101,7 @@
         border: none;
         color: white;
         font-family: 'monospace'; /* Gleiche Schriftart */
-        font-size: 24px; /* Gleiche Schriftgröße wie die Drops */
+        font-size: 4vw;
         text-transform: uppercase;
         padding: 5px;
         margin-left: 10px; /* Abstand zwischen NEWSLETTER und Eingabefeld */
@@ -309,7 +309,7 @@
                 emailInput.id = 'email';
                 emailInput.className = 'drop_link'; // Selber Style wie die Drops
                 emailInput.setAttribute('type', 'email');
-                emailInput.setAttribute('placeholder', 'Enter your email');
+                emailInput.setAttribute('placeholder', 'EMAIL');
     
                 // Container für die Eingabe und den Text
                 const newsletterForm = document.createElement('div');
