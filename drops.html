@@ -88,6 +88,31 @@
                 font-size: 24px; /* Fixed larger size for screens above 500px */
             }
         }
+
+        .newsletter_form {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+    /* Stil für das Eingabefeld */
+    .newsletter_form input[type="email"] {
+        background: none;
+        border: none;
+        color: white;
+        font-family: 'monospace'; /* Gleiche Schriftart */
+        font-size: 24px; /* Gleiche Schriftgröße wie die Drops */
+        text-transform: uppercase;
+        padding: 5px;
+        margin-left: 10px; /* Abstand zwischen NEWSLETTER und Eingabefeld */
+        width: 300px; /* Breite des Eingabefelds */
+        outline: none;
+    }
+
+    /* Verstecken des Eingabefelds nach erfolgreicher Eingabe */
+    .newsletter_form input[type="email"].hidden {
+        display: none;
+    }
     </style>
 </head>
 <body>
@@ -203,7 +228,7 @@
     
                     const dropElement = document.createElement('div');
                     dropElement.className = 'drop_item';
-                    
+    
                     // Füge das data-drop-date Attribut hinzu
                     dropElement.setAttribute('data-drop-date', dropDate.toISOString());
     
@@ -230,7 +255,7 @@
                             ? `${drop.name} ${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`
                             : `${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`;
                     } else {
-                        dropLink.textContent = `${drop.name} - ${drop.subname || ''}`.replace(' - ', '');
+                        dropLink.textContent = `${drop.name} - ${drop.subname || ''}`;
                         if (drop.link) {
                             dropLink.href = drop.link;
                             dropLink.target = "_blank"; // Öffnet den Link in einem neuen Tab
@@ -250,125 +275,102 @@
                     }
                 });
     
-                // Füge den Newsletter-Bereich hinzu
+                // Füge Newsletter-Eingabe hinzu
+                addNewsletterInput(drops.length + 1); // # der nächsten Zeile
+            }
+    
+            // Funktion zur Hinzufügung der Newsletter-Eingabe
+            function addNewsletterInput(nextDropNumber) {
+                const container = document.getElementById('drops-container');
+                
+                // Container für Newsletter
                 const newsletterContainer = document.createElement('div');
-                newsletterContainer.className = 'newsletter_container';
+                newsletterContainer.className = 'drop_item';
     
-                // Newsletter-Text
-                const newsletterText = document.createElement('div');
-                newsletterText.className = 'drop_link';
-                newsletterText.textContent = 'NEWSLETTER';
+                // #XX für Newsletter
+                const dropNumberContainer = document.createElement('div');
+                dropNumberContainer.className = 'drop_number_container';
     
-                // Eingabefeld für die Email
-                const emailContainer = document.createElement('div');
-                emailContainer.className = 'drop_number_container'; 
+                const dropNumberHash = document.createElement('div');
+                dropNumberHash.textContent = '#';
+                const dropNumber = document.createElement('div');
+                dropNumber.textContent = String(nextDropNumber).padStart(2, '0');
     
-                const emailNumberHash = document.createElement('div');
-                emailNumberHash.textContent = '#00';
+                dropNumberContainer.appendChild(dropNumberHash);
+                dropNumberContainer.appendChild(dropNumber);
+                newsletterContainer.appendChild(dropNumberContainer);
+    
+                // Newsletter Text und Input
+                const newsletterLabel = document.createElement('div');
+                newsletterLabel.className = 'drop_link';
+                newsletterLabel.textContent = 'NEWSLETTER';
     
                 const emailInput = document.createElement('input');
-                emailInput.type = 'email';
                 emailInput.id = 'email';
-                emailInput.placeholder = 'ENTER YOUR EMAIL';
-                emailInput.className = 'drop_link';
-                emailInput.style.border = 'none';
-                emailInput.style.backgroundColor = 'transparent';
-                emailInput.style.outline = 'none';
-                emailInput.style.color = 'white';
-                emailInput.style.fontFamily = 'inherit';
-                emailInput.style.fontSize = 'inherit';
+                emailInput.className = 'drop_link'; // Selber Style wie die Drops
+                emailInput.setAttribute('type', 'email');
+                emailInput.setAttribute('placeholder', 'Enter your email');
     
-                emailContainer.appendChild(emailNumberHash);
-                emailContainer.appendChild(emailInput);
+                // Container für die Eingabe und den Text
+                const newsletterForm = document.createElement('div');
+                newsletterForm.className = 'newsletter_form';
+                newsletterForm.appendChild(newsletterLabel);
+                newsletterForm.appendChild(emailInput);
     
-                // Füge alles zum Container hinzu
-                newsletterContainer.appendChild(newsletterText);
-                newsletterContainer.appendChild(emailContainer);
+                // Eingabefeld hinzufügen
+                newsletterContainer.appendChild(newsletterForm);
                 container.appendChild(newsletterContainer);
     
-                // Email-Verarbeitung
-                emailInput.addEventListener('keydown', (event) => {
+                // Event Listener für das Drücken von Enter
+                emailInput.addEventListener('keypress', function (event) {
                     if (event.key === 'Enter') {
                         event.preventDefault();
-                        const email = emailInput.value;
-    
-                        if (isValidEmail(email)) {
-                            // Simuliere eine erfolgreiche Übermittlung
-                            fetch("https://subscribe.fadedcloth.de/sub", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify({ email: email })
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                // Entferne das Eingabefeld und den Newsletter-Text
-                                newsletterText.style.display = 'none';
-                                emailContainer.style.display = 'none';
-    
-                                // Zeige den Danke-Text an
-                                const thankYouText = document.createElement('div');
-                                thankYouText.className = 'drop_link';
-                                thankYouText.textContent = 'THANK YOU!';
-                                container.appendChild(thankYouText);
-                            })
-                            .catch(error => {
-                                alert("An error occurred: " + error.message);
-                            });
-                        } else {
-                            shakeElement(emailInput); // E-Mail ist ungültig
-                        }
+                        processSubscription(emailInput.value, newsletterLabel, emailInput);
                     }
                 });
             }
     
-            // Funktion zur Formatierung des Datums für anstehende Drops
-            function formatUpcomingDate(date) {
-                const options = {
-                    weekday: 'short', // Wochentag (TUE)
-                    month: 'short', // Monat (OCT)
-                    day: '2-digit', // Tag (22)
-                    year: '2-digit', // Jahr (24)
-                    hour: '2-digit', // Stunden (12)
-                    hour12: true // 12-Stunden-Format
-                };
-    
-                const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
-                const ampm = date.getHours() >= 12 ? 'PM' : 'AM'; // AM/PM
-    
-                // Kombinierung der Informationen im gewünschten Format
-                return `${formattedDate.replace(/,\s/g, ' ').replace(/\b\d{4}\b/, '')} UTC+2`.replace(/ +/, ' ').trim(); // Vermeidung doppelter Leerzeichen
+            // Funktion zur Verarbeitung der E-Mail-Validierung und Einreichung
+            function processSubscription(email, newsletterLabel, emailInput) {
+                if (isValidEmail(email)) {
+                    fetch("https://subscribe.fadedcloth.de/sub", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ email: email })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        newsletterLabel.textContent = 'THANK YOU!';
+                        emailInput.remove(); // Entferne das Eingabefeld nach erfolgreicher Eingabe
+                    })
+                    .catch(error => {
+                        alert("An error occurred: " + error.message);
+                    });
+                } else {
+                    shakeElement(emailInput); // Eingabefeld wackelt bei ungültiger E-Mail
+                }
             }
     
-            // Erweiterte Countdown-Funktion
-            function getExtendedCountdown(date) {
-                const now = new Date();
-                const diff = date - now;
-    
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24)); // Tage
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); // Stunden
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)); // Minuten
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000); // Sekunden
-    
-                return `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            }
-    
-            // Funktion zur Validierung der E-Mail-Adresse
+            // Funktion zur Überprüfung der E-Mail-Validität
             function isValidEmail(email) {
                 const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 return re.test(email);
             }
     
-            // Funktion zum Wackeln eines Elements
+            // Funktion um den Shake-Effekt hinzuzufügen
             function shakeElement(element) {
                 element.classList.add("shake");
                 setTimeout(() => {
                     element.classList.remove("shake");
-                }, 500); // Entfernt den Wackel-Effekt nach 500ms
+                }, 500);
             }
+    
+            // Restliche vorhandene Funktionen (formatUpcomingDate, getExtendedCountdown) bleiben wie oben
         });
     </script>
+    
     
     
     
