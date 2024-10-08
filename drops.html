@@ -186,32 +186,39 @@
                     const isUpcoming = dropDate > now;
 
                     const dropElement = document.createElement('div');
-                    dropElement.className = `drop_item ${isUpcoming ? 'drop_upcoming' : ''}`;
+                    dropElement.className = 'drop_item';
 
                     // Formatiertes Datum und Zeit für die Anzeige
                     const formattedDate = formatDateTime(dropDate);
 
-                    // Erstellen der Drop-Nummer und des Links
-                    const dropLink = document.createElement('a');
-                    dropLink.href = !isUpcoming ? drop.link : ''; // Nur Links für bereits gedroppten Drops
+                    // Countdown oder Name
+                    const dropLink = document.createElement('span');
+                    dropLink.className = 'drop_link';
+                    dropLink.textContent = isUpcoming 
+                        ? getExtendedCountdown(dropDate) 
+                        : drop.name;
 
-                    // Nummer des Drops + Countdown oder Datum/Zeit anzeigen
-                    dropLink.textContent = `#${String(index + 1).padStart(2, '0')} ${isUpcoming ? getExtendedCountdown(dropDate) : drop.name}`;
+                    // Erstellen der Drop-Nummer
+                    const dropNumberContainer = document.createElement('div');
+                    dropNumberContainer.className = 'drop_number_container';
 
-                    // Bild hinzufügen, falls verfügbar
-                    if (!isUpcoming && drop.images && drop.images.length > 0) {
-                        const img = document.createElement('img');
-                        img.src = drop.images[0];
-                        dropElement.appendChild(img);
-                    }
+                    const dropNumberHash = document.createElement('div');
+                    dropNumberHash.textContent = '#';
+                    const dropNumber = document.createElement('div');
+                    dropNumber.textContent = String(index + 1).padStart(2, '0'); // Two-digit format
 
+                    dropNumberContainer.appendChild(dropNumberHash);
+                    dropNumberContainer.appendChild(dropNumber);
+
+                    dropElement.appendChild(dropNumberContainer);
                     dropElement.appendChild(dropLink);
+
                     container.appendChild(dropElement);
 
                     // Countdown regelmäßig aktualisieren
                     if (isUpcoming) {
                         setInterval(() => {
-                            dropLink.textContent = `#${String(index + 1).padStart(2, '0')} ${getExtendedCountdown(dropDate)}`;
+                            dropLink.textContent = getExtendedCountdown(dropDate);
                         }, 1000);
                     }
                 });
@@ -220,15 +227,14 @@
             // Funktion zur Formatierung des Datums und der Zeit
             function formatDateTime(date) {
                 const options = {
-                    weekday: 'short',   // Wochentag (Mon)
-                    month: 'short',     // Monat (Jan)
-                    day: 'numeric',     // Tag
+                    weekday: 'short',   // Wochentag (Tue)
+                    month: 'short',     // Monat (Oct)
+                    day: 'numeric',     // Datum
                     hour: '2-digit',    // Uhrzeit (02PM)
                     hour12: true        // 12-Stunden-Format
                 };
-                const formattedTime = new Intl.DateTimeFormat('en-US', options).format(date);
-                const year = date.getFullYear().toString().slice(-2); // Letzte 2 Ziffern des Jahres
-                return `${formattedTime} ${year}`;
+
+                return new Intl.DateTimeFormat('en-US', options).format(date).replace(/,\s/g, ' ') + ' UTC+2'; // Remove comma and space, add timezone
             }
 
             // Erweiterte Countdown-Funktion
@@ -236,13 +242,12 @@
                 const now = new Date();
                 const diff = date - now;
 
-                const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30)); // Monate
-                const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24)); // Tage
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24)); // Tage
                 const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); // Stunden
                 const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)); // Minuten
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000); // Sekunden
 
-                return `${String(months).padStart(2, '0')}:${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} ${formatDateTime(date)}`;
+                return `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} ${formatDateTime(date)}`;
             }
         });
     </script>
