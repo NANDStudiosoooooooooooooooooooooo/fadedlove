@@ -27,8 +27,25 @@
             width: 100%;
             max-width: 100%;
             z-index: 11000;
+            scrollbar-color: grey transparent;
             overflow-x: auto; /* Allows horizontal scrolling */
             white-space: nowrap; /* Prevents wrapping of the text */
+        }
+
+        .drop_container::-webkit-scrollbar {
+            height: 6px; /* Set the scrollbar height for horizontal scrolling */
+        }
+        .drop_container::-webkit-scrollbar-track {
+            background: transparent; /* Hide the scrollbar track */
+        }
+        .drop_container::-webkit-scrollbar-thumb {
+            background-color: grey; /* Make the scrollbar handle grey */
+            border-radius: 10px; /* Round the scrollbar handle */
+            border: 2px solid transparent; /* Create space around the scrollbar handle */
+        }
+
+        .drop_container::-webkit-scrollbar-thumb:hover {
+            background-color: darkgrey; /* Darken the scrollbar handle on hover */
         }
 
         .drop_item {
