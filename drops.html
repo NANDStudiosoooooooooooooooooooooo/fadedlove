@@ -191,10 +191,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             fetch('/JSON/drops.json?v=1.1')
                 .then(response => response.json())
-                .then(data => {
-                    displayDrops(data.drops); // Pass only drops to the display function
-                    displayCollections(data.collections); // Call function to display collections
-                });
+                .then(data => displayDrops(data));
     
             function displayDrops(drops) {
                 const container = document.getElementById('drops-container');
@@ -251,39 +248,79 @@
                     }
                 });
     
+                // Füge den COLLECTION-Button hinzu
+                addCollectionButton(drops.length);
+    
                 // Füge die Newsletter-Eingabe hinzu
-                addNewsletterInput(drops.length + 1);
+                addNewsletterInput(drops.length + 2);
             }
     
-            function displayCollections(collections) {
+            // Funktion zum Hinzufügen des COLLECTION-Buttons
+            function addCollectionButton(dropCount) {
                 const container = document.getElementById('drops-container');
     
-                collections.forEach((collection, index) => {
-                    const collectionElement = document.createElement('div');
-                    collectionElement.className = 'drop_item';
+                const buttonContainer = document.createElement('div');
+                buttonContainer.className = 'drop_item';
     
-                    // Collection-Nummer erstellen
-                    const collectionNumberContainer = document.createElement('div');
-                    collectionNumberContainer.className = 'drop_number_container';
+                // Drop-Nummer für COLLECTION-Button
+                const collectionNumberContainer = document.createElement('div');
+                collectionNumberContainer.className = 'drop_number_container';
     
-                    const collectionNumberHash = document.createElement('div');
-                    collectionNumberHash.textContent = '#';
-                    const collectionNumber = document.createElement('div');
-                    collectionNumber.textContent = String(index + 1).padStart(2, '0');
+                const collectionNumberHash = document.createElement('div');
+                collectionNumberHash.textContent = '#';
+                const collectionNumber = document.createElement('div');
+                collectionNumber.textContent = String(dropCount + 1).padStart(2, '0');
     
-                    collectionNumberContainer.appendChild(collectionNumberHash);
-                    collectionNumberContainer.appendChild(collectionNumber);
-                    collectionElement.appendChild(collectionNumberContainer);
+                collectionNumberContainer.appendChild(collectionNumberHash);
+                collectionNumberContainer.appendChild(collectionNumber);
     
-                    // Collection-Link erstellen
-                    const collectionLink = document.createElement('a');
-                    collectionLink.className = 'drop_link';
-                    collectionLink.textContent = collection.name;
-                    collectionLink.href = collection.link;
-                    collectionLink.target = "_blank";
+                buttonContainer.appendChild(collectionNumberContainer);
     
-                    collectionElement.appendChild(collectionLink);
-                    container.appendChild(collectionElement);
+                // COLLECTION-Button
+                const collectionButton = document.createElement('div');
+                collectionButton.className = 'drop_link';
+                collectionButton.textContent = '+ COLLECTION';
+                collectionButton.style.cursor = 'pointer';
+    
+                buttonContainer.appendChild(collectionButton);
+                container.appendChild(buttonContainer);
+    
+                // FADEDLOVE-Link (anfangs versteckt)
+                const fadedLoveLink = document.createElement('a');
+                fadedLoveLink.className = 'drop_link hidden';
+                fadedLoveLink.href = 'https://fadedcloth.de/fadedlove';
+                fadedLoveLink.textContent = 'FADEDLOVE';
+                fadedLoveLink.target = '_blank';
+    
+                // Container für den FADEDLOVE-Link (mit Platzhalter für die Nummer)
+                const fadedLoveContainer = document.createElement('div');
+                fadedLoveContainer.className = 'drop_item';
+                fadedLoveContainer.style.display = 'none'; // Unsichtbar beim Laden
+    
+                // Platzhalter für die Nummer (00, unsichtbar)
+                const placeholderNumberContainer = document.createElement('div');
+                placeholderNumberContainer.className = 'drop_number_container';
+                placeholderNumberContainer.style.visibility = 'hidden'; // Unsichtbar
+                const placeholderNumberHash = document.createElement('div');
+                placeholderNumberHash.textContent = '#';
+                const placeholderNumber = document.createElement('div');
+                placeholderNumber.textContent = '00';
+    
+                placeholderNumberContainer.appendChild(placeholderNumberHash);
+                placeholderNumberContainer.appendChild(placeholderNumber);
+                fadedLoveContainer.appendChild(placeholderNumberContainer);
+    
+                fadedLoveContainer.appendChild(fadedLoveLink);
+                container.appendChild(fadedLoveContainer);
+    
+                // Event Listener für den Button
+                collectionButton.addEventListener('click', () => {
+                    const isHidden = fadedLoveLink.classList.contains('hidden');
+                    fadedLoveLink.classList.toggle('hidden');
+                    collectionButton.textContent = isHidden ? '- COLLECTION' : '+ COLLECTION';
+                    
+                    // Ganze Zeile verstecken oder anzeigen
+                    fadedLoveContainer.style.display = isHidden ? 'flex' : 'none';
                 });
             }
     
@@ -405,7 +442,6 @@
             }
         });
     </script>
-    
     
     
     
