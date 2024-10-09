@@ -53,7 +53,6 @@
             display: flex;
             align-items: center;
             width: 100%;
-            padding: 5px 0; /* Increased padding for better spacing */
             font-size: 4vw; /* Dynamic font size */
         }
 
@@ -129,34 +128,31 @@
             }
         }
 
-    .newsletter_form input[type="email"] {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-    }
+        /* Stil für das Eingabefeld */
+        .newsletter_form input[type="email"] {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            background: none;
+            text-overflow: ellipsis;
+            border: none;
+            color: white;
+            font-size: 4vw;
+            text-transform: uppercase;
+            padding: 5px;
+            margin-right: 10px ;
+            margin-left: 10px; /* Abstand zwischen NEWSLETTER und Eingabefeld */
+            width: 100%; /* Breite des Eingabefelds */
+            outline: none;
+            overflow-x: auto; /* Allows horizontal scrolling */
+            white-space: nowrap; /* Prevents wrapping of the text */
+            text-align: left;
+        }
 
-    /* Stil für das Eingabefeld */
-    .newsletter_form input[type="email"] {
-        background: none;
-        text-overflow: ellipsis;
-        border: none;
-        color: white;
-        font-size: 4vw;
-        text-transform: uppercase;
-        padding: 5px;
-        margin-right: 10px ;
-        margin-left: 10px; /* Abstand zwischen NEWSLETTER und Eingabefeld */
-        width: 100%; /* Breite des Eingabefelds */
-        outline: none;
-        overflow-x: auto; /* Allows horizontal scrolling */
-        white-space: nowrap; /* Prevents wrapping of the text */
-        text-align: left;
-    }
-
-    /* Verstecken des Eingabefelds nach erfolgreicher Eingabe */
-    .newsletter_form input[type="email"].hidden {
-        display: none;
-    }
+        /* Verstecken des Eingabefelds nach erfolgreicher Eingabe */
+        .newsletter_form input[type="email"].hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
