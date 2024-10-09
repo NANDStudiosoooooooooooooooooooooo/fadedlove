@@ -249,25 +249,32 @@
                 });
     
                 // Füge den COLLECTION-Button hinzu
-                addCollectionButton(drops.length + 1); // Übergibt die korrekte Nummer für den COLLECTION-Button
+                addCollectionButton(drops.length);
     
                 // Füge die Newsletter-Eingabe hinzu
                 addNewsletterInput(drops.length + 1);
             }
     
             // Funktion zum Hinzufügen des COLLECTION-Buttons
-            function addCollectionButton(nextDropNumber) {
+            function addCollectionButton(dropCount) {
                 const container = document.getElementById('drops-container');
     
                 const buttonContainer = document.createElement('div');
                 buttonContainer.className = 'drop_item';
     
-                // Platzhalter für die Nummer
-                const emptyNumberContainer = document.createElement('div');
-                emptyNumberContainer.className = 'drop_number_container';
-                emptyNumberContainer.innerHTML = '&nbsp;'; // Leerraum
+                // Drop-Nummer für COLLECTION-Button
+                const collectionNumberContainer = document.createElement('div');
+                collectionNumberContainer.className = 'drop_number_container';
     
-                buttonContainer.appendChild(emptyNumberContainer);
+                const collectionNumberHash = document.createElement('div');
+                collectionNumberHash.textContent = '#';
+                const collectionNumber = document.createElement('div');
+                collectionNumber.textContent = String(dropCount + 1).padStart(2, '0');
+    
+                collectionNumberContainer.appendChild(collectionNumberHash);
+                collectionNumberContainer.appendChild(collectionNumber);
+    
+                buttonContainer.appendChild(collectionNumberContainer);
     
                 // COLLECTION-Button
                 const collectionButton = document.createElement('div');
@@ -285,12 +292,24 @@
                 fadedLoveLink.textContent = 'FADEDLOVE';
                 fadedLoveLink.target = '_blank';
     
-                // Container für den FADEDLOVE-Link (ohne Nummer davor)
+                // Container für den FADEDLOVE-Link (mit Platzhalter für die Nummer)
                 const fadedLoveContainer = document.createElement('div');
                 fadedLoveContainer.className = 'drop_item';
-                fadedLoveContainer.appendChild(document.createElement('div')); // Leerer Platzhalter für die Nummer
-                fadedLoveContainer.appendChild(fadedLoveLink);
     
+                // Platzhalter für die Nummer (00, unsichtbar)
+                const placeholderNumberContainer = document.createElement('div');
+                placeholderNumberContainer.className = 'drop_number_container';
+                placeholderNumberContainer.style.visibility = 'hidden'; // Unsichtbar
+                const placeholderNumberHash = document.createElement('div');
+                placeholderNumberHash.textContent = '#';
+                const placeholderNumber = document.createElement('div');
+                placeholderNumber.textContent = '00';
+    
+                placeholderNumberContainer.appendChild(placeholderNumberHash);
+                placeholderNumberContainer.appendChild(placeholderNumber);
+                fadedLoveContainer.appendChild(placeholderNumberContainer);
+    
+                fadedLoveContainer.appendChild(fadedLoveLink);
                 container.appendChild(fadedLoveContainer);
     
                 // Event Listener für den Button
@@ -303,14 +322,6 @@
                         collectionButton.textContent = '+ COLLECTION';
                     }
                 });
-    
-                // Setze die Nummer für den COLLECTION-Button
-                const collectionNumberContainer = document.createElement('div');
-                collectionNumberContainer.className = 'drop_number_container';
-                collectionNumberContainer.innerHTML = '#&nbsp;'; // Platzhalter für Nummer (ohne echten Wert)
-    
-                buttonContainer.prepend(collectionNumberContainer); // Fügt die Nummer vor dem Button hinzu
-                collectionNumberContainer.appendChild(document.createTextNode(String(nextDropNumber).padStart(2, '0'))); // Setzt die Nummer
             }
     
             // Funktion zum Hinzufügen der Newsletter-Eingabe
@@ -416,13 +427,13 @@
                 }
             }
     
-            // Funktion zur Überprüfung der E-Mail-Validierung
+            // Funktion zur Überprüfung der E-Mail
             function isValidEmail(email) {
-                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return re.test(email);
+                const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return pattern.test(email);
             }
     
-            // Funktion zum Schütteln eines Elements
+            // Funktion zur Schüttelanimation
             function shakeElement(element) {
                 element.classList.add('shake');
                 setTimeout(() => {
@@ -431,6 +442,7 @@
             }
         });
     </script>
+    
     
     
     
