@@ -265,8 +265,12 @@
                 // Platzhalter für die Nummer (kein Nummernfeld)
                 const emptyNumberContainer = document.createElement('div');
                 emptyNumberContainer.className = 'drop_number_container';
-                emptyNumberContainer.innerHTML = '&nbsp;'; // Leerraum
-    
+                const emptyNumberHash = document.createElement('div');
+                emptyNumberHash.textContent = '#';
+                const emptyNumber = document.createElement('div');
+                emptyNumber.textContent = '00'; // Platzhalter für die Nummer
+                emptyNumberContainer.appendChild(emptyNumberHash);
+                emptyNumberContainer.appendChild(emptyNumber);
                 buttonContainer.appendChild(emptyNumberContainer);
     
                 // COLLECTION-Button
@@ -302,6 +306,14 @@
                         fadedLoveLink.classList.add('hidden');
                         collectionButton.textContent = '+ COLLECTION';
                     }
+    
+                    // Zeilen ein- oder ausblenden
+                    const dropItems = container.querySelectorAll('.drop_item:not(.hidden)');
+                    dropItems.forEach(item => {
+                        if (item !== buttonContainer && item !== fadedLoveContainer) {
+                            item.style.display = fadedLoveLink.classList.contains('hidden') ? 'block' : 'none';
+                        }
+                    });
                 });
             }
     
@@ -414,15 +426,16 @@
                 return re.test(email);
             }
     
-            // Funktion um den Shake-Effekt hinzuzufügen
+            // Funktion zum Schütteln eines Elements
             function shakeElement(element) {
-                element.classList.add("shake");
+                element.classList.add('shake');
                 setTimeout(() => {
-                    element.classList.remove("shake");
+                    element.classList.remove('shake');
                 }, 500);
             }
         });
     </script>
+    
     
     
     
