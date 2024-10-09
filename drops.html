@@ -314,13 +314,12 @@
     
                 // Event Listener für den Button
                 collectionButton.addEventListener('click', () => {
-                    if (fadedLoveLink.classList.contains('hidden')) {
-                        fadedLoveLink.classList.remove('hidden');
-                        collectionButton.textContent = '- COLLECTION';
-                    } else {
-                        fadedLoveLink.classList.add('hidden');
-                        collectionButton.textContent = '+ COLLECTION';
-                    }
+                    const isHidden = fadedLoveLink.classList.contains('hidden');
+                    fadedLoveLink.classList.toggle('hidden');
+                    collectionButton.textContent = isHidden ? '- COLLECTION' : '+ COLLECTION';
+                    
+                    // Ganze Zeile verstecken oder anzeigen
+                    fadedLoveContainer.style.display = isHidden ? 'flex' : 'none';
                 });
             }
     
@@ -416,18 +415,18 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                        newsletterLabel.textContent = 'THANK YOU!';
-                        emailInput.remove();
+                        newsletterLabel.textContent = "THANK YOU!";
+                        emailInput.value = ''; // Eingabe zurücksetzen
                     })
                     .catch(error => {
-                        alert("An error occurred: " + error.message);
+                        console.error("Error:", error);
                     });
                 } else {
                     shakeElement(emailInput);
                 }
             }
     
-            // Funktion zur Überprüfung der E-Mail
+            // Funktion zur Überprüfung der E-Mail-Adresse
             function isValidEmail(email) {
                 const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 return pattern.test(email);
@@ -442,6 +441,7 @@
             }
         });
     </script>
+    
     
     
     
