@@ -193,204 +193,219 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('/JSON/drops.json?v=1.1')
-                .then(response => response.json())
-                .then(data => displayDrops(data));
-    
-            function displayDrops(data) {
-                const container = document.getElementById('drops-container');
-                const drops = data.drops; // Access the drops from the JSON
-                const collections = data.collections; // Access the collections from the JSON
-                const now = new Date();
-    
-                drops.forEach((drop, index) => {
-                    const dropDate = new Date(drop.date + 'T' + drop.time + ':00');
-                    const isUpcoming = dropDate > now;
-    
-                    const dropElement = document.createElement('div');
-                    dropElement.className = 'drop_item';
-                    dropElement.setAttribute('data-drop-date', dropDate.toISOString());
-    
-                    // Drop-Nummer erstellen
-                    const dropNumberContainer = document.createElement('div');
-                    dropNumberContainer.className = 'drop_number_container';
-    
-                    const dropNumberHash = document.createElement('div');
-                    dropNumberHash.textContent = '#';
-                    const dropNumber = document.createElement('div');
-                    dropNumber.textContent = String(index + 1).padStart(2, '0');
-    
-                    dropNumberContainer.appendChild(dropNumberHash);
-                    dropNumberContainer.appendChild(dropNumber);
-                    dropElement.appendChild(dropNumberContainer);
-    
-                    // Drop-Link oder Countdown erstellen
-                    const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
-                    dropLink.className = 'drop_link';
-    
-                    if (isUpcoming) {
-                        dropLink.textContent = drop.name
-                            ? `${drop.name} ${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`
-                            : `${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`;
-                    } else {
-                        dropLink.textContent = drop.name + (drop.subname ? ` - ${drop.subname}` : '');
-                        if (drop.link) {
-                            dropLink.href = drop.link;
-                            dropLink.target = "_blank";
-                        }
-                    }
-    
-                    dropElement.appendChild(dropLink);
-                    container.appendChild(dropElement);
-    
-                    // Countdown aktualisieren
-                    if (isUpcoming) {
-                        setInterval(() => {
-                            dropLink.textContent = drop.name
-                                ? `${drop.name} ${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`
-                                : `${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`;
-                        }, 1000);
-                    }
-                });
-    
-                // Füge den COLLECTION-Button hinzu
-                addCollectionButton(collections);
-    
-                // Füge die Newsletter-Eingabe hinzu
-                addNewsletterInput(drops.length + 2);
-            }
-    
-            // Funktion zum Hinzufügen des COLLECTION-Buttons
-            function addCollectionButton(collections) {
-                const container = document.getElementById('drops-container');
-    
-                const buttonContainer = document.createElement('div');
-                buttonContainer.className = 'drop_item';
-    
-                // Drop-Nummer für COLLECTION-Button
-                const collectionNumberContainer = document.createElement('div');
-                collectionNumberContainer.className = 'drop_number_container';
-    
-                const collectionNumberHash = document.createElement('div');
-                collectionNumberHash.textContent = '#';
-                const collectionNumber = document.createElement('div');
-                collectionNumber.textContent = String(collections.length + 1).padStart(2, '0');
-    
-                collectionNumberContainer.appendChild(collectionNumberHash);
-                collectionNumberContainer.appendChild(collectionNumber);
-                buttonContainer.appendChild(collectionNumberContainer);
-    
-                // COLLECTION-Button
-                const collectionButton = document.createElement('div');
-                collectionButton.className = 'drop_link';
-                collectionButton.textContent = '+ COLLECTION';
-                collectionButton.style.cursor = 'pointer';
-    
-                buttonContainer.appendChild(collectionButton);
-                container.appendChild(buttonContainer);
-    
-                // Container für die COLLECTIONS
-                const collectionContainer = document.createElement('div');
-                collectionContainer.className = 'drop_item hidden'; // Initially hidden
-    
-                collections.forEach(collection => {
-                    const collectionLink = document.createElement('a');
-                    collectionLink.className = 'drop_link';
-                    collectionLink.href = collection.link;
-                    collectionLink.textContent = collection.name;
-                    collectionLink.target = '_blank';
-                    collectionContainer.appendChild(collectionLink);
-                });
-    
-                container.appendChild(collectionContainer);
-    
-                // Event Listener für den Button
-                collectionButton.addEventListener('click', () => {
-                    const isHidden = collectionContainer.classList.contains('hidden');
-                    collectionContainer.classList.toggle('hidden');
-                    collectionButton.textContent = isHidden ? '- COLLECTION' : '+ COLLECTION';
-                });
-            }
-    
-            // Funktion zum Hinzufügen der Newsletter-Eingabe
-            function addNewsletterInput(nextDropNumber) {
-                const container = document.getElementById('drops-container');
-    
-                // Container für Newsletter
-                const newsletterContainer = document.createElement('div');
-                newsletterContainer.className = 'drop_item';
-    
-                // #XX für Newsletter
+        fetch('/JSON/drops.json?v=1.1')
+            .then(response => response.json())
+            .then(data => displayDrops(data));
+
+        function displayDrops(data) {
+            const container = document.getElementById('drops-container');
+            const drops = data.drops; // Access the drops from the JSON
+            const collections = data.collections; // Access the collections from the JSON
+            const now = new Date();
+
+            drops.forEach((drop, index) => {
+                const dropDate = new Date(drop.date + 'T' + drop.time + ':00');
+                const isUpcoming = dropDate > now;
+
+                const dropElement = document.createElement('div');
+                dropElement.className = 'drop_item';
+                dropElement.setAttribute('data-drop-date', dropDate.toISOString());
+
+                // Drop-Nummer erstellen
                 const dropNumberContainer = document.createElement('div');
                 dropNumberContainer.className = 'drop_number_container';
-    
+
                 const dropNumberHash = document.createElement('div');
                 dropNumberHash.textContent = '#';
                 const dropNumber = document.createElement('div');
-                dropNumber.textContent = String(nextDropNumber).padStart(2, '0');
-    
+                dropNumber.textContent = String(index + 1).padStart(2, '0');
+
                 dropNumberContainer.appendChild(dropNumberHash);
                 dropNumberContainer.appendChild(dropNumber);
-                newsletterContainer.appendChild(dropNumberContainer);
-    
-                // Newsletter Text und Input
-                const newsletterLabel = document.createElement('div');
-                newsletterLabel.className = 'drop_link';
-                newsletterLabel.textContent = 'ENTER EMAIL:';
-    
-                const emailInput = document.createElement('input');
-                emailInput.id = 'email';
-                emailInput.className = 'drop_link'; // Selber Style wie die Drops
-                emailInput.setAttribute('type', 'email');
-                emailInput.setAttribute('placeholder', '');
-    
-                // Container für die Eingabe und den Text
-                const newsletterForm = document.createElement('div');
-                newsletterForm.className = 'newsletter_form';
-                newsletterForm.appendChild(newsletterLabel);
-                newsletterForm.appendChild(emailInput);
-    
-                // Eingabefeld hinzufügen
-                newsletterContainer.appendChild(newsletterForm);
-                container.appendChild(newsletterContainer);
-    
-                // Event Listener für das Drücken von Enter
-                emailInput.addEventListener('keypress', function (event) {
-                    if (event.key === 'Enter') {
-                        event.preventDefault();
-                        processSubscription(emailInput.value, newsletterLabel, emailInput);
+                dropElement.appendChild(dropNumberContainer);
+
+                // Drop-Link oder Countdown erstellen
+                const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
+                dropLink.className = 'drop_link';
+
+                if (isUpcoming) {
+                    dropLink.textContent = drop.name
+                        ? `${drop.name} ${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`
+                        : `${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`;
+                } else {
+                    dropLink.textContent = drop.name + (drop.subname ? ` - ${drop.subname}` : '');
+                    if (drop.link) {
+                        dropLink.href = drop.link;
+                        dropLink.target = "_blank";
                     }
-                });
-            }
-    
-            function formatUpcomingDate(date) {
-                const options = {
-                    weekday: 'short',
-                    month: 'short',
-                    day: '2-digit',
-                    year: '2-digit',
-                    hour: '2-digit',
-                    hour12: true
-                };
-    
-                const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
-                const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
-    
-                return `${formattedDate.replace(/,\s/g, ' ').replace(/\b\d{4}\b/, '')} UTC+2`.replace(/ +/, ' ').trim();
-            }
-    
-            // Erweiterte Countdown-Funktion
-            function getExtendedCountdown(date) {
-                const now = new Date();
-                const diff = date - now;
-    
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-    
-                return `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            }
+                }
+
+                dropElement.appendChild(dropLink);
+                container.appendChild(dropElement);
+
+                // Countdown aktualisieren
+                if (isUpcoming) {
+                    setInterval(() => {
+                        dropLink.textContent = drop.name
+                            ? `${drop.name} ${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`
+                            : `${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`;
+                    }, 1000);
+                }
+            });
+
+            // Füge den COLLECTION-Button hinzu
+            addCollectionButton(collections, drops.length + 1); // Set collection number to one higher than the last drop
+
+            // Füge die Newsletter-Eingabe hinzu
+            addNewsletterInput(drops.length + 2);
+        }
+
+        // Funktion zum Hinzufügen des COLLECTION-Buttons
+        function addCollectionButton(collections, collectionCount) {
+            const container = document.getElementById('drops-container');
+
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'drop_item';
+
+            // Drop-Nummer für COLLECTION-Button
+            const collectionNumberContainer = document.createElement('div');
+            collectionNumberContainer.className = 'drop_number_container';
+
+            const collectionNumberHash = document.createElement('div');
+            collectionNumberHash.textContent = '#';
+            const collectionNumber = document.createElement('div');
+            collectionNumber.textContent = String(collectionCount).padStart(2, '0'); // Collection number is one higher than the last drop
+
+            collectionNumberContainer.appendChild(collectionNumberHash);
+            collectionNumberContainer.appendChild(collectionNumber);
+            buttonContainer.appendChild(collectionNumberContainer);
+
+            // COLLECTION-Button
+            const collectionButton = document.createElement('div');
+            collectionButton.className = 'drop_link';
+            collectionButton.textContent = '+ COLLECTION';
+            collectionButton.style.cursor = 'pointer';
+
+            buttonContainer.appendChild(collectionButton);
+            container.appendChild(buttonContainer);
+
+            // Container für die COLLECTIONS
+            const collectionContainer = document.createElement('div');
+            collectionContainer.className = 'drop_item hidden'; // Initially hidden
+
+            // Placeholder für COLLECTION-Nummer
+            const placeholderNumberContainer = document.createElement('div');
+            placeholderNumberContainer.className = 'drop_number_container hidden'; // Initially hidden
+
+            const placeholderHash = document.createElement('div');
+            placeholderHash.textContent = '#';
+            const placeholderNumber = document.createElement('div');
+            placeholderNumber.textContent = '00'; // Placeholder number
+
+            placeholderNumberContainer.appendChild(placeholderHash);
+            placeholderNumberContainer.appendChild(placeholderNumber);
+            container.appendChild(placeholderNumberContainer);
+
+            collections.forEach(collection => {
+                const collectionLink = document.createElement('a');
+                collectionLink.className = 'drop_link';
+                collectionLink.href = collection.link;
+                collectionLink.textContent = collection.name;
+                collectionLink.target = '_blank';
+                collectionContainer.appendChild(collectionLink);
+            });
+
+            container.appendChild(collectionContainer);
+
+            // Event Listener für den Button
+            collectionButton.addEventListener('click', () => {
+                const isHidden = collectionContainer.classList.contains('hidden');
+                collectionContainer.classList.toggle('hidden');
+                collectionButton.textContent = isHidden ? '- COLLECTION' : '+ COLLECTION';
+                placeholderNumberContainer.classList.toggle('hidden', !isHidden); // Toggle visibility of the placeholder
+                collectionContainer.style.display = isHidden ? 'block' : 'none'; // Show or hide the collection links
+            });
+        }
+
+        // Funktion zum Hinzufügen der Newsletter-Eingabe
+        function addNewsletterInput(nextDropNumber) {
+            const container = document.getElementById('drops-container');
+
+            // Container für Newsletter
+            const newsletterContainer = document.createElement('div');
+            newsletterContainer.className = 'drop_item';
+
+            // #XX für Newsletter
+            const dropNumberContainer = document.createElement('div');
+            dropNumberContainer.className = 'drop_number_container';
+
+            const dropNumberHash = document.createElement('div');
+            dropNumberHash.textContent = '#';
+            const dropNumber = document.createElement('div');
+            dropNumber.textContent = String(nextDropNumber).padStart(2, '0');
+
+            dropNumberContainer.appendChild(dropNumberHash);
+            dropNumberContainer.appendChild(dropNumber);
+            newsletterContainer.appendChild(dropNumberContainer);
+
+            // Newsletter Text und Input
+            const newsletterLabel = document.createElement('div');
+            newsletterLabel.className = 'drop_link';
+            newsletterLabel.textContent = 'ENTER EMAIL:';
+
+            const emailInput = document.createElement('input');
+            emailInput.id = 'email';
+            emailInput.className = 'drop_link'; // Selber Style wie die Drops
+            emailInput.setAttribute('type', 'email');
+            emailInput.setAttribute('placeholder', '');
+
+            // Container für die Eingabe und den Text
+            const newsletterForm = document.createElement('div');
+            newsletterForm.className = 'newsletter_form';
+            newsletterForm.appendChild(newsletterLabel);
+            newsletterForm.appendChild(emailInput);
+
+            // Eingabefeld hinzufügen
+            newsletterContainer.appendChild(newsletterForm);
+            container.appendChild(newsletterContainer);
+
+            // Event Listener für das Drücken von Enter
+            emailInput.addEventListener('keypress', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    processSubscription(emailInput.value, newsletterLabel, emailInput);
+                }
+            });
+        }
+
+        function formatUpcomingDate(date) {
+            const options = {
+                weekday: 'short',
+                month: 'short',
+                day: '2-digit',
+                year: '2-digit',
+                hour: '2-digit',
+                hour12: true
+            };
+
+            const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+            const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
+
+            return `${formattedDate.replace(/,\s/g, ' ').replace(/\b\d{4}\b/, '')} UTC+2`.replace(/ +/, ' ').trim();
+        }
+
+        // Erweiterte Countdown-Funktion
+        function getExtendedCountdown(date) {
+            const now = new Date();
+            const diff = date - now;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            return `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
     
             // Funktion zur Verarbeitung der E-Mail-Validierung und Einreichung
             function processSubscription(email, newsletterLabel, emailInput) {
