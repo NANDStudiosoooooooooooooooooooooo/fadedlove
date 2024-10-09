@@ -249,28 +249,24 @@
                 });
     
                 // Füge den COLLECTION-Button hinzu
-                addCollectionButton();
+                addCollectionButton(drops.length + 1); // Übergibt die korrekte Nummer für den COLLECTION-Button
     
                 // Füge die Newsletter-Eingabe hinzu
                 addNewsletterInput(drops.length + 1);
             }
     
             // Funktion zum Hinzufügen des COLLECTION-Buttons
-            function addCollectionButton() {
+            function addCollectionButton(nextDropNumber) {
                 const container = document.getElementById('drops-container');
     
                 const buttonContainer = document.createElement('div');
                 buttonContainer.className = 'drop_item';
     
-                // Platzhalter für die Nummer (kein Nummernfeld)
+                // Platzhalter für die Nummer
                 const emptyNumberContainer = document.createElement('div');
                 emptyNumberContainer.className = 'drop_number_container';
-                const emptyNumberHash = document.createElement('div');
-                emptyNumberHash.textContent = '#';
-                const emptyNumber = document.createElement('div');
-                emptyNumber.textContent = '00'; // Platzhalter für die Nummer
-                emptyNumberContainer.appendChild(emptyNumberHash);
-                emptyNumberContainer.appendChild(emptyNumber);
+                emptyNumberContainer.innerHTML = '&nbsp;'; // Leerraum
+    
                 buttonContainer.appendChild(emptyNumberContainer);
     
                 // COLLECTION-Button
@@ -306,15 +302,15 @@
                         fadedLoveLink.classList.add('hidden');
                         collectionButton.textContent = '+ COLLECTION';
                     }
-    
-                    // Zeilen ein- oder ausblenden
-                    const dropItems = container.querySelectorAll('.drop_item:not(.hidden)');
-                    dropItems.forEach(item => {
-                        if (item !== buttonContainer && item !== fadedLoveContainer) {
-                            item.style.display = fadedLoveLink.classList.contains('hidden') ? 'block' : 'none';
-                        }
-                    });
                 });
+    
+                // Setze die Nummer für den COLLECTION-Button
+                const collectionNumberContainer = document.createElement('div');
+                collectionNumberContainer.className = 'drop_number_container';
+                collectionNumberContainer.innerHTML = '#&nbsp;'; // Platzhalter für Nummer (ohne echten Wert)
+    
+                buttonContainer.prepend(collectionNumberContainer); // Fügt die Nummer vor dem Button hinzu
+                collectionNumberContainer.appendChild(document.createTextNode(String(nextDropNumber).padStart(2, '0'))); // Setzt die Nummer
             }
     
             // Funktion zum Hinzufügen der Newsletter-Eingabe
@@ -420,7 +416,7 @@
                 }
             }
     
-            // Funktion zur Überprüfung der E-Mail-Validität
+            // Funktion zur Überprüfung der E-Mail-Validierung
             function isValidEmail(email) {
                 const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 return re.test(email);
@@ -435,6 +431,7 @@
             }
         });
     </script>
+    
     
     
     
