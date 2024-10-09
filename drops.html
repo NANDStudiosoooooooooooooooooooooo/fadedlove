@@ -261,78 +261,89 @@
         }
 
         // Funktion zum Hinzufügen des COLLECTION-Buttons
-        function addCollectionButton(collections, collectionCount) {
-    const container = document.getElementById('drops-container');
+        function addCollectionButton(collections, dropCount) {
+            const container = document.getElementById('drops-container');
 
-    const buttonContainer = document.createElement('div');
-    buttonContainer.className = 'drop_item';
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'drop_item';
 
-    // Drop-Nummer für COLLECTION-Button
-    const collectionNumberContainer = document.createElement('div');
-    collectionNumberContainer.className = 'drop_number_container';
+            // Drop-Nummer für COLLECTION-Button
+            const collectionNumberContainer = document.createElement('div');
+            collectionNumberContainer.className = 'drop_number_container';
 
-    const collectionNumberHash = document.createElement('div');
-    collectionNumberHash.textContent = '#';
-    const collectionNumber = document.createElement('div');
-    collectionNumber.textContent = String(collectionCount).padStart(2, '0'); // Collection number is one higher than the last drop
+            const collectionNumberHash = document.createElement('div');
+            collectionNumberHash.textContent = '#';
+            const collectionNumber = document.createElement('div');
+            collectionNumber.textContent = String(dropCount + 1).padStart(2, '0');
 
-    collectionNumberContainer.appendChild(collectionNumberHash);
-    collectionNumberContainer.appendChild(collectionNumber);
-    buttonContainer.appendChild(collectionNumberContainer);
+            collectionNumberContainer.appendChild(collectionNumberHash);
+            collectionNumberContainer.appendChild(collectionNumber);
+            buttonContainer.appendChild(collectionNumberContainer);
 
-    // COLLECTION-Button
-    const collectionButton = document.createElement('div');
-    collectionButton.className = 'drop_link';
-    collectionButton.textContent = '+ COLLECTION';
-    collectionButton.style.cursor = 'pointer';
+            // COLLECTION-Button
+            const collectionButton = document.createElement('div');
+            collectionButton.className = 'drop_link';
+            collectionButton.textContent = '+ COLLECTION';
+            collectionButton.style.cursor = 'pointer';
+            buttonContainer.appendChild(collectionButton);
+            container.appendChild(buttonContainer);
 
-    buttonContainer.appendChild(collectionButton);
-    container.appendChild(buttonContainer);
+            // Container für die COLLECTIONS (anfangs versteckt)
+            const collectionContainer = document.createElement('div');
+            collectionContainer.className = 'drop_item hidden'; // Initially hidden
 
-    // Container für die COLLECTIONS
-    const collectionContainer = document.createElement('div');
-    collectionContainer.className = 'drop_item hidden'; // Initially hidden
+            // Placeholder für COLLECTION-Nummer
+            const placeholderNumberContainer = document.createElement('div');
+            placeholderNumberContainer.className = 'drop_number_container hidden'; // Initially hidden
+            const placeholderHash = document.createElement('div');
+            placeholderHash.textContent = '#';
+            const placeholderNumber = document.createElement('div');
+            placeholderNumber.textContent = '00'; // Placeholder number
+            placeholderNumberContainer.appendChild(placeholderHash);
+            placeholderNumberContainer.appendChild(placeholderNumber);
 
-    // Placeholder für jede COLLECTION-Nummer
-    collections.forEach(collection => {
-        const collectionPlaceholderNumberContainer = document.createElement('div');
-        collectionPlaceholderNumberContainer.className = 'drop_number_container hidden'; // Initially hidden
+            // Füge den Platzhalter zum container hinzu
+            container.appendChild(placeholderNumberContainer);
 
-        const placeholderHash = document.createElement('div');
-        placeholderHash.textContent = '#';
-        const placeholderNumber = document.createElement('div');
-        placeholderNumber.textContent = '00'; // Placeholder number
+            collections.forEach(collection => {
+                const collectionLinkContainer = document.createElement('div');
+                collectionLinkContainer.className = 'collection_item';
 
-        collectionPlaceholderNumberContainer.appendChild(placeholderHash);
-        collectionPlaceholderNumberContainer.appendChild(placeholderNumber);
+                // Placeholder für die unsichtbare Nummer
+                const collectionNumberPlaceholder = document.createElement('div');
+                collectionNumberPlaceholder.className = 'drop_number_container';
+                collectionNumberPlaceholder.style.visibility = 'hidden'; // Unsichtbar
+                const collectionNumberHash = document.createElement('div');
+                collectionNumberHash.textContent = '#';
+                const collectionNumber = document.createElement('div');
+                collectionNumber.textContent = '00'; // Unsichtbare Nummer
 
-        const collectionLink = document.createElement('a');
-        collectionLink.className = 'drop_link';
-        collectionLink.href = collection.link;
-        collectionLink.textContent = collection.name;
-        collectionLink.target = '_blank';
+                collectionNumberPlaceholder.appendChild(collectionNumberHash);
+                collectionNumberPlaceholder.appendChild(collectionNumber);
+                collectionLinkContainer.appendChild(collectionNumberPlaceholder);
 
-        // Fügt den Platzhalter und den Link zum Container hinzu
-        collectionContainer.appendChild(collectionPlaceholderNumberContainer);
-        collectionContainer.appendChild(collectionLink);
-    });
+                // Erstelle den Collection-Link
+                const collectionLink = document.createElement('a');
+                collectionLink.className = 'drop_link';
+                collectionLink.href = collection.link;
+                collectionLink.textContent = collection.name;
+                collectionLink.target = '_blank';
 
-    container.appendChild(collectionContainer);
+                collectionLinkContainer.appendChild(collectionLink);
+                collectionContainer.appendChild(collectionLinkContainer);
+            });
 
-    // Event Listener für den Button
-    collectionButton.addEventListener('click', () => {
-        const isHidden = collectionContainer.classList.contains('hidden');
-        collectionContainer.classList.toggle('hidden');
-        collectionButton.textContent = isHidden ? '- COLLECTION' : '+ COLLECTION';
-        collectionContainer.style.display = isHidden ? 'block' : 'none'; // Show or hide the collection links
+            container.appendChild(collectionContainer);
 
-        // Sichtbarkeit der Platzhalter-Nummern-Container steuern
-        const placeholderNumberContainers = collectionContainer.querySelectorAll('.drop_number_container');
-        placeholderNumberContainers.forEach(placeholder => {
-            placeholder.classList.toggle('hidden', !isHidden);
-        });
-    });
-}
+            // Event Listener für den Button
+            collectionButton.addEventListener('click', () => {
+                const isHidden = collectionContainer.classList.contains('hidden');
+                collectionContainer.classList.toggle('hidden');
+                collectionButton.textContent = isHidden ? '- COLLECTION' : '+ COLLECTION';
+                placeholderNumberContainer.classList.toggle('hidden', !isHidden); // Toggle visibility of the placeholder
+                collectionContainer.style.display = isHidden ? 'block' : 'none'; // Show or hide the collection links
+            });
+        }
 
         // Funktion zum Hinzufügen der Newsletter-Eingabe
         function addNewsletterInput(nextDropNumber) {
