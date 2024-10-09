@@ -1,4 +1,5 @@
-[
+{
+  "drops": [
     {
       "name": "Drop 1",
       "subname": "JERSEY #1",
@@ -47,4 +48,15 @@
         "link": "https://shop.fadedcloth.de/?collection=all&drop=all",
         "images": [""]
       }
+  ],
+    "collections": [
+      {
+          "name": "Collection 1",
+          "link": "https://example.com/collection1"
+      },
+      {
+          "name": "Collection 2",
+          "link": "https://example.com/collection2"
+      }
   ]
+}
