@@ -261,7 +261,7 @@
         }
 
         // Funktion zum Hinzufügen des COLLECTION-Buttons
-        function addCollectionButton(collections, dropCount) {
+        function addCollectionButton(dropCount) {
             const container = document.getElementById('drops-container');
 
             const buttonContainer = document.createElement('div');
@@ -278,6 +278,7 @@
 
             collectionNumberContainer.appendChild(collectionNumberHash);
             collectionNumberContainer.appendChild(collectionNumber);
+
             buttonContainer.appendChild(collectionNumberContainer);
 
             // COLLECTION-Button
@@ -285,63 +286,46 @@
             collectionButton.className = 'drop_link';
             collectionButton.textContent = '+ COLLECTION';
             collectionButton.style.cursor = 'pointer';
+
             buttonContainer.appendChild(collectionButton);
             container.appendChild(buttonContainer);
 
-            // Container für die COLLECTIONS (anfangs versteckt)
-            const collectionContainer = document.createElement('div');
-            collectionContainer.className = 'drop_item hidden'; // Initially hidden
+            // FADEDLOVE-Link (anfangs versteckt)
+            const fadedLoveLink = document.createElement('a');
+            fadedLoveLink.className = 'drop_link hidden';
+            fadedLoveLink.href = 'https://fadedcloth.de/fadedlove';
+            fadedLoveLink.textContent = 'FADEDLOVE';
+            fadedLoveLink.target = '_blank';
 
-            // Placeholder für COLLECTION-Nummer
+            // Container für den FADEDLOVE-Link (mit Platzhalter für die Nummer)
+            const fadedLoveContainer = document.createElement('div');
+            fadedLoveContainer.className = 'drop_item';
+            fadedLoveContainer.style.display = 'none'; // Unsichtbar beim Laden
+
+            // Platzhalter für die Nummer (00, unsichtbar)
             const placeholderNumberContainer = document.createElement('div');
-            placeholderNumberContainer.className = 'drop_number_container hidden'; // Initially hidden
-            const placeholderHash = document.createElement('div');
-            placeholderHash.textContent = '#';
+            placeholderNumberContainer.className = 'drop_number_container';
+            placeholderNumberContainer.style.visibility = 'hidden'; // Unsichtbar
+            const placeholderNumberHash = document.createElement('div');
+            placeholderNumberHash.textContent = '#';
             const placeholderNumber = document.createElement('div');
-            placeholderNumber.textContent = '00'; // Placeholder number
-            placeholderNumberContainer.appendChild(placeholderHash);
+            placeholderNumber.textContent = '00';
+
+            placeholderNumberContainer.appendChild(placeholderNumberHash);
             placeholderNumberContainer.appendChild(placeholderNumber);
+            fadedLoveContainer.appendChild(placeholderNumberContainer);
 
-            // Füge den Platzhalter zum container hinzu
-            container.appendChild(placeholderNumberContainer);
-
-            collections.forEach(collection => {
-                const collectionLinkContainer = document.createElement('div');
-                collectionLinkContainer.className = 'collection_item';
-
-                // Placeholder für die unsichtbare Nummer
-                const collectionNumberPlaceholder = document.createElement('div');
-                collectionNumberPlaceholder.className = 'drop_number_container';
-                collectionNumberPlaceholder.style.visibility = 'hidden'; // Unsichtbar
-                const collectionNumberHash = document.createElement('div');
-                collectionNumberHash.textContent = '#';
-                const collectionNumber = document.createElement('div');
-                collectionNumber.textContent = '00'; // Unsichtbare Nummer
-
-                collectionNumberPlaceholder.appendChild(collectionNumberHash);
-                collectionNumberPlaceholder.appendChild(collectionNumber);
-                collectionLinkContainer.appendChild(collectionNumberPlaceholder);
-
-                // Erstelle den Collection-Link
-                const collectionLink = document.createElement('a');
-                collectionLink.className = 'drop_link';
-                collectionLink.href = collection.link;
-                collectionLink.textContent = collection.name;
-                collectionLink.target = '_blank';
-
-                collectionLinkContainer.appendChild(collectionLink);
-                collectionContainer.appendChild(collectionLinkContainer);
-            });
-
-            container.appendChild(collectionContainer);
+            fadedLoveContainer.appendChild(fadedLoveLink);
+            container.appendChild(fadedLoveContainer);
 
             // Event Listener für den Button
             collectionButton.addEventListener('click', () => {
-                const isHidden = collectionContainer.classList.contains('hidden');
-                collectionContainer.classList.toggle('hidden');
+                const isHidden = fadedLoveLink.classList.contains('hidden');
+                fadedLoveLink.classList.toggle('hidden');
                 collectionButton.textContent = isHidden ? '- COLLECTION' : '+ COLLECTION';
-                placeholderNumberContainer.classList.toggle('hidden', !isHidden); // Toggle visibility of the placeholder
-                collectionContainer.style.display = isHidden ? 'block' : 'none'; // Show or hide the collection links
+                
+                // Ganze Zeile verstecken oder anzeigen
+                fadedLoveContainer.style.display = isHidden ? 'flex' : 'none';
             });
         }
 
