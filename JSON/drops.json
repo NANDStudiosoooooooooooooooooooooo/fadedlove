@@ -2,17 +2,17 @@
   "drops": [
     {
       "name": "Drop 1",
-      "subname": "JERSEY #1",
-      "date": "2024-01-26",
-      "time": "14:00",
+      "subname": "TEE #1",
+      "date": "2024-10-11",
+      "time": "18:00",
       "link": "https://shop.fadedcloth.de/?collection=all&drop=drop1",
       "images": [""]
     },
     {
       "name": "Drop 2",
       "subname": "JERSEY #1",
-      "date": "2024-01-30",
-      "time": "14:00",
+      "date": "2024-05-02",
+      "time": "18:00",
       "link": "https://shop.fadedcloth.de/?collection=all&drop=drop2",
       "images": [""]
     },
