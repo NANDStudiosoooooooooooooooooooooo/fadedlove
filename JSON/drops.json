@@ -11,27 +11,27 @@
     {
       "name": "Drop 2",
       "subname": "JERSEY #1",
-      "date": "2024-05-02",
+      "date": "2025-05-02",
+      "time": "18:00",
+      "link": "https://shop.fadedcloth.de/?collection=all&drop=drop2",
+      "images": [""]
+    },
+    {
+      "name": "Drop 2",
+      "subname": "JERSEY #2",
+      "date": "2025-05-02",
       "time": "18:00",
       "link": "https://shop.fadedcloth.de/?collection=all&drop=drop2",
       "images": [""]
     },
     {
       "name": "Drop 3",
-      "subname": "JERSEY #1",
-      "date": "2024-02-03",
-      "time": "14:00",
+      "subname": "JERSEY #3",
+      "date": "2025-05-02",
+      "time": "18:00",
       "link": "https://shop.fadedcloth.de/?collection=all&drop=drop3",
       "images": [""]
     },
-    {
-        "name": "Drop NOW",
-        "subname": "JERSEY #1",
-        "date": "2024-10-08",
-        "time": "19:16",
-        "link": "https://shop.fadedcloth.de/?collection=all&drop=drop3",
-        "images": [""]
-      },
     {
         "name": "Drop 4",
         "subname": "JERSEY #1",
