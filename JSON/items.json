@@ -1,6 +1,6 @@
 [
     {
-        "name": "FADEDLOVE  #1 TEE",
+        "name": "FADEDLOVE  #00 TEE",
         "price": "50 EURO",
         "oldprice": "",
         "drop":"drop1",
@@ -15,93 +15,78 @@
           ]
     },
     {
-        "name": "FADEDLOVE  #3 JERSEY",
+        "name": "FADEDLOVE  #01 JERSEY",
         "price": "60 EURO",
         "oldprice": "",
-        "drop":"drop1",
-        "description": "100% POLYESTER | MADE IN CHINA | COLOR: BROWN / WHITE | BOXY FIT",
+        "drop":"drop2",
+        "description": "100% POLYESTER | MADE IN CHINA | COLOR: WHITE / PINK | BOXY FIT",
         "shipping": "SHIPS WITHIN 14 DAYS | PRE ORDER",
         "description2": "SOON",
         "collection": "FADEDLOVE",
         "id": "9277546365254",
         "images": [
-            "https://fadedcloth.de/media/PRODUCTS/front3.webp",
-            "https://fadedcloth.de/media/PRODUCTS/back3.webp"
+            "https://fadedcloth.de/media/PRODUCTS/front_jersey_white.webp",
+            "https://fadedcloth.de/media/PRODUCTS/back_jersey_white.webp"
           ]
     },
     {
-        "name": "FADEDLOVE  #2 JERSEY",
+        "name": "FADEDLOVE  #02 JERSEY",
         "price": "60 EURO",
         "oldprice": "",
-        "drop":"drop1",
-        "description": "100% POLYJESTER | MADE IN CHINA | COLOR: WHITE / PINK | BOXY FIT",
+        "drop":"drop3",
+        "description": "100% POLYJESTER | MADE IN CHINA | COLOR: RED / WHITE | BOXY FIT",
         "shipping": "SHIPS WITHIN 14 DAYS | PRE ORDER",
         "description2": "SOON",
         "collection": "FADEDLOVE",
         "id": "9277542859078",
         "images": [
-            "https://fadedcloth.de/media/PRODUCTS/front2.webp",
-            "https://fadedcloth.de/media/PRODUCTS/back2.webp"
+            "https://fadedcloth.de/media/PRODUCTS/front_jersey_red.webp",
+            "https://fadedcloth.de/media/PRODUCTS/back_jersey_red.webp"
           ]
     },
     {
-        "name": "FADEDAMOR TEE #1",
-        "price": "50 EURO",
+        "name": "FADEDLOVE #03 JERSEY",
+        "price": "60 EURO",
         "oldprice": "",
-        "drop":"drop1",
-        "description": "100% COTTON | MADE IN CHINA | COLOR: BLACK | BOXY FIT",
-        "shipping": "SHIPS WITHIN 14 DAYS | PRE ORDER",
-        "description2": "SOON",
-        "collection": "FADEDAMOR",
-        "id": "9276873736518",
-        "images": [
-            "https://fadedcloth.de/media/PRODUCTS/front.webp",
-            "https://fadedcloth.de/media/PRODUCTS/back.webp"
-          ]
-    },
-    {
-        "name": "FADEDLOVE TEE #1",
-        "price": "50 EURO",
-        "oldprice": "",
-        "drop":"drop1",
-        "description": "100% COTTON | MADE IN CHINA | COLOR: BLACK | BOXY FIT",
+        "drop":"drop4",
+        "description": "100% COTTON | MADE IN CHINA | COLOR: BLACK / WHITE | BOXY FIT",
         "shipping": "SHIPS WITHIN 14 DAYS | PRE ORDER",
         "description2": "SOON",
         "collection": "FADEDLOVE",
         "id": "9276873736518",
         "images": [
-            "https://fadedcloth.de/media/PRODUCTS/front.webp",
-            "https://fadedcloth.de/media/PRODUCTS/back.webp"
+            "https://fadedcloth.de/media/PRODUCTS/front_jersey_black.webp",
+            "https://fadedcloth.de/media/PRODUCTS/back_jersey_black.webp"
           ]
     },
     {
-        "name": "FADEDLOVE TEE #1",
-        "price": "50 EURO",
+        "name": "FADEDLOVE #04 JERSEY",
+        "price": "60 EURO",
         "oldprice": "",
-        "drop":"drop1",
-        "description": "100% COTTON | MADE IN CHINA | COLOR: BLACK | BOXY FIT",
-        "shipping": "SHIPS WITHIN 14 DAYS | PRE ORDER",
-        "description2": "SOON",
-        "collection": "FADEDAMOR",
-        "id": "9276873736518",
-        "images": [
-            "https://fadedcloth.de/media/PRODUCTS/front2.webp?v1.1",
-            "https://fadedcloth.de/media/PRODUCTS/back2.webp"
-          ]
-    },
-    {
-        "name": "FADEDLOVE TEE #1",
-        "price": "50 EURO",
-        "oldprice": "",
-        "drop":"drop2",
-        "description": "100% COTTON | MADE IN CHINA | COLOR: BLACK | BOXY FIT",
+        "drop":"drop5",
+        "description": "100% COTTON | MADE IN CHINA | COLOR: GREEN / WHITE | BOXY FIT",
         "shipping": "SHIPS WITHIN 14 DAYS | PRE ORDER",
         "description2": "SOON",
         "collection": "FADEDLOVE",
-        "id": "10227247350091",
+        "id": "9276873736518",
         "images": [
-            "https://fadedcloth.de/media/PRODUCTS/front.webp",
-            "https://fadedcloth.de/media/PRODUCTS/back.webp"
+            "https://fadedcloth.de/media/PRODUCTS/front_jersey_green.webp",
+            "https://fadedcloth.de/media/PRODUCTS/back_jersey_green.webp"
+          ]
+    },
+    {
+        "name": "FADEDLOVE #05 JERSEY",
+        "price": "50 EURO",
+        "oldprice": "",
+        "drop":"drop1",
+        "description": "100% COTTON | MADE IN CHINA | COLOR: LITE GREEN | BOXY FIT",
+        "shipping": "SHIPS WITHIN 14 DAYS | PRE ORDER",
+        "description2": "SOON",
+        "collection": "FADEDLOVE",
+        "id": "9276873736518",
+        "images": [
+            "https://fadedcloth.de/media/PRODUCTS/front_jersey_litegreen.webp",
+            "https://fadedcloth.de/media/PRODUCTS/back_jersey_litegreen.webp"
           ]
     }
 ]
