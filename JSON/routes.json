@@ -5,58 +5,49 @@
       "subname": "",
       "date": "2024-01-01",
       "time": "18:00",
-      "link": "https://shop.fadedcloth.de/?collection=all&drop=drop1",
+      "link": "https://shop.fadedcloth.de/item?id=888",
       "images": [""]
     },
     {
-      "name": "Drop 2",
-      "subname": "JERSEY #1",
-      "date": "2025-05-02",
+      "name": "ilove@fadedcloth.de",
+      "subname": "",
+      "date": "2024-01-01",
       "time": "18:00",
-      "link": "https://shop.fadedcloth.de/?collection=all&drop=drop2",
+      "link": "https://shop.fadedcloth.de/item?id=888",
       "images": [""]
     },
     {
-      "name": "Drop 3",
-      "subname": "JERSEY #2",
-      "date": "2025-05-09",
+      "name": "iwasrich@fadedcloth.de",
+      "subname": "",
+      "date": "2024-01-01",
       "time": "18:00",
-      "link": "https://shop.fadedcloth.de/?collection=all&drop=drop3",
+      "link": "https://shop.fadedcloth.de/item?id=888",
       "images": [""]
     },
     {
-      "name": "Drop 4",
-      "subname": "JERSEY #3",
-      "date": "2025-05-16",
+      "name": "ilost30bucks@fadedcloth.de",
+      "subname": "",
+      "date": "2024-01-01",
       "time": "18:00",
-      "link": "https://shop.fadedcloth.de/?collection=all&drop=drop4",
+      "link": "https://shop.fadedcloth.de/item?id=888",
       "images": [""]
     },
     {
-        "name": "Drop 5",
-        "subname": "JERSEY #4",
-        "date": "2025-05-23",
-        "time": "18:00",
-        "link": "https://shop.fadedcloth.de/?collection=all&drop=drop5",
-        "images": [""]
-      },
-      {
-        "name": "SHOP ALL",
-        "subname": "",
-        "date": "2024-01-01",
-        "time": "12:00",
-        "link": "https://shop.fadedcloth.de/?collection=all&drop=all",
-        "images": [""]
-      }
-  ],
-    "collections": [
-      {
-          "name": "FADEDLOVE",
-          "link": "https://shop.fadedcloth.de/?collection=FADEDLOVE"
-      },
-      {
-          "name": "Collection 2",
-          "link": "https://example.com/collection2"
-      }
-  ]
-}
+      "name": "spendin100@fadedcloth.de",
+      "subname": "",
+      "date": "2024-01-01",
+      "time": "18:00",
+      "link": "https://shop.fadedcloth.de/item?id=888",
+      "images": [""]
+    },
+    {
+      "name": "mark-zucks@fadedcloth.de",
+      "subname": "",
+      "date": "2024-01-01",
+      "time": "18:00",
+      "link": "https://shop.fadedcloth.de/item?id=888",
+      "images": [""]
+    }
+  ]}
+    
+    
