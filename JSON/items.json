@@ -3,15 +3,13 @@
         "name": "elon@fadedcloth.de",
         "price": "50 EURO",
         "oldprice": "",
-        "drop":"drop1",
+        "drop":"email-routes",
         "description": "EMAIL ROUTES | FOR RECEVING ONLY | Forwarding: Emails sent to your checkout email",
         "shipping": "SETUP WITHIN 24H | DESTINATION EMAIL IS changeable",
         "description2": "Keeps your personal email private",
-        "collection": "FADEDLOVE",
-        "id": "9276873736518",
+        "collection": "email-routes",
+        "id": "888",
         "images": [
-            "https://fadedcloth.de/media/PRODUCTS/front.webp",
-            "https://fadedcloth.de/media/PRODUCTS/back.webp"
           ]
     },
     {
