@@ -236,7 +236,7 @@
                     dropLink.textContent = drop.name + (drop.subname ? ` - ${drop.subname}` : '');
                     if (drop.link) {
                         dropLink.href = drop.link;
-                        dropLink.target = "_blank";
+                        dropLink.target = "";
                     }
                 }
 
@@ -295,7 +295,7 @@
             fadedLoveLink.className = 'drop_link hidden';
             fadedLoveLink.href = 'https://shop.fadedcloth.de/?collection=fadedlove';
             fadedLoveLink.textContent = 'FADEDLOVE';
-            fadedLoveLink.target = '_blank';
+            fadedLoveLink.target = '';
 
             // Container für den FADEDLOVE-Link (mit Platzhalter für die Nummer)
             const fadedLoveContainer = document.createElement('div');
