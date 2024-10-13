@@ -1278,7 +1278,7 @@ select {
 .mainshop-item img {
     width: calc(100% - 80px); /* Bild innerhalb des Containers */
     height: auto; /* Höhe automatisch */
-    margin: 40px;
+    margin: 115px 40px 40px 40px;
     object-fit: contain; /* Verhindert das Zuschneiden des Bildes */
     flex-grow: 1; /* Bild füllt den verfügbaren Platz aus */
 }
