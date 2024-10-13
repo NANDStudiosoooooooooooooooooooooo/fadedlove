@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const client = ShopifyBuy.buildClient({
-        domain: 'f9556c-eb.myshopify.com',
+        domain: 'r1xgis-xf.myshopify.com',
         storefrontAccessToken: '285c3960e72934cbc0a6104d426b2566'
     });
 
