@@ -7,8 +7,8 @@
         "description2": "SOON",
         "id": "10227247350091",
         "images": [
-            "https://fadedcloth.de/media/PRODUCTS/front.webp",
-            "https://fadedcloth.de/media/PRODUCTS/back.webp"
+            "https://fadedcloth.de/media/PRODUCTS/front.webp?v=2.0",
+            "https://fadedcloth.de/media/PRODUCTS/back.webp?v=2.0"
           ]
     },
     {
@@ -20,7 +20,7 @@
         "id": "10227247350091",
         "images": [
             "https://fadedcloth.de/media/PRODUCTS/front2.webp?v1.1",
-            "https://fadedcloth.de/media/PRODUCTS/back2.webp"
+            "https://fadedcloth.de/media/PRODUCTS/back2.webp?v=2.0"
           ]
     }
 ]
