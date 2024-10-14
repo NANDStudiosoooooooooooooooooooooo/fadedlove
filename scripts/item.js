@@ -92,20 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
     
-        // Überprüfen auf Varianten
-        if (!product.variants || !Array.isArray(product.variants) || product.variants.length === 0) {
-            console.error('No variants found for product:', product);
-            itemDetails.innerHTML += '<p>No variants available.</p>';
-            return; // Abbrechen, wenn keine Varianten vorhanden sind
-        }
-    
-        // Überprüfen auf Bilder
-        if (!product.images || !Array.isArray(product.images) || product.images.length === 0) {
-            console.error('No images found for product:', product);
-        }
-    
         const mainImage = product.images.length > 0 ? product.images[0].src : 'fallback-image.jpg';
-        const price = product.variants.length > 0 ? product.variants[0].price.amount : 'N/A';
     
         itemDetails.innerHTML = `
             <h2>${product.title}</h2>
