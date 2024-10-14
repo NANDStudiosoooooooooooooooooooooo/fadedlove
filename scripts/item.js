@@ -5,21 +5,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const params = new URLSearchParams(window.location.search);
-    const itemId = params.get('item'); // Die Produkt-ID aus der URL holen
+    const itemId = params.get('item'); // Produkt-ID aus der URL holen
 
     // Produktdaten abrufen
-    const productId = `gid://shopify/Product/${itemId}`;
-
-    // Hauptfunktion, um das Produkt über die API zu laden
-    client.product.fetch(productId).then((product) => {
-        // Anzeige des Produkts starten
+    client.product.fetch(itemId).then((product) => {
         displayItem(product);
 
-        // GraphQL-Abfrage für die Metafelder (material, country, color, fit, shipping, info)
+        // Metafelder mit GraphQL abrufen (fit, material, country, color, shipping, info)
         client.graphQLClient.send({
             query: `
               query {
-                product(id: "${productId}") {
+                product(id: "gid://shopify/Product/${itemId}") {
                   metafields(first: 10) {
                     edges {
                       node {
@@ -33,11 +29,14 @@ document.addEventListener('DOMContentLoaded', function () {
             `
         }).then(response => {
             const metafields = response.data.product.metafields.edges;
-            let material, country, color, fit, shipping, description2;
+            let fit, material, country, color, shipping, description2;
 
-            // Durch die Metafelder loopen und Werte zuweisen
+            // Metafeld-Werte extrahieren
             metafields.forEach(metafield => {
-                switch(metafield.node.key) {
+                switch (metafield.node.key) {
+                    case 'fit':
+                        fit = metafield.node.value;
+                        break;
                     case 'material':
                         material = metafield.node.value;
                         break;
@@ -46,9 +45,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         break;
                     case 'color':
                         color = metafield.node.value;
-                        break;
-                    case 'fit':
-                        fit = metafield.node.value;
                         break;
                     case 'shipping':
                         shipping = metafield.node.value;
@@ -59,19 +55,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
-            // Beschreibung formatieren und anzeigen
-            const description = `${material} | MADE IN ${country} | COLOR: ${color} | ${fit}`;
-            document.getElementById('item-description').innerText = description;
-
             // Versandinformationen anzeigen
             if (shipping) {
                 document.getElementById('item-shipping').innerText = `Shipping: ${shipping}`;
             }
 
-            // Description2 (info Metafeld) anzeigen
+            // Info (description2) anzeigen
             if (description2) {
                 document.getElementById('item-description2').innerText = description2;
             }
+
+            // Description (mit Material, Country, Color, Fit) anzeigen
+            const description = `${material ? material + ' | ' : ''}MADE IN ${country ? country : 'Unknown'} | COLOR: ${color ? color : 'Unknown'} | ${fit ? fit : ''}`;
+            document.getElementById('item-description').innerText = description;
+
         }).catch(error => {
             console.error("Error fetching metafields:", error);
         });
@@ -81,18 +78,15 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('itemDetails').innerHTML = '<p>Failed to fetch product details.</p>';
     });
 
+    // Funktion zum Anzeigen des Produkts
     function displayItem(product) {
         const itemDetails = document.getElementById('itemDetails');
 
-        // Standardvariante setzen
-        let currentVariant = product.variants[0];
-        updatePriceDisplay(currentVariant); // Preis initial setzen
-
-        // HTML für die Produktanzeige
+        // Hauptbild und Preis anzeigen
         itemDetails.innerHTML = `
             <h2>${product.title}</h2>
             <div class="item-images-container"></div>
-            <p><strong>PRICE: <span id="item-price">${currentVariant.price.amount} EUR</span></strong></p>
+            <p><strong>PRICE: <span id="item-price">${product.variants[0].price.amount} EUR</span></strong></p>
             <p id="item-description"></p>
             <p id="item-description2"></p>
             <p id="item-shipping"></p>
@@ -101,23 +95,23 @@ document.addEventListener('DOMContentLoaded', function () {
             <div id="buy-now-button"></div>
         `;
 
-        // Dropdown mit Größen befüllen
+        // Dropdown für Varianten (Größen)
         const sizeSelect = document.getElementById('size-select');
         product.variants.forEach(variant => {
             const option = document.createElement('option');
-            option.value = variant.id; // ID der Variante verwenden
-            option.textContent = variant.title; // Titel der Variante anzeigen
+            option.value = variant.id;
+            option.textContent = variant.title;
             sizeSelect.appendChild(option);
         });
 
-        // Event Listener für den Dropdown
+        // Event Listener für Variantenauswahl (Größe)
         sizeSelect.addEventListener('change', function () {
             const selectedVariantId = this.value;
-            currentVariant = product.variants.find(v => v.id === selectedVariantId);
-            updatePriceDisplay(currentVariant);
+            const selectedVariant = product.variants.find(v => v.id === selectedVariantId);
+            document.getElementById('item-price').innerText = `${selectedVariant.price.amount} EUR`;
         });
 
-        // "Buy Now" Button generieren
+        // "Buy Now"-Button
         const buyNowButton = document.createElement('button');
         buyNowButton.textContent = "BUY";
         buyNowButton.classList.add('buy-now-button');
@@ -128,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         document.getElementById('buy-now-button').appendChild(buyNowButton);
 
-        // Bilder zur Container hinzufügen
+        // Bilder laden
         const imagesContainer = document.querySelector('.item-images-container');
         product.images.forEach(image => {
             const imgElement = document.createElement('img');
@@ -138,16 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function updatePriceDisplay(variant) {
-        const priceElement = document.getElementById('item-price');
-        if (priceElement) {
-            priceElement.textContent = `${(variant.price.amount).toFixed(2)} EUR`;
-        } else {
-            console.error("Price element not found");
-        }
-    }
-
-    // Sofortiger Kauf-Button-Funktionalität
+    // Sofortkauf-Button Funktionalität
     function buyNow(variantId, quantity) {
         client.checkout.create().then((checkout) => {
             return client.checkout.addLineItems(checkout.id, [{
