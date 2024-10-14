@@ -85,7 +85,16 @@ document.addEventListener('DOMContentLoaded', function () {
     function displayItem(product) {
         const itemDetails = document.getElementById('itemDetails');
     
-        // Hauptbild und Preis anzeigen
+        if (!product.variants || product.variants.length === 0) {
+            console.error('No variants found for product:', product);
+            itemDetails.innerHTML += '<p>No variants available.</p>';
+            return; // Abbrechen, wenn keine Varianten vorhanden sind
+        }
+    
+        if (!product.images || product.images.length === 0) {
+            console.error('No images found for product:', product);
+        }
+    
         const mainImage = product.images && product.images.length > 0 ? product.images[0].src : 'fallback-image.jpg';
         const price = product.variants && product.variants.length > 0 ? product.variants[0].price.amount : 'N/A';
     
@@ -101,24 +110,12 @@ document.addEventListener('DOMContentLoaded', function () {
             <div id="buy-now-button"></div>
         `;
     
-        // Dropdown für Varianten (Größen)
         const sizeSelect = document.getElementById('size-select');
-        if (product.variants && product.variants.length > 0) {
-            product.variants.forEach(variant => {
-                const option = document.createElement('option');
-                option.value = variant.id;
-                option.textContent = variant.title;
-                sizeSelect.appendChild(option);
-            });
-        }
-    
-        // Event Listener für Variantenauswahl (Größe)
-        sizeSelect.addEventListener('change', function () {
-            const selectedVariantId = this.value;
-            const selectedVariant = product.variants.find(v => v.id === selectedVariantId);
-            if (selectedVariant) {
-                document.getElementById('item-price').innerText = `${selectedVariant.price.amount} EUR`;
-            }
+        product.variants.forEach(variant => {
+            const option = document.createElement('option');
+            option.value = variant.id;
+            option.textContent = variant.title;
+            sizeSelect.appendChild(option);
         });
     
         // "Buy Now"-Button
