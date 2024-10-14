@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     
         const mainImage = product.images.length > 0 ? product.images[0].src : 'fallback-image.jpg';
+        const price = product.variants.edges[0].node.price.amount;
     
         itemDetails.innerHTML = `
             <h2>${product.title}</h2>
