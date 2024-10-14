@@ -85,18 +85,27 @@ document.addEventListener('DOMContentLoaded', function () {
     function displayItem(product) {
         const itemDetails = document.getElementById('itemDetails');
     
-        if (!product.variants || product.variants.length === 0) {
+        // Überprüfen, ob das Produkt korrekt abgerufen wurde
+        if (!product) {
+            console.error('Product is undefined or null');
+            itemDetails.innerHTML = '<p>Produkt nicht gefunden.</p>';
+            return;
+        }
+    
+        // Überprüfen auf Varianten
+        if (!product.variants || !Array.isArray(product.variants) || product.variants.length === 0) {
             console.error('No variants found for product:', product);
             itemDetails.innerHTML += '<p>No variants available.</p>';
             return; // Abbrechen, wenn keine Varianten vorhanden sind
         }
     
-        if (!product.images || product.images.length === 0) {
+        // Überprüfen auf Bilder
+        if (!product.images || !Array.isArray(product.images) || product.images.length === 0) {
             console.error('No images found for product:', product);
         }
     
-        const mainImage = product.images && product.images.length > 0 ? product.images[0].src : 'fallback-image.jpg';
-        const price = product.variants && product.variants.length > 0 ? product.variants[0].price.amount : 'N/A';
+        const mainImage = product.images.length > 0 ? product.images[0].src : 'fallback-image.jpg';
+        const price = product.variants.length > 0 ? product.variants[0].price.amount : 'N/A';
     
         itemDetails.innerHTML = `
             <h2>${product.title}</h2>
@@ -111,11 +120,25 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
     
         const sizeSelect = document.getElementById('size-select');
+    
+        // Dropdown mit Größen befüllen
         product.variants.forEach(variant => {
             const option = document.createElement('option');
-            option.value = variant.id;
-            option.textContent = variant.title;
+            option.value = variant.id; // ID der Variante verwenden
+            option.textContent = variant.title; // Titel der Variante anzeigen
             sizeSelect.appendChild(option);
+        });
+    
+        // Event Listener für den Dropdown
+        sizeSelect.addEventListener('change', function () {
+            const selectedVariantId = this.value;
+            const selectedVariant = product.variants.find(v => v.id === selectedVariantId);
+            
+            if (selectedVariant) {
+                document.getElementById('item-price').innerText = `${selectedVariant.price.amount} EUR`;
+            } else {
+                console.error('Selected variant not found:', selectedVariantId);
+            }
         });
     
         // "Buy Now"-Button
@@ -131,14 +154,12 @@ document.addEventListener('DOMContentLoaded', function () {
     
         // Bilder laden
         const imagesContainer = document.querySelector('.item-images-container');
-        if (product.images && product.images.length > 0) {
-            product.images.forEach(image => {
-                const imgElement = document.createElement('img');
-                imgElement.src = image.src;
-                imgElement.alt = product.title;
-                imagesContainer.appendChild(imgElement);
-            });
-        }
+        product.images.forEach(image => {
+            const imgElement = document.createElement('img');
+            imgElement.src = image.src;
+            imgElement.alt = product.title;
+            imagesContainer.appendChild(imgElement);
+        });
     }
 
     // Sofortkauf-Button Funktionalität
