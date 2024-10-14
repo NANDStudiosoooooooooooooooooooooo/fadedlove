@@ -11,11 +11,14 @@ document.addEventListener('DOMContentLoaded', function () {
     client.product.fetch(itemId).then((product) => {
         displayItem(product);
 
+        // Die Produkt-GID (Global ID) für GraphQL anpassen
+        const productGID = btoa(`gid://shopify/Product/${itemId}`);
+
         // Metafelder mit GraphQL abrufen (fit, material, country, color, shipping, info)
         client.graphQLClient.send({
             query: `
               query {
-                product(id: "gid://shopify/Product/${itemId}") {
+                product(id: "${productGID}") {
                   metafields(first: 10) {
                     edges {
                       node {
