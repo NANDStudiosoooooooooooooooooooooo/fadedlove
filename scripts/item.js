@@ -84,12 +84,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // Funktion zum Anzeigen des Produkts
     function displayItem(product) {
         const itemDetails = document.getElementById('itemDetails');
-
+    
         // Hauptbild und Preis anzeigen
+        const mainImage = product.images && product.images.length > 0 ? product.images[0].src : 'fallback-image.jpg';
+        const price = product.variants && product.variants.length > 0 ? product.variants[0].price.amount : 'N/A';
+    
         itemDetails.innerHTML = `
             <h2>${product.title}</h2>
-            <div class="item-images-container"></div>
-            <p><strong>PRICE: <span id="item-price">${product.variants[0].price.amount} EUR</span></strong></p>
+            <img src="${mainImage}" alt="${product.title}" />
+            <p><strong>PRICE: <span id="item-price">${price} EUR</span></strong></p>
             <p id="item-description"></p>
             <p id="item-description2"></p>
             <p id="item-shipping"></p>
@@ -97,23 +100,27 @@ document.addEventListener('DOMContentLoaded', function () {
             <select id="size-select"></select>
             <div id="buy-now-button"></div>
         `;
-
+    
         // Dropdown für Varianten (Größen)
         const sizeSelect = document.getElementById('size-select');
-        product.variants.forEach(variant => {
-            const option = document.createElement('option');
-            option.value = variant.id;
-            option.textContent = variant.title;
-            sizeSelect.appendChild(option);
-        });
-
+        if (product.variants && product.variants.length > 0) {
+            product.variants.forEach(variant => {
+                const option = document.createElement('option');
+                option.value = variant.id;
+                option.textContent = variant.title;
+                sizeSelect.appendChild(option);
+            });
+        }
+    
         // Event Listener für Variantenauswahl (Größe)
         sizeSelect.addEventListener('change', function () {
             const selectedVariantId = this.value;
             const selectedVariant = product.variants.find(v => v.id === selectedVariantId);
-            document.getElementById('item-price').innerText = `${selectedVariant.price.amount} EUR`;
+            if (selectedVariant) {
+                document.getElementById('item-price').innerText = `${selectedVariant.price.amount} EUR`;
+            }
         });
-
+    
         // "Buy Now"-Button
         const buyNowButton = document.createElement('button');
         buyNowButton.textContent = "BUY";
@@ -124,15 +131,17 @@ document.addEventListener('DOMContentLoaded', function () {
             buyNow(selectedVariantId, quantity);
         });
         document.getElementById('buy-now-button').appendChild(buyNowButton);
-
+    
         // Bilder laden
         const imagesContainer = document.querySelector('.item-images-container');
-        product.images.forEach(image => {
-            const imgElement = document.createElement('img');
-            imgElement.src = image.src;
-            imgElement.alt = product.title;
-            imagesContainer.appendChild(imgElement);
-        });
+        if (product.images && product.images.length > 0) {
+            product.images.forEach(image => {
+                const imgElement = document.createElement('img');
+                imgElement.src = image.src;
+                imgElement.alt = product.title;
+                imagesContainer.appendChild(imgElement);
+            });
+        }
     }
 
     // Sofortkauf-Button Funktionalität
