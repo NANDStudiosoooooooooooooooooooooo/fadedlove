@@ -27,6 +27,27 @@ document.addEventListener('DOMContentLoaded', function () {
                       }
                     }
                   }
+                  edges {
+                    node {
+                        id
+                        title
+                        handle
+                        images(first: 10) {
+                            edges {
+                                node {
+                                    src
+                                }
+                            }
+                        }
+                        variants(first: 10) {
+                            edges {
+                                node {
+                                    price {
+                                        amount
+                                    }
+                                }
+                            }
+                        }
                 }
               }
             `
