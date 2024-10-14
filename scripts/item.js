@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Produktdaten abrufen
     client.product.fetch(itemId).then((product) => {
-        
+        displayItem(product);
 
         // Die Produkt-GID (Global ID) für GraphQL anpassen (id muss in base64-Format konvertiert werden)
         const productGID = btoa(`gid://shopify/Product/${itemId}`);
@@ -98,8 +98,6 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error("Error fetching Shopify product:", error);
         document.getElementById('itemDetails').innerHTML = '<p>Failed to fetch product details.</p>';
     });
-
-    displayItem(product);
 
     // Funktion zum Anzeigen des Produkts
     function displayItem(product) {
