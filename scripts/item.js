@@ -17,21 +17,16 @@ document.addEventListener('DOMContentLoaded', function () {
         // Metafelder mit GraphQL abrufen (fit, material, country, color, shipping, info)
         client.graphQLClient.send({
             query: `
-              query {
-                product(id: "${productGID}") {
-                  metafields(first: 10) {
-                    edges {
-                      node {
-                        key
-                        value
-                      }
-                    }
-                  }
-                  edges {
-                    node {
-                        id
-                        title
-                        handle
+                query {
+                    product(id: "${productGID}") {
+                        metafields(first: 10) {
+                            edges {
+                                node {
+                                    key
+                                    value
+                                }
+                            }
+                        }
                         images(first: 10) {
                             edges {
                                 node {
@@ -42,14 +37,16 @@ document.addEventListener('DOMContentLoaded', function () {
                         variants(first: 10) {
                             edges {
                                 node {
+                                    id
+                                    title
                                     price {
                                         amount
                                     }
                                 }
                             }
                         }
+                    }
                 }
-              }
             `
         }).then(response => {
             const metafields = response.data.product.metafields.edges;
@@ -113,8 +110,8 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
     
-        const mainImage = product.images.length > 0 ? product.images[0].src : 'fallback-image.jpg';
-        const price = product.variants.edges[0].node.price.amount;
+        const mainImage = product.images.length > 0 ? product.images[0].edges[0].node.src : 'fallback-image.jpg';
+        const price = product.variants.length > 0 ? product.variants[0].edges[0].node.price.amount : 'N/A';
     
         itemDetails.innerHTML = `
             <h2>${product.title}</h2>
@@ -133,18 +130,18 @@ document.addEventListener('DOMContentLoaded', function () {
         // Dropdown mit Größen befüllen
         product.variants.forEach(variant => {
             const option = document.createElement('option');
-            option.value = variant.id; // ID der Variante verwenden
-            option.textContent = variant.title; // Titel der Variante anzeigen
+            option.value = variant.node.id; // ID der Variante verwenden
+            option.textContent = variant.node.title; // Titel der Variante anzeigen
             sizeSelect.appendChild(option);
         });
     
         // Event Listener für den Dropdown
         sizeSelect.addEventListener('change', function () {
             const selectedVariantId = this.value;
-            const selectedVariant = product.variants.find(v => v.id === selectedVariantId);
+            const selectedVariant = product.variants.find(v => v.node.id === selectedVariantId);
             
             if (selectedVariant) {
-                document.getElementById('item-price').innerText = `${selectedVariant.price.amount} EUR`;
+                document.getElementById('item-price').innerText = `${selectedVariant.node.price.amount} EUR`;
             } else {
                 console.error('Selected variant not found:', selectedVariantId);
             }
@@ -165,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const imagesContainer = document.querySelector('.item-images-container');
         product.images.forEach(image => {
             const imgElement = document.createElement('img');
-            imgElement.src = image.src;
+            imgElement.src = image.edges[0].node.src;
             imgElement.alt = product.title;
             imagesContainer.appendChild(imgElement);
         });
