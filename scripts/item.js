@@ -113,17 +113,24 @@ document.addEventListener('DOMContentLoaded', function () {
             itemDetails.innerHTML = '<p>Produkt nicht gefunden.</p>';
             return;
         }
-
-        // Check if product images exist
-        const mainImage = product.images && product.images.length > 0 && product.images[0].edges[0]
-            ? product.images[0].edges[0].node.src
-            : 'fallback-image.jpg';
-
-        // Check if product variants exist
-        const price = product.variants && product.variants.length > 0 && product.variants[0].edges[0]
-            ? product.variants[0].edges[0].node.price.amount
-            : 'N/A';
     
+        // Überprüfen, ob Produktbilder vorhanden sind
+        let mainImage = 'fallback-image.jpg'; // Fallback-Bild
+        if (product.images && product.images.edges && product.images.edges.length > 0) {
+            mainImage = product.images.edges[0].node.src;
+        } else {
+            console.error('No images found for product');
+        }
+    
+        // Überprüfen, ob Varianten vorhanden sind
+        let price = 'N/A';
+        if (product.variants && product.variants.edges && product.variants.edges.length > 0) {
+            price = product.variants.edges[0].node.price.amount;
+        } else {
+            console.error('No variants found for product');
+        }
+    
+        // Produktdetails rendern
         itemDetails.innerHTML = `
             <h2>${product.title}</h2>
             <img src="${mainImage}" alt="${product.title}" />
@@ -138,9 +145,9 @@ document.addEventListener('DOMContentLoaded', function () {
     
         const sizeSelect = document.getElementById('size-select');
     
-        // Dropdown mit Größen befüllen (check if variants exist)
-        if (product.variants && product.variants.length > 0) {
-            product.variants.forEach(variant => {
+        // Dropdown mit Größen befüllen (Überprüfung auf Varianten)
+        if (product.variants && product.variants.edges && product.variants.edges.length > 0) {
+            product.variants.edges.forEach(variant => {
                 if (variant.node) {
                     const sizeOption = variant.node.selectedOptions.find(option => option.name.toLowerCase() === 'size');
                     if (sizeOption) {
@@ -158,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Event Listener für den Dropdown
         sizeSelect.addEventListener('change', function () {
             const selectedVariantId = this.value;
-            const selectedVariant = product.variants.find(v => v.node.id === selectedVariantId);
+            const selectedVariant = product.variants.edges.find(v => v.node.id === selectedVariantId);
             
             if (selectedVariant) {
                 document.getElementById('item-price').innerText = `${selectedVariant.node.price.amount} EUR`;
