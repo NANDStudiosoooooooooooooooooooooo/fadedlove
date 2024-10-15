@@ -106,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Funktion zum Anzeigen des Produkts
     function displayItem(product) {
         const itemDetails = document.getElementById('itemDetails');
+        const itemImagesContainer = document.querySelector('.item-images-container'); // Select the images container
     
         // Überprüfen, ob das Produkt korrekt abgerufen wurde
         if (!product) {
@@ -114,12 +115,20 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
     
+        // Clear previous images
+        itemImagesContainer.innerHTML = '';
+    
         // Überprüfen, ob Produktbilder vorhanden sind
-        let mainImage = 'fallback-image.jpg'; // Fallback-Bild
         if (product.images && product.images.edges && product.images.edges.length > 0) {
-            mainImage = product.images.edges[0].node.src;
+            product.images.edges.forEach(imageEdge => {
+                const imgElement = document.createElement('img');
+                imgElement.src = imageEdge.node.src;
+                imgElement.alt = product.title;
+                itemImagesContainer.appendChild(imgElement);
+            });
         } else {
             console.error('No images found for product');
+            // Optionally, add a fallback image or a message here
         }
     
         // Überprüfen, ob Varianten vorhanden sind
@@ -133,7 +142,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // Produktdetails rendern
         itemDetails.innerHTML = `
             <h2>${product.title}</h2>
-            <img src="${mainImage}" alt="${product.title}" />
             <p><strong>PRICE: <span id="item-price">${price} EUR</span></strong></p>
             <p id="item-description"></p>
             <p id="item-description2"></p>
@@ -166,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
         sizeSelect.addEventListener('change', function () {
             const selectedVariantId = this.value;
             const selectedVariant = product.variants.edges.find(v => v.node.id === selectedVariantId);
-            
+    
             if (selectedVariant) {
                 document.getElementById('item-price').innerText = `${selectedVariant.node.price.amount} EUR`;
             } else {
