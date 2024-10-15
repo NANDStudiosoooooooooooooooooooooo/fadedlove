@@ -1,27 +1,23 @@
 document.addEventListener('DOMContentLoaded', function () {
     const client = ShopifyBuy.buildClient({
-        domain: 'yr1qyu-ii.myshopify.com',
-        storefrontAccessToken: '52769ac2afa981afb66669cef839f00e'
+        domain: 'https://r1xgis-xf.myshopify.com', // Ersetze dies mit deiner Shopify-Domain
+        storefrontAccessToken: '335b548326a3c899c7918fa32ac9a13e' // Ersetze dies mit deinem Storefront Access Token
     });
 
     const params = new URLSearchParams(window.location.search);
-    const itemId = params.get('item'); // Produkt-ID aus der URL holen
-    console.log("Item ID from URL:", itemId); // Log the item ID
+    const itemHandle = params.get('item'); // Produkt-Handle aus der URL holen
+    console.log("Item Handle from URL:", itemHandle); // Log the item handle
 
     // Produktdaten abrufen
-    client.product.fetch(itemId).then((product) => {
+    client.product.fetchByHandle(itemHandle).then((product) => {
         console.log("Fetched product:", product); // Log the fetched product
         displayItem(product);
-
-        // Die Produkt-GID (Global ID) für GraphQL anpassen (id muss in base64-Format konvertiert werden)
-        const productGID = btoa(`gid://shopify/Product/${itemId}`);
-        console.log("Product GID:", productGID); // Log the GID
 
         // Metafelder mit GraphQL abrufen
         client.graphQLClient.send({
             query: `
                 query {
-                    product(id: "${productGID}") {
+                    product(handle: "${itemHandle}") {
                         metafields(first: 10) {
                             edges {
                                 node {
@@ -111,17 +107,17 @@ document.addEventListener('DOMContentLoaded', function () {
     function displayItem(product) {
         const itemDetails = document.getElementById('itemDetails');
         const itemImagesContainer = document.querySelector('.item-images-container'); // Select the images container
-    
+
         // Überprüfen, ob das Produkt korrekt abgerufen wurde
         if (!product) {
             console.error('Product is undefined or null');
             itemDetails.innerHTML = '<p>Produkt nicht gefunden.</p>';
             return;
         }
-    
+
         // Clear previous images
         itemImagesContainer.innerHTML = '';
-    
+
         // Überprüfen, ob Produktbilder vorhanden sind
         if (product.images && product.images.edges && product.images.edges.length > 0) {
             product.images.edges.forEach(imageEdge => {
@@ -134,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('No images found for product');
             // Optionally, add a fallback image or a message here
         }
-    
+
         // Überprüfen, ob Varianten vorhanden sind
         let price = 'N/A';
         if (product.variants && product.variants.edges && product.variants.edges.length > 0) {
@@ -142,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             console.error('No variants found for product');
         }
-    
+
         // Produktdetails rendern
         itemDetails.innerHTML = `
             <h2>${product.title}</h2>
@@ -154,9 +150,9 @@ document.addEventListener('DOMContentLoaded', function () {
             <select id="size-select"></select>
             <div id="buy-now-button"></div>
         `;
-    
+
         const sizeSelect = document.getElementById('size-select');
-    
+
         // Dropdown mit Größen befüllen (Überprüfung auf Varianten)
         if (product.variants && product.variants.edges && product.variants.edges.length > 0) {
             product.variants.edges.forEach(variant => {
@@ -173,19 +169,19 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             console.error('No variants found for product');
         }
-    
+
         // Event Listener für den Dropdown
         sizeSelect.addEventListener('change', function () {
             const selectedVariantId = this.value;
             const selectedVariant = product.variants.edges.find(v => v.node.id === selectedVariantId);
-    
+
             if (selectedVariant) {
                 document.getElementById('item-price').innerText = `${selectedVariant.node.price.amount} EUR`;
             } else {
                 console.error('Selected variant not found:', selectedVariantId);
             }
         });
-    
+
         // "Buy Now"-Button
         const buyNowButton = document.createElement('button');
         buyNowButton.textContent = "BUY";
