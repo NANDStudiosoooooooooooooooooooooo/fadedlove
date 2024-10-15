@@ -11,10 +11,10 @@ document.addEventListener('DOMContentLoaded', function () {
     client.product.fetch(itemId).then((product) => {
         displayItem(product);
 
-        // Die Produkt-GID (Global ID) für GraphQL anpassen
+        // Die Produkt-GID (Global ID) für GraphQL anpassen (id muss in base64-Format konvertiert werden)
         const productGID = btoa(`gid://shopify/Product/${itemId}`);
 
-        // Metafelder mit GraphQL abrufen (fit, material, country, color, shipping, info)
+        // Metafelder mit GraphQL abrufen
         client.graphQLClient.send({
             query: `
                 query {
@@ -42,6 +42,10 @@ document.addEventListener('DOMContentLoaded', function () {
                                     price {
                                         amount
                                     }
+                                    selectedOptions {
+                                        name
+                                        value
+                                    }
                                 }
                             }
                         }
@@ -49,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             `
         }).then(response => {
-            const metafields = response.data.product.metafields.edges || [];
+            const metafields = response.data.product.metafields.edges;
             let fit, material, country, color, shipping, description2;
 
             // Metafeld-Werte extrahieren
@@ -103,15 +107,22 @@ document.addEventListener('DOMContentLoaded', function () {
     function displayItem(product) {
         const itemDetails = document.getElementById('itemDetails');
     
+        // Überprüfen, ob das Produkt korrekt abgerufen wurde
         if (!product) {
             console.error('Product is undefined or null');
             itemDetails.innerHTML = '<p>Produkt nicht gefunden.</p>';
             return;
         }
-    
-        // Sicherstellen, dass Bilder vorhanden sind
-        const mainImage = product.images && product.images[0] && product.images[0].edges && product.images[0].edges[0] ? product.images[0].edges[0].node.src : 'fallback-image.jpg';
-        const price = product.variants && product.variants[0] && product.variants[0].edges && product.variants[0].edges[0] ? product.variants[0].edges[0].node.price.amount : 'N/A';
+
+        // Check if product images exist
+        const mainImage = product.images && product.images.length > 0 && product.images[0].edges[0]
+            ? product.images[0].edges[0].node.src
+            : 'fallback-image.jpg';
+
+        // Check if product variants exist
+        const price = product.variants && product.variants.length > 0 && product.variants[0].edges[0]
+            ? product.variants[0].edges[0].node.price.amount
+            : 'N/A';
     
         itemDetails.innerHTML = `
             <h2>${product.title}</h2>
@@ -127,13 +138,22 @@ document.addEventListener('DOMContentLoaded', function () {
     
         const sizeSelect = document.getElementById('size-select');
     
-        // Dropdown mit Größen befüllen
-        product.variants.forEach(variant => {
-            const option = document.createElement('option');
-            option.value = variant.node.id;
-            option.textContent = variant.node.title;
-            sizeSelect.appendChild(option);
-        });
+        // Dropdown mit Größen befüllen (check if variants exist)
+        if (product.variants && product.variants.length > 0) {
+            product.variants.forEach(variant => {
+                if (variant.node) {
+                    const sizeOption = variant.node.selectedOptions.find(option => option.name.toLowerCase() === 'size');
+                    if (sizeOption) {
+                        const option = document.createElement('option');
+                        option.value = variant.node.id; // ID der Variante verwenden
+                        option.textContent = sizeOption.value; // Größe anzeigen
+                        sizeSelect.appendChild(option);
+                    }
+                }
+            });
+        } else {
+            console.error('No variants found for product');
+        }
     
         // Event Listener für den Dropdown
         sizeSelect.addEventListener('change', function () {
@@ -157,17 +177,6 @@ document.addEventListener('DOMContentLoaded', function () {
             buyNow(selectedVariantId, quantity);
         });
         document.getElementById('buy-now-button').appendChild(buyNowButton);
-    
-        // Bilder laden
-        const imagesContainer = document.querySelector('.item-images-container');
-        if (product.images) {
-            product.images.forEach(image => {
-                const imgElement = document.createElement('img');
-                imgElement.src = image.edges[0].node.src;
-                imgElement.alt = product.title;
-                imagesContainer.appendChild(imgElement);
-            });
-        }
     }
 
     // Sofortkauf-Button Funktionalität
