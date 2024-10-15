@@ -6,13 +6,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const params = new URLSearchParams(window.location.search);
     const itemId = params.get('item'); // Produkt-ID aus der URL holen
+    console.log("Item ID from URL:", itemId); // Log the item ID
 
     // Produktdaten abrufen
     client.product.fetch(itemId).then((product) => {
+        console.log("Fetched product:", product); // Log the fetched product
         displayItem(product);
 
         // Die Produkt-GID (Global ID) für GraphQL anpassen (id muss in base64-Format konvertiert werden)
         const productGID = btoa(`gid://shopify/Product/${itemId}`);
+        console.log("Product GID:", productGID); // Log the GID
 
         // Metafelder mit GraphQL abrufen
         client.graphQLClient.send({
@@ -53,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             `
         }).then(response => {
+            console.log("GraphQL response:", response); // Log the GraphQL response
             const metafields = response.data.product.metafields.edges;
             let fit, material, country, color, shipping, description2;
 
