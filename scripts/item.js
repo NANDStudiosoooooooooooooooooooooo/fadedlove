@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
     
-        const mainImage = product.images.length > 0 ? product.images[0].edges[0].node.src : 'fallback-image.jpg';
+        const mainImage = product.images.edges.length > 0 ? product.images.edges[0].node.src : 'fallback-image.jpg';
         const price = product.variants.length > 0 ? product.variants[0].edges[0].node.price.amount : 'N/A';
     
         itemDetails.innerHTML = `
