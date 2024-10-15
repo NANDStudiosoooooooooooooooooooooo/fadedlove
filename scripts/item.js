@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const client = ShopifyBuy.buildClient({
-        domain: 'https://r1xgis-xf.myshopify.com/', // Ersetze dies mit deiner Shopify-Domain
+        domain: 'r1xgis-xf.myshopify.com', // Ersetze dies mit deiner Shopify-Domain
         storefrontAccessToken: '335b548326a3c899c7918fa32ac9a13e' // Ersetze dies mit deinem Storefront Access Token
     });
 
