@@ -11,14 +11,14 @@ document.addEventListener('DOMContentLoaded', function () {
     client.product.fetch(itemId).then((product) => {
         displayItem(product);
 
-        // Die Produkt-GID (Global ID) für GraphQL anpassen (id muss in base64-Format konvertiert werden)
+        // Die Produkt-GID (Global ID) für GraphQL anpassen
         const productGID = btoa(`gid://shopify/Product/${itemId}`);
 
         // Metafelder mit GraphQL abrufen (fit, material, country, color, shipping, info)
         client.graphQLClient.send({
             query: `
                 query {
-                    product(id: "${itemId}") {
+                    product(id: "${productGID}") {
                         metafields(first: 10) {
                             edges {
                                 node {
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             `
         }).then(response => {
-            const metafields = response.data.product.metafields.edges;
+            const metafields = response.data.product.metafields.edges || [];
             let fit, material, country, color, shipping, description2;
 
             // Metafeld-Werte extrahieren
@@ -103,15 +103,15 @@ document.addEventListener('DOMContentLoaded', function () {
     function displayItem(product) {
         const itemDetails = document.getElementById('itemDetails');
     
-        // Überprüfen, ob das Produkt korrekt abgerufen wurde
         if (!product) {
             console.error('Product is undefined or null');
             itemDetails.innerHTML = '<p>Produkt nicht gefunden.</p>';
             return;
         }
     
-        const mainImage = product.images.edges.length > 0 ? product.images.edges[0].node.src : 'fallback-image.jpg';
-        const price = product.variants.length > 0 ? product.variants[0].edges[0].node.price.amount : 'N/A';
+        // Sicherstellen, dass Bilder vorhanden sind
+        const mainImage = product.images && product.images[0] && product.images[0].edges && product.images[0].edges[0] ? product.images[0].edges[0].node.src : 'fallback-image.jpg';
+        const price = product.variants && product.variants[0] && product.variants[0].edges && product.variants[0].edges[0] ? product.variants[0].edges[0].node.price.amount : 'N/A';
     
         itemDetails.innerHTML = `
             <h2>${product.title}</h2>
@@ -130,8 +130,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Dropdown mit Größen befüllen
         product.variants.forEach(variant => {
             const option = document.createElement('option');
-            option.value = variant.node.id; // ID der Variante verwenden
-            option.textContent = variant.node.title; // Titel der Variante anzeigen
+            option.value = variant.node.id;
+            option.textContent = variant.node.title;
             sizeSelect.appendChild(option);
         });
     
@@ -160,12 +160,14 @@ document.addEventListener('DOMContentLoaded', function () {
     
         // Bilder laden
         const imagesContainer = document.querySelector('.item-images-container');
-        product.images.forEach(image => {
-            const imgElement = document.createElement('img');
-            imgElement.src = image.edges[0].node.src;
-            imgElement.alt = product.title;
-            imagesContainer.appendChild(imgElement);
-        });
+        if (product.images) {
+            product.images.forEach(image => {
+                const imgElement = document.createElement('img');
+                imgElement.src = image.edges[0].node.src;
+                imgElement.alt = product.title;
+                imagesContainer.appendChild(imgElement);
+            });
+        }
     }
 
     // Sofortkauf-Button Funktionalität
