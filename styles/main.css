@@ -573,6 +573,7 @@ border-radius: 0;
     display: flex;
     justify-content: center;
     flex-direction: column;
+    text-transform: uppercase;
 }
 
 @media (min-width: 768px) {
