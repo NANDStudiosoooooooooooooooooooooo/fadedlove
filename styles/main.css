@@ -72,8 +72,6 @@ h2 {
 
 /* Logo Container */
 .logo-container {
-    width: 70vw;
-    height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -302,14 +300,6 @@ h2 {
 
 .visible {
     visibility: visible;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .logo-container {
-        width: 90vw;
-        height: 60vh;
-    }
 }
 
 /* Headline für das Subscribe-Panel */
@@ -571,6 +561,7 @@ border-radius: 0;
     margin-top: 20px;
     margin-bottom: 50px;
     display: flex;
+    width: 100%;
     justify-content: center;
     flex-direction: column;
     text-transform: uppercase;
