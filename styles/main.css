@@ -1342,6 +1342,5 @@ select {
 
 /* Disabled "BUY NOW" button */
 #buy-now-button[disabled] {
-    background-color: gray;
     cursor: not-allowed;
 }
