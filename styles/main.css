@@ -550,6 +550,10 @@ border-radius: 0;
     margin: 20PX;
 }
 
+.main-header .logo-container{
+    width: 80px;
+}
+
 .item-images-container img {
   width: 100%;
   max-width: 500px;
@@ -565,6 +569,8 @@ border-radius: 0;
     justify-content: center;
     flex-direction: column;
     text-transform: uppercase;
+    width: 70%;
+    height: auto;
 }
 
 @media (min-width: 768px) {
