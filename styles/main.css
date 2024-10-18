@@ -81,7 +81,7 @@ h2 {
     left: 50%;
     transform: translate(-50%, -50%);
     touch-action: pan-y;
-    width: 70%;
+    width: 60%;
     height: auto;
 }
 
