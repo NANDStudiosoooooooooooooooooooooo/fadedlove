@@ -1280,3 +1280,30 @@ select {
         animation-range-start: normal;
         animation-range-end: normal;
 }
+
+.soft-shake {
+    animation: soft-shake 13s infinite;
+    animation-duration: 13s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-fill-mode: none;
+    animation-play-state: running;
+    animation-name: soft-shake;
+    animation-timeline: auto;
+    animation-range-start: normal;
+    animation-range-end: normal;
+}
+
+@keyframes soft-shake {
+    0% {
+        transform: translateY(0px) rotate(-5deg);
+    }
+    45% {
+        transform: translateY(0px) rotate(5deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(-5deg);
+    }
+}
