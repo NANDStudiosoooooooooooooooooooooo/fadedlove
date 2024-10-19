@@ -4,12 +4,19 @@ function togglePanel(panelId) {
     let panels = document.querySelectorAll('.glass-panel');
     let buttons = document.querySelectorAll('.glass-button');
     let currentPanel = document.getElementById(panelId);
+    let isAnyPanelOpen = false;
 
     // Überprüfen, ob das aktuelle Panel bereits sichtbar ist
+    panels.forEach(panel => {
+        if (!panel.classList.contains('hidden')) {
+            isAnyPanelOpen = true; // Ein Panel ist offen
+        }
+    });
+
     if (currentPanel.classList.contains('hidden')) {
         // Alle Panels schließen
         panels.forEach(panel => panel.classList.add('hidden'));
-        
+
         // Aktuelles Panel öffnen
         currentPanel.classList.remove('hidden');
 
@@ -29,6 +36,9 @@ function togglePanel(panelId) {
             activeButton.classList.remove('active-button');
         }
     }
+
+    // Rückgabe, ob ein Panel offen ist
+    return isAnyPanelOpen || !currentPanel.classList.contains('hidden');
 }
 
 // Funktion zum Umschalten der Collection Links
@@ -56,8 +66,12 @@ document.addEventListener('click', function(event) {
     let links = document.querySelector('.collection-links');
 
     let clickedInsidePanel = false;
+    let isAnyPanelOpen = false;
 
     panels.forEach(panel => {
+        if (!panel.classList.contains('hidden')) {
+            isAnyPanelOpen = true; // Ein Panel ist offen
+        }
         if (panel.contains(event.target)) {
             clickedInsidePanel = true;
         }
@@ -69,7 +83,8 @@ document.addEventListener('click', function(event) {
         }
     });
 
-    if (!clickedInsidePanel) {
+    // Schließen der Panels nur, wenn ein Panel geöffnet ist und nicht innerhalb eines Panels geklickt wurde
+    if (!clickedInsidePanel && isAnyPanelOpen) {
         panels.forEach(panel => panel.classList.add('hidden'));
         buttons.forEach(button => button.classList.remove('active-button'));
         links.classList.add('hidden'); // Links ausblenden
