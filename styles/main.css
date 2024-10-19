@@ -527,8 +527,7 @@ border-radius: 0;
 }
 
 .item-container{
-    margin-top: 20px;
-    margin-bottom: 50px;
+    margin-top: 80px;
     display: flex;
     width: 100%;
     justify-content: center;
