@@ -209,7 +209,7 @@ h2 {
     position: fixed;
     bottom: 20px;
     left: calc(150px + 40px);
-    background: rgba(10, 10, 10, 0.5);
+    background: rgba(150, 150, 150, 0.5);
     backdrop-filter: blur(15px);
     padding: 40px 20px;
     border-radius: 15px;
