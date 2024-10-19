@@ -1352,5 +1352,5 @@ select {
 
 /* Disabled "BUY NOW" button */
 #buy-now-button[disabled] {
-    cursor: not-allowed;
+    cursor: default;
 }
