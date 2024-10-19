@@ -494,7 +494,7 @@ border-radius: 0;
   .shop-links a:hover {
     text-decoration: underline;
   }
-  
+
 .header-logo {
     z-index: 10000;
     width: 80px;
@@ -1256,37 +1256,3 @@ select {
     cursor: pointer;
 }
 
-#size-buttons-container {
-    display: flex;
-    gap: 10px;
-    margin: 20px 0;
-}
-
-/* Style for each size button */
-.size-button {
-    width: 50px;
-    height: 50px;
-    border: 2px solid white;
-    border-radius: 50%;
-    background-color: black;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-/* Hover effect for size buttons */
-.size-button:hover {
-    box-shadow: 0 0 10px 3px white;
-}
-
-/* Selected size button */
-.size-button.selected {
-    box-shadow: 0 0 15px 5px white;
-}
-
-/* Disabled "BUY NOW" button */
-#buy-now-button[disabled] {
-    cursor: default;
-}
