@@ -12,6 +12,21 @@
         body{
             overflow: hidden;
         }
+
+        .gallery-imagebutton-container::-webkit-scrollbar-track {
+        background: transparent; /* Transparent scrollbar track */
+        }
+
+        /* Removes arrows from the scrollbars in Webkit browsers (Chrome, Safari) */
+        .gallery-imagebutton-container::-webkit-scrollbar-button {
+        display: none; /* Hides the up/down or left/right arrow buttons */
+        }
+
+        /* Ensures the active button is always visible */
+        .gallery-imagebutton-container button.active-image-button {
+        scroll-margin-left: 10px; /* Ensures active button is smoothly scrolled into view */
+        }
+
         .gallery-container {
         width: 100%;
         max-width: 450px;
