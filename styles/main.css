@@ -651,11 +651,11 @@ video::-webkit-media-controls {
       overflow: visible;
       justify-content: flex-start;
       gap: 10px;
-      width: 100%;
+      width: calc(100% - 40px);
       margin: 0;
       overflow-x: scroll; /* Allow horizontal scrolling */
       padding: 10px;
-      margin: 0;
+      margin-right: 20px;
       max-width: 100%;
     }
   
