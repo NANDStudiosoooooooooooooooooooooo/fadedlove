@@ -47,6 +47,14 @@
         "time": "12:00",
         "link": "https://shop.fadedcloth.de/?collection=all&drop=all",
         "images": [""]
+      },
+      {
+        "name": "GALLERY",
+        "subname": "",
+        "date": "2024-01-01",
+        "time": "12:00",
+        "link": "https://shop.fadedcloth.de/gallery",
+        "images": [""]
       }
   ],
     "collections": [
