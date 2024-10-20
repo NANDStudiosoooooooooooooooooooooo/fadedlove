@@ -657,7 +657,7 @@ video::-webkit-media-controls {
       padding: 10px;
       margin: 0;
       margin-inline-end: 30px;
-      
+      max-width: 100%;
     }
   
     .buttons-container::-webkit-scrollbar {
