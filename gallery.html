@@ -11,9 +11,11 @@
     <style>
         .gallery-container {
         width: 100%;
+        max-width: 880px;
+        margin-top: 80px;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         }
 
         .gallery-headline {
@@ -30,12 +32,17 @@
 
         .gallery-image-container {
         width: 100%;
-        max-width: 880px;
-        margin-top: 80px;
+        max-width: 100%;
         height: auto;
         overflow: hidden;
         position: relative;
         }
+
+        @media (max-width: 920px) {
+            .gallery-container{
+                max-width: 100%;
+            }
+    }
 
         .gallery-image-container img {
         width: 100%;
