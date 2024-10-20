@@ -651,12 +651,11 @@ video::-webkit-media-controls {
       overflow: visible;
       justify-content: flex-start;
       gap: 10px;
-      width: 100vw; /* Take the full width of the screen */
+      width: 100%;
       margin: 0;
       overflow-x: scroll; /* Allow horizontal scrolling */
       padding: 10px;
       margin: 0;
-      margin-inline-end: 30px;
       max-width: 100%;
     }
   
