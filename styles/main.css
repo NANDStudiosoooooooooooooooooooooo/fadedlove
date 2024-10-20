@@ -151,7 +151,7 @@ h2 {
 /* Buttons Container - untereinander angeordnet */
 .buttons-container {
     position: fixed;
-    bottom: 20px; /* Weiter nach unten verschoben für größere Bildschirme */
+    bottom: 20px;
     left: 20px;
     display: flex;
     flex-direction: column;
@@ -652,10 +652,12 @@ video::-webkit-media-controls {
       justify-content: flex-start;
       gap: 10px;
       width: 100vw; /* Take the full width of the screen */
-      margin-right: 20px;
+      margin: 0;
       overflow-x: scroll; /* Allow horizontal scrolling */
       padding: 10px;
       margin: 0;
+      margin-inline-end: 30px;
+      
     }
   
     .buttons-container::-webkit-scrollbar {
