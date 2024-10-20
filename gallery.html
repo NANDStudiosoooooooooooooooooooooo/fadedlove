@@ -7,6 +7,77 @@
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:500|IBM+Plex+Sans:300&display=swap" rel="stylesheet">
     <meta name="description" content="The offical FADEDCLOTH shop. Subscribe for updates.">
     <link rel="stylesheet" href="styles/main.css?v=2.59">
+
+    <style>
+        .gallery-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+
+        .gallery-headline {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: white;
+        }
+
+        .gallery-headline a {
+        text-decoration: none;
+        color: inherit;
+        }
+
+        .gallery-image-container {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        overflow: hidden;
+        position: relative;
+        }
+
+        .gallery-image-container img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        transition: opacity 0.5s ease;
+        }
+
+        .gallery-imagebutton-container {
+        display: flex;
+        overflow-x: auto;
+        margin-top: 20px;
+        padding: 10px;
+        }
+
+        .gallery-imagebutton-container button {
+        border: none;
+        background: none;
+        margin-right: 10px;
+        cursor: pointer;
+        transition: transform 0.3s;
+        }
+
+        .gallery-imagebutton-container button img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        }
+
+        .gallery-imagebutton-container::-webkit-scrollbar {
+        height: 5px;
+        }
+
+        .gallery-imagebutton-container::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+        }
+
+        .gallery-imagebutton-container::-webkit-scrollbar-thumb:hover {
+        background: #555;
+        }
+
+    </style>
 </head>
 <body>
     
@@ -31,7 +102,7 @@
                 
             </div>
         
-            <div class="gallery-images">
+            <div class="gallery-images-container">
                 
             </div>
         </div>
@@ -99,5 +170,93 @@
     <script src="scripts/animate.js" defer></script> 
     <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js" defer></script>
     <script src="scripts/subscribe.js" defer></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const imageContainer = document.querySelector('.gallery-image-container');
+        const headlineContainer = document.querySelector('.gallery-headline');
+        const buttonContainer = document.querySelector('.gallery-imagebutton-container');
+
+        let currentImageIndex = 0;
+
+        // Funktion zum Aktualisieren der Galerie
+        function updateGallery(index, jsonData) {
+            const selectedImage = jsonData.images[index];
+            // Update image
+            imageContainer.innerHTML = `<img src="${selectedImage.image}" class="fade-in">`;
+            
+            // Remove and re-add fade-in class
+            const imageElement = imageContainer.querySelector('img');
+            imageElement.classList.remove('fade-in');
+            void imageElement.offsetWidth; // Force reflow for animation reset
+            imageElement.classList.add('fade-in');
+
+            // Update headline
+            headlineContainer.innerHTML = `<a href="${selectedImage.link}" class="headline">${selectedImage.headline}</a>`;
+
+            // Update button class
+            document.querySelectorAll('.gallery-imagebutton-container button').forEach((btn, idx) => {
+            btn.classList.toggle('soft-shake', idx === index);
+            });
+
+            // Scroll to button if necessary
+            const selectedButton = buttonContainer.children[index];
+            selectedButton.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+        }
+
+        // Funktion zum Laden der JSON-Datei
+        function loadGalleryData() {
+            fetch('/JSON/gallery.json')
+            .then(response => response.json())
+            .then(jsonData => {
+                // Buttons dynamisch laden
+                jsonData.images.forEach((imageData, index) => {
+                const button = document.createElement('button');
+                button.innerHTML = `<img src="${imageData.image}" alt="${imageData.headline}">`;
+                button.addEventListener('click', () => {
+                    currentImageIndex = index;
+                    updateGallery(index, jsonData);
+                });
+                buttonContainer.appendChild(button);
+                });
+
+                // Initial mit dem ersten Bild starten
+                updateGallery(0, jsonData);
+
+                // Swipe events für mobile
+                let touchStartX = 0;
+                imageContainer.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                });
+
+                imageContainer.addEventListener('touchend', (e) => {
+                const touchEndX = e.changedTouches[0].clientX;
+                if (touchEndX < touchStartX - 50) {
+                    currentImageIndex = (currentImageIndex + 1) % jsonData.images.length;
+                    updateGallery(currentImageIndex, jsonData);
+                } else if (touchEndX > touchStartX + 50) {
+                    currentImageIndex = (currentImageIndex - 1 + jsonData.images.length) % jsonData.images.length;
+                    updateGallery(currentImageIndex, jsonData);
+                }
+                });
+
+                // Scroll event für PC
+                imageContainer.addEventListener('wheel', (e) => {
+                if (e.deltaY > 0) {
+                    currentImageIndex = (currentImageIndex + 1) % jsonData.images.length;
+                } else {
+                    currentImageIndex = (currentImageIndex - 1 + jsonData.images.length) % jsonData.images.length;
+                }
+                updateGallery(currentImageIndex, jsonData);
+                });
+            })
+            .catch(error => console.error('Error loading gallery JSON:', error));
+        }
+
+        // Galerie-Daten laden
+        loadGalleryData();
+        });
+
+    </script>
 </body>
 </html>
