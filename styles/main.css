@@ -1310,3 +1310,12 @@ select {
         transform: translateY(0px) rotate(-5deg);
     }
 }
+
+*::-webkit-scrollbar-track {
+    background: transparent; /* Transparenter Hintergrund der Scrollbar */
+  }
+  
+  /* Entfernt die Pfeiltasten von allen Scrollbars in Webkit-basierten Browsern */
+  *::-webkit-scrollbar-button {
+    display: none; /* Versteckt die Pfeile an den Scrollbalken */
+  }
