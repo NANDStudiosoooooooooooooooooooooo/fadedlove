@@ -54,10 +54,38 @@
 
         .gallery-imagebutton-container {
         display: flex;
-        overflow-x: auto;
-        margin-top: 20px;
-        padding: 10px;
+        overflow-x: auto; /* Horizontal scroll enabled */
+        scrollbar-width: thin; /* Firefox: Makes the scrollbar thinner */
+        scrollbar-color: rgba(255, 255, 255, 0.2) transparent; /* Dezent transparent scrollbar */
+
+        /* Optional for better user experience */
+        scroll-snap-type: x mandatory; /* Buttons will snap into view when scrolling */
         }
+
+        .gallery-imagebutton-container button {
+        flex: 0 0 auto; /* Prevent buttons from shrinking */
+        margin-right: 10px; /* Optional: Space between buttons */
+        }
+
+        /* For Webkit-based browsers like Chrome */
+        .gallery-imagebutton-container::-webkit-scrollbar {
+        height: 8px; /* Set the height of the horizontal scrollbar */
+        }
+
+        .gallery-imagebutton-container::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.2); /* Dezent transparent scrollbar thumb */
+        border-radius: 10px; /* Rounded corners for the scrollbar */
+        }
+
+        .gallery-imagebutton-container::-webkit-scrollbar-track {
+        background: transparent; /* Transparent scrollbar track */
+        }
+
+        /* Ensures the active button is always visible */
+        .gallery-imagebutton-container button.active-image-button {
+        scroll-margin-left: 10px; /* Ensures active button is smoothly scrolled into view */
+        }
+
 
         .gallery-imagebutton-container button {
         border: none;
