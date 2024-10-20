@@ -64,11 +64,15 @@
             .gallery-container{
                 max-width: 100%;
             }
+            @media (max-height: 780px) {
+                .gallery-container{
+                    max-width: auto;
+                    max-height: calc(100% - 160px);
+                }
+            }
         }
 
-        @media (max-height: 780px) {
-            
-        }
+        
 
         .gallery-image-container img {
         width: 100%;
