@@ -88,6 +88,8 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('checkout-button').addEventListener('click', function () {
         if (checkoutId) {
             client.checkout.fetch(checkoutId).then((checkout) => {
+                console.log("Checkout fetched:", checkout); // Debugging-Ausgabe
+    
                 if (checkout.lineItems.length > 0) {
                     window.location.href = checkout.webUrl; // Redirect to Shopify checkout
                 } else {
@@ -100,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.warn('Checkout ID is not defined.'); // Warnung, wenn die Checkout-ID nicht definiert ist
         }
     });
+    
     
 
 
