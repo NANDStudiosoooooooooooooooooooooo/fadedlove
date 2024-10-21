@@ -72,6 +72,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    function addItemToCart(variantId, quantity = 1) {
+        const lineItemsToAdd = [{ variantId, quantity }];
+
+        client.checkout.addLineItems(checkoutId, lineItemsToAdd).then((checkout) => {
+            console.log('Item added to cart:', checkout);
+            updateCartUI(checkout); // Update the UI after adding the item
+        }).catch((error) => {
+            console.error('Error adding item to cart:', error);
+        });
+    }
+
     function removeItemFromCart(itemId) {
         client.checkout.removeLineItems(checkoutId, [itemId]).then((checkout) => {
             console.log('Item removed from cart:', checkout);
@@ -104,7 +115,6 @@ document.addEventListener('DOMContentLoaded', function () {
             border: none;
             cursor: pointer;
             font-size: 16px;
-            z-index: 13000;
         }
         #cart-container {
             display: none;
@@ -117,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
             box-shadow: -2px 0 5px rgba(0,0,0,0.5);
             padding: 20px;
             overflow-y: auto;
-            z-index: 20000;
+            z-index: 1000;
         }
         #cart-header {
             display: flex;
