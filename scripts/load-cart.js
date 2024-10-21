@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     let checkoutId = localStorage.getItem('checkoutId');
-    
+
     const client = ShopifyBuy.buildClient({
         domain: 'zkwisj-0b.myshopify.com',
         storefrontAccessToken: 'ed72f09d8742f37356305b6e49310909'
@@ -23,6 +23,28 @@ document.addEventListener('DOMContentLoaded', function () {
         }).catch((error) => {
             console.error('Error fetching checkout:', error);
         });
+    }
+
+    // Funktion zum Hinzufügen von Artikeln
+    function addItemToCart(variantId, quantity) {
+        if (!variantId || quantity <= 0) {
+            console.error('Invalid variantId or quantity.');
+            return;
+        }
+
+        client.checkout.addLineItems(checkoutId, [{ variantId: variantId, quantity: quantity }])
+            .then((checkout) => {
+                console.log('Item added to cart:', checkout);
+                if (checkout.lineItems.length > 0) {
+                    updateCartUI(checkout);
+                } else {
+                    console.warn('No items in checkout after adding item.');
+                }
+                localStorage.setItem('checkoutId', checkout.id);
+            })
+            .catch((error) => {
+                console.error('Error adding item to cart:', error);
+            });
     }
 
     // Erstelle den Warenkorb-Button und das Warenkorb-Container
