@@ -1,35 +1,27 @@
 document.addEventListener('DOMContentLoaded', function () {
-    let checkoutId = localStorage.getItem('checkoutId'); // Versuche, die Checkout-ID aus dem Local Storage abzurufen
-
+    let checkoutId = localStorage.getItem('checkoutId');
+    
     const client = ShopifyBuy.buildClient({
         domain: 'zkwisj-0b.myshopify.com',
         storefrontAccessToken: 'ed72f09d8742f37356305b6e49310909'
     });
 
-    // Überprüfen, ob eine Checkout-ID vorhanden ist
+    // Hole bestehenden Checkout oder erstelle neuen
     if (!checkoutId) {
-        // Erstelle einen neuen Checkout, wenn keine ID vorhanden ist
         client.checkout.create().then((checkout) => {
             checkoutId = checkout.id;
-            localStorage.setItem('checkoutId', checkoutId); // Speichere die Checkout-ID
+            localStorage.setItem('checkoutId', checkoutId);
             console.log("Checkout created:", checkout);
             updateCartUI(checkout);
         }).catch((error) => {
             console.error('Error creating checkout:', error);
         });
     } else {
-        // Hole den bestehenden Checkout
         client.checkout.fetch(checkoutId).then((checkout) => {
             console.log("Fetched existing checkout:", checkout);
-            updateCartUI(checkout); // UI mit bestehendem Checkout aktualisieren
+            updateCartUI(checkout);
         }).catch((error) => {
             console.error('Error fetching checkout:', error);
-            // Wenn der bestehende Checkout nicht abgerufen werden kann, erstelle einen neuen
-            client.checkout.create().then((checkout) => {
-                checkoutId = checkout.id;
-                localStorage.setItem('checkoutId', checkoutId);
-                updateCartUI(checkout);
-            });
         });
     }
 
