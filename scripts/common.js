@@ -21,8 +21,9 @@ function updateCartUI(checkout) {
             `;
             cartItemsContainer.appendChild(cartItem);
 
+            // Pass client and checkoutId to removeItemFromCart
             cartItem.querySelector('.remove-item').addEventListener('click', function () {
-                removeItemFromCart(item.id);
+                removeItemFromCart(client, checkoutId, item.id);
             });
         });
     }
