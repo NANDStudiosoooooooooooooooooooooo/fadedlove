@@ -95,6 +95,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    function removeItemFromCart(client, checkoutId, itemId) {
+        client.checkout.removeLineItems(checkoutId, [itemId]).then((checkout) => {
+            console.log('Item removed from cart:', checkout); // Debugging: Zeige den aktualisierten Checkout an
+            updateCartUI(checkout); // Aktualisiere die UI nach dem Entfernen
+        }).catch((error) => {
+            console.error('Error removing item from cart:', error);
+        });
+    }
+
     // Basic CSS for Cart and Button
     const style = document.createElement('style');
     style.innerHTML = `
