@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
             border: none;
             cursor: pointer;
             font-size: 16px;
+            z-index: 14000;
         }
         #cart-container {
             display: none;
@@ -127,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
             box-shadow: -2px 0 5px rgba(0,0,0,0.5);
             padding: 20px;
             overflow-y: auto;
-            z-index: 1000;
+            z-index: 20000;
         }
         #cart-header {
             display: flex;
