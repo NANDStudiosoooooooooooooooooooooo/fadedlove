@@ -31,7 +31,8 @@ function updateCartUI(checkout) {
 
 function removeItemFromCart(client, checkoutId, itemId) {
     client.checkout.removeLineItems(checkoutId, [itemId]).then((checkout) => {
-        updateCartUI(checkout); // Update UI after removal
+        console.log('Item removed from cart:', checkout); // Debugging: Zeige den aktualisierten Checkout an
+        updateCartUI(checkout); // Aktualisiere die UI nach dem Entfernen
     }).catch((error) => {
         console.error('Error removing item from cart:', error);
     });
