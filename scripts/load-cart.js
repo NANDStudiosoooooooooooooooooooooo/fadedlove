@@ -104,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
             border: none;
             cursor: pointer;
             font-size: 16px;
+            z-index: 13000;
         }
         #cart-container {
             display: none;
