@@ -168,6 +168,23 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function handleAddToCart() {
+        if (!selectedVariant) {
+            return;
+        }
+    
+        client.checkout.addLineItems(checkoutId, [{
+            variantId: selectedVariant.id,
+            quantity: 1,
+        }]).then((checkout) => {
+            console.log('Item added to cart:', checkout);
+            updateCartUI(checkout); // Aktualisiere die Warenkorbinformationen
+        }).catch((error) => {
+            console.error('Error adding item to cart:', error);
+        });
+    }
+    
+
     document.getElementById('checkout-button').addEventListener('click', function () {
         if (checkoutId) {
             client.checkout.fetch(checkoutId).then((checkout) => {
