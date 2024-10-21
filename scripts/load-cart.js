@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Create checkout and store checkoutId
     client.checkout.create().then((checkout) => {
         checkoutId = checkout.id;
+        console.log("Checkout created:", checkout);  // Log checkout creation
         updateCartUI(checkout);
     }).catch((error) => {
         console.error('Error creating checkout:', error);
@@ -43,6 +44,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function updateCartUI(checkout) {
+        console.log("Updating cart UI with checkout:", checkout); // Debugging the checkout object
+
         const cartButton = document.getElementById('cart-button');
         cartButton.innerText = `Cart (${checkout.lineItems.length})`;
 
@@ -53,6 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
             cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
         } else {
             checkout.lineItems.forEach(item => {
+                console.log("Line item found:", item);  // Log each line item for debugging
+
                 const cartItem = document.createElement('div');
                 cartItem.classList.add('cart-item');
                 cartItem.innerHTML = `
@@ -77,7 +82,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         client.checkout.addLineItems(checkoutId, lineItemsToAdd).then((checkout) => {
             console.log('Item added to cart:', checkout);
-            updateCartUI(checkout); // Update the UI after adding the item
+            return client.checkout.fetch(checkoutId);  // Fetch latest checkout data
+        }).then((updatedCheckout) => {
+            console.log("Fetched updated checkout:", updatedCheckout);  // Log the updated checkout
+            updateCartUI(updatedCheckout); // Update the UI after adding the item
         }).catch((error) => {
             console.error('Error adding item to cart:', error);
         });
@@ -86,7 +94,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function removeItemFromCart(itemId) {
         client.checkout.removeLineItems(checkoutId, [itemId]).then((checkout) => {
             console.log('Item removed from cart:', checkout);
-            updateCartUI(checkout);
+            return client.checkout.fetch(checkoutId);  // Fetch latest checkout data
+        }).then((updatedCheckout) => {
+            console.log("Fetched updated checkout after removal:", updatedCheckout);  // Log the updated checkout
+            updateCartUI(updatedCheckout);
         }).catch((error) => {
             console.error('Error removing item from cart:', error);
         });
