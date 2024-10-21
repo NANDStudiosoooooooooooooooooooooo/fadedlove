@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Create checkout and store checkoutId
     client.checkout.create().then((checkout) => {
         checkoutId = checkout.id;
-        console.log("Checkout created:", checkout); // Log checkout creation
         updateCartUI(checkout);
     }).catch((error) => {
         console.error('Error creating checkout:', error);
@@ -43,8 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function updateCartUI(checkout) {
-        console.log("Updating cart UI with checkout:", checkout); // Debugging the checkout object
-
         const cartButton = document.getElementById('cart-button');
         cartButton.innerText = `Cart (${checkout.lineItems.length})`;
 
@@ -55,17 +52,15 @@ document.addEventListener('DOMContentLoaded', function () {
             cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
         } else {
             checkout.lineItems.forEach(item => {
-                console.log("Line item found:", item);  // Log each line item for debugging
-
                 const cartItem = document.createElement('div');
                 cartItem.classList.add('cart-item');
                 cartItem.innerHTML = `
                     <div class="cart-item-info">
-                        <p>${item.title}</p>
+                        <p>${item.title} (${item.variant.title})</p>
                         <p>Quantity: ${item.quantity}</p>
                         <p>Price: ${(item.variant.priceV2.amount * item.quantity).toFixed(2)} EUR</p>
                     </div>
-                    <button class="remove-item" data-id="${item.id}">Remove</button>
+                    <button class="remove-item glass-button" data-id="${item.id}">Remove</button>
                 `;
                 cartItemsContainer.appendChild(cartItem);
 
@@ -78,8 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function removeItemFromCart(itemId) {
         client.checkout.removeLineItems(checkoutId, [itemId]).then((checkout) => {
-            console.log('Item removed from cart:', checkout);
-            updateCartUI(checkout); // Update UI after removal
+            updateCartUI(checkout);
         }).catch((error) => {
             console.error('Error removing item from cart:', error);
         });
@@ -88,24 +82,18 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('checkout-button').addEventListener('click', function () {
         if (checkoutId) {
             client.checkout.fetch(checkoutId).then((checkout) => {
-                console.log("Checkout fetched:", checkout); // Debugging-Ausgabe
-    
                 if (checkout.lineItems.length > 0) {
                     window.location.href = checkout.webUrl; // Redirect to Shopify checkout
                 } else {
-                    console.warn('Your cart is empty.'); // Warnung, wenn der Warenkorb leer ist
+                    alert('Your cart is empty.');
                 }
             }).catch((error) => {
                 console.error('Error during checkout:', error);
             });
         } else {
-            console.warn('Checkout ID is not defined.'); // Warnung, wenn die Checkout-ID nicht definiert ist
+            alert('Checkout ID is not defined.');
         }
     });
-    
-    
-
-
 
     // Basic CSS for Cart and Button
     const style = document.createElement('style');
@@ -166,6 +154,14 @@ document.addEventListener('DOMContentLoaded', function () {
             background-color: #000;
             color: #fff;
             border: none;
+            cursor: pointer;
+        }
+        .glass-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
             cursor: pointer;
         }
     `;
