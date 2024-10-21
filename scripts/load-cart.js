@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
             box-shadow: -2px 0 5px rgba(0,0,0,0.5);
             padding: 20px;
             overflow-y: auto;
-            z-index: 1000;
+            z-index: 20000;
         }
         #cart-header {
             display: flex;
