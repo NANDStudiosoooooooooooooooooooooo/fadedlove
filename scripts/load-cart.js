@@ -77,6 +77,71 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    function updateCartUI(checkout) {
+        // Update der Anzahl der Artikel im Warenkorb
+        const cartItemCount = document.getElementById('cart-item-count'); // Ersetze mit der tatsächlichen ID deines Cart-Elements
+        if (cartItemCount) {
+            const itemCount = checkout.lineItems.length; // Anzahl der Artikel im Warenkorb
+            cartItemCount.innerText = itemCount > 0 ? itemCount : '0'; // Setze die Anzahl oder zeige '0' an
+        } else {
+            console.warn('Cart item count element not found');
+        }
+    
+        // Update der Gesamtsumme
+        const cartTotal = document.getElementById('cart-total'); // Ersetze mit der ID deines Gesamtpreise-Elements
+        if (cartTotal) {
+            const totalPrice = checkout.subtotalPrice.amount; // Gesamtpreis
+            cartTotal.innerText = `Total: ${totalPrice} ${checkout.currencyCode}`; // Setze den Gesamtpreis
+        } else {
+            console.warn('Cart total element not found');
+        }
+    
+        // Update der Artikel im Warenkorb
+        const cartItemsContainer = document.getElementById('cart-items-container'); // Ersetze mit der ID des Containers für die Artikel
+        if (cartItemsContainer) {
+            cartItemsContainer.innerHTML = ''; // Leere den Container zuerst
+    
+            // Füge die Artikel im Warenkorb hinzu
+            checkout.lineItems.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item'; // Klasse für die Artikel
+    
+                // Füge Informationen über den Artikel hinzu
+                itemElement.innerHTML = `
+                    <div class="cart-item-title">${item.title}</div>
+                    <div class="cart-item-quantity">Quantity: ${item.quantity}</div>
+                    <div class="cart-item-price">${item.variant.price.amount} ${item.variant.price.currencyCode}</div>
+                    <button class="remove-item" data-id="${item.id}">Remove</button>
+                `;
+    
+                // Füge den Artikel dem Container hinzu
+                cartItemsContainer.appendChild(itemElement);
+            });
+    
+            // Füge Event-Listener für den Entfernen-Button hinzu
+            const removeButtons = cartItemsContainer.querySelectorAll('.remove-item');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const itemId = event.target.getAttribute('data-id');
+                    handleRemoveFromCart(itemId);
+                });
+            });
+        } else {
+            console.warn('Cart items container not found');
+        }
+    }
+    
+    // Funktion zum Entfernen eines Artikels aus dem Warenkorb
+    function handleRemoveFromCart(itemId) {
+        client.checkout.removeLineItems(checkoutId, [itemId]).then((checkout) => {
+            console.log('Item removed from cart:', checkout);
+            updateCartUI(checkout); // Aktualisiere die UI nach dem Entfernen
+        }).catch((error) => {
+            console.error('Error removing item from cart:', error);
+        });
+    }
+    
+
     function addItemToCart(variantId, quantity = 1) {
         const lineItemsToAdd = [{ variantId, quantity }];
 
