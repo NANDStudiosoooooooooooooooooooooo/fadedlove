@@ -4,7 +4,19 @@ const client = ShopifyBuy.buildClient({
     storefrontAccessToken: 'ed72f09d8742f37356305b6e49310909' // Deinen tatsächlichen Token verwenden
 });
 
-let checkoutId = null;
+let checkoutId = localStorage.getItem('checkoutId');
+
+if (!checkoutId) {
+    // Erstelle neuen Checkout, falls keiner existiert
+    client.checkout.create().then((checkout) => {
+        checkoutId = checkout.id;
+        localStorage.setItem('checkoutId', checkoutId);
+        console.log('Neuer Checkout erstellt:', checkoutId);
+    });
+} else {
+    // Benutze vorhandenen Checkout
+    console.log('Vorhandener Checkout:', checkoutId);
+}
 let selectedVariant = null; // Variante wird z. B. durch ein Dropdown gesetzt.
 
 // Neuen Checkout erstellen
