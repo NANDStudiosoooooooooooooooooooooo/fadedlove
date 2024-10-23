@@ -26,12 +26,18 @@ cartButton.classList.add('glass-button');
 cartButton.addEventListener('click', function () {
     let NewCheckoutId = localStorage.getItem('checkoutId');
     if (NewCheckoutId) {
-        let encodedCheckoutId = encodeURIComponent(NewCheckoutId);
-        window.location.href = `https://checkout.fadedcloth.de/cart?id=${encodedCheckoutId}`;
-        console.log(`https://checkout.fadedcloth.de/cart?id=${encodedCheckoutId}`);
+        // Trenne die ID und den Schlüssel
+        let [idPart, keyPart] = NewCheckoutId.split('?key=');
+        let encodedIdPart = encodeURIComponent(idPart);
+        let encodedKeyPart = encodeURIComponent(keyPart);
+
+        // Baue die neue URL
+        window.location.href = `https://checkout.fadedcloth.de/cart?id=${encodedIdPart}&key=${encodedKeyPart}`;
+        console.log(`https://checkout.fadedcloth.de/cart?id=${encodedIdPart}&key=${encodedKeyPart}`);
     } else {
         console.error('Checkout ID fehlt.');
     }
 });
+
 
 cartButtonContainer.appendChild(cartButton);
