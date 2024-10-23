@@ -11,11 +11,11 @@ if (!checkoutId) {
     client.checkout.create().then((checkout) => {
         checkoutId = checkout.id;
         localStorage.setItem('checkoutId', checkoutId);
-        console.log('Neuer Checkout erstellt:', checkoutId);
+        console.log('Neuer Checkout in  cart erstellt:', checkoutId);
     });
 } else {
     // Benutze vorhandenen Checkout
-    console.log('Vorhandener Checkout:', checkoutId);
+    console.log('Vorhandener VON CART GELADEN Checkout:', checkoutId);
 }
 let selectedVariant = null; // Variante wird z. B. durch ein Dropdown gesetzt.
 
