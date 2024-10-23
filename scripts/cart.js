@@ -18,8 +18,6 @@ if (!checkoutId) {
     console.log('Vorhandener VON CART GELADEN Checkout:', checkoutId);
 }
 
-// Funktion zur Erstellung des Cart-Buttons
-function createCartButton() {
     const cartButtonContainer = document.getElementById('cart-button-container');
     cartButtonContainer.innerHTML = ''; // Vorhandene Buttons leeren
 
@@ -36,5 +34,5 @@ function createCartButton() {
     });
 
     cartButtonContainer.appendChild(cartButton);
-}
+
 
