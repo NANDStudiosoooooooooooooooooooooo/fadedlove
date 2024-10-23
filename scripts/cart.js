@@ -17,7 +17,6 @@ if (!checkoutId) {
     // Benutze vorhandenen Checkout
     console.log('Vorhandener VON CART GELADEN Checkout:', checkoutId);
 }
-let selectedVariant = null; // Variante wird z. B. durch ein Dropdown gesetzt.
 
 // Funktion zur Erstellung des Cart-Buttons
 function createCartButton() {
@@ -39,31 +38,3 @@ function createCartButton() {
     cartButtonContainer.appendChild(cartButton);
 }
 
-// Warte, bis der DOM vollständig geladen ist
-document.addEventListener('DOMContentLoaded', function () {
-    const addToCartButton = document.getElementById('add-to-cart-button');
-
-    if (addToCartButton) {
-        addToCartButton.addEventListener('click', function () {
-            if (!checkoutId || !selectedVariant) {
-                console.error('Checkout ID or Variante fehlt.');
-                return;
-            }
-
-            addToCartButton.innerText = 'ADDED'; // Button temporär deaktivieren
-            addToCartButton.disabled = true;
-
-            client.checkout.addLineItems(checkoutId, [{
-                variantId: selectedVariant.id, // Die gewählte Variant-ID
-                quantity: 1,
-            }]).then(() => {
-                setTimeout(() => {
-                    addToCartButton.innerText = 'ADD TO CART';
-                    addToCartButton.disabled = false; // Nach 3 Sekunden reaktivieren
-                }, 3000); // 3 Sekunden Verzögerung
-            }).catch((error) => {
-                console.error('ERROR ADD TO CART:', error);
-            });
-        });
-    }
-});
