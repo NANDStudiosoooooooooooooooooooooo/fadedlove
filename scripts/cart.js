@@ -19,14 +19,6 @@ if (!checkoutId) {
 }
 let selectedVariant = null; // Variante wird z. B. durch ein Dropdown gesetzt.
 
-// Neuen Checkout erstellen
-client.checkout.create().then((checkout) => {
-    checkoutId = checkout.id; // Speichere die Checkout ID
-    createCartButton(); // Erstelle den Warenkorb-Button, nachdem die Checkout ID verfügbar ist
-}).catch((error) => {
-    console.error('Fehler beim Erstellen des Checkouts:', error);
-});
-
 // Funktion zur Erstellung des Cart-Buttons
 function createCartButton() {
     const cartButtonContainer = document.getElementById('cart-button-container');
