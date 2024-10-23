@@ -27,7 +27,8 @@ if (!checkoutId) {
     cartButton.id = 'cart-button';
     cartButton.classList.add('glass-button');
     cartButton.addEventListener('click', function () {
-        if (checkoutId) {
+        let NewCheckoutId = localStorage.getItem('checkoutId');
+        if (NewCheckoutId) {
             window.location.href = `https://checkout.fadedcloth.de/cart?id=${checkoutId}`;
             console.log(`https://checkout.fadedcloth.de/cart?id=${checkoutId}`);
         } else {
