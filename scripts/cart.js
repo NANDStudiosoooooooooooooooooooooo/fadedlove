@@ -29,6 +29,7 @@ if (!checkoutId) {
     cartButton.addEventListener('click', function () {
         if (checkoutId) {
             window.location.href = `https://checkout.fadedcloth.de/cart?id=${checkoutId}`;
+            console.log(`https://checkout.fadedcloth.de/cart?id=${checkoutId}`);
         } else {
             console.error('Checkout ID fehlt.');
         }
