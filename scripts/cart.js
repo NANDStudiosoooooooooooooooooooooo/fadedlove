@@ -1,10 +1,11 @@
 // Shopify Client initialisieren
 const client = ShopifyBuy.buildClient({
     domain: 'checkout.fadedcloth.de',
-    storefrontAccessToken: 'ed72f09d8742f37356305b6e49310909' // Deinen tatsächlichen Token verwenden
+    storefrontAccessToken: 'ed72f09d8742f37356305b6e49310909'
 });
 
 let checkoutId = localStorage.getItem('checkoutId');
+console.log(checkoutId);
 
 if (!checkoutId) {
     // Erstelle neuen Checkout, falls keiner existiert
