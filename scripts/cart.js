@@ -3,20 +3,21 @@ const client = ShopifyBuy.buildClient({
     storefrontAccessToken: 'ed72f09d8742f37356305b6e49310909'
 });
 
-let checkoutId = localStorage.getItem('checkoutId');
-console.log(checkoutId);
+// Hole die Cart-ID aus dem LocalStorage oder erstelle eine neue Cart
+let cartId = localStorage.getItem('cartId');
+console.log(cartId);
 
-if (!checkoutId) {
-    // Erstelle neuen Checkout, falls keiner existiert
-    client.checkout.create().then((checkout) => {
-        checkoutId = checkout.id;
-        localStorage.setItem('checkoutId', checkoutId);
-        console.log('Neuer Checkout erstellt:', checkoutId);
+if (!cartId) {
+    // Erstelle neuen Cart, falls keiner existiert
+    client.cart.create().then((cart) => {
+        cartId = cart.id;
+        localStorage.setItem('cartId', cartId);
+        console.log('Neuer Cart erstellt:', cartId);
     }).catch((error) => {
-        console.error('Fehler beim Erstellen des Checkouts:', error);
+        console.error('Fehler beim Erstellen des Carts:', error);
     });
 } else {
-    console.log('Vorhandener Checkout geladen:', checkoutId);
+    console.log('Vorhandener Cart geladen:', cartId);
 }
 
 const cartButtonContainer = document.getElementById('cart-button-container');
@@ -28,9 +29,9 @@ cartButton.id = 'cart-button';
 cartButton.classList.add('glass-button');
 
 cartButton.addEventListener('click', function () {
-    let currentCheckoutId = localStorage.getItem('checkoutId');
+    let currentCartId = localStorage.getItem('cartId');
     
-    if (currentCheckoutId) {
+    if (currentCartId) {
         // GraphQL Abfrage zur Abrufung der Checkout-URL
         fetch('https://checkout.fadedcloth.de/api/2023-07/graphql.json', {
             method: 'POST',
@@ -41,7 +42,7 @@ cartButton.addEventListener('click', function () {
             body: JSON.stringify({
                 query: `
                 query {
-                  cart(id: "${currentCheckoutId}") {
+                  cart(id: "gid://shopify/Cart/${currentCartId}") {
                     checkoutUrl
                   }
                 }
@@ -50,7 +51,7 @@ cartButton.addEventListener('click', function () {
         })
         .then(response => response.json())
         .then(data => {
-            const checkoutUrl = data.data.cart.checkoutUrl;
+            const checkoutUrl = data?.data?.cart?.checkoutUrl;
             if (checkoutUrl) {
                 // Leite den Benutzer zum Checkout weiter
                 window.location.href = checkoutUrl;
@@ -63,7 +64,7 @@ cartButton.addEventListener('click', function () {
             console.error('Fehler beim Abrufen der Checkout-URL:', error);
         });
     } else {
-        console.error('Checkout ID fehlt.');
+        console.error('Cart ID fehlt.');
     }
 });
 
