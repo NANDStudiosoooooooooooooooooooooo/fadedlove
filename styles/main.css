@@ -1320,3 +1320,30 @@ select {
   *::-webkit-scrollbar-button {
     display: none; /* Versteckt die Pfeile an den Scrollbalken */
   }
+
+  @keyframes floating {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    45% {
+        transform: translateY(-8px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+  }
+
+.floating {
+    animation: floating 3s infinite;
+    animation-duration: 3s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-fill-mode: none;
+    animation-play-state: running;
+    animation-name: floating;
+    animation-timeline: auto;
+    animation-range-start: normal;
+    animation-range-end: normal;
+}
