@@ -11,12 +11,11 @@ if (!checkoutId) {
     client.checkout.create().then((checkout) => {
         checkoutId = checkout.id;
         localStorage.setItem('checkoutId', checkoutId);
-        console.log('Neuer Checkout in cart erstellt:', checkoutId);
+        console.log('Neuer Checkout erstellt:', checkoutId);
     }).catch((error) => {
         console.error('Fehler beim Erstellen des Checkouts:', error);
     });
 } else {
-    // Benutze vorhandenen Checkout
     console.log('Vorhandener Checkout geladen:', checkoutId);
 }
 
@@ -29,30 +28,40 @@ cartButton.id = 'cart-button';
 cartButton.classList.add('glass-button');
 
 cartButton.addEventListener('click', function () {
-    let NewCheckoutId = localStorage.getItem('checkoutId');
+    let currentCheckoutId = localStorage.getItem('checkoutId');
     
-    if (NewCheckoutId) {
-        // Prüfen, ob ?key= enthalten ist
-        let idPart, keyPart;
-        if (NewCheckoutId.includes('?key=')) {
-            // Trenne die ID und den Schlüssel
-            [idPart, keyPart] = NewCheckoutId.split('?key=');
-        } else {
-            idPart = NewCheckoutId;
-            keyPart = null; // Falls kein Schlüssel vorhanden
-        }
-
-        let encodedIdPart = encodeURIComponent(idPart);
-        let encodedKeyPart = keyPart ? encodeURIComponent(keyPart) : null;
-
-        // Baue die URL, prüfe ob der Schlüssel vorhanden ist
-        if (encodedKeyPart) {
-            window.location.href = `https://checkout.fadedcloth.de/cart?id=${encodedIdPart}&key=${encodedKeyPart}`;
-        } else {
-            window.location.href = `https://checkout.fadedcloth.de/cart?id=${encodedIdPart}`;
-        }
-
-        console.log(`Redirecting to: https://checkout.fadedcloth.de/cart?id=${encodedIdPart}${encodedKeyPart ? '&key=' + encodedKeyPart : ''}`);
+    if (currentCheckoutId) {
+        // GraphQL Abfrage zur Abrufung der Checkout-URL
+        fetch('https://checkout.fadedcloth.de/api/2023-07/graphql.json', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Shopify-Storefront-Access-Token': 'ed72f09d8742f37356305b6e49310909',
+            },
+            body: JSON.stringify({
+                query: `
+                query {
+                  cart(id: "${currentCheckoutId}") {
+                    checkoutUrl
+                  }
+                }
+                `
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const checkoutUrl = data.data.cart.checkoutUrl;
+            if (checkoutUrl) {
+                // Leite den Benutzer zum Checkout weiter
+                window.location.href = checkoutUrl;
+                console.log(`Redirecting to: ${checkoutUrl}`);
+            } else {
+                console.error('Checkout URL konnte nicht abgerufen werden.');
+            }
+        })
+        .catch(error => {
+            console.error('Fehler beim Abrufen der Checkout-URL:', error);
+        });
     } else {
         console.error('Checkout ID fehlt.');
     }
