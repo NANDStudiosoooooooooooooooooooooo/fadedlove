@@ -356,9 +356,6 @@
 
                 const data = await response.json();
 
-                // Log the response to see its structure
-                console.log(data);
-
                 // Check if collections exist in the response
                 if (!data.data || !data.data.collections) {
                     throw new Error("Collections data is undefined");
@@ -401,87 +398,87 @@
                     }
                 }));
 
-                // Separate upcoming and dropped collections
-                const droppedCollections = collections.filter(collection => collection.drop <= now);
-                const upcomingCollections = collections.filter(collection => collection.drop > now);
+                // Now render the collections with dropinfo
+                const upcomingDrops = [];
+                const droppedItems = [];
 
-                // Render dropped collections first
-                droppedCollections.forEach((collection, index) => {
-                    renderDrop(collection, index, true);
+                collections.forEach((collection, index) => {
+                    const isUpcoming = collection.drop > now;
+                    const dropElement = document.createElement('div');
+                    dropElement.className = 'drop_item';
+                    dropElement.setAttribute('data-drop-date', collection.drop.toISOString());
+
+                    // Drop number display
+                    const dropNumberContainer = document.createElement('div');
+                    dropNumberContainer.className = 'drop_number_container';
+                    const dropNumberHash = document.createElement('div');
+                    dropNumberHash.textContent = '#';
+                    const dropNumber = document.createElement('div');
+                    dropNumber.textContent = isUpcoming ? String(index + 3).padStart(2, '0') : String(index + 1).padStart(2, '0'); // 2 higher for upcoming drops
+                    dropNumberContainer.appendChild(dropNumberHash);
+                    dropNumberContainer.appendChild(dropNumber);
+                    dropElement.appendChild(dropNumberContainer);
+
+                    // Create drop link or countdown
+                    const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
+                    dropLink.className = 'drop_link';
+                    const formattedDate = formatUpcomingDate(collection.drop);
+
+                    if (isUpcoming) {
+                        dropLink.textContent = `${collection.title} ${getExtendedCountdown(collection.drop)} ${formattedDate} UTC+2`;
+                        upcomingDrops.push(dropElement); // Store upcoming drops
+                    } else {
+                        dropLink.textContent = collection.dropinfo ? `${collection.title} - ${collection.dropinfo}` : collection.title;
+                        dropLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
+                        droppedItems.push(dropElement); // Store dropped items
+                    }
+                    dropElement.appendChild(dropLink);
+                    container.appendChild(dropElement);
+
+                    if (isUpcoming) {
+                        // Countdown handler
+                        handleCountdown(dropLink, collection.drop, collection.title, formattedDate, collection.dropinfo, collection.handle);
+                    }
                 });
 
-                // Add the collection button and newsletter after dropped collections
-                addCollectionButton(droppedCollections.length);
-                addNewsletterInput(droppedCollections.length + 2);
+                // Append dropped items first
+                droppedItems.forEach(item => container.appendChild(item));
+                // Append upcoming drops below
+                upcomingDrops.forEach(item => container.appendChild(item));
+                addCollectionButton(collections.length);
 
-                // Render upcoming collections below the collection and newsletter sections
-                upcomingCollections.forEach((collection, index) => {
-                    renderDrop(collection, droppedCollections.length + index, false);
-                });
-
+                // Add Newsletter input
+                addNewsletterInput(collections.length + 2);
             } catch (error) {
                 console.error("Error fetching Shopify drops:", error);
             }
         }
 
-        function renderDrop(collection, index, isDropped) {
-            const container = document.getElementById('drops-container');
-            const dropElement = document.createElement('div');
-            dropElement.className = 'drop_item';
-            dropElement.setAttribute('data-drop-date', collection.drop.toISOString());
+        // Function to handle the countdown and update on expiry
+        function handleCountdown(dropLink, endTime, title, formattedDate, dropinfo, handle) {
+            const countdownInterval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = endTime - now;
 
-            // Drop number display
-            const dropNumberContainer = document.createElement('div');
-            dropNumberContainer.className = 'drop_number_container';
-            const dropNumberHash = document.createElement('div');
-            dropNumberHash.textContent = '#';
-            const dropNumber = document.createElement('div');
-            dropNumber.textContent = String(index + 1).padStart(2, '0');
-            dropNumberContainer.appendChild(dropNumberHash);
-            dropNumberContainer.appendChild(dropNumber);
-            dropElement.appendChild(dropNumberContainer);
+                // Update the countdown display
+                dropLink.textContent = `${title} ${getExtendedCountdown(endTime)} ${formattedDate} UTC+2`;
 
-            // Create drop link or countdown
-            const dropLink = document.createElement(isDropped ? 'a' : 'span');
-            dropLink.className = 'drop_link';
-            const formattedDate = formatUpcomingDate(collection.drop);
-
-            if (!isDropped) {
-                dropLink.textContent = `${collection.title} ${getExtendedCountdown(collection.drop)} ${formattedDate} UTC+2`;
-                handleCountdown(dropLink, collection.drop, collection.title, formattedDate, collection.dropinfo, collection.handle);
-            } else {
-                dropLink.textContent = collection.dropinfo ? `${collection.title} - ${collection.dropinfo}` : collection.title;
-                dropLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
-            }
-            dropElement.appendChild(dropLink);
-            container.appendChild(dropElement);
+                // If the countdown has ended
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    // Update the drop link to show the drop info
+                    dropLink.textContent = dropinfo ? `${title} - ${dropinfo}` : title;
+                    dropLink.href = `https://shop.fadedcloth.de?collection=${handle}`;
+                    dropLink.style.pointerEvents = 'auto';
+                    // Add a click event listener to navigate to the link
+                    dropLink.onclick = () => {
+                        window.location.href = dropLink.href; // Navigate to the updated href
+                    };
+                } else {
+                    dropLink.style.pointerEvents = 'none'; // Disable clicking while counting down
+                }
+            }, 1000);
         }
-
-            // Function to handle the countdown and update on expiry
-            function handleCountdown(dropLink, endTime, title, formattedDate, dropinfo, handle) {
-                const countdownInterval = setInterval(() => {
-                    const now = new Date().getTime();
-                    const distance = endTime - now;
-
-                    // Update the countdown display
-                    dropLink.textContent = `${title} ${getExtendedCountdown(endTime)} ${formattedDate} UTC+2`;
-
-                    // If the countdown has ended
-                    if (distance < 0) {
-                        clearInterval(countdownInterval);
-                        // Update the drop link to show the drop info
-                        dropLink.textContent = dropinfo ? `${title} - ${dropinfo}` : title;
-                        dropLink.href = `https://shop.fadedcloth.de?collection=${handle}`;
-                        dropLink.style.pointerEvents = 'auto';
-                        // Add a click event listener to navigate to the link
-                        dropLink.onclick = () => {
-                            window.location.href = dropLink.href; // Navigate to the updated href
-                        };
-                    }else {
-                        dropLink.style.pointerEvents = 'none'; // Disable clicking while counting down
-                    }
-                }, 1000);
-            }
     
             function formatUpcomingDate(date) {
                 const options = {
