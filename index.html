@@ -20,11 +20,9 @@
         }
 
         .glas-wrapper{
-            z-index: 11000;
-            margin-top: calc(100vh + 30px) ;
+            margin-top: calc(100vh + 0px) ;
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            opacity: 0;
             transform: translateY(100px);
             transition: opacity 0.5s ease-out, transform 0.5s ease-out;
         }
@@ -186,9 +184,10 @@
             display: none;
         }
 
-        .scoll-text{
+        .scroll-text{
             bottom: 120px;
             position: relative;
+            z-index: 1000;
 
         }
     </style>
