@@ -309,7 +309,7 @@
     
                         if (isUpcoming) {
                         // Countdown handler
-                        handleCountdown(dropLink, collection.drop, collection.title, collection.dropinfo, collection.handle);
+                        handleCountdown(dropLink, collection.drop, collection.title, formattedDate, collection.dropinfo, collection.handle);
                     }
                     });
                     addCollectionButton(collections.length);
@@ -322,13 +322,13 @@
             }
 
             // Function to handle the countdown and update on expiry
-            function handleCountdown(dropLink, endTime, title, dropinfo, handle) {
+            function handleCountdown(dropLink, endTime, title, formattedDate, dropinfo, handle) {
                 const countdownInterval = setInterval(() => {
                     const now = new Date().getTime();
                     const distance = endTime - now;
 
                     // Update the countdown display
-                    dropLink.textContent = `${title} ${getExtendedCountdown(endTime)} UTC+2`;
+                    dropLink.textContent = `${title} ${getExtendedCountdown(endTime)} ${formattedDate} UTC+2`;
 
                     // If the countdown has ended
                     if (distance < 0) {
