@@ -10,8 +10,174 @@
     <link rel="stylesheet" href="styles/main.css?v=2.60">
 
     <style>
-        body{
-            overflow-y: hidden;
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            text-transform: uppercase;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .drop_container {
+            font-family: monospace;
+            color: grey;
+            display: flex;
+            overflow: scroll;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+            position: relative;
+            max-width: 100%;
+            margin-top: calc(100vh + 30px) ;
+            z-index: 11000;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            scrollbar-color: grey transparent;
+            overflow-x: auto; /* Allows horizontal scrolling */
+            white-space: nowrap; /* Prevents wrapping of the text */
+
+            opacity: 0;
+            transform: translateY(100px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .drop_container:target {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .drop_container::-webkit-scrollbar {
+            height: 6px; /* Set the scrollbar height for horizontal scrolling */
+        }
+        .drop_container::-webkit-scrollbar-track {
+            background: transparent; /* Hide the scrollbar track */
+        }
+        .drop_container::-webkit-scrollbar-thumb {
+            background-color: grey; /* Make the scrollbar handle grey */
+            border-radius: 10px; /* Round the scrollbar handle */
+            border: 2px solid transparent; /* Create space around the scrollbar handle */
+        }
+
+        .drop_container::-webkit-scrollbar-thumb:hover {
+            background-color: darkgrey; /* Darken the scrollbar handle on hover */
+        }
+
+        .drop_item {
+            color: darkgray;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            font-size: 4vw; /* Dynamic font size */
+        }
+
+        .drop_upcoming {
+            color: darkgray;
+        }
+
+        .drop_item:hover .drop_link {
+            color: white; /* Hover effect only on drop text */
+        }
+
+        .drop_number {
+            width: 5%;
+            text-align: left;
+            z-index: 12000;
+        }
+
+        .drop_number_container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align to the left */
+            justify-content: center;
+            height: auto; /* Align vertically with the text */
+            font-size: 2vw;
+            padding: 5px;
+            line-height: 0.7;
+        }
+
+        .drop_link {
+            color: darkgray;
+            flex-grow: 1;
+            text-align: left;
+            white-space: nowrap;
+            font-size: 4vw; /* Match the font size */
+            display: inline-block; /* Keeps the text in a single line */
+            width: auto;
+            box-sizing: border-box; /* Include padding in the width */
+            height: 100%;
+        }
+
+        .drop_time,
+        .drop_countdown {
+            width: 25%;
+            text-align: left; /* Align to the left */
+            white-space: nowrap;
+        }
+
+        .active-drop {
+            color: rgb(255, 178, 226); /* Farbe für den aktiven Drop */
+        }
+
+        .active-drop:hover {
+            color: white; /* Farbe beim Hover über den aktiven Drop */
+        }
+
+        @media (min-width: 500px) {
+            .newsletter_form input[type="email"] {
+                font-size: 4vw;
+                padding: 5px 0 0 0 ;
+            }
+        }
+        
+        @media (max-width: 500px) {
+            .drop_item {
+                font-size: 8vw; /* Fixed larger size for screens above 500px */
+            }
+            .drop_link {
+                font-size: 8vw;
+            }
+           .newsletter_form{
+                font-size: 8vw;
+                padding: 0;
+            }
+            .drop_number_container {
+                font-size: 4vw;
+            }
+            .newsletter_form input[type="email"] {
+                font-size: 8vw;
+                padding: 0;
+            }
+        }
+
+        .newsletter_form {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        /* Stil für das Eingabefeld */
+        .newsletter_form input[type="email"] {
+            background: none;
+            text-overflow: ellipsis;
+            border: none;
+            color: white;
+            text-transform: uppercase;
+            margin-right: 10px ;
+            margin-left: 10px; /* Abstand zwischen NEWSLETTER und Eingabefeld */
+            width: 100%; /* Breite des Eingabefelds */
+            max-width: 1200px;
+            outline: none;
+            overflow-x: auto; /* Allows horizontal scrolling */
+            white-space: nowrap; /* Prevents wrapping of the text */
+            text-align: left;
+            overflow-x: visible;
+            height: 100%;
+        }
+
+        /* Verstecken des Eingabefelds nach erfolgreicher Eingabe */
+        .newsletter_form input[type="email"].hidden {
+            display: none;
         }
     </style>
 </head>
@@ -31,6 +197,10 @@
 
     <!-- Navigation link -->
     <a href="https://fadedcloth.de/drops" class="nav-link top-left underlineonhover">VIEW DROPS</a>
+
+    <div class="drop_container fade-in" id="drops-container">
+        <!-- Drop items will be appended here -->
+    </div>
 
     <div class="buttons-container">
         <button id="button1" class="glass-button" data-target="panel1">COLLECTION</button>
@@ -112,9 +282,334 @@
         </form>
         <div id="smsMessage" class="sms-message"></div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchShopifyDrops();
+    
+            async function fetchShopifyDrops() {
+                const container = document.getElementById('drops-container');
+                const now = new Date();
+    
+                // Shopify GraphQL query to get collections with metafield drop
+                const query = `
+                    {
+                        collections(first: 50) {
+                            edges {
+                                node {
+                                    title
+                                    handle
+                                    metafield(namespace: "custom", key: "drop") {
+                                        value
+                                    }
+                                }
+                            }
+                        }
+                    }
+                `;
+    
+                try {
+                    const response = await fetch("https://checkout.fadedcloth.de/api/2023-07/graphql.json", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-Shopify-Storefront-Access-Token": "ed72f09d8742f37356305b6e49310909"
+                        },
+                        body: JSON.stringify({ query })
+                    });
+    
+                    // Check if response is OK
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+    
+                    const data = await response.json();
+    
+                    // Log the response to see its structure
+                    console.log(data);
+    
+                    // Check if collections exist in the response
+                    if (!data.data || !data.data.collections) {
+                        throw new Error("Collections data is undefined");
+                    }
+    
+                    // Map collections and extract drop metafield
+                    const collections = data.data.collections.edges
+                        .map(edge => ({
+                            title: edge.node.title,
+                            handle: edge.node.handle,
+                            drop: edge.node.metafield ? new Date(edge.node.metafield.value) : null
+                        }))
+                        .filter(collection => collection.drop) // Only collections with a drop date
+                        .sort((a, b) => a.drop - b.drop); // Sort by ascending drop date
+    
+                    // Fetch dropinfo metafield for each collection
+                    await Promise.all(collections.map(async (collection) => {
+                        const dropinfoQuery = `
+                            {
+                                collection(handle: "${collection.handle}") {
+                                    metafield(namespace: "custom", key: "dropinfo") {
+                                        value
+                                    }
+                                }
+                            }
+                        `;
+    
+                        const dropinfoResponse = await fetch("https://checkout.fadedcloth.de/api/2023-07/graphql.json", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-Shopify-Storefront-Access-Token": "ed72f09d8742f37356305b6e49310909"
+                            },
+                            body: JSON.stringify({ query: dropinfoQuery })
+                        });
+    
+                        const dropinfoData = await dropinfoResponse.json();
+                        if (dropinfoData.data && dropinfoData.data.collection) {
+                            collection.dropinfo = dropinfoData.data.collection.metafield ? dropinfoData.data.collection.metafield.value : null;
+                        }
+                    }));
+    
+                    // Now render the collections with dropinfo
+                    collections.forEach((collection, index) => {
+                        const isUpcoming = collection.drop > now;
+                        const dropElement = document.createElement('div');
+                        dropElement.className = 'drop_item';
+                        dropElement.setAttribute('data-drop-date', collection.drop.toISOString());
+    
+                        // Drop number display
+                        const dropNumberContainer = document.createElement('div');
+                        dropNumberContainer.className = 'drop_number_container';
+                        const dropNumberHash = document.createElement('div');
+                        dropNumberHash.textContent = '#';
+                        const dropNumber = document.createElement('div');
+                        dropNumber.textContent = String(index + 1).padStart(2, '0');
+                        dropNumberContainer.appendChild(dropNumberHash);
+                        dropNumberContainer.appendChild(dropNumber);
+                        dropElement.appendChild(dropNumberContainer);
+    
+                        // Create drop link or countdown
+                        const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
+                        dropLink.className = 'drop_link';
+                        const formattedDate = formatUpcomingDate(collection.drop);
+    
+                        if (isUpcoming) {
+                            dropLink.textContent = `${collection.title} ${getExtendedCountdown(collection.drop)} ${formattedDate} UTC+2`;
+                        } else {
+                            dropLink.textContent = collection.dropinfo ? `${collection.title} - ${collection.dropinfo}` : collection.title;
+                            dropLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
+                        }
+                        dropElement.appendChild(dropLink);
+                        container.appendChild(dropElement);
+    
+                        if (isUpcoming) {
+                        // Countdown handler
+                        handleCountdown(dropLink, collection.drop, collection.title, formattedDate, collection.dropinfo, collection.handle);
+                    }
+                    });
+                    addCollectionButton(collections.length);
+    
+                    // Add Newsletter input
+                     addNewsletterInput(collections.length + 2);
+                } catch (error) {
+                    console.error("Error fetching Shopify drops:", error);
+                }
+            }
+
+            // Function to handle the countdown and update on expiry
+            function handleCountdown(dropLink, endTime, title, formattedDate, dropinfo, handle) {
+                const countdownInterval = setInterval(() => {
+                    const now = new Date().getTime();
+                    const distance = endTime - now;
+
+                    // Update the countdown display
+                    dropLink.textContent = `${title} ${getExtendedCountdown(endTime)} ${formattedDate} UTC+2`;
+
+                    // If the countdown has ended
+                    if (distance < 0) {
+                        clearInterval(countdownInterval);
+                        // Update the drop link to show the drop info
+                        dropLink.textContent = dropinfo ? `${title} - ${dropinfo}` : title;
+                        dropLink.href = `https://shop.fadedcloth.de?collection=${handle}`;
+                        dropLink.style.pointerEvents = 'auto';
+                        // Add a click event listener to navigate to the link
+                        dropLink.onclick = () => {
+                            window.location.href = dropLink.href; // Navigate to the updated href
+                        };
+                    }else {
+                        dropLink.style.pointerEvents = 'none'; // Disable clicking while counting down
+                    }
+                }, 1000);
+            }
+    
+            function formatUpcomingDate(date) {
+                const options = {
+                    weekday: 'short',
+                    month: 'short',
+                    day: '2-digit',
+                    year: '2-digit',
+                    hour: '2-digit',
+                    hour12: true
+                };
+                return new Intl.DateTimeFormat('en-US', options).format(date).replace(/,\s/g, ' ').trim();
+            }
+    
+            function getExtendedCountdown(date) {
+                const now = new Date();
+                const diff = date - now;
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                return `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+
+            // Function to add the COLLECTION button
+        function addCollectionButton(dropCount) {
+            const container = document.getElementById('drops-container');
+    
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'drop_item';
+    
+            // Drop number for COLLECTION button
+            const collectionNumberContainer = document.createElement('div');
+            collectionNumberContainer.className = 'drop_number_container';
+    
+            const collectionNumberHash = document.createElement('div');
+            collectionNumberHash.textContent = '#';
+            const collectionNumber = document.createElement('div');
+            collectionNumber.textContent = String(dropCount + 1).padStart(2, '0');
+    
+            collectionNumberContainer.appendChild(collectionNumberHash);
+            collectionNumberContainer.appendChild(collectionNumber);
+    
+            buttonContainer.appendChild(collectionNumberContainer);
+    
+            // COLLECTION button
+            const collectionButton = document.createElement('div');
+            collectionButton.className = 'drop_link';
+            collectionButton.textContent = '+ COLLECTION';
+            collectionButton.style.cursor = 'pointer';
+    
+            buttonContainer.appendChild(collectionButton);
+            container.appendChild(buttonContainer);
+    
+            // FADEDLOVE link (initially hidden)
+            const fadedLoveLink = document.createElement('a');
+            fadedLoveLink.className = 'drop_link hidden';
+            fadedLoveLink.href = 'https://shop.fadedcloth.de/?collection=fadedlove';
+            fadedLoveLink.textContent = 'FADEDLOVE';
+            fadedLoveLink.target = '';
+    
+            // Container for the FADEDLOVE link (with placeholder for number)
+            const fadedLoveContainer = document.createElement('div');
+            fadedLoveContainer.className = 'drop_item';
+            fadedLoveContainer.style.display = 'none'; // Invisible on load
+    
+            // Placeholder for number (00, invisible)
+            const placeholderNumberContainer = document.createElement('div');
+            placeholderNumberContainer.className = 'drop_number_container';
+            placeholderNumberContainer.style.visibility = 'hidden'; // Invisible
+            const placeholderNumberHash = document.createElement('div');
+            placeholderNumberHash.textContent = '#';
+            const placeholderNumber = document.createElement('div');
+            placeholderNumber.textContent = '00';
+    
+            placeholderNumberContainer.appendChild(placeholderNumberHash);
+            placeholderNumberContainer.appendChild(placeholderNumber);
+            fadedLoveContainer.appendChild(placeholderNumberContainer);
+    
+            fadedLoveContainer.appendChild(fadedLoveLink);
+            container.appendChild(fadedLoveContainer);
+    
+            // Event Listener for the button
+            collectionButton.addEventListener('click', () => {
+                const isHidden = fadedLoveLink.classList.contains('hidden');
+                fadedLoveLink.classList.toggle('hidden');
+                collectionButton.textContent = isHidden ? '- COLLECTION' : '+ COLLECTION';
+                
+                // Show or hide the entire row
+                fadedLoveContainer.style.display = isHidden ? 'flex' : 'none';
+            });
+        }
+    
+        // Function to add Newsletter input
+        function addNewsletterInput(nextDropNumber) {
+            const container = document.getElementById('drops-container');
+    
+            // Container for Newsletter
+            const newsletterContainer = document.createElement('div');
+            newsletterContainer.className = 'drop_item';
+    
+            // #XX for Newsletter
+            const dropNumberContainer = document.createElement('div');
+            dropNumberContainer.className = 'drop_number_container';
+    
+            const dropNumberHash = document.createElement('div');
+            dropNumberHash.textContent = '#';
+            const dropNumber = document.createElement('div');
+            dropNumber.textContent = String(nextDropNumber).padStart(2, '0');
+    
+            dropNumberContainer.appendChild(dropNumberHash);
+            dropNumberContainer.appendChild(dropNumber);
+            newsletterContainer.appendChild(dropNumberContainer);
+    
+            // Newsletter Text and Input
+            const newsletterLabel = document.createElement('div');
+            newsletterLabel.className = 'drop_link';
+            newsletterLabel.textContent = 'ENTER EMAIL:';
+    
+            const emailInput = document.createElement('input');
+            emailInput.id = 'email';
+            emailInput.className = 'drop_link'; // Same style as the drops
+            emailInput.setAttribute('type', 'email');
+            emailInput.setAttribute('placeholder', '');
+    
+            // Container for the input and the text
+            const newsletterForm = document.createElement('div');
+            newsletterForm.className = 'newsletter_form';
+            newsletterForm.appendChild(newsletterLabel);
+            newsletterForm.appendChild(emailInput);
+    
+            // Add input field
+            newsletterContainer.appendChild(newsletterForm);
+            container.appendChild(newsletterContainer);
+    
+            // Event Listener for Enter key
+            emailInput.addEventListener('keypress', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    processSubscription(emailInput.value, newsletterLabel, emailInput);
+                }
+            });
+        }
+    
+        // Function to process email validation and submission
+        function processSubscription(email, newsletterLabel, emailInput) {
+            if (isValidEmail(email)) {
+                fetch("https://subscribe.fadedcloth.de/sub", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ email: email })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    newsletterLabel.textContent = "THANK YOU!";
+                    emailInput.value = ''; // Reset input
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+            } else {
+                shakeElement(emailInput);
+            }
+        }
+        });
+    </script>
     
     <script src="scripts/loader.js" defer></script>
-    <!--<script src="scripts/switch.js?v=1.27" defer></script>-->
     <script src="scripts/social.js?v=1.2" defer></script>
     <script src="scripts/load-buttons.js?v=1.3" defer></script>
     <script src="scripts/animate.js" defer></script> 
