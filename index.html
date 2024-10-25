@@ -616,7 +616,7 @@ async function loadCollections(container) {
         // Append collections to the container
         collections.forEach(collection => {
             const collectionLink = document.createElement('a');
-            collectionLink.className = 'collection-link';
+            collectionLink.className = 'drop_link';
             collectionLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
             collectionLink.textContent = collection.title;
             container.appendChild(collectionLink);
