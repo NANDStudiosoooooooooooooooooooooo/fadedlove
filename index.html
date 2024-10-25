@@ -543,38 +543,88 @@
         }
     
         function addCollectionButton(nextDropNumber) {
-            const container = document.getElementById('drops-container');
-            const collectionContainer = document.createElement('div');
-            collectionContainer.className = 'drop_item';
+    const container = document.getElementById('drops-container');
+    const collectionContainer = document.createElement('div');
+    collectionContainer.className = 'drop_item';
 
-            const dropNumberContainer = document.createElement('div');
-            dropNumberContainer.className = 'drop_number_container';
-            const dropNumberHash = document.createElement('div');
-            dropNumberHash.textContent = '#';
-            const dropNumber = document.createElement('div');
-            dropNumber.textContent = String(nextDropNumber).padStart(2, '0');
+    const dropNumberContainer = document.createElement('div');
+    dropNumberContainer.className = 'drop_number_container';
+    const dropNumberHash = document.createElement('div');
+    dropNumberHash.textContent = '#';
+    const dropNumber = document.createElement('div');
+    dropNumber.textContent = String(nextDropNumber).padStart(2, '0');
 
-            dropNumberContainer.appendChild(dropNumberHash);
-            dropNumberContainer.appendChild(dropNumber);
-            collectionContainer.appendChild(dropNumberContainer);
+    dropNumberContainer.appendChild(dropNumberHash);
+    dropNumberContainer.appendChild(dropNumber);
+    collectionContainer.appendChild(dropNumberContainer);
 
-            const collectionButton = document.createElement('div');
-            collectionButton.className = 'drop_link';
-            collectionButton.classList.add('collection-button');
-            collectionButton.textContent = 'COLLECTION +';
-            collectionButton.style.cursor = 'pointer';
+    const collectionButton = document.createElement('div');
+    collectionButton.className = 'drop_link';
+    collectionButton.classList.add('collection-button');
+    collectionButton.textContent = 'COLLECTION +';
+    collectionButton.style.cursor = 'pointer';
 
-            const collectionListContainer = document.createElement('div');
-            collectionListContainer.className = 'collection_list hidden';
-            collectionContainer.appendChild(collectionListContainer);
-            collectionContainer.appendChild(collectionButton);
-            container.appendChild(collectionContainer);
+    const collectionListContainer = document.createElement('div');
+    collectionListContainer.className = 'collection_list hidden';
+    collectionContainer.appendChild(collectionListContainer);
+    collectionContainer.appendChild(collectionButton);
+    container.appendChild(collectionContainer);
 
-            collectionButton.addEventListener('click', () => {
-                collectionListContainer.classList.toggle('hidden');
-                collectionButton.textContent = collectionListContainer.classList.contains('hidden') ? 'COLLECTION +' : 'COLLECTION -';
-            });
+    // Event listener to toggle visibility
+    collectionButton.addEventListener('click', () => {
+        if (collectionListContainer.classList.contains('hidden')) {
+            // Fetch collections only if the container is hidden (to avoid multiple fetches)
+            loadCollections(collectionListContainer);
         }
+        collectionListContainer.classList.toggle('hidden');
+        collectionButton.textContent = collectionListContainer.classList.contains('hidden') ? 'COLLECTION +' : 'COLLECTION -';
+    });
+}
+
+async function loadCollections(container) {
+    const query = `
+        {
+            collections(first: 50) {
+                edges {
+                    node {
+                        title
+                        handle
+                    }
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await fetch("https://checkout.fadedcloth.de/api/2023-07/graphql.json", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Shopify-Storefront-Access-Token": "ed72f09d8742f37356305b6e49310909"
+            },
+            body: JSON.stringify({ query })
+        });
+
+        const data = await response.json();
+        const collections = data.data.collections.edges
+            .filter(edge => !edge.node.handle.includes("drop")) // Exclude collections with "drop" in handle
+            .map(edge => edge.node);
+
+        // Clear the container before appending new links
+        container.innerHTML = '';
+
+        // Append collections to the container
+        collections.forEach(collection => {
+            const collectionLink = document.createElement('a');
+            collectionLink.className = 'collection-link';
+            collectionLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
+            collectionLink.textContent = collection.title;
+            container.appendChild(collectionLink);
+        });
+    } catch (error) {
+        console.error("Error fetching collections:", error);
+    }
+}
     
         // Function to process email validation and submission
         function processSubscription(email, newsletterLabel, emailInput) {
