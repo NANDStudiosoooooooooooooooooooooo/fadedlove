@@ -79,6 +79,16 @@
             color: white; /* Hover effect only on drop text */
         }
 
+        .collection-container{
+            display: flex;
+            flex-direction: row;
+        }
+
+        .collections-container{
+            display: flex;
+            flex-direction: column;
+        }
+
         .drop_number {
             width: 5%;
             text-align: left;
@@ -636,7 +646,7 @@
             // Platzhalter für die Nummer (00, unsichtbar)
             const placeholderNumberContainer = document.createElement('div');
             placeholderNumberContainer.className = 'drop_number_container';
-            placeholderNumberContainer.style.visibility = 'visible'; // Unsichtbar
+            placeholderNumberContainer.style.visibility = 'hidden'; // Unsichtbar
             const placeholderNumberHash = document.createElement('div');
             placeholderNumberHash.textContent = '#';
             const placeholderNumber = document.createElement('div');
