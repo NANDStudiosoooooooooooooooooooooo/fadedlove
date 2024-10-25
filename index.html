@@ -24,6 +24,8 @@
             margin-top: calc(100vh + 0px) ;
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
+            display: flex;
+            flex-direction: column;
         }
 
         .drop_container {
@@ -194,6 +196,16 @@
             bottom: 0px;
             background: linear-gradient(to bottom, transparent, black);
         }
+
+        .gradient-blur {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(to bottom, transparent, rgba(128, 128, 128, 1));
+            backdrop-filter: blur(15px);
+        }
     </style>
 </head>
 <body>
@@ -219,6 +231,7 @@
     <div class="scroll-text" onclick="window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });">VIEW DROPS ↓</div>
     
     <div class="glas-wrapper">
+        <div class="gradient-blur"></div>
         <div class="drop_container fade-in" id="drops-container">
             <!-- Drop items will be appended here -->
         </div>
