@@ -189,23 +189,34 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-    const accessToken = '335b548326a3c899c7918fa32ac9a13e';
-    const shopDomain = 'zkwisj-0b.myshopify.com';
+    const accessToken = 'ed72f09d8742f37356305b6e49310909';
+    const shopDomain = 'checkout.myshopify.com';
     const now = new Date();
 
     async function fetchShopifyData(query) {
-        return fetch(`https://${shopDomain}/api/2023-07/graphql.json`, {
+    try {
+        const response = await fetch(`https://${shopDomain}/api/2023-07/graphql.json`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-Shopify-Storefront-Access-Token': accessToken,
             },
             body: JSON.stringify({ query })
-        })
-        .then(response => response.json())
-        .then(data => data.data)
-        .catch(error => console.error('Error:', error));
+        });
+
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        
+        const data = await response.json();
+        if (data.errors) {
+            console.error('GraphQL errors:', data.errors);
+            return null;
+        }
+        return data.data;
+    } catch (error) {
+        console.error('Fetch error:', error);
+        return null;
     }
+}
 
     async function loadProducts() {
     const query = `{
