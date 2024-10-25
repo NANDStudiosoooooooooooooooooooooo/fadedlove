@@ -191,6 +191,14 @@
             z-index: 1000;
 
         }
+
+        .scroll-effect{
+            width: 100%;
+            height: 50px;
+            position: fixed;
+            bottom: 0px;
+            background: linear-gradient(to bottom, transparent, black);
+        }
     </style>
 </head>
 <body>
@@ -302,6 +310,8 @@
         </form>
         <div id="smsMessage" class="sms-message"></div>
     </div>
+
+    <div class="scroll-effect"></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
