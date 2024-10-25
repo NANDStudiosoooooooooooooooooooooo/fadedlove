@@ -16,13 +16,14 @@
             padding: 0;
             margin-bottom: 0;
             padding-bottom: 0;
+            height: 200vh;
         }
 
         .drop_container {
             font-family: monospace;
             color: grey;
             display: flex;
-            overflow: scroll;
+            overflow-x: scroll;
             flex-direction: column;
             align-items: flex-start;
             width: 100%;
@@ -182,8 +183,12 @@
     </style>
 </head>
 <body>
-    <div id="loader" class="loader-container">
-        <l-zoomies size="80" stroke="5" bg-opacity="0.1" speed="1.4" color="white"></l-zoomies>
+    <div class="main-header"
+        <div id="loader" class="loader-container">
+            <l-zoomies size="80" stroke="5" bg-opacity="0.1" speed="1.4" color="white"></l-zoomies>
+        </div>
+        <!-- Navigation link -->
+        <a href="https://fadedcloth.de/drops" class="nav-link top-left underlineonhover">VIEW DROPS</a>
     </div>
 
     <div class="logo-container" id="load-container">
@@ -195,8 +200,7 @@
         </div>
     </div>
 
-    <!-- Navigation link -->
-    <a href="https://fadedcloth.de/drops" class="nav-link top-left underlineonhover">VIEW DROPS</a>
+    
 
     <div class="drop_container fade-in" id="drops-container">
         <!-- Drop items will be appended here -->
