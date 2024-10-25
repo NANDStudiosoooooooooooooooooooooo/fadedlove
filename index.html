@@ -612,7 +612,7 @@
     // Container für die Collections
     const collectionsContainer = document.createElement('div');
     collectionsContainer.className = 'collections_container';
-    collectionsContainer.style.display = 'block'; // Unsichtbar beim Laden
+    collectionsContainer.style.display = 'none'; // Unsichtbar beim Laden
     container.appendChild(collectionsContainer);
 
     // Lade die Collections von Shopify
@@ -631,7 +631,7 @@
             // Container für den Collection-Link (mit Platzhalter für die Nummer)
             const collectionContainer = document.createElement('div');
             collectionContainer.className = 'drop_item';
-            collectionContainer.style.display = 'block'; // Unsichtbar beim Laden
+            collectionContainer.style.display = 'none'; // Unsichtbar beim Laden
 
             // Platzhalter für die Nummer (00, unsichtbar)
             const placeholderNumberContainer = document.createElement('div');
