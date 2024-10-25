@@ -336,6 +336,13 @@
                         // Update the drop link to show the drop info
                         dropLink.textContent = dropinfo ? `${title} - ${dropinfo}` : title;
                         dropLink.href = `https://shop.fadedcloth.de?collection=${handle}`;
+                        dropLink.style.pointerEvents = 'auto';
+                        // Add a click event listener to navigate to the link
+                        dropLink.onclick = () => {
+                            window.location.href = dropLink.href; // Navigate to the updated href
+                        };
+                    }else {
+                        dropLink.style.pointerEvents = 'none'; // Disable clicking while counting down
                     }
                 }, 1000);
             }
