@@ -196,7 +196,7 @@
                 const container = document.getElementById('drops-container');
                 const now = new Date();
         
-                // Shopify GraphQL query to get collections with metafield date
+                // Shopify GraphQL query to get collections with metafield dates and drop info
                 const query = `
                     {
                         collections(first: 50) {
@@ -204,7 +204,10 @@
                                 node {
                                     title
                                     handle
-                                    metafield(namespace: "custom", key: "drop") {
+                                    metafield(namespace: "custom", key: "dropDate") {
+                                        value
+                                    }
+                                    metafield(namespace: "custom", key: "dropinfo") {
                                         value
                                     }
                                 }
@@ -227,7 +230,8 @@
                     .map(edge => ({
                         title: edge.node.title,
                         handle: edge.node.handle,
-                        dropDate: edge.node.metafield ? new Date(edge.node.metafield.value) : null
+                        dropDate: edge.node.metafield ? new Date(edge.node.metafield.value) : null,
+                        dropInfo: edge.node.metafield ? edge.node.metafield.value : null
                     }))
                     .filter(collection => collection.dropDate) // Only collections with a drop date
                     .sort((a, b) => a.dropDate - b.dropDate); // Sort by ascending date
@@ -255,9 +259,9 @@
                     const formattedDate = formatUpcomingDate(collection.dropDate);
         
                     if (isUpcoming) {
-                        dropLink.textContent = `${collection.title} ${getExtendedCountdown(collection.dropDate)} ${formattedDate}`;
+                        dropLink.textContent = `${collection.title} ${getExtendedCountdown(collection.dropDate)} UTC+2 ${formattedDate}`;
                     } else {
-                        dropLink.textContent = collection.title;
+                        dropLink.textContent = collection.dropInfo ? `${collection.title} - ${collection.dropInfo}` : collection.title;
                         dropLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
                     }
                     dropElement.appendChild(dropLink);
@@ -265,7 +269,7 @@
         
                     if (isUpcoming) {
                         setInterval(() => {
-                            dropLink.textContent = `${collection.title} ${getExtendedCountdown(collection.dropDate)} ${formattedDate}`;
+                            dropLink.textContent = `${collection.title} ${getExtendedCountdown(collection.dropDate)} UTC+2 ${formattedDate}`;
                         }, 1000);
                     }
                 });
@@ -318,6 +322,7 @@
             }
         });
     </script>
+    
     
         
     
