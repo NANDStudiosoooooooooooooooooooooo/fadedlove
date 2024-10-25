@@ -222,7 +222,7 @@
         </div>
     </div>
 
-    <div class="scroll-text" onclick="window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });">VIEW DROPS ↓</div>
+    <div class="scroll-text" onclick="(function() { const newsletterContainer = document.querySelector('.newsletter_form'); if (newsletterContainer) { const containerRect = newsletterContainer.getBoundingClientRect(); const scrollPosition = window.pageYOffset + containerRect.top - (window.innerHeight / 2) + (containerRect.height / 2); window.scrollTo({ top: scrollPosition, behavior: 'smooth' }); } })()">VIEW DROPS ↓</div>
     
     <div class="glas-wrapper">
         <div class="drop_container fade-in" id="drops-container">
