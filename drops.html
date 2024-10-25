@@ -196,7 +196,7 @@
                 const container = document.getElementById('drops-container');
                 const now = new Date();
         
-                // Shopify GraphQL query to get collections with metafield dates and drop info
+                // Shopify GraphQL query to get collections with metafield date and dropinfo
                 const query = `
                     {
                         collections(first: 50) {
@@ -259,9 +259,9 @@
                     const formattedDate = formatUpcomingDate(collection.dropDate);
         
                     if (isUpcoming) {
-                        dropLink.textContent = `${collection.title} ${getExtendedCountdown(collection.dropDate)} UTC+2 ${formattedDate}`;
+                        dropLink.textContent = `${collection.title} ${getExtendedCountdown(collection.dropDate)} ${formattedDate}`;
                     } else {
-                        dropLink.textContent = collection.dropInfo ? `${collection.title} - ${collection.dropInfo}` : collection.title;
+                        dropLink.textContent = `${collection.title} ${collection.dropInfo ? `- ${collection.dropInfo}` : ''}`; // Add dropinfo for dropped items
                         dropLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
                     }
                     dropElement.appendChild(dropLink);
@@ -269,7 +269,7 @@
         
                     if (isUpcoming) {
                         setInterval(() => {
-                            dropLink.textContent = `${collection.title} ${getExtendedCountdown(collection.dropDate)} UTC+2 ${formattedDate}`;
+                            dropLink.textContent = `${collection.title} ${getExtendedCountdown(collection.dropDate)} ${formattedDate}`;
                         }, 1000);
                     }
                 });
