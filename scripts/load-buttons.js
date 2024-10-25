@@ -106,3 +106,71 @@ document.querySelectorAll('.glass-button').forEach(button => {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const collectionButton = document.getElementById('collectionButton');
+    const collectionsContainer = document.getElementById('collectionsContainer');
+
+    collectionButton.addEventListener('click', () => {
+        const isHidden = collectionsContainer.classList.contains('hidden');
+        collectionsContainer.classList.toggle('hidden');
+        collectionButton.textContent = isHidden ? '- COLLECTION' : '+ COLLECTION';
+        
+        if (isHidden) {
+            fetchCollections();
+        }
+    });
+
+    async function fetchCollections() {
+        const query = `
+            {
+                collections(first: 50) {
+                    edges {
+                        node {
+                            title
+                            handle
+                        }
+                    }
+                }
+            }
+        `;
+
+        try {
+            const response = await fetch("https://checkout.fadedcloth.de/api/2023-07/graphql.json", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Shopify-Storefront-Access-Token": "ed72f09d8742f37356305b6e49310909"
+                },
+                body: JSON.stringify({ query })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            // Check if collections exist
+            if (!data.data || !data.data.collections) {
+                throw new Error("Collections data is undefined");
+            }
+
+            // Populate the collections container
+            const collections = data.data.collections.edges.filter(edge => !edge.node.handle.includes('drop'));
+            collectionsContainer.innerHTML = ''; // Clear previous content
+
+            collections.forEach(edge => {
+                const collectionLink = document.createElement('a');
+                collectionLink.href = `https://shop.fadedcloth.de?collection=${edge.node.handle}`;
+                collectionLink.textContent = edge.node.title;
+                collectionLink.className = 'panel-link'; // Same style as other links
+                collectionsContainer.appendChild(collectionLink);
+            });
+
+        } catch (error) {
+            console.error("Error fetching collections:", error);
+        }
+    }
+});
+
