@@ -614,7 +614,7 @@
     collectionsContainer.className = 'collections_container';
     collectionsContainer.style.display = 'none'; // Unsichtbar beim Laden
     container.appendChild(collectionsContainer);
-
+    
     // Lade die Collections von Shopify
     const collections = await getCollections(); // Implementiere diese Funktion
 
@@ -654,14 +654,8 @@
     // Event-Listener für den Button
     collectionButton.addEventListener('click', () => {
         const isHidden = collectionsContainer.style.display === 'none';
-        collectionsContainer.style.display = isHidden ? 'block' : 'none';
+        collectionsContainer.style.display = isHidden ? 'flex' : 'none';
         collectionButton.textContent = isHidden ? '- COLLECTION' : '+ COLLECTION';
-
-        if (isHidden) {
-            collectionsContainer.querySelectorAll('.drop_item').forEach(link => {
-                link.style.display = 'block'; // Setze den Link-Container sichtbar
-            });
-        }
     });
 }
     
