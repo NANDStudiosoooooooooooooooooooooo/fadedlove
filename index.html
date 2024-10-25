@@ -541,8 +541,45 @@
                 }
             });
         }
+
+        async function getCollections() {
+    const query = `
+        {
+            collections(first: 50) {
+                edges {
+                    node {
+                        title
+                        handle
+                    }
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await fetch("https://checkout.fadedcloth.de/api/2023-07/graphql.json", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Shopify-Storefront-Access-Token": "ed72f09d8742f37356305b6e49310909"
+            },
+            body: JSON.stringify({ query })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.data.collections.edges.map(edge => edge.node); // Gibt die Collections zurück
+    } catch (error) {
+        console.error("Fehler beim Abrufen der Collections:", error);
+        return []; // Gibt ein leeres Array zurück bei einem Fehler
+    }
+}
+
     
-        function addCollectionButton(dropCount) {
+        async function addCollectionButton(dropCount) {
     const container = document.getElementById('drops-container');
 
     // Erstelle einen Button-Container für die COLLECTION
@@ -572,44 +609,56 @@
     buttonContainer.appendChild(collectionButton);
     container.appendChild(buttonContainer);
 
-    // FADEDLOVE-Link (anfangs versteckt)
-    const fadedLoveLink = document.createElement('a');
-    fadedLoveLink.className = 'drop_link hidden';
-    fadedLoveLink.href = 'https://shop.fadedcloth.de/?collection=fadedlove';
-    fadedLoveLink.textContent = 'FADEDLOVE';
-    fadedLoveLink.target = '';
+    // Container für die Collections
+    const collectionsContainer = document.createElement('div');
+    collectionsContainer.className = 'collections_container';
+    collectionsContainer.style.display = 'none'; // Unsichtbar beim Laden
+    container.appendChild(collectionsContainer);
 
-    // Container für den FADEDLOVE-Link (mit Platzhalter für die Nummer)
-    const fadedLoveContainer = document.createElement('div');
-    fadedLoveContainer.className = 'drop_item';
-    fadedLoveContainer.style.display = 'none'; // Unsichtbar beim Laden
+    // Lade die Collections von Shopify
+    const collections = await getCollections();
 
-    // Platzhalter für die Nummer (00, unsichtbar)
-    const placeholderNumberContainer = document.createElement('div');
-    placeholderNumberContainer.className = 'drop_number_container';
-    placeholderNumberContainer.style.visibility = 'hidden'; // Unsichtbar
-    const placeholderNumberHash = document.createElement('div');
-    placeholderNumberHash.textContent = '#';
-    const placeholderNumber = document.createElement('div');
-    placeholderNumber.textContent = '00';
+    // Erstelle Links für jede Collection
+    collections.forEach((collection) => {
+        // Überprüfen, ob 'drop' nicht im Handle enthalten ist
+        if (!collection.handle.includes('drop')) {
+            const collectionLink = document.createElement('a');
+            collectionLink.className = 'drop_link hidden';
+            collectionLink.href = `https://shop.fadedcloth.de/?collection=${collection.handle}`;
+            collectionLink.textContent = collection.title; // Titel der Collection als Linktext
+            collectionLink.target = '';
 
-    placeholderNumberContainer.appendChild(placeholderNumberHash);
-    placeholderNumberContainer.appendChild(placeholderNumber);
-    fadedLoveContainer.appendChild(placeholderNumberContainer);
+            // Container für den Collection-Link (mit Platzhalter für die Nummer)
+            const collectionContainer = document.createElement('div');
+            collectionContainer.className = 'drop_item';
+            collectionContainer.style.display = 'none'; // Unsichtbar beim Laden
 
-    fadedLoveContainer.appendChild(fadedLoveLink);
-    container.appendChild(fadedLoveContainer);
+            // Platzhalter für die Nummer (00, unsichtbar)
+            const placeholderNumberContainer = document.createElement('div');
+            placeholderNumberContainer.className = 'drop_number_container';
+            placeholderNumberContainer.style.visibility = 'hidden'; // Unsichtbar
+            const placeholderNumberHash = document.createElement('div');
+            placeholderNumberHash.textContent = '#';
+            const placeholderNumber = document.createElement('div');
+            placeholderNumber.textContent = '00'; // Platzhalter-Nummer
+
+            placeholderNumberContainer.appendChild(placeholderNumberHash);
+            placeholderNumberContainer.appendChild(placeholderNumber);
+            collectionContainer.appendChild(placeholderNumberContainer);
+
+            collectionContainer.appendChild(collectionLink);
+            collectionsContainer.appendChild(collectionContainer);
+        }
+    });
 
     // Event-Listener für den Button
     collectionButton.addEventListener('click', () => {
-        const isHidden = fadedLoveLink.classList.contains('hidden');
-        fadedLoveLink.classList.toggle('hidden');
+        const isHidden = collectionsContainer.style.display === 'none';
+        collectionsContainer.style.display = isHidden ? 'flex' : 'none';
         collectionButton.textContent = isHidden ? '- COLLECTION' : '+ COLLECTION';
-        
-        // Zeige oder verstecke die gesamte Zeile
-        fadedLoveContainer.style.display = isHidden ? 'flex' : 'none';
     });
 }
+
     
         // Function to process email validation and submission
         function processSubscription(email, newsletterLabel, emailInput) {
