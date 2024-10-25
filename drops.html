@@ -208,37 +208,42 @@
     }
 
     async function loadProducts() {
-        const query = `
-            {
-                products(first: 250) {
-                    edges {
-                        node {
-                            title
-                            handle
-                            metafields(first: 10) {
-                                edges {
-                                    node {
-                                        namespace
-                                        key
-                                        value
-                                    }
-                                }
+    const query = `{
+        products(first: 250) {
+            edges {
+                node {
+                    title
+                    handle
+                    metafields(first: 10) {
+                        edges {
+                            node {
+                                namespace
+                                key
+                                value
                             }
                         }
                     }
                 }
             }
-        `;
-        const data = await fetchShopifyData(query);
-        return data.products.edges.map(edge => {
+        }
+    }`;
+    
+    const data = await fetchShopifyData(query);
+    if (!data || !data.products) return [];
+    
+    return data.products.edges
+        .map(edge => {
             const product = edge.node;
             const dateMetafield = product.metafields.edges.find(
                 field => field.node.namespace === 'custom' && field.node.key === 'date'
             );
             const date = dateMetafield ? new Date(dateMetafield.node.value) : null;
             return { title: product.title, handle: product.handle, date };
-        }).filter(item => item.date).sort((a, b) => a.date - b.date);
-    }
+        })
+        .filter(item => item.date)
+        .sort((a, b) => a.date - b.date);
+}
+
 
     async function loadCollections() {
         const query = `
