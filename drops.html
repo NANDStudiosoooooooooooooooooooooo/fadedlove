@@ -188,222 +188,214 @@
     </div>
     
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-        fetch('/JSON/drops.json?v=1.1')
-            .then(response => response.json())
-            .then(data => displayDrops(data));
+        document.addEventListener('DOMContentLoaded', async () => {
+    const accessToken = '335b548326a3c899c7918fa32ac9a13e';
+    const shopDomain = 'zkwisj-0b.myshopify.com';
+    const now = new Date();
 
-        function displayDrops(data) {
-            const container = document.getElementById('drops-container');
-            const drops = data.drops; // Access the drops from the JSON
-            const collections = data.collections; // Access the collections from the JSON
-            const now = new Date();
+    async function fetchShopifyData(query) {
+        return fetch(`https://${shopDomain}/api/2023-07/graphql.json`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Shopify-Storefront-Access-Token': accessToken,
+            },
+            body: JSON.stringify({ query })
+        })
+        .then(response => response.json())
+        .then(data => data.data)
+        .catch(error => console.error('Error:', error));
+    }
 
-            drops.forEach((drop, index) => {
-                const dropDate = new Date(drop.date + 'T' + drop.time + ':00');
-                const isUpcoming = dropDate > now;
-
-                const dropElement = document.createElement('div');
-                dropElement.className = 'drop_item';
-                dropElement.setAttribute('data-drop-date', dropDate.toISOString());
-
-                // Drop-Nummer erstellen
-                const dropNumberContainer = document.createElement('div');
-                dropNumberContainer.className = 'drop_number_container';
-
-                const dropNumberHash = document.createElement('div');
-                dropNumberHash.textContent = '#';
-                const dropNumber = document.createElement('div');
-                dropNumber.textContent = String(index + 1).padStart(2, '0');
-
-                dropNumberContainer.appendChild(dropNumberHash);
-                dropNumberContainer.appendChild(dropNumber);
-                dropElement.appendChild(dropNumberContainer);
-
-                // Drop-Link oder Countdown erstellen
-                const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
-                dropLink.className = 'drop_link';
-
-                if (isUpcoming) {
-                    dropLink.textContent = drop.name
-                        ? `${drop.name} ${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`
-                        : `${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`;
-                } else {
-                    dropLink.textContent = drop.name + (drop.subname ? ` - ${drop.subname}` : '');
-                    if (drop.link) {
-                        dropLink.href = drop.link;
-                        dropLink.target = "";
+    async function loadProducts() {
+        const query = `
+            {
+                products(first: 250) {
+                    edges {
+                        node {
+                            title
+                            handle
+                            metafields(first: 10) {
+                                edges {
+                                    node {
+                                        namespace
+                                        key
+                                        value
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
+            }
+        `;
+        const data = await fetchShopifyData(query);
+        return data.products.edges.map(edge => {
+            const product = edge.node;
+            const dateMetafield = product.metafields.edges.find(
+                field => field.node.namespace === 'custom' && field.node.key === 'date'
+            );
+            const date = dateMetafield ? new Date(dateMetafield.node.value) : null;
+            return { title: product.title, handle: product.handle, date };
+        }).filter(item => item.date).sort((a, b) => a.date - b.date);
+    }
 
-                dropElement.appendChild(dropLink);
-                container.appendChild(dropElement);
-
-                // Countdown aktualisieren
-                if (isUpcoming) {
-                    setInterval(() => {
-                        dropLink.textContent = drop.name
-                            ? `${drop.name} ${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`
-                            : `${getExtendedCountdown(dropDate)} ${formatUpcomingDate(dropDate)}`;
-                    }, 1000);
+    async function loadCollections() {
+        const query = `
+            {
+                collections(first: 250) {
+                    edges {
+                        node {
+                            title
+                            handle
+                        }
+                    }
                 }
-            });
+            }
+        `;
+        const data = await fetchShopifyData(query);
+        return data.collections.edges.map(edge => edge.node);
+    }
 
-            // Füge den COLLECTION-Button hinzu
-            addCollectionButton(drops.length); // Set collection number to one higher than the last drop
+    function displayDrops(drops) {
+        const container = document.getElementById('drops-container');
 
-            // Füge die Newsletter-Eingabe hinzu
-            addNewsletterInput(drops.length + 2);
-        }
+        drops.forEach((drop, index) => {
+            const isUpcoming = drop.date > now;
+            const dropElement = document.createElement('div');
+            dropElement.className = 'drop_item';
 
-        // Funktion zum Hinzufügen des COLLECTION-Buttons
-        function addCollectionButton(dropCount) {
-            const container = document.getElementById('drops-container');
-
-            const buttonContainer = document.createElement('div');
-            buttonContainer.className = 'drop_item';
-
-            // Drop-Nummer für COLLECTION-Button
-            const collectionNumberContainer = document.createElement('div');
-            collectionNumberContainer.className = 'drop_number_container';
-
-            const collectionNumberHash = document.createElement('div');
-            collectionNumberHash.textContent = '#';
-            const collectionNumber = document.createElement('div');
-            collectionNumber.textContent = String(dropCount + 1).padStart(2, '0');
-
-            collectionNumberContainer.appendChild(collectionNumberHash);
-            collectionNumberContainer.appendChild(collectionNumber);
-
-            buttonContainer.appendChild(collectionNumberContainer);
-
-            // COLLECTION-Button
-            const collectionButton = document.createElement('div');
-            collectionButton.className = 'drop_link';
-            collectionButton.textContent = '+ COLLECTION';
-            collectionButton.style.cursor = 'pointer';
-
-            buttonContainer.appendChild(collectionButton);
-            container.appendChild(buttonContainer);
-
-            // FADEDLOVE-Link (anfangs versteckt)
-            const fadedLoveLink = document.createElement('a');
-            fadedLoveLink.className = 'drop_link hidden';
-            fadedLoveLink.href = 'https://shop.fadedcloth.de/?collection=fadedlove';
-            fadedLoveLink.textContent = 'FADEDLOVE';
-            fadedLoveLink.target = '';
-
-            // Container für den FADEDLOVE-Link (mit Platzhalter für die Nummer)
-            const fadedLoveContainer = document.createElement('div');
-            fadedLoveContainer.className = 'drop_item';
-            fadedLoveContainer.style.display = 'none'; // Unsichtbar beim Laden
-
-            // Platzhalter für die Nummer (00, unsichtbar)
-            const placeholderNumberContainer = document.createElement('div');
-            placeholderNumberContainer.className = 'drop_number_container';
-            placeholderNumberContainer.style.visibility = 'hidden'; // Unsichtbar
-            const placeholderNumberHash = document.createElement('div');
-            placeholderNumberHash.textContent = '#';
-            const placeholderNumber = document.createElement('div');
-            placeholderNumber.textContent = '00';
-
-            placeholderNumberContainer.appendChild(placeholderNumberHash);
-            placeholderNumberContainer.appendChild(placeholderNumber);
-            fadedLoveContainer.appendChild(placeholderNumberContainer);
-
-            fadedLoveContainer.appendChild(fadedLoveLink);
-            container.appendChild(fadedLoveContainer);
-
-            // Event Listener für den Button
-            collectionButton.addEventListener('click', () => {
-                const isHidden = fadedLoveLink.classList.contains('hidden');
-                fadedLoveLink.classList.toggle('hidden');
-                collectionButton.textContent = isHidden ? '- COLLECTION' : '+ COLLECTION';
-                
-                // Ganze Zeile verstecken oder anzeigen
-                fadedLoveContainer.style.display = isHidden ? 'flex' : 'none';
-            });
-        }
-
-        // Funktion zum Hinzufügen der Newsletter-Eingabe
-        function addNewsletterInput(nextDropNumber) {
-            const container = document.getElementById('drops-container');
-
-            // Container für Newsletter
-            const newsletterContainer = document.createElement('div');
-            newsletterContainer.className = 'drop_item';
-
-            // #XX für Newsletter
+            // Drop-Nummer erstellen
             const dropNumberContainer = document.createElement('div');
             dropNumberContainer.className = 'drop_number_container';
+            dropNumberContainer.innerHTML = `<div>#</div><div>${String(index + 1).padStart(2, '0')}</div>`;
+            dropElement.appendChild(dropNumberContainer);
 
-            const dropNumberHash = document.createElement('div');
-            dropNumberHash.textContent = '#';
-            const dropNumber = document.createElement('div');
-            dropNumber.textContent = String(nextDropNumber).padStart(2, '0');
+            // Drop-Link oder Countdown erstellen
+            const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
+            dropLink.className = 'drop_link';
 
-            dropNumberContainer.appendChild(dropNumberHash);
-            dropNumberContainer.appendChild(dropNumber);
-            newsletterContainer.appendChild(dropNumberContainer);
+            if (isUpcoming) {
+                dropLink.textContent = `DROP ${index + 1}`;
+                updateCountdown(dropLink, drop.date);
+            } else {
+                dropLink.textContent = drop.title;
+                dropLink.href = `https://shop.fadedcloth.de?item=${drop.handle}`;
+            }
 
-            // Newsletter Text und Input
-            const newsletterLabel = document.createElement('div');
-            newsletterLabel.className = 'drop_link';
-            newsletterLabel.textContent = 'ENTER EMAIL:';
+            dropElement.appendChild(dropLink);
+            container.appendChild(dropElement);
+        });
+    }
 
-            const emailInput = document.createElement('input');
-            emailInput.id = 'email';
-            emailInput.className = 'drop_link'; // Selber Style wie die Drops
-            emailInput.setAttribute('type', 'email');
-            emailInput.setAttribute('placeholder', '');
-
-            // Container für die Eingabe und den Text
-            const newsletterForm = document.createElement('div');
-            newsletterForm.className = 'newsletter_form';
-            newsletterForm.appendChild(newsletterLabel);
-            newsletterForm.appendChild(emailInput);
-
-            // Eingabefeld hinzufügen
-            newsletterContainer.appendChild(newsletterForm);
-            container.appendChild(newsletterContainer);
-
-            // Event Listener für das Drücken von Enter
-            emailInput.addEventListener('keypress', function (event) {
-                if (event.key === 'Enter') {
-                    event.preventDefault();
-                    processSubscription(emailInput.value, newsletterLabel, emailInput);
-                }
-            });
-        }
-
-        function formatUpcomingDate(date) {
-            const options = {
-                weekday: 'short',
-                month: 'short',
-                day: '2-digit',
-                year: '2-digit',
-                hour: '2-digit',
-                hour12: true
-            };
-
-            const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
-            const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
-
-            return `${formattedDate.replace(/,\s/g, ' ').replace(/\b\d{4}\b/, '')} UTC+2`.replace(/ +/, ' ').trim();
-        }
-
-        // Erweiterte Countdown-Funktion
-        function getExtendedCountdown(date) {
+    function updateCountdown(element, targetDate) {
+        const updateInterval = setInterval(() => {
             const now = new Date();
-            const diff = date - now;
-
+            const diff = targetDate - now;
+            if (diff <= 0) {
+                clearInterval(updateInterval);
+                element.textContent = "DROPPED";
+                return;
+            }
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            element.textContent = `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }, 1000);
+    }
 
-            return `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        }
+    function addCollectionButton(collections, dropCount) {
+        const container = document.getElementById('drops-container');
+        const buttonContainer = document.createElement('div');
+        buttonContainer.className = 'drop_item';
+
+        const collectionNumberContainer = document.createElement('div');
+        collectionNumberContainer.className = 'drop_number_container';
+        collectionNumberContainer.innerHTML = `<div>#</div><div>${String(dropCount + 1).padStart(2, '0')}</div>`;
+        buttonContainer.appendChild(collectionNumberContainer);
+
+        const collectionButton = document.createElement('div');
+        collectionButton.className = 'drop_link';
+        collectionButton.textContent = '+ COLLECTION';
+        collectionButton.style.cursor = 'pointer';
+        buttonContainer.appendChild(collectionButton);
+        container.appendChild(buttonContainer);
+
+        collections.forEach(collection => {
+            const fadedLoveLink = document.createElement('a');
+            fadedLoveLink.className = 'drop_link hidden';
+            fadedLoveLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
+            fadedLoveLink.textContent = collection.title;
+            fadedLoveLink.style.display = 'none';
+
+            const collectionContainer = document.createElement('div');
+            collectionContainer.className = 'drop_item';
+            collectionContainer.style.display = 'none';
+
+            const placeholderNumberContainer = document.createElement('div');
+            placeholderNumberContainer.className = 'drop_number_container';
+            placeholderNumberContainer.style.visibility = 'hidden';
+            placeholderNumberContainer.innerHTML = '<div>#</div><div>00</div>';
+            collectionContainer.appendChild(placeholderNumberContainer);
+            collectionContainer.appendChild(fadedLoveLink);
+            container.appendChild(collectionContainer);
+
+            collectionButton.addEventListener('click', () => {
+                const isHidden = fadedLoveLink.style.display === 'none';
+                fadedLoveLink.style.display = isHidden ? 'flex' : 'none';
+                collectionButton.textContent = isHidden ? '- COLLECTION' : '+ COLLECTION';
+                collectionContainer.style.display = isHidden ? 'flex' : 'none';
+            });
+        });
+    }
+
+    function addNewsletterInput(nextDropNumber) {
+        const container = document.getElementById('drops-container');
+        const newsletterContainer = document.createElement('div');
+        newsletterContainer.className = 'drop_item';
+
+        const dropNumberContainer = document.createElement('div');
+        dropNumberContainer.className = 'drop_number_container';
+        dropNumberContainer.innerHTML = `<div>#</div><div>${String(nextDropNumber).padStart(2, '0')}</div>`;
+        newsletterContainer.appendChild(dropNumberContainer);
+
+        const newsletterLabel = document.createElement('div');
+        newsletterLabel.className = 'drop_link';
+        newsletterLabel.textContent = 'ENTER EMAIL:';
+
+        const emailInput = document.createElement('input');
+        emailInput.id = 'email';
+        emailInput.className = 'drop_link';
+        emailInput.setAttribute('type', 'email');
+        emailInput.setAttribute('placeholder', '');
+
+        const newsletterForm = document.createElement('div');
+        newsletterForm.className = 'newsletter_form';
+        newsletterForm.appendChild(newsletterLabel);
+        newsletterForm.appendChild(emailInput);
+
+        newsletterContainer.appendChild(newsletterForm);
+        container.appendChild(newsletterContainer);
+
+        emailInput.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                processSubscription(emailInput.value, newsletterLabel, emailInput);
+            }
+        });
+    }
+
+    // Lädt Produkte, zeigt sie an, und fügt COLLECTION-Button sowie Newsletter-Eingabe hinzu
+    const drops = await loadProducts();
+    displayDrops(drops);
+
+    const collections = await loadCollections();
+    addCollectionButton(collections, drops.length);
+
+    addNewsletterInput(drops.length + 2);
+
+
     
             // Funktion zur Verarbeitung der E-Mail-Validierung und Einreichung
             function processSubscription(email, newsletterLabel, emailInput) {
@@ -441,6 +433,7 @@
                     element.classList.remove('shake');
                 }, 500);
             }
+            
         });
     </script>
     
