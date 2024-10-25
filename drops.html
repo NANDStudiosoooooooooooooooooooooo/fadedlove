@@ -196,7 +196,7 @@
                 const container = document.getElementById('drops-container');
                 const now = new Date();
         
-                // Shopify query to load collections with metafield date
+                // Shopify GraphQL query to get collections with metafield date
                 const query = `
                     {
                         collections(first: 50) {
@@ -204,7 +204,7 @@
                                 node {
                                     title
                                     handle
-                                    metafield(namespace: "custom", key: "dropDate") {
+                                    metafield(namespace: "custom", key: "drop") {
                                         value
                                     }
                                 }
@@ -238,7 +238,7 @@
                     dropElement.className = 'drop_item';
                     dropElement.setAttribute('data-drop-date', collection.dropDate.toISOString());
         
-                    // Create drop number
+                    // Drop number display
                     const dropNumberContainer = document.createElement('div');
                     dropNumberContainer.className = 'drop_number_container';
                     const dropNumberHash = document.createElement('div');
@@ -270,11 +270,11 @@
                     }
                 });
         
-                // Add collections dropdown excluding those with 'drop' in handle
+                // Add dropdown for collections without "drop" in the handle
                 addCollectionDropdown(collections);
             }
         
-            // Function to add collections to dropdown
+            // Function to add non-drop collections to dropdown
             function addCollectionDropdown(collections) {
                 const container = document.getElementById('dropdown-container');
                 const dropdown = document.createElement('select');
@@ -317,7 +317,8 @@
                 return `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
             }
         });
-        </script>
+    </script>
+    
         
     
     <script src="scripts/loader.js" defer></script>
