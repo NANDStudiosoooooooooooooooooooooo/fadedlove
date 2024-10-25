@@ -308,10 +308,9 @@
                         container.appendChild(dropElement);
     
                         if (isUpcoming) {
-                            setInterval(() => {
-                                dropLink.textContent = `${collection.title} ${getExtendedCountdown(collection.drop)} ${formattedDate} UTC+2`;
-                            }, 1000);
-                        }
+                        // Countdown handler
+                        handleCountdown(dropLink, collection.drop, collection.title, collection.dropinfo, collection.handle);
+                    }
                     });
                     addCollectionButton(collections.length);
     
@@ -320,6 +319,25 @@
                 } catch (error) {
                     console.error("Error fetching Shopify drops:", error);
                 }
+            }
+
+            // Function to handle the countdown and update on expiry
+            function handleCountdown(dropLink, endTime, title, dropinfo, handle) {
+                const countdownInterval = setInterval(() => {
+                    const now = new Date().getTime();
+                    const distance = endTime - now;
+
+                    // Update the countdown display
+                    dropLink.textContent = `${title} ${getExtendedCountdown(endTime)} UTC+2`;
+
+                    // If the countdown has ended
+                    if (distance < 0) {
+                        clearInterval(countdownInterval);
+                        // Update the drop link to show the drop info
+                        dropLink.textContent = dropinfo ? `${title} - ${dropinfo}` : title;
+                        dropLink.href = `https://shop.fadedcloth.de?collection=${handle}`;
+                    }
+                }, 1000);
             }
     
             function formatUpcomingDate(date) {
