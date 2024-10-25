@@ -313,33 +313,13 @@
                             }, 1000);
                         }
                     });
+                    addCollectionButton(collections.length);
     
-                    // Add dropdown for collections without "drop" in the handle
-                    addCollectionDropdown(collections);
+                    // Add Newsletter input
+                     addNewsletterInput(collections.length + 1);
                 } catch (error) {
                     console.error("Error fetching Shopify drops:", error);
                 }
-            }
-    
-            // Function to add non-drop collections to dropdown
-            function addCollectionDropdown(collections) {
-                const container = document.getElementById('dropdown-container');
-                const dropdown = document.createElement('select');
-                dropdown.className = 'collections_dropdown';
-    
-                collections.forEach(collection => {
-                    if (!collection.handle.includes('drop')) {
-                        const option = document.createElement('option');
-                        option.value = `https://shop.fadedcloth.de?collection=${collection.handle}`;
-                        option.textContent = collection.title;
-                        dropdown.appendChild(option);
-                    }
-                });
-    
-                container.appendChild(dropdown);
-                dropdown.addEventListener('change', () => {
-                    if (dropdown.value) window.location.href = dropdown.value;
-                });
             }
     
             function formatUpcomingDate(date) {
@@ -363,6 +343,149 @@
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000);
                 return `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
             }
+
+            // Function to add the COLLECTION button
+        function addCollectionButton(dropCount) {
+            const container = document.getElementById('drops-container');
+    
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'drop_item';
+    
+            // Drop number for COLLECTION button
+            const collectionNumberContainer = document.createElement('div');
+            collectionNumberContainer.className = 'drop_number_container';
+    
+            const collectionNumberHash = document.createElement('div');
+            collectionNumberHash.textContent = '#';
+            const collectionNumber = document.createElement('div');
+            collectionNumber.textContent = String(dropCount + 1).padStart(2, '0');
+    
+            collectionNumberContainer.appendChild(collectionNumberHash);
+            collectionNumberContainer.appendChild(collectionNumber);
+    
+            buttonContainer.appendChild(collectionNumberContainer);
+    
+            // COLLECTION button
+            const collectionButton = document.createElement('div');
+            collectionButton.className = 'drop_link';
+            collectionButton.textContent = '+ COLLECTION';
+            collectionButton.style.cursor = 'pointer';
+    
+            buttonContainer.appendChild(collectionButton);
+            container.appendChild(buttonContainer);
+    
+            // FADEDLOVE link (initially hidden)
+            const fadedLoveLink = document.createElement('a');
+            fadedLoveLink.className = 'drop_link hidden';
+            fadedLoveLink.href = 'https://shop.fadedcloth.de/?collection=fadedlove';
+            fadedLoveLink.textContent = 'FADEDLOVE';
+            fadedLoveLink.target = '';
+    
+            // Container for the FADEDLOVE link (with placeholder for number)
+            const fadedLoveContainer = document.createElement('div');
+            fadedLoveContainer.className = 'drop_item';
+            fadedLoveContainer.style.display = 'none'; // Invisible on load
+    
+            // Placeholder for number (00, invisible)
+            const placeholderNumberContainer = document.createElement('div');
+            placeholderNumberContainer.className = 'drop_number_container';
+            placeholderNumberContainer.style.visibility = 'hidden'; // Invisible
+            const placeholderNumberHash = document.createElement('div');
+            placeholderNumberHash.textContent = '#';
+            const placeholderNumber = document.createElement('div');
+            placeholderNumber.textContent = '00';
+    
+            placeholderNumberContainer.appendChild(placeholderNumberHash);
+            placeholderNumberContainer.appendChild(placeholderNumber);
+            fadedLoveContainer.appendChild(placeholderNumberContainer);
+    
+            fadedLoveContainer.appendChild(fadedLoveLink);
+            container.appendChild(fadedLoveContainer);
+    
+            // Event Listener for the button
+            collectionButton.addEventListener('click', () => {
+                const isHidden = fadedLoveLink.classList.contains('hidden');
+                fadedLoveLink.classList.toggle('hidden');
+                collectionButton.textContent = isHidden ? '- COLLECTION' : '+ COLLECTION';
+                
+                // Show or hide the entire row
+                fadedLoveContainer.style.display = isHidden ? 'flex' : 'none';
+            });
+        }
+    
+        // Function to add Newsletter input
+        function addNewsletterInput(nextDropNumber) {
+            const container = document.getElementById('drops-container');
+    
+            // Container for Newsletter
+            const newsletterContainer = document.createElement('div');
+            newsletterContainer.className = 'drop_item';
+    
+            // #XX for Newsletter
+            const dropNumberContainer = document.createElement('div');
+            dropNumberContainer.className = 'drop_number_container';
+    
+            const dropNumberHash = document.createElement('div');
+            dropNumberHash.textContent = '#';
+            const dropNumber = document.createElement('div');
+            dropNumber.textContent = String(nextDropNumber).padStart(2, '0');
+    
+            dropNumberContainer.appendChild(dropNumberHash);
+            dropNumberContainer.appendChild(dropNumber);
+            newsletterContainer.appendChild(dropNumberContainer);
+    
+            // Newsletter Text and Input
+            const newsletterLabel = document.createElement('div');
+            newsletterLabel.className = 'drop_link';
+            newsletterLabel.textContent = 'ENTER EMAIL:';
+    
+            const emailInput = document.createElement('input');
+            emailInput.id = 'email';
+            emailInput.className = 'drop_link'; // Same style as the drops
+            emailInput.setAttribute('type', 'email');
+            emailInput.setAttribute('placeholder', '');
+    
+            // Container for the input and the text
+            const newsletterForm = document.createElement('div');
+            newsletterForm.className = 'newsletter_form';
+            newsletterForm.appendChild(newsletterLabel);
+            newsletterForm.appendChild(emailInput);
+    
+            // Add input field
+            newsletterContainer.appendChild(newsletterForm);
+            container.appendChild(newsletterContainer);
+    
+            // Event Listener for Enter key
+            emailInput.addEventListener('keypress', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    processSubscription(emailInput.value, newsletterLabel, emailInput);
+                }
+            });
+        }
+    
+        // Function to process email validation and submission
+        function processSubscription(email, newsletterLabel, emailInput) {
+            if (isValidEmail(email)) {
+                fetch("https://subscribe.fadedcloth.de/sub", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ email: email })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    newsletterLabel.textContent = "THANK YOU!";
+                    emailInput.value = ''; // Reset input
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+            } else {
+                shakeElement(emailInput);
+            }
+        }
         });
     </script>
     
