@@ -75,7 +75,7 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    position: fixed;
     pointer-events: auto;
     top: 50%;
     left: 50%;
