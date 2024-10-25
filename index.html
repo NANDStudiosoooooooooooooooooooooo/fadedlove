@@ -79,12 +79,12 @@
             color: white; /* Hover effect only on drop text */
         }
 
-        .collection-container{
+        .collection_container{
             display: flex;
             flex-direction: row;
         }
 
-        .collections-container{
+        .collections_container{
             display: flex;
             flex-direction: column;
         }
@@ -595,6 +595,7 @@
     // Erstelle einen Button-Container für die COLLECTION
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'drop_item';
+    buttonContainer.classList.add(collection_container);
 
     // Drop-Nummer für den COLLECTION-Button
     const collectionNumberContainer = document.createElement('div');
