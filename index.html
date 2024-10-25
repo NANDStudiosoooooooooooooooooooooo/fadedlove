@@ -449,10 +449,6 @@
             const section = document.createElement('div');
             section.className = 'drop_section';
 
-            const sectionTitle = document.createElement('h2');
-            sectionTitle.textContent = title;
-            section.appendChild(sectionTitle);
-
             items.forEach(item => section.appendChild(item));
             container.appendChild(section);
         }
