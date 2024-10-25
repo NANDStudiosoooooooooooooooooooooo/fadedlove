@@ -623,7 +623,7 @@
         // Überprüfen, ob 'drop' nicht im Handle enthalten ist
         if (!collection.handle.includes('drop')) {
             const collectionLink = document.createElement('a');
-            collectionLink.className = 'drop_link hidden';
+            collectionLink.className = 'drop_link';
             collectionLink.href = `https://shop.fadedcloth.de/?collection=${collection.handle}`;
             collectionLink.textContent = collection.title; // Titel der Collection als Linktext
             collectionLink.target = '';
@@ -631,12 +631,12 @@
             // Container für den Collection-Link (mit Platzhalter für die Nummer)
             const collectionContainer = document.createElement('div');
             collectionContainer.className = 'drop_item';
-            collectionContainer.style.display = 'none'; // Unsichtbar beim Laden
+            collectionContainer.style.display = 'block'; // Unsichtbar beim Laden
 
             // Platzhalter für die Nummer (00, unsichtbar)
             const placeholderNumberContainer = document.createElement('div');
             placeholderNumberContainer.className = 'drop_number_container';
-            placeholderNumberContainer.style.visibility = 'hidden'; // Unsichtbar
+            placeholderNumberContainer.style.visibility = 'visible'; // Unsichtbar
             const placeholderNumberHash = document.createElement('div');
             placeholderNumberHash.textContent = '#';
             const placeholderNumber = document.createElement('div');
