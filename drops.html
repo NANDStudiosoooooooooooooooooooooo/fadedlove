@@ -196,7 +196,7 @@
                 const container = document.getElementById('drops-container');
                 const now = new Date();
     
-                // Shopify GraphQL query to get collections with metafield drop and dropinfo
+                // Shopify GraphQL query to get collections with metafield drop
                 const query = `
                     {
                         collections(first: 50) {
@@ -205,9 +205,6 @@
                                     title
                                     handle
                                     metafield(namespace: "custom", key: "drop") {
-                                        value
-                                    }
-                                    metafield(namespace: "custom", key: "dropinfo") {
                                         value
                                     }
                                 }
@@ -241,16 +238,44 @@
                         throw new Error("Collections data is undefined");
                     }
     
+                    // Map collections and extract drop metafield
                     const collections = data.data.collections.edges
                         .map(edge => ({
                             title: edge.node.title,
                             handle: edge.node.handle,
-                            drop: edge.node.metafield ? new Date(edge.node.metafield.value) : null,
-                            dropinfo: edge.node.metafield ? edge.node.metafield.value : null // Fetch dropinfo metafield
+                            drop: edge.node.metafield ? new Date(edge.node.metafield.value) : null
                         }))
                         .filter(collection => collection.drop) // Only collections with a drop date
                         .sort((a, b) => a.drop - b.drop); // Sort by ascending drop date
     
+                    // Fetch dropinfo metafield for each collection
+                    await Promise.all(collections.map(async (collection) => {
+                        const dropinfoQuery = `
+                            {
+                                collection(handle: "${collection.handle}") {
+                                    metafield(namespace: "custom", key: "dropinfo") {
+                                        value
+                                    }
+                                }
+                            }
+                        `;
+    
+                        const dropinfoResponse = await fetch("https://checkout.fadedcloth.de/api/2023-07/graphql.json", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-Shopify-Storefront-Access-Token": "ed72f09d8742f37356305b6e49310909"
+                            },
+                            body: JSON.stringify({ query: dropinfoQuery })
+                        });
+    
+                        const dropinfoData = await dropinfoResponse.json();
+                        if (dropinfoData.data && dropinfoData.data.collection) {
+                            collection.dropinfo = dropinfoData.data.collection.metafield ? dropinfoData.data.collection.metafield.value : null;
+                        }
+                    }));
+    
+                    // Now render the collections with dropinfo
                     collections.forEach((collection, index) => {
                         const isUpcoming = collection.drop > now;
                         const dropElement = document.createElement('div');
@@ -340,6 +365,7 @@
             }
         });
     </script>
+    
     
     
     
