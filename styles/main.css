@@ -1346,3 +1346,11 @@ select {
     animation-range-start: normal;
     animation-range-end: normal;
 }
+
+.scroll-effect{
+    width: 100%;
+    height: 140px;
+    position: fixed;
+    bottom: 0px;
+    background: linear-gradient(to bottom, transparent, black);
+}
