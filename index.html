@@ -263,8 +263,12 @@
         var element = document.querySelector('.scroll-text');
         if (scrollPosition > 0) {
             element.classList.replace('fade-in', 'fade-out');
+            element.style.userSelect = 'none';
+            element.style.pointerEvents = 'none';
         } else {
             element.classList.replace('fade-out', 'fade-in');
+            element.style.userSelect = '';
+            element.style.pointerEvents = '';
         }
         });
     </script>
