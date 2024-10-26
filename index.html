@@ -211,15 +211,15 @@
             display: none;
         }
 
-        .scroll-text{
-            top: 120px;
-            left: 0px;
+        .scroll-text {
             position: fixed;
+            top: 120px;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 1000;
-            width: 100%;
             text-align: center;
-
         }
+
 
         .scroll-effect{
             width: 100%;
@@ -231,6 +231,15 @@
             pointer-events: none;
         }
     </style>
+
+    <script>
+        window.addEventListener('scroll', function() {
+        var scrollPosition = window.scrollY;
+        var element = document.querySelector('.scroll-text');
+        element.style.top = (scrollPosition + 120) + 'px';
+        });
+    </script>
+  
 </head>
 <body>
     <div class="main-header">
@@ -249,7 +258,7 @@
         </div>
     </div>
 
-    <div class="scroll-text" style="position: fixed; left: 50px;" onclick="(function() { const newsletterContainer = document.querySelector('.newsletter_form'); const collectionButton = document.querySelector('.collection-button'); if (newsletterContainer && collectionButton) { const newsletterRect = newsletterContainer.getBoundingClientRect(); const collectionRect = collectionButton.getBoundingClientRect(); const middlePosition = window.pageYOffset + ((newsletterRect.top + collectionRect.top) / 2) - (window.innerHeight / 2); window.scrollTo({ top: middlePosition, behavior: 'smooth' }); } })(); window.addEventListener('scroll', function() { var scrollPosition = window.scrollY; var element = document.querySelector('.scroll-text'); element.style.top = scrollPosition + 'px'; });">VIEW DROPS ↓</div>
+    <div class="scroll-text" onclick="(function() { const newsletterContainer = document.querySelector('.newsletter_form'); const collectionButton = document.querySelector('.collection-button'); if (newsletterContainer && collectionButton) { const newsletterRect = newsletterContainer.getBoundingClientRect(); const collectionRect = collectionButton.getBoundingClientRect(); const middlePosition = window.pageYOffset + ((newsletterRect.top + collectionRect.top) / 2) - (window.innerHeight / 2); window.scrollTo({ top: middlePosition, behavior: 'smooth' }); } })()">VIEW DROPS ↓</div>
     
     <div class="glas-wrapper">
         <div class="drop_container fade-in" id="drops-container">
