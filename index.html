@@ -264,8 +264,8 @@
 
     <div class="scroll-text fade-in" onclick="(function() { const newsletterContainer = document.querySelector('.newsletter_form'); const collectionButton = document.querySelector('.collection-button'); if (newsletterContainer && collectionButton) { const newsletterRect = newsletterContainer.getBoundingClientRect(); const collectionRect = collectionButton.getBoundingClientRect(); const middlePosition = window.pageYOffset + ((newsletterRect.top + collectionRect.top) / 2) - (window.innerHeight / 2); window.scrollTo({ top: middlePosition, behavior: 'smooth' }); } })()">VIEW DROPS ↓</div>
     
-    <div class="glas-wrapper">
-        <div class="drop_container fade-in" id="drops-container">
+    <div class="glas-wrapper fade-in">
+        <div class="drop_container" id="drops-container">
             <!-- Drop items will be appended here -->
         </div>
     </div>
