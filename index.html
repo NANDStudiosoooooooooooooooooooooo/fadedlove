@@ -102,7 +102,7 @@
             height: auto; /* Align vertically with the text */
             font-size: 2vw;
             padding-right: 10px;
-            padding-left: 5px;
+            padding-left: 15px;
             line-height: 1.25;
         }
 
@@ -111,7 +111,7 @@
             flex-grow: 1;
             text-align: left;
             white-space: nowrap;
-            font-size: 6vw; /* Match the font size */
+            font-size: 5.8vw; /* Match the font size */
             display: inline-block; /* Keeps the text in a single line */
             width: auto;
             box-sizing: border-box; /* Include padding in the width */
@@ -136,32 +136,34 @@
 
         @media (min-width: 500px) {
             .newsletter_form input[type="email"] {
-                font-size: 6vw;
+                font-size: 5.8vw;
                 padding: 5px 0 0 0 ;
                 line-height: 0.88;
             }
             .newsletter_form{
-                font-size: 6vw;
+                font-size: 5.8vw;
+                MAX-HEIGHT: 5.8VW;
                 line-height: 0.88;
             }
         }
         
         @media (max-width: 500px) {
             .drop_item {
-                font-size: 9vw; /* Fixed larger size for screens above 500px */
+                font-size: 8.8vw; /* Fixed larger size for screens above 500px */
             }
             .drop_link {
-                font-size: 9vw;
+                font-size: 8.8vw;
             }
            .newsletter_form{
-                font-size: 9vw;
+                font-size: 8.8vw;
                 padding: 0;
             }
             .drop_number_container {
                 font-size: 3vw;
             }
             .newsletter_form input[type="email"] {
-                font-size: 9vw;
+                MAX-HEIGHT: 8.8VW;
+                font-size: 8.8VW;
                 padding: 0;
             }
         }
@@ -189,6 +191,8 @@
             text-align: left;
             overflow-x: visible;
             height: 100%;
+            MAX-HEIGHT: 5.8VW;
+            font-size: 5.8VW;
         }
 
         /* Verstecken des Eingabefelds nach erfolgreicher Eingabe */
