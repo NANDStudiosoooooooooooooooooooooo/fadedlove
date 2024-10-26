@@ -226,6 +226,23 @@
             user-select: none;
             pointer-events: none;
         }
+        @media (max-width: 500px) {
+            .utc {
+                display: none;
+            }
+            .dropname {
+                display: none;
+            }
+        }
+
+        @media (min-width: 501px) {
+            .utc {
+                display: inline;
+            }
+            .dropname {
+                display: inline;
+            }
+        }
     </style>
 
     <script>
@@ -426,13 +443,11 @@
                     dropLink.className = 'drop_link';
                     const formattedDate = formatUpcomingDate(collection.drop);
 
-                    if (isUpcoming) {
-                        dropLink.textContent = `${collection.title} ${getExtendedCountdown(collection.drop)} ${formattedDate} UTC+2`;
-                        upcomingDrops.push(dropElement);
-                    } else {
+                    if (!isUpcoming) {
                         dropLink.textContent = collection.dropinfo ? `${collection.title} - ${collection.dropinfo}` : collection.title;
                         dropLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
                         droppedItems.push(dropElement);
+                    } else {
                     }
                     dropElement.appendChild(dropLink);
                     container.appendChild(dropElement);
@@ -481,29 +496,68 @@
 
         // Function to handle the countdown and update on expiry
         function handleCountdown(dropLink, endTime, title, formattedDate, dropinfo, handle) {
-            const countdownInterval = setInterval(() => {
-                const now = new Date().getTime();
-                const distance = endTime - now;
+        // Erstelle separate Elemente für die Anzeige
+        const dropnameElement = document.createElement("span");
+        const countdownElement = document.createElement("span");
+        const dateElement = document.createElement("span");
+        const utcElement = document.createElement("span");
+        const dropInfoElement = document.createElement("span");
 
-                // Update the countdown display
-                dropLink.textContent = `${title} ${getExtendedCountdown(endTime)} ${formattedDate} UTC+2`;
+        dropnameElement.classList.add("dropname");
+        countdownElement.classList.add("countdown");
+        dateElement.classList.add("date");
+        utcElement.classList.add("utc");
+        dropInfoElement.classList.add("drop-info");
 
-                // If the countdown has ended
-                if (distance < 0) {
-                    clearInterval(countdownInterval);
-                    // Update the drop link to show the drop info
-                    dropLink.textContent = dropinfo ? `${title} - ${dropinfo}` : title;
-                    dropLink.href = `https://shop.fadedcloth.de?collection=${handle}`;
-                    dropLink.style.pointerEvents = 'auto';
-                    // Add a click event listener to navigate to the link
-                    dropLink.onclick = () => {
-                        window.location.href = dropLink.href; // Navigate to the updated href
-                    };
-                } else {
-                    dropLink.style.pointerEvents = 'none'; // Disable clicking while counting down
-                }
-            }, 1000);
+        // Set initial display content
+        dateElement.textContent = formattedDate; // Originaldatum
+        utcElement.textContent = " UTC+2";
+        
+        // Fügt alle Elemente zum Link hinzu
+        dropLink.appendChild(dropnameElement);
+        dropLink.appendChild(countdownElement);
+        dropLink.appendChild(dateElement);
+        dropLink.appendChild(utcElement);
+        dropLink.appendChild(dropInfoElement);
+
+        // Intervall für das Countdown-Update
+        const countdownInterval = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = endTime - now;
+
+        // Countdown-Format aktualisieren
+        countdownElement.textContent = `${getExtendedCountdown(endTime)}`;
+
+        dropnameElement.textContent = `${title} `;
+        
+        // Bildschirmabhängige Anzeige anpassen
+        if (window.innerWidth < 501) {
+            const dropDate = new Date(endTime);
+            const month = String(dropDate.getMonth() + 1).padStart(2, '0');
+            const day = String(dropDate.getDate()).padStart(2, '0');
+            
+            // Nur Countdown und Datum anzeigen
+            dateElement.textContent = ` ${month}/${day}`;
+            utcElement.style.display = "none";
+        } else {
+            dateElement.textContent = ` ${formattedDate}`;
+            utcElement.style.display = "inline";
         }
+
+        // Bei Ablauf des Countdowns aktualisieren
+        if (distance < 0) {
+            clearInterval(countdownInterval);
+            dropLink.textContent = dropinfo ? `${title} - ${dropinfo}` : title;
+            dropLink.href = `https://shop.fadedcloth.de?collection=${handle}`;
+            dropLink.style.pointerEvents = 'auto';
+            dropLink.onclick = () => {
+                window.location.href = dropLink.href;
+            };
+        } else {
+            dropLink.style.pointerEvents = 'none';
+        }
+    }, 1000);
+}
     
             function formatUpcomingDate(date) {
                 const options = {
