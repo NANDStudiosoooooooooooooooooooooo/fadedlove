@@ -20,7 +20,7 @@ html, body {
     -ms-text-size-adjust: 100%; /* Verhindert Textgröße-Anpassungen in IE/Edge */
     -webkit-font-smoothing: antialiased; /* Bessere Kantenglättung in iOS/Safari */
     -moz-osx-font-smoothing: grayscale; /* Bessere Kantenglättung in macOS */
-    overflow-x: hidden;
+    overflow: scroll;
     user-select: none;
 }
 
