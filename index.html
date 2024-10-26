@@ -443,11 +443,12 @@
                     dropLink.className = 'drop_link';
                     const formattedDate = formatUpcomingDate(collection.drop);
 
-                    if (!isUpcoming) {
+                    if (isUpcoming) {
+                        upcomingDrops.push(dropElement);
+                    } else {
                         dropLink.textContent = collection.dropinfo ? `${collection.title} - ${collection.dropinfo}` : collection.title;
                         dropLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
                         droppedItems.push(dropElement);
-                    } else {
                     }
                     dropElement.appendChild(dropLink);
                     container.appendChild(dropElement);
