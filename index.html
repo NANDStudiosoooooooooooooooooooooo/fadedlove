@@ -236,7 +236,11 @@
         window.addEventListener('scroll', function() {
         var scrollPosition = window.scrollY;
         var element = document.querySelector('.scroll-text');
-        element.style.top = (scrollPosition + 120) + 'px';
+        if (scrollPosition > 0) {
+            element.style.display = 'none'; // Ausblenden
+        } else {
+            element.style.display = 'block'; // Sichtbar
+        }
         });
     </script>
   
