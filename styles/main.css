@@ -1266,6 +1266,16 @@ select {
     }
 }
 
+@keyframes fade-out{
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
 .fade-in{
     opacity: 0;
     animation: fade-in .5s .7s ease forwards;
@@ -1277,6 +1287,22 @@ select {
         animation-fill-mode: forwards;
         animation-play-state: running;
         animation-name: fade-in;
+        animation-timeline: auto;
+        animation-range-start: normal;
+        animation-range-end: normal;
+}
+
+.fade-out{
+    opacity: 1;
+    animation: fade-in .5s .7s ease forwards;
+        animation-duration: 0.5s;
+        animation-timing-function: ease;
+        animation-delay: 0.7s;
+        animation-iteration-count: 1;
+        animation-direction: normal;
+        animation-fill-mode: forwards;
+        animation-play-state: running;
+        animation-name: fade-out;
         animation-timeline: auto;
         animation-range-start: normal;
         animation-range-end: normal;
