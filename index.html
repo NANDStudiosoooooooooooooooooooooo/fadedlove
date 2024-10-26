@@ -226,6 +226,7 @@
             user-select: none;
             pointer-events: none;
         }
+        
         @media (max-width: 500px) {
             .utc {
                 display: none;
@@ -261,6 +262,25 @@
             element.classList.replace('fade-out', 'fade-in');
         }
         });
+    </script>
+
+    <script>
+        function checkScroll() {
+        var element = document.querySelector('.scroll-effect');
+        var scrollHeight = document.documentElement.scrollHeight;
+        var clientHeight = document.documentElement.clientHeight;
+        var scrollPosition = window.scrollY + clientHeight;
+    
+        if (scrollHeight <= clientHeight || scrollPosition >= scrollHeight) {
+            element.style.display = 'none';
+        } else {
+            element.style.display = 'block';
+        }
+        }
+    
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('resize', checkScroll);
+        document.addEventListener('DOMContentLoaded', checkScroll);
     </script>
   
 </head>
