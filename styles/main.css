@@ -75,11 +75,11 @@ h2 {
     justify-content: center;
     align-items: center;
     position: fixed;
-    pointer-events: auto;
+    pointer-events: none;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    touch-action: pan-y;
+    /*touch-action: pan-y;*/
     width: 60%;
     height: auto;
 }
