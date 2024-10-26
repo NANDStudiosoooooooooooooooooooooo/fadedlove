@@ -213,7 +213,8 @@
 
         .scroll-text{
             top: 120px;
-            position: absolute;
+            left: 0px;
+            position: fixed;
             z-index: 1000;
             width: 100%;
             text-align: center;
@@ -248,7 +249,7 @@
         </div>
     </div>
 
-    <div class="scroll-text" onclick="(function() { const newsletterContainer = document.querySelector('.newsletter_form'); const collectionButton = document.querySelector('.collection-button'); if (newsletterContainer && collectionButton) { const newsletterRect = newsletterContainer.getBoundingClientRect(); const collectionRect = collectionButton.getBoundingClientRect(); const middlePosition = window.pageYOffset + ((newsletterRect.top + collectionRect.top) / 2) - (window.innerHeight / 2); window.scrollTo({ top: middlePosition, behavior: 'smooth' }); } })()">VIEW DROPS ↓</div>
+    <div class="scroll-text" style="position: fixed; left: 50px;" onclick="(function() { const newsletterContainer = document.querySelector('.newsletter_form'); const collectionButton = document.querySelector('.collection-button'); if (newsletterContainer && collectionButton) { const newsletterRect = newsletterContainer.getBoundingClientRect(); const collectionRect = collectionButton.getBoundingClientRect(); const middlePosition = window.pageYOffset + ((newsletterRect.top + collectionRect.top) / 2) - (window.innerHeight / 2); window.scrollTo({ top: middlePosition, behavior: 'smooth' }); } })(); window.addEventListener('scroll', function() { var scrollPosition = window.scrollY; var element = document.querySelector('.scroll-text'); element.style.top = scrollPosition + 'px'; });">VIEW DROPS ↓</div>
     
     <div class="glas-wrapper">
         <div class="drop_container fade-in" id="drops-container">
