@@ -510,10 +510,19 @@
             createLinkElement('PRIVACY POLICY', 'https://fadedcloth.de/legal?id=privacy-policy')
         ];
         function createLinkElement(text, url) {
+            const dropElement = document.createElement('div');
+            dropElement.className = 'drop_item';
+            const dropNumberContainer = document.createElement('div');
+            dropNumberContainer.className = 'drop_number_container';
+            const placeholderTag = document.createElement('a');
+            dropNumberContainer.appendChild(placeholderTag);
             const link = document.createElement('a');
+            placeholderTag.textContent = '//';
             link.className = 'drop_link';
             link.href = url;
             link.textContent = text;
+            dropElement.appendChild(dropNumberContainer);
+            dropElement.appendChild(link);
             return link;
         }
 
