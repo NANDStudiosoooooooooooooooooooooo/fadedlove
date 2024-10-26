@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:500|IBM+Plex+Sans:300&display=swap" rel="stylesheet">
     <meta name="description" content="The offical FADEDCLOTH site. Subscribe for updates.">
     <script src="https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js"></script>
-    <link rel="stylesheet" href="styles/main.css?v=2.65">
+    <link rel="stylesheet" href="styles/main.css?v=2.66">
 
     <style>
         body {
@@ -237,9 +237,9 @@
         var scrollPosition = window.scrollY;
         var element = document.querySelector('.scroll-text');
         if (scrollPosition > 0) {
-            element.style.display = 'none'; // Ausblenden
+            element.classList.replace('fade-in', 'fade-out');
         } else {
-            element.style.display = 'block'; // Sichtbar
+            element.classList.replace('fade-out', 'fade-in');
         }
         });
     </script>
