@@ -495,9 +495,9 @@
 
                 createSection('Dropped Drops', droppedItems);
 
-                addNewsletterInput('//ss');
-                                                                //droppedItems.length + 1
-                addCollectionButton(droppedItems.length + 1);
+                addNewsletterInput('//');
+                                                                //droppedItems.length + 1 //'//'
+                addCollectionButton('//');
 
                 createSection('Upcoming Drops', upcomingDrops);
 
@@ -743,7 +743,7 @@ async function addCollectionButton(dropCount) {
     } else {
         // Falls dropCount '/' enthält, wird nur ein //-Link eingefügt
         const collectionNumberLink = document.createElement('a');
-        collectionNumberLink.textContent = '//';
+        collectionNumberLink.textContent = dropCount;
         collectionNumberContainer.appendChild(collectionNumberLink);
     }
 
