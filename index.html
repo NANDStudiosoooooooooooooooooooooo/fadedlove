@@ -625,20 +625,30 @@
                 return `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
             }
 
-        function addNewsletterInput(nextDropNumber) {
+            function addNewsletterInput(nextDropNumber) {
             const container = document.getElementById('drops-container');
             const newsletterContainer = document.createElement('div');
             newsletterContainer.className = 'drop_item';
 
             const dropNumberContainer = document.createElement('div');
             dropNumberContainer.className = 'drop_number_container';
-            const dropNumberHash = document.createElement('div');
-            dropNumberHash.textContent = '#';
-            const dropNumber = document.createElement('div');
-            dropNumber.textContent = String(nextDropNumber).padStart(2, '0');
 
-            dropNumberContainer.appendChild(dropNumberHash);
-            dropNumberContainer.appendChild(dropNumber);
+            if (nextDropNumber.includes('/')) {
+                // Fügt nur den //-Link ein, wenn nextDropNumber das Zeichen '/' enthält
+                const dropNumberLink = document.createElement('a');
+                dropNumberLink.textContent = nextDropNumber;
+                dropNumberContainer.appendChild(dropNumberLink);
+            } else {
+                // Standardanzeige mit # und Drop-Nummer
+                const dropNumberHash = document.createElement('div');
+                dropNumberHash.textContent = '#';
+                const dropNumber = document.createElement('div');
+                dropNumber.textContent = String(nextDropNumber).padStart(2, '0');
+
+                dropNumberContainer.appendChild(dropNumberHash);
+                dropNumberContainer.appendChild(dropNumber);
+            }
+
             newsletterContainer.appendChild(dropNumberContainer);
 
             const newsletterLabel = document.createElement('div');
@@ -666,6 +676,7 @@
                 }
             });
         }
+
 
         async function getCollections() {
     const query = `
