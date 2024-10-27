@@ -626,6 +626,8 @@
             }
 
             function addNewsletterInput(nextDropNumber) {
+            nextDropNumber = String(nextDropNumber); // Wandelt nextDropNumber in einen String um
+
             const container = document.getElementById('drops-container');
             const newsletterContainer = document.createElement('div');
             newsletterContainer.className = 'drop_item';
@@ -643,7 +645,7 @@
                 const dropNumberHash = document.createElement('div');
                 dropNumberHash.textContent = '#';
                 const dropNumber = document.createElement('div');
-                dropNumber.textContent = String(nextDropNumber).padStart(2, '0');
+                dropNumber.textContent = nextDropNumber.padStart(2, '0');
 
                 dropNumberContainer.appendChild(dropNumberHash);
                 dropNumberContainer.appendChild(dropNumber);
@@ -675,7 +677,8 @@
                     processSubscription(emailInput.value, newsletterLabel, emailInput);
                 }
             });
-        }
+}
+
 
 
         async function getCollections() {
