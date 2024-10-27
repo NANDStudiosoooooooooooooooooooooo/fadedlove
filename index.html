@@ -495,7 +495,7 @@
 
                 createSection('Dropped Drops', droppedItems);
 
-                addNewsletterInput(droppedItems.length + 1);
+                addNewsletterInput('//ss');
                                                                 //droppedItems.length + 1
                 addCollectionButton(droppedItems.length + 1);
 
@@ -718,25 +718,34 @@
 }
 
     
-        async function addCollectionButton(dropCount) {
+async function addCollectionButton(dropCount) {
+    dropCount = String(dropCount); // Wandelt dropCount in einen String um
+
     const container = document.getElementById('drops-container');
 
     // Erstelle einen Button-Container für die COLLECTION
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'drop_item';
-    
 
     // Drop-Nummer für den COLLECTION-Button
     const collectionNumberContainer = document.createElement('div');
     collectionNumberContainer.className = 'drop_number_container';
 
-    const collectionNumberHash = document.createElement('div');
-    collectionNumberHash.textContent = '#';
-    const collectionNumber = document.createElement('div');
-    collectionNumber.textContent = String(dropCount + 1).padStart(2, '0');
+    if (!dropCount.includes('/')) {
+        // Standardanzeige mit # und Drop-Nummer
+        const collectionNumberHash = document.createElement('div');
+        collectionNumberHash.textContent = '#';
+        const collectionNumber = document.createElement('div');
+        collectionNumber.textContent = String(parseInt(dropCount) + 1).padStart(2, '0');
 
-    collectionNumberContainer.appendChild(collectionNumberHash);
-    collectionNumberContainer.appendChild(collectionNumber);
+        collectionNumberContainer.appendChild(collectionNumberHash);
+        collectionNumberContainer.appendChild(collectionNumber);
+    } else {
+        // Falls dropCount '/' enthält, wird nur ein //-Link eingefügt
+        const collectionNumberLink = document.createElement('a');
+        collectionNumberLink.textContent = '//';
+        collectionNumberContainer.appendChild(collectionNumberLink);
+    }
 
     buttonContainer.appendChild(collectionNumberContainer);
 
@@ -755,7 +764,7 @@
     collectionsContainer.className = 'collections_container';
     collectionsContainer.style.display = 'none'; // Unsichtbar beim Laden
     container.appendChild(collectionsContainer);
-    
+
     // Lade die Collections von Shopify
     const collections = await getCollections(); // Implementiere diese Funktion
 
