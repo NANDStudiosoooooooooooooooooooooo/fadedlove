@@ -470,7 +470,7 @@
                     dropNumberHash.textContent = '#';
                     const dropNumber = document.createElement('div');
                     dropNumber.textContent = isUpcoming ? String(index + 1).padStart(2, '0') : String(index + 1).padStart(2, '0');
-                    dropNumberContainer.appendChild(dropNumberHash);  //+3 if newslettter & collection use # // +1 if they use //
+                    dropNumberContainer.appendChild(dropNumberHash);  //+3 if newslettter & collection use # | +1 if they use //
                     dropNumberContainer.appendChild(dropNumber);
                     dropElement.appendChild(dropNumberContainer);
 
