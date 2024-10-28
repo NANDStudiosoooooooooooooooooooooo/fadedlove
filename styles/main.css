@@ -86,7 +86,7 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
+    position: absolute;
     pointer-events: none;
     top: 40px;
     left: 50%;
