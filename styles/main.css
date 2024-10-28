@@ -134,7 +134,7 @@ h2 {
 }
 
 .top-right {
-    position: absolute;
+    position: fixed;
     top: 0px;
     right: 0px;
     animation: slideInRight 0.5s forwards;
@@ -142,7 +142,7 @@ h2 {
 }
 
 .top-left {
-    position: absolute;
+    position: fixed;
     left: 0px;
     left: 0px;
     animation: slideInLeft 0.5s forwards;
