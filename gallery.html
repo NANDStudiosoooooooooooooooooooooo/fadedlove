@@ -56,7 +56,7 @@
         width: 100%;
         max-width: 100%;
         height: auto;
-        overflow: hidden;
+        overflow: visible;
         position: relative;
         margin-bottom: 10px;
         }
@@ -90,13 +90,15 @@
         .gallery-imagebutton-container {
         display: flex;
         max-width: 100%;
-        overflow-y: visible;
-        overflow-x: scroll; /* Horizontal scroll enabled */
-        scrollbar-width: thin; /* Firefox: Makes the scrollbar thinner */
-        scrollbar-color: rgba(255, 255, 255, 0.2) transparent; /* Dezent transparent scrollbar */
-
-        /* Optional for better user experience */
+        overflow: visible;
+        scrollbar-width: none;
+        scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
         scroll-snap-type: x mandatory; /* Buttons will snap into view when scrolling */
+        }
+
+        .gallery-imagebutton-container-wrapper{
+            overflow-x: hidden;
+            overflow-y: visible;
         }
 
         .gallery-imagebutton-container button {
@@ -182,9 +184,10 @@
             <div class="gallery-image-container" data-tilt>
                   
             </div>
-          
-            <div class="gallery-imagebutton-container"> 
+            <div class="gallery-imagebutton-container-wrapper">
+                <div class="gallery-imagebutton-container"> 
                   
+                </div>
             </div>
 
         </div>
