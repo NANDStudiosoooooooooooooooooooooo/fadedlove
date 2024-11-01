@@ -1,6 +1,6 @@
 const videos = [
     {
-        src: "media/fadedcloth.webm",
+        src: "media/collections/fadedlove.webm",
         hoverText: "FADEDLOVE",
         link: "https://example.com/1"
     },
