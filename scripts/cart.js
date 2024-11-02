@@ -91,3 +91,11 @@ cartButton.addEventListener('click', function () {
 });
 
 cartButtonContainer.appendChild(cartButton);
+
+document.getElementById('cart-button').addEventListener('click', function(event) {
+    // Optionally, you could prevent the default behavior here if you're doing something else
+    // event.preventDefault();
+    
+    // Optionally, you can handle opening a cart drawer or similar functionality here
+    window.location.href = 'https://checkout.fadedcloth.de/cart';  // Navigate to the cart page
+});
