@@ -288,7 +288,7 @@
 
         // Funktion zum Laden der JSON-Datei
         function loadGalleryData() {
-            fetch('/JSON/gallery.json')
+            fetch('/JSON/gallery.json?v=1.1')
             .then(response => response.json())
             .then(jsonData => {
                 // Buttons dynamisch laden
