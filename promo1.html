@@ -1,79 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Punkte-System</title>
+  <title>Anmelden oder Registrieren</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 2rem;
+    }
+    #username-container {
+      display: none;
+      margin-top: 1rem;
+    }
+    #score-container {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+    }
+    input, button {
+      margin: 0.5rem;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+  </style>
 </head>
 <body>
-  <h1>Punkte-System</h1>
-
-  <div id="register-section">
-    <h2>Registrieren</h2>
-    <input type="text" id="register-username" placeholder="Benutzername">
-    <input type="email" id="register-email" placeholder="E-Mail">
-    <button onclick="register()">Registrieren</button>
-    <p id="register-result"></p>
+  <h1>Spiel Punkte-System</h1>
+  <div id="form-container">
+    <input type="email" id="email" placeholder="E-Mail eingeben" required />
+    <div id="username-container">
+      <input type="text" id="username" placeholder="Benutzernamen wählen" required />
+    </div>
+    <button id="submit-button" onclick="handleSubmit()">Anmelden</button>
   </div>
-
-  <div id="login-section">
-    <h2>Anmelden</h2>
-    <input type="text" id="login-username" placeholder="Benutzername">
-    <input type="email" id="login-email" placeholder="E-Mail">
-    <button onclick="login()">Anmelden</button>
-    <p id="login-result"></p>
-  </div>
-
-  <div id="score-section" style="display: none;">
-    <h2>Punktestand</h2>
-    <p id="score-display"></p>
-  </div>
+  <div id="score-container"></div>
 
   <script>
-    const API_BASE = "https://fadedmarket.nand339.workers.dev";
+    const apiUrl = "https://fadedmarket.nand339.workers.dev";
 
-    async function register() {
-      const username = document.getElementById("register-username").value;
-      const email = document.getElementById("register-email").value;
+    async function handleSubmit() {
+      const email = document.getElementById("email").value;
+      const usernameInput = document.getElementById("username");
+      const usernameContainer = document.getElementById("username-container");
+      const submitButton = document.getElementById("submit-button");
+      const scoreContainer = document.getElementById("score-container");
 
-      const response = await fetch(`${API_BASE}/api/register`, {
+      if (!email) {
+        alert("Bitte E-Mail eingeben.");
+        return;
+      }
+
+      // Check if user is already registered
+      const response = await fetch(`${apiUrl}/api/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email }),
+        body: JSON.stringify({ email }),
       });
 
-      const result = await response.text();
-      document.getElementById("register-result").textContent = result;
-    }
+      if (response.status === 404) {
+        // User not found, show username input for registration
+        usernameContainer.style.display = "block";
+        submitButton.innerText = "Registrieren";
+        if (usernameInput.value) {
+          // Proceed with registration
+          const username = usernameInput.value;
+          const registerResponse = await fetch(`${apiUrl}/api/register`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, username }),
+          });
 
-    async function login() {
-      const username = document.getElementById("login-username").value;
-      const email = document.getElementById("login-email").value;
-
-      const response = await fetch(`${API_BASE}/api/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email }),
-      });
-
-      const result = await response.text();
-      document.getElementById("login-result").textContent = result;
-
-      if (response.ok) {
-        showScore(username);
+          if (registerResponse.ok) {
+            alert("Registrierung erfolgreich! Du bist jetzt eingeloggt.");
+            usernameContainer.style.display = "none";
+            submitButton.innerText = "Anmelden";
+            usernameInput.value = "";
+            showScore(email);
+          } else {
+            alert("Fehler bei der Registrierung: " + (await registerResponse.text()));
+          }
+        }
+      } else if (response.ok) {
+        // User logged in
+        alert("Anmeldung erfolgreich!");
+        usernameContainer.style.display = "none";
+        submitButton.innerText = "Anmelden";
+        usernameInput.value = "";
+        showScore(email);
+      } else {
+        alert("Fehler bei der Anmeldung: " + (await response.text()));
       }
     }
 
-    async function showScore(username) {
-      const response = await fetch(`${API_BASE}/api/score`, {
+    async function showScore(email) {
+      const scoreContainer = document.getElementById("score-container");
+      const response = await fetch(`${apiUrl}/api/score`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username }),
+        body: JSON.stringify({ email }),
       });
 
-      const data = await response.json();
-      document.getElementById("score-display").textContent = `Punktestand: ${data.score}`;
-      document.getElementById("score-section").style.display = "block";
+      if (response.ok) {
+        const data = await response.json();
+        scoreContainer.innerText = `Deine Punktzahl: ${data.score}`;
+      } else {
+        scoreContainer.innerText = "Fehler beim Abrufen der Punktzahl.";
+      }
     }
   </script>
 </body>
