@@ -168,6 +168,47 @@
         justify-content: center;
         width: 100%;
     }
+
+    /* Footer Styling */
+    .footer {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px); /* Blur Effekt */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+    color: #fff;
+    gap: 5px;
+    }
+
+    /* Links Styling */
+    .footer-link {
+    text-decoration: underline;
+    color: #ffccff;
+    font-weight: bold;
+    transition: color 0.3s, transform 0.3s;
+    }
+
+    .footer-link:hover {
+    color: #ff99ff;
+    transform: scale(1.05);
+    }
+
+    /* Responsives Design für kleine Bildschirme */
+    @media screen and (max-width: 600px) {
+    .footer {
+        padding: 8px 15px;
+        font-size: 12px;
+    }
+    }
+
   </style>
 </head>
 <body>
@@ -179,6 +220,13 @@
 
   <h1>🏆 Leaderboard</h1>
   <div class="leaderboard" id="leaderboard"></div>
+
+  <div class="footer">
+    <a href="https://fadedcloth.de" target="_blank" class="footer-link">FADEDCLOTH</a>
+    <span>&nbsp;&bull;&nbsp;</span>
+    <a href="https://nand-studios.com" target="_blank" class="footer-link">BY NAND STUDIOS</a>
+  </div>
+  
 
   <script>
     const leaderboardContainer = document.getElementById('leaderboard');
