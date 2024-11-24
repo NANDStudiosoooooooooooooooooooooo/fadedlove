@@ -47,6 +47,17 @@
   </style>
 </head>
 <body>
+    <div>
+        <label for="email">E-Mail:</label>
+        <input type="email" id="email" placeholder="E-Mail eingeben" required>
+      </div>
+      <div id="usernameDiv" class="hidden">
+        <label for="username">Benutzername:</label>
+        <input type="text" id="username" placeholder="Benutzernamen eingeben" required>
+      </div>
+      <button id="submitBtn">Absenden</button>
+    
+      <div id="result"></div>
   <h1>Leaderboard</h1>
   <div class="leaderboard" id="leaderboard"></div>
 
@@ -77,6 +88,39 @@
 
     // Leaderboard beim Laden abrufen
     fetchLeaderboard();
+  </script>
+
+<script>
+    const submitBtn = document.getElementById('submitBtn');
+    const emailInput = document.getElementById('email');
+    const usernameDiv = document.getElementById('usernameDiv');
+    const usernameInput = document.getElementById('username');
+    const resultDiv = document.getElementById('result');
+
+    submitBtn.addEventListener('click', async () => {
+      const email = emailInput.value;
+      const username = usernameInput.value;
+
+      let url = new URL('https://fadedmarket.nand339.workers.dev/');
+      url.searchParams.set('email', email);
+
+      if (username) {
+        url.searchParams.set('name', username);
+      }
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.status === 'NotRegistered') {
+        // Benutzer ist nicht registriert, Name eingeben lassen
+        usernameDiv.classList.remove('hidden');
+        resultDiv.innerHTML = 'Bitte geben Sie einen Benutzernamen ein.';
+      } else {
+        // Benutzer existiert oder wurde gerade registriert
+        usernameDiv.classList.add('hidden');
+        resultDiv.innerHTML = 'Name: ${data.name}, Score: ${data.score}';
+      }
+    });
   </script>
 </body>
 </html>
