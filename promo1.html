@@ -40,58 +40,56 @@
     const apiUrl = "https://fadedmarket.nand339.workers.dev";
 
     async function handleSubmit() {
-      const email = document.getElementById("email").value;
-      const usernameInput = document.getElementById("username");
-      const usernameContainer = document.getElementById("username-container");
-      const submitButton = document.getElementById("submit-button");
-      const scoreContainer = document.getElementById("score-container");
+  const email = document.getElementById("email").value;
+  const usernameInput = document.getElementById("username");
+  const usernameContainer = document.getElementById("username-container");
+  const submitButton = document.getElementById("submit-button");
 
-      if (!email) {
-        alert("Bitte E-Mail eingeben.");
-        return;
-      }
+  if (!email) {
+    alert("Bitte E-Mail eingeben.");
+    return;
+  }
 
-      // Check if user is already registered
-      const response = await fetch(`${apiUrl}/api/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
+  try {
+    const response = await fetch(`${apiUrl}/api/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
 
-      if (response.status === 404) {
-        // User not found, show username input for registration
-        usernameContainer.style.display = "block";
-        submitButton.innerText = "Registrieren";
-        if (usernameInput.value) {
-          // Proceed with registration
-          const username = usernameInput.value;
-          const registerResponse = await fetch(`${apiUrl}/api/register`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, username }),
-          });
-
-          if (registerResponse.ok) {
-            alert("Registrierung erfolgreich! Du bist jetzt eingeloggt.");
-            usernameContainer.style.display = "none";
-            submitButton.innerText = "Anmelden";
-            usernameInput.value = "";
-            showScore(email);
-          } else {
-            alert("Fehler bei der Registrierung: " + (await registerResponse.text()));
-          }
+    const data = await response.json();
+    if (response.status === 404) {
+      // E-Mail ist nicht registriert
+      usernameContainer.style.display = "block";
+      submitButton.innerText = "Registrieren";
+      if (usernameInput.value) {
+        const username = usernameInput.value;
+        const registerResponse = await fetch(`${apiUrl}/api/register`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, username }),
+        });
+        const registerData = await registerResponse.json();
+        if (registerResponse.ok) {
+          alert("Registrierung erfolgreich!");
+          showScore(email);
+        } else {
+          alert("Fehler: " + registerData.error);
         }
-      } else if (response.ok) {
-        // User logged in
-        alert("Anmeldung erfolgreich!");
-        usernameContainer.style.display = "none";
-        submitButton.innerText = "Anmelden";
-        usernameInput.value = "";
-        showScore(email);
-      } else {
-        alert("Fehler bei der Anmeldung: " + (await response.text()));
       }
+    } else if (response.ok) {
+      // Benutzer erfolgreich angemeldet
+      alert(data.message);
+      showScore(email);
+    } else {
+      alert("Fehler: " + data.error);
     }
+  } catch (error) {
+    console.error("Fehler beim Anmelden:", error);
+    alert("Ein unerwarteter Fehler ist aufgetreten.");
+  }
+}
+
 
     async function showScore(email) {
       const scoreContainer = document.getElementById("score-container");
