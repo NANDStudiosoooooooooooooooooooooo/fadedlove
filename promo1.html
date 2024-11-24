@@ -1,115 +1,81 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registrierung und Anmeldung</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    .hidden { display: none; }
-    .error { color: red; }
-    .form-group { margin-bottom: 20px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register or Login</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+        #error-msg {
+            color: red;
+        }
+    </style>
 </head>
 <body>
+    <div>
+        <label for="email">E-Mail:</label>
+        <input type="email" id="email" placeholder="E-Mail eingeben">
+    </div>
+    <div id="username-group" class="hidden">
+        <label for="username">Benutzername:</label>
+        <input type="text" id="username" placeholder="Benutzername eingeben">
+    </div>
+    <button id="submit-btn">Absenden</button>
+    <p id="error-msg"></p>
+    <div id="user-info" class="hidden">
+        <p id="welcome-msg"></p>
+        <p>Punkte: <span id="score"></span></p>
+    </div>
+    <script>
+        const emailInput = document.getElementById("email");
+        const usernameInput = document.getElementById("username");
+        const submitBtn = document.getElementById("submit-btn");
+        const usernameGroup = document.getElementById("username-group");
+        const errorMsg = document.getElementById("error-msg");
+        const userInfo = document.getElementById("user-info");
+        const welcomeMsg = document.getElementById("welcome-msg");
+        const scoreElement = document.getElementById("score");
 
-<h1>Willkommen zur Registrierung und Anmeldung</h1>
+        submitBtn.addEventListener("click", async () => {
+            const email = emailInput.value.trim();
+            const username = usernameInput.value.trim();
 
-<div id="user-info" class="hidden">
-  <h2 id="welcome-msg">Willkommen!</h2>
-  <p>Deine Punktzahl: <span id="score">0</span></p>
-</div>
-
-<div id="registration-form">
-  <div class="form-group">
-    <label for="email">E-Mail:</label>
-    <input type="email" id="email" placeholder="Deine E-Mail" required>
-  </div>
-  
-  <div id="username-group" class="form-group hidden">
-    <label for="username">Benutzername:</label>
-    <input type="text" id="username" placeholder="Wähle einen Benutzernamen" required>
-  </div>
-
-  <button id="submit-btn">Weiter</button>
-
-  <p id="error-msg" class="error"></p>
-</div>
-
-<script>
-    const emailInput = document.getElementById("email");
-    const usernameInput = document.getElementById("username");
-    const submitBtn = document.getElementById("submit-btn");
-    const usernameGroup = document.getElementById("username-group");
-    const errorMsg = document.getElementById("error-msg");
-    const userInfo = document.getElementById("user-info");
-    const welcomeMsg = document.getElementById("welcome-msg");
-    const scoreElement = document.getElementById("score");
-
-    let email = "";
-    let username = "";
-
-    submitBtn.addEventListener("click", async () => {
-        email = emailInput.value.trim();
-        username = usernameInput.value.trim();
-
-        if (!email) {
-            errorMsg.textContent = "E-Mail ist erforderlich!";
-            return;
-        }
-
-        // Clear previous error message
-        errorMsg.textContent = "";
-
-        try {
-            const response = await fetch("https://fadedmarket.nand339.workers.dev/api/register-or-login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, username: username || null }),
-                mode: "cors", // CORS-Modus explizit setzen
-            });
-
-            const data = await response.json();
-
-            if (response.status === 400 && data.error === "Username is required for new registration") {
-                // Wenn der Benutzername erforderlich ist, zeige das Benutzernamen-Eingabefeld
-                usernameGroup.classList.remove("hidden");
-            } else if (response.ok) {
-                // Benutzername und Punktzahl nach erfolgreicher Registrierung oder Login anzeigen
-                usernameGroup.classList.add("hidden");
-                userInfo.classList.remove("hidden");
-                welcomeMsg.textContent = `Willkommen, ${data.username}!`;
-                scoreElement.textContent = data.score;
-
-                // Reset form for next input
-                emailInput.value = "";
-                usernameInput.value = "";
-            } else {
-                errorMsg.textContent = data.error || "Etwas ist schiefgelaufen!";
+            if (!email) {
+                errorMsg.textContent = "E-Mail ist erforderlich!";
+                return;
             }
-        } catch (error) {
-            errorMsg.textContent = "Ein Fehler ist aufgetreten. Bitte versuche es später erneut.";
-        }
-    });
 
-    // Funktion zum Erhöhen der Punktzahl
-    async function increaseScore() {
-        const email = document.getElementById("email").value;
-        const response = await fetch(`https://fadedmarket.nand339.workers.dev/api/increase?email=${email}`, {
-            method: "POST", // Verwende POST, um den Punktestand zu erhöhen
-            mode: "cors",   // CORS-Modus für den Request setzen
+            errorMsg.textContent = "";
+
+            try {
+                const response = await fetch("https://fadedmarket.nand339.workers.dev/api/register-or-login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, username: username || null }),
+                });
+
+                const data = await response.json();
+
+                if (response.status === 400 && data.error === "Username required for new registration") {
+                    usernameGroup.classList.remove("hidden");
+                    errorMsg.textContent = data.error;
+                } else if (response.ok) {
+                    usernameGroup.classList.add("hidden");
+                    userInfo.classList.remove("hidden");
+                    welcomeMsg.textContent = `Willkommen, ${data.username}!`;
+                    scoreElement.textContent = data.score;
+
+                    emailInput.value = "";
+                    usernameInput.value = "";
+                } else {
+                    errorMsg.textContent = data.error || "Etwas ist schiefgelaufen!";
+                }
+            } catch (error) {
+                errorMsg.textContent = "Ein Fehler ist aufgetreten. Bitte versuche es später erneut.";
+            }
         });
-        const data = await response.json();
-
-        if (response.ok) {
-            scoreElement.textContent = data.score;
-        } else {
-            alert(data.error || "Fehler beim Erhöhen der Punktzahl");
-        }
-    }
-
-</script>
-
-
+    </script>
 </body>
 </html>
