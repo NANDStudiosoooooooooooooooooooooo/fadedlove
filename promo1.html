@@ -162,6 +162,8 @@
     const submitBtn = document.getElementById('submit-btn');
     let loggedInName = null;
 
+    const blacklistedUsernames = ['afd', 'npd', 'hate', 'badword']; // Liste gesperrter Wörter
+
     async function fetchLeaderboard() {
       leaderboardContainer.innerHTML = '<div>Loading...</div>'; // Visualize loading
       const response = await fetch('https://fadedmarket.nand339.workers.dev/leaderboard');
@@ -191,8 +193,8 @@
     }
 
     submitBtn.addEventListener('click', async () => {
-      const email = emailInput.value;
-      const username = usernameInput.value;
+      let email = emailInput.value.trim().toLowerCase(); // E-Mail in Kleinbuchstaben konvertieren
+      const username = usernameInput.value.trim();
 
       // Validate email
       if (!email.match(/^\S+@\S+\.\S+$/)) {
@@ -202,10 +204,20 @@
       }
 
       // Validate username only if visible
-      if (!usernameInput.classList.contains('hidden') && !username.match(/^[a-zA-Z0-9]+$/)) {
-        usernameInput.classList.add('invalid');
-        setTimeout(() => usernameInput.classList.remove('invalid'), 300);
-        return;
+      if (!usernameInput.classList.contains('hidden')) {
+        if (!username.match(/^[a-zA-Z0-9]+$/)) {
+          usernameInput.classList.add('invalid');
+          setTimeout(() => usernameInput.classList.remove('invalid'), 300);
+          return;
+        }
+
+        // Check for blacklisted words
+        if (blacklistedUsernames.some((word) => username.toLowerCase().includes(word))) {
+          alert('Dieser Benutzername ist nicht erlaubt.');
+          usernameInput.classList.add('invalid');
+          setTimeout(() => usernameInput.classList.remove('invalid'), 300);
+          return;
+        }
       }
 
       const url = new URL('https://fadedmarket.nand339.workers.dev/');
