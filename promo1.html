@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leaderboard</title>
   <style>
+    /* Allgemeines Styling */
     body {
       font-family: 'Arial', sans-serif;
       margin: 0;
@@ -14,7 +15,7 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
-      background: linear-gradient(135deg, #000, #ff80ff);
+      background: linear-gradient(135deg, #000, #ffccff);
       color: #fff;
       overflow: hidden;
     }
@@ -22,38 +23,33 @@
     h1 {
       margin: 10px 0;
       font-size: 24px;
-      color: #ff99FF;
+      color: #ff99ff;
     }
 
-    .form-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
+    /* Eingabefelder */
     input {
       padding: 10px;
       border: none;
       border-radius: 5px;
       font-size: 16px;
       transition: transform 0.2s, box-shadow 0.2s;
+      opacity: 0;
+      animation: fade-in 0.5s forwards;
     }
 
     input:focus {
       outline: none;
-      box-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+      box-shadow: 0 0 10px rgba(255, 128, 255, 0.8);
     }
 
     input.invalid {
-      animation: shake 0.3s ease-in-out;
-      border: 2px solid red;
+      animation: shake 0.3s ease-in-out, fade-out 0.5s ease-in-out;
+      border: 2px solid #ff4d4d;
     }
 
     button {
       padding: 10px 20px;
-      background: linear-gradient(90deg, #ff00ff, #ff0099);
+      background: linear-gradient(90deg, #ff99ff, #ffccff);
       border: none;
       border-radius: 5px;
       color: #fff;
@@ -64,13 +60,14 @@
 
     button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 5px 10px rgba(255, 0, 255, 0.5);
+      box-shadow: 0 5px 10px rgba(255, 128, 255, 0.6);
     }
 
     .hidden {
       display: none;
     }
 
+    /* Leaderboard Styling */
     .leaderboard {
       width: 300px;
       max-height: 400px;
@@ -78,143 +75,154 @@
       background: rgba(255, 255, 255, 0.1);
       border-radius: 10px;
       padding: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-      position: relative;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      animation: fade-in 1s ease-in-out;
     }
 
     .leaderboard-item {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       padding: 10px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
-      font-size: 14px;
+      transition: background 0.3s, box-shadow 0.3s;
     }
 
     .leaderboard-item.highlight {
-      border-bottom: 2px solid #ff0099;
+      background: linear-gradient(90deg, #ff99ff, #ffccff);
+      color: #000;
+      box-shadow: 0 0 10px rgba(255, 128, 255, 0.8);
       font-weight: bold;
+    }
+
+    .leaderboard-item span {
+      font-size: 16px;
+    }
+
+    /* Scrollbar Styling */
+    .leaderboard::-webkit-scrollbar {
+      width: 6px; /* Dünne Scrollleiste */
+    }
+
+    .leaderboard::-webkit-scrollbar-thumb {
+      background: #ff99ff; /* Farbe des Scroll-Handles */
+      border-radius: 5px;
+    }
+
+    .leaderboard::-webkit-scrollbar-track {
+      background: transparent; /* Unsichtbare Scrollbar */
+    }
+
+    /* Animationen */
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fade-out {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
     }
 
     @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      50% { transform: translateX(5px); }
-      75% { transform: translateX(-5px); }
-    }
-
-    .scroll-button {
-      margin-top: 10px;
-      padding: 10px;
-      background: linear-gradient(90deg, #000, #ff0099);
-      color: #fff;
-      font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s ease;
-    }
-
-    .scroll-button:hover {
-      transform: scale(1.1);
-      background: #ff00ff;
+      0%, 100% {
+        transform: translateX(0);
+      }
+      25%, 75% {
+        transform: translateX(-5px);
+      }
+      50% {
+        transform: translateX(5px);
+      }
     }
   </style>
 </head>
 <body>
-  <h1>🏆 Leaderboard</h1>
   <div class="form-container">
-    <input type="email" id="email" placeholder="📧 Email">
-    <input type="text" id="username" placeholder="👤 Username" class="hidden">
-    <button id="submitBtn">✔️ Submit</button>
-    <button id="scrollToMe" class="scroll-button hidden">👀 My Score</button>
+    <input id="email" type="email" placeholder="✉️ Email" required>
+    <input id="username" class="hidden" type="text" placeholder="👤 Username" required>
+    <button id="submit-btn">Submit</button>
   </div>
+
+  <h1>🏆 Leaderboard</h1>
   <div class="leaderboard" id="leaderboard"></div>
 
   <script>
-    const emailInput = document.getElementById("email");
-    const usernameInput = document.getElementById("username");
-    const submitBtn = document.getElementById("submitBtn");
-    const leaderboard = document.getElementById("leaderboard");
-    const scrollToMe = document.getElementById("scrollToMe");
-    let currentUser;
+    const leaderboardContainer = document.getElementById('leaderboard');
+    const emailInput = document.getElementById('email');
+    const usernameInput = document.getElementById('username');
+    const submitBtn = document.getElementById('submit-btn');
+    let loggedInName = null;
 
-    // Validate email
-    emailInput.addEventListener("input", () => {
-      if (emailInput.validity.typeMismatch) {
-        emailInput.classList.add("invalid");
-      } else {
-        emailInput.classList.remove("invalid");
-      }
-    });
-
-    // Restrict username input
-    usernameInput.addEventListener("input", () => {
-      usernameInput.value = usernameInput.value.replace(/[^a-zA-Z0-9]/g, "");
-    });
-
-    // Fetch leaderboard
     async function fetchLeaderboard() {
-      leaderboard.innerHTML = "⏳ Loading...";
-      const response = await fetch("https://fadedmarket.nand339.workers.dev/leaderboard");
-      const data = await response.json();
-      leaderboard.innerHTML = "";
+      leaderboardContainer.innerHTML = '<div>Loading...</div>'; // Visualize loading
+      const response = await fetch('https://fadedmarket.nand339.workers.dev/leaderboard');
+      const leaderboard = await response.json();
+      renderLeaderboard(leaderboard);
+    }
 
-      data.forEach((entry, index) => {
-        const item = document.createElement("div");
-        item.className = "leaderboard-item";
-        item.id = `entry-${entry.id}`;
-        item.innerHTML = `<span>${index + 1}. ${entry.name}</span><span>${entry.score}</span>`;
-        leaderboard.appendChild(item);
-
-        // Highlight only the current user's entry if email matches
-        if (currentUser && entry.email === currentUser.email) {
-          item.classList.add("highlight");
-          if (!itemInView(item)) {
-            scrollToMe.classList.remove("hidden");
-          } else {
-            scrollToMe.classList.add("hidden");
-          }
+    function renderLeaderboard(leaderboard) {
+      leaderboardContainer.innerHTML = ''; // Clear list
+      leaderboard.forEach((entry, index) => {
+        const item = document.createElement('div');
+        item.className = 'leaderboard-item';
+        if (entry.name === loggedInName) {
+          item.classList.add('highlight');
         }
+
+        const name = document.createElement('span');
+        name.textContent = `${index + 1}. ${entry.name}`;
+
+        const score = document.createElement('span');
+        score.textContent = entry.score;
+
+        item.appendChild(name);
+        item.appendChild(score);
+        leaderboardContainer.appendChild(item);
       });
     }
 
-    // Check if element is in view
-    function itemInView(el) {
-      const rect = el.getBoundingClientRect();
-      const parentRect = leaderboard.getBoundingClientRect();
-      return rect.top >= parentRect.top && rect.bottom <= parentRect.bottom;
-    }
-
-    // Scroll to user's score
-    scrollToMe.addEventListener("click", () => {
-      const highlighted = document.querySelector(".leaderboard-item.highlight");
-      if (highlighted) {
-        highlighted.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    });
-
-    // Submit handler
-    submitBtn.addEventListener("click", async () => {
+    submitBtn.addEventListener('click', async () => {
       const email = emailInput.value;
-      if (!email || emailInput.classList.contains("invalid")) return emailInput.classList.add("invalid");
-
       const username = usernameInput.value;
-      const url = new URL("https://fadedmarket.nand339.workers.dev/");
-      url.searchParams.set("email", email);
-      if (username) url.searchParams.set("name", username);
+
+      // Validate email
+      if (!email.match(/^\S+@\S+\.\S+$/)) {
+        emailInput.classList.add('invalid');
+        setTimeout(() => emailInput.classList.remove('invalid'), 300);
+        return;
+      }
+
+      // Validate username only if visible
+      if (!usernameInput.classList.contains('hidden') && !username.match(/^[a-zA-Z0-9]+$/)) {
+        usernameInput.classList.add('invalid');
+        setTimeout(() => usernameInput.classList.remove('invalid'), 300);
+        return;
+      }
+
+      const url = new URL('https://fadedmarket.nand339.workers.dev/');
+      url.searchParams.set('email', email);
+      if (username) url.searchParams.set('name', username);
 
       const response = await fetch(url);
       const data = await response.json();
 
-      if (data.status === "NotRegistered") {
-        usernameInput.classList.remove("hidden");
+      if (data.status === 'NotRegistered') {
+        usernameInput.classList.remove('hidden');
       } else {
-        currentUser = data;
-        usernameInput.classList.add("hidden");
-        emailInput.classList.add("hidden");
-        submitBtn.classList.add("hidden");
-        scrollToMe.classList.add("hidden");
-        fetchLeaderboard();
+        loggedInName = data.name; // Save logged-in name
+        usernameInput.classList.add('hidden');
+        emailInput.classList.add('hidden');
+        submitBtn.textContent = '✔️ Logged In';
+        await fetchLeaderboard(); // Update leaderboard
       }
     });
 
