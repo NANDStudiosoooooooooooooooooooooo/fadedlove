@@ -71,16 +71,16 @@
             const data = await response.json();
 
             if (response.status === 400 && data.error === "Username is required for new registration") {
-                // If username is required, show the username input field
+                // Wenn der Benutzername erforderlich ist, zeige das Benutzernamen-Eingabefeld
                 usernameGroup.classList.remove("hidden");
             } else if (response.ok) {
-                // Show user info after login or registration
+                // Benutzername und Punktzahl nach erfolgreicher Registrierung oder Login anzeigen
                 usernameGroup.classList.add("hidden");
                 userInfo.classList.remove("hidden");
                 welcomeMsg.textContent = `Willkommen, ${data.username}!`;
                 scoreElement.textContent = data.score;
 
-                // Reset form for the next input
+                // Reset form for next input
                 emailInput.value = "";
                 usernameInput.value = "";
             } else {
@@ -90,6 +90,20 @@
             errorMsg.textContent = "Ein Fehler ist aufgetreten. Bitte versuche es später erneut.";
         }
     });
+
+    // Funktion zum Erhöhen der Punktzahl
+    async function increaseScore() {
+        const email = document.getElementById("email").value;
+        const response = await fetch(`https://your-worker-url/api/increase?email=${email}`);
+        const data = await response.json();
+
+        if (response.ok) {
+            scoreElement.textContent = data.score;
+        } else {
+            alert(data.error || "Fehler beim Erhöhen der Punktzahl");
+        }
+    }
+
 </script>
 
 </body>
