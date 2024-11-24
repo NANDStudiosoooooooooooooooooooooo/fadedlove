@@ -14,7 +14,7 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
-      background: linear-gradient(135deg, #000, #ff7a00);
+      background: linear-gradient(135deg, #000, #ff00ff);
       color: #fff;
       overflow: hidden;
     }
@@ -22,7 +22,7 @@
     h1 {
       margin: 10px 0;
       font-size: 24px;
-      color: #ff7a00;
+      color: #ff0099;
     }
 
     .form-container {
@@ -43,7 +43,7 @@
 
     input:focus {
       outline: none;
-      box-shadow: 0 0 10px rgba(255, 122, 0, 0.8);
+      box-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
     }
 
     input.invalid {
@@ -53,7 +53,7 @@
 
     button {
       padding: 10px 20px;
-      background: linear-gradient(90deg, #ff7a00, #ff3d00);
+      background: linear-gradient(90deg, #ff00ff, #ff0099);
       border: none;
       border-radius: 5px;
       color: #fff;
@@ -64,7 +64,7 @@
 
     button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 5px 10px rgba(255, 122, 0, 0.5);
+      box-shadow: 0 5px 10px rgba(255, 0, 255, 0.5);
     }
 
     .hidden {
@@ -92,8 +92,8 @@
     }
 
     .leaderboard-item.highlight {
-      border: 2px solid #ff7a00;
-      animation: glow 1s infinite alternate;
+      border-bottom: 2px solid #ff0099;
+      font-weight: bold;
     }
 
     @keyframes shake {
@@ -103,15 +103,10 @@
       75% { transform: translateX(-5px); }
     }
 
-    @keyframes glow {
-      0% { box-shadow: 0 0 10px #ff7a00; }
-      100% { box-shadow: 0 0 20px #ff3d00; }
-    }
-
     .scroll-button {
       margin-top: 10px;
       padding: 10px;
-      background: linear-gradient(90deg, #000, #ff7a00);
+      background: linear-gradient(90deg, #000, #ff0099);
       color: #fff;
       font-weight: bold;
       border-radius: 5px;
@@ -121,7 +116,7 @@
 
     .scroll-button:hover {
       transform: scale(1.1);
-      background: #ff3d00;
+      background: #ff00ff;
     }
   </style>
 </head>
@@ -171,8 +166,8 @@
         item.innerHTML = `<span>${index + 1}. ${entry.name}</span><span>${entry.score}</span>`;
         leaderboard.appendChild(item);
 
-        // Highlight if the entry belongs to the current user
-        if (currentUser && entry.id === currentUser.id) {
+        // Highlight only the current user's entry if email matches
+        if (currentUser && entry.email === currentUser.email) {
           item.classList.add("highlight");
           if (!itemInView(item)) {
             scrollToMe.classList.remove("hidden");
