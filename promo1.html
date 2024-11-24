@@ -213,7 +213,6 @@
 
         // Check for blacklisted words
         if (blacklistedUsernames.some((word) => username.toLowerCase().includes(word))) {
-          alert('Dieser Benutzername ist nicht erlaubt.');
           usernameInput.classList.add('invalid');
           setTimeout(() => usernameInput.classList.remove('invalid'), 300);
           return;
