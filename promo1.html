@@ -173,11 +173,14 @@
 
     function renderLeaderboard(leaderboard) {
       leaderboardContainer.innerHTML = ''; // Clear list
+      let loggedInElement = null;
+
       leaderboard.forEach((entry, index) => {
         const item = document.createElement('div');
         item.className = 'leaderboard-item';
         if (entry.name === loggedInName) {
           item.classList.add('highlight');
+          loggedInElement = item;
         }
 
         const name = document.createElement('span');
@@ -190,6 +193,13 @@
         item.appendChild(score);
         leaderboardContainer.appendChild(item);
       });
+
+      if (loggedInElement) {
+            loggedInElement.scrollIntoView({
+            behavior: 'smooth', // Sanfte Scrollbewegung
+            block: 'center'     // Positioniere das Element in der Mitte des Containers
+            });
+        }
     }
 
     submitBtn.addEventListener('click', async () => {
