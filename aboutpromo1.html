@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FADEDCLOTH x NAND STUDIOS</title>
+  <style>
+    /* Allgemeines Styling */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #000, #444);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      margin: 20px 0;
+      font-size: 28px;
+      color: #ffccff;
+      text-shadow: 0 0 10px rgba(255, 128, 255, 0.8), 0 0 15px rgba(255, 255, 255, 0.5);
+      text-align: center;
+    }
+
+    /* Bilder-Container */
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr; /* Alle Bilder füllen die Breite */
+      gap: 0; /* Kein Abstand zwischen den Bildern */
+      width: 100%;
+      max-width: 100vw;
+    }
+
+    /* Einzelnes Bild */
+    .gallery-item {
+      position: relative;
+      width: 100%;
+      height: 50vh; /* Höhe auf Bildschirm anpassen */
+      overflow: hidden;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Bild zuschneiden */
+    }
+
+    /* Text über den Bildern */
+    .gallery-item .caption {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.8); /* Leichter Glanz */
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: #000;
+      font-weight: bold;
+      font-size: 16px;
+      text-transform: uppercase;
+      box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5),
+                  0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Anpassung für kleine Bildschirme */
+    @media (max-width: 768px) {
+      .gallery-item {
+        height: 30vh;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>FADEDCLOTH x NAND STUDIOS #01</h1>
+  <div class="gallery" id="gallery"></div>
+
+  <script>
+    // JSON-Daten
+    const images = [
+      { src: "https://via.placeholder.com/800x600", caption: "#1 Register" },
+      { src: "https://via.placeholder.com/800x600", caption: "#2 Play" },
+      { src: "https://via.placeholder.com/800x600", caption: "#3 Get 30% off" },
+      { src: "https://via.placeholder.com/800x600", caption: "#4 buy a jersey at the first drop for 30% less!" }
+    ];
+
+    // Gallery-Container
+    const gallery = document.getElementById("gallery");
+
+    // Bilder dynamisch laden
+    images.forEach(({ src, caption }) => {
+      const item = document.createElement("div");
+      item.className = "gallery-item";
+
+      const img = document.createElement("img");
+      img.src = src;
+
+      const text = document.createElement("div");
+      text.className = "caption";
+      text.textContent = caption;
+
+      item.appendChild(img);
+      item.appendChild(text);
+      gallery.appendChild(item);
+    });
+  </script>
+</body>
+</html>
