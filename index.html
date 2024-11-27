@@ -371,6 +371,7 @@
   const toggleArrow = document.getElementById("toggle-arrow");
 
   let currentHeightState = "collapsed"; // 'collapsed', 'half-height', 'full-height'
+  let lastScrollY = window.scrollY;
 
   // Load JSON data
   fetch("https://fadedcloth.de/JSON/news-data.json")
@@ -399,21 +400,22 @@
       newsTab.classList.remove("half-height");
       newsTab.classList.add("full-height");
       currentHeightState = "full-height";
-    } else {
+    } else if (currentHeightState === "full-height") {
       newsTab.classList.remove("full-height");
-      newsTab.classList.add("collapsed");
-      currentHeightState = "collapsed";
+      newsTab.classList.add("half-height");
+      currentHeightState = "half-height";
     }
   });
 
   // Show/hide header on scroll
-  let lastScrollY = window.scrollY;
 
   window.addEventListener("scroll", () => {
-    if (window.scrollY > lastScrollY) {
+
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > lastScrollY && currentHeightState === "collapsed") {
       newsHeader.classList.add("news-hidden");
       newsTab.classList.add("news-hidden");
-    } else {
+    } else if (currentScrollY < lastScrollY) {
       newsHeader.classList.remove("news-hidden");
       newsTab.classList.remove("news-hidden");
     }
