@@ -371,6 +371,7 @@
   const toggleArrow = document.getElementById("toggle-arrow");
 
   let currentHeightState = "collapsed"; // 'collapsed', 'half-height', 'full-height'
+  let previousHeightState = null;
   let lastScrollY = window.scrollY;
 
   // Load JSON data
@@ -392,23 +393,30 @@
 
   // Toggle height states
   newsHeader.addEventListener("click", () => {
+    previousHeightState = currentHeightState;
+
     if (currentHeightState === "collapsed") {
+      // Von collapsed -> half-height
       newsTab.classList.remove("collapsed");
       newsTab.classList.add("half-height");
       currentHeightState = "half-height";
     } else if (currentHeightState === "half-height") {
-      newsTab.classList.remove("half-height");
-      newsTab.classList.add("full-height");
-      currentHeightState = "full-height";
+      if (previousHeightState === "collapsed") {
+        // Von half-height -> full-height (nach collapsed)
+        newsTab.classList.remove("half-height");
+        newsTab.classList.add("full-height");
+        currentHeightState = "full-height";
+      } else if (previousHeightState === "full-height") {
+        // Von half-height -> collapsed (nach full-height)
+        newsTab.classList.remove("half-height");
+        newsTab.classList.add("collapsed");
+        currentHeightState = "collapsed";
+      }
     } else if (currentHeightState === "full-height") {
+      // Von full-height -> half-height
       newsTab.classList.remove("full-height");
       newsTab.classList.add("half-height");
       currentHeightState = "half-height";
-    } else if (currentHeightState === "half-height") {
-      // Collapse to completely closed
-      newsTab.classList.remove("half-height");
-      newsTab.classList.add("collapsed");
-      currentHeightState = "collapsed";
     }
   });
 
