@@ -255,6 +255,77 @@
                 overflow-x: scroll;
             }
         }
+
+        #news-tab {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #111;
+      border-top: 1px solid #fff;
+      transition: height 0.3s ease-in-out;
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    #news-header {
+      height: 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+      background-color: inherit;
+      color: #fff;
+      cursor: pointer;
+      clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+    }
+
+    #news-content {
+      height: calc(100% - 50px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #news-media {
+      width: auto;
+      height: 100%;
+      max-width: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .collapsed {
+      height: 50px;
+    }
+
+    .half-height {
+      height: 50vh;
+    }
+
+    .full-height {
+      height: calc(100% - 100px);
+    }
+
+    #toggle-arrow {
+      transform: rotate(0deg);
+      transition: transform 0.3s;
+    }
+
+    #news-tab.full-height #toggle-arrow {
+      transform: rotate(180deg);
+    }
+
+    .news-hidden {
+      transform: translateY(100%);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .news-visible {
+      transform: translateY(0);
+    }
+
     </style>
 
     <script>
@@ -290,6 +361,64 @@
         window.addEventListener('scroll', checkScroll);
         window.addEventListener('resize', checkScroll);
         document.addEventListener('DOMContentLoaded', checkScroll);
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+  const newsTab = document.getElementById("news-tab");
+  const newsHeader = document.getElementById("news-header");
+  const newsMedia = document.getElementById("news-media");
+  const headline = document.getElementById("news-headline");
+  const toggleArrow = document.getElementById("toggle-arrow");
+
+  let currentHeightState = "collapsed"; // 'collapsed', 'half-height', 'full-height'
+
+  // Load JSON data
+  fetch("fadedcloth.de/JSON/news-data.json")
+    .then((response) => response.json())
+    .then((data) => {
+      // Set headline and media
+      headline.textContent = data.headline;
+      newsMedia.style.backgroundImage = `url('${data.media}')`;
+
+      // Click on media to open the link
+      newsMedia.addEventListener("click", () => {
+        window.open(data.mediaLink, "_blank");
+      });
+    })
+    .catch((error) => {
+      console.error("Error loading JSON:", error);
+    });
+
+  // Toggle height states
+  newsHeader.addEventListener("click", () => {
+    if (currentHeightState === "collapsed") {
+      newsTab.classList.remove("collapsed");
+      newsTab.classList.add("half-height");
+      currentHeightState = "half-height";
+    } else if (currentHeightState === "half-height") {
+      newsTab.classList.remove("half-height");
+      newsTab.classList.add("full-height");
+      currentHeightState = "full-height";
+    } else {
+      newsTab.classList.remove("full-height");
+      newsTab.classList.add("collapsed");
+      currentHeightState = "collapsed";
+    }
+  });
+
+  // Show/hide header on scroll
+  let lastScrollY = window.scrollY;
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > lastScrollY) {
+      newsHeader.classList.add("news-hidden");
+    } else {
+      newsHeader.classList.remove("news-hidden");
+    }
+    lastScrollY = window.scrollY;
+  });
+});
+
     </script>
   
 </head>
@@ -332,6 +461,16 @@
     <div class="glas-wrapper">
         <div class="drop_container fade-in" id="drops-container">
             <!-- Drop items will be appended here -->
+        </div>
+    </div>
+
+    <div id="news-tab" class="collapsed">
+        <div id="news-header">
+          <span id="news-headline">...</span>
+          <span id="toggle-arrow">^</span>
+        </div>
+        <div id="news-content">
+          <div id="news-media"></div>
         </div>
     </div>
     
