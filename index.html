@@ -373,7 +373,7 @@
   let currentHeightState = "collapsed"; // 'collapsed', 'half-height', 'full-height'
 
   // Load JSON data
-  fetch("fadedcloth.de/JSON/news-data.json")
+  fetch("https://fadedcloth.de/JSON/news-data.json")
     .then((response) => response.json())
     .then((data) => {
       // Set headline and media
@@ -382,7 +382,7 @@
 
       // Click on media to open the link
       newsMedia.addEventListener("click", () => {
-        window.open(data.mediaLink, "_blank");
+        window.open(data.mediaLink);
       });
     })
     .catch((error) => {
@@ -412,8 +412,10 @@
   window.addEventListener("scroll", () => {
     if (window.scrollY > lastScrollY) {
       newsHeader.classList.add("news-hidden");
+      newsTab.classList.add("news-hidden");
     } else {
       newsHeader.classList.remove("news-hidden");
+      newsTab.classList.remove("news-hidden");
     }
     lastScrollY = window.scrollY;
   });
