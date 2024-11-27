@@ -404,6 +404,11 @@
       newsTab.classList.remove("full-height");
       newsTab.classList.add("half-height");
       currentHeightState = "half-height";
+    } else if (currentHeightState === "half-height") {
+      // Collapse to completely closed
+      newsTab.classList.remove("half-height");
+      newsTab.classList.add("collapsed");
+      currentHeightState = "collapsed";
     }
   });
 
