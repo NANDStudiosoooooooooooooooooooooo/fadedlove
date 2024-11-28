@@ -375,7 +375,7 @@
   let lastScrollY = window.scrollY;
 
   // Load JSON data
-  fetch("https://fadedcloth.de/JSON/news-data.json")
+  fetch("https://fadedcloth.de/JSON/news-data.json?v=1.1")
     .then((response) => response.json())
     .then((data) => {
       // Set headline and media
