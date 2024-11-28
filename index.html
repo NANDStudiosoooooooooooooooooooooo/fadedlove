@@ -257,65 +257,66 @@
         }
 
         #news-tab {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  overflow: hidden;
-  background-color: #000000;
-  transition: height 0.3s ease;
-  align-items: center;
-  justify-content: center;
-}
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        overflow: hidden;
+        background-color: #000000;
+        transition: height 0.3s ease;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        }
 
-#news-header {
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  border-top: 1px solid white;
-  cursor: pointer;
-}
+        #news-header {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        border-top: 1px solid white;
+        cursor: pointer;
+        }
 
-#news-headline {
-  font-size: 14px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
+        #news-headline {
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+        }
 
-#toggle-arrow {
-  font-size: 16px;
-  transform: rotate(0deg);
-  transition: transform 0.3s ease;
-}
+        #toggle-arrow {
+        font-size: 16px;
+        transform: rotate(0deg);
+        transition: transform 0.3s ease;
+        }
 
-#news-tab.full-height #toggle-arrow {
-  transform: rotate(180deg);
-}
+        #news-tab.full-height #toggle-arrow {
+        transform: rotate(180deg);
+        }
 
-#news-media {
-  width: 90%;
-  height: auto; 
-  max-height: 90%;
-  max-width: 90%;
-}
-/* Zustände */
-#news-tab.collapsed {
-  height: 50px;
-}
+        #news-media {
+        width: 90%;
+        height: auto; 
+        max-height: 90%;
+        max-width: 90%;
+        }
+        /* Zustände */
+        #news-tab.collapsed {
+        height: 50px;
+        }
 
-#news-tab.half-height {
-  height: 50vh;
-}
+        #news-tab.half-height {
+        height: 50vh;
+        }
 
-#news-tab.full-height {
-  height: calc(100vh - 100px);
-}
+        #news-tab.full-height {
+        height: calc(100vh - 100px);
+        }
 
-.media {
-    width: 100%;
-    cursor: pointer;
-}
+        .media {
+            width: 100%;
+            cursor: pointer;
+        }
 
     .news-hidden {
       transform: translateY(100%);
