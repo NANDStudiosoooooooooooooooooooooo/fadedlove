@@ -257,65 +257,66 @@
         }
 
         #news-tab {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: #000000;
-      border-top: 1px solid #fff;
-      transition: height 0.3s ease-in-out;
-      z-index: 1000;
-      overflow: hidden;
-    }
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid white;
+  overflow: hidden;
+  background-color: #000000;
+  transition: height 0.3s ease;
+}
 
-    #news-header {
-      height: 50px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 10px;
-      background-color: inherit;
-      color: #fff;
-      cursor: pointer;
-      clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
-    }
+#news-header {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-top: 1px solid white;
+  cursor: pointer;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 100%, 0% 100%);
+}
 
-    #news-content {
-      height: calc(100% - 50px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+#news-header.hidden {
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
 
-    #news-media {
-      width: auto;
-      height: 100%;
-      max-width: 100%;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-    }
+#news-headline {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
 
-    .collapsed {
-      height: 50px;
-    }
+#toggle-arrow {
+  font-size: 16px;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
 
-    .half-height {
-      height: 50vh;
-    }
+#news-tab.full-height #toggle-arrow {
+  transform: rotate(180deg);
+}
 
-    .full-height {
-      height: calc(100% - 100px);
-    }
+#news-media {
+  width: 100%;
+  height: 80%; /* Bild nimmt 80% der Höhe ein */
+  background-size: cover;
+  background-position: center;
+}
 
-    #toggle-arrow {
-      transform: rotate(0deg);
-      transition: transform 0.3s;
-    }
+/* Zustände */
+#news-tab.collapsed {
+  height: 50px;
+}
 
-    #news-tab.full-height #toggle-arrow {
-      transform: rotate(180deg);
-    }
+#news-tab.half-height {
+  height: 50vh;
+}
+
+#news-tab.full-height {
+  height: calc(100vh - 50px);
+}
 
     .news-hidden {
       transform: translateY(100%);
