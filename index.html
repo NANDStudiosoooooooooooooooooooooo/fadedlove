@@ -365,79 +365,82 @@
 
 
         document.addEventListener("DOMContentLoaded", () => {
-  const newsTab = document.getElementById("news-tab");
-  const newsHeader = document.getElementById("news-header");
-  const newsMedia = document.getElementById("news-media");
-  const headline = document.getElementById("news-headline");
-  const toggleArrow = document.getElementById("toggle-arrow");
+        const newsTab = document.getElementById("news-tab");
+        const newsHeader = document.getElementById("news-header");
+        const newsMedia = document.getElementById("news-media");
+        const headline = document.getElementById("news-headline");
+        const toggleArrow = document.getElementById("toggle-arrow");
 
-  let currentHeightState = "collapsed"; // Aktueller Zustand
-  let previousHeightState = null; // Vorheriger Zustand
-  let lastScrollY = window.scrollY;
+        let currentHeightState = "collapsed"; // Aktueller Zustand
+        let lastScrollY = window.scrollY;
 
-  // JSON-Daten laden
-  fetch("https://fadedcloth.de/JSON/news-data.json?v=1.1 s")
-    .then((response) => response.json())
-    .then((data) => {
-      // Headline und Medien setzen
-      headline.textContent = data.headline;
-      newsMedia.style.backgroundImage = `url('${data.media}')`;
+    // JSON-Daten laden
+    fetch("news-data.https://fadedcloth.de/JSON/news-data.json?v=1.2")
+        .then((response) => response.json())
+        .then((data) => {
+        // Headline setzen
+        headline.textContent = data.headline;
 
-      // Klick auf das Medium öffnet den Link
-      newsMedia.addEventListener("click", () => {
-        window.open(data.mediaLink, "_blank");
-      });
-    })
-    .catch((error) => {
-      console.error("Error loading JSON:", error);
-    });
+        // Bild oder Video dynamisch setzen
+        if (data.mediaType === "video") {
+            const video = document.createElement("video");
+            video.src = data.media;
+            video.autoplay = true;
+            video.loop = true;
+            video.muted = true;
+            newsMedia.appendChild(video);
+        } else {
+            const img = document.createElement("img");
+            img.src = data.media;
+            newsMedia.appendChild(img);
+        }
 
-  // Klick-Logik für den Header
-  newsHeader.addEventListener("click", () => {
-    previousHeightState = currentHeightState;
+        // Klick auf das Medium öffnet den Link
+        newsMedia.addEventListener("click", () => {
+            window.open(data.mediaLink, "_blank");
+        });
+        })
+        .catch((error) => {
+        console.error("Error loading JSON:", error);
+        });
 
-    if (currentHeightState === "collapsed") {
-      // Von collapsed -> half-height
-      newsTab.classList.remove("collapsed");
-      newsTab.classList.add("half-height");
-      currentHeightState = "half-height";
-    } else if (currentHeightState === "half-height") {
-      if (previousHeightState === "collapsed") {
+    // Klick-Logik für den Header
+    newsHeader.addEventListener("click", () => {
+        if (currentHeightState === "collapsed") {
+        // Von collapsed -> half-height
+        newsTab.classList.remove("collapsed");
+        newsTab.classList.add("half-height");
+        currentHeightState = "half-height";
+        } else if (currentHeightState === "half-height") {
         // Von half-height -> full-height
         newsTab.classList.remove("half-height");
         newsTab.classList.add("full-height");
         currentHeightState = "full-height";
-      } else if (previousHeightState === "full-height") {
-        // Von half-height -> collapsed
-        newsTab.classList.remove("half-height");
+        } else if (currentHeightState === "full-height") {
+        // Von full-height -> collapsed
+        newsTab.classList.remove("full-height");
         newsTab.classList.add("collapsed");
         currentHeightState = "collapsed";
-      }
-    } else if (currentHeightState === "full-height") {
-      // Von full-height -> half-height
-      newsTab.classList.remove("full-height");
-      newsTab.classList.add("half-height");
-      currentHeightState = "half-height";
-    }
-  });
+        }
+    });
 
-  // Scroll-Logik: Header verstecken/anzeigen
-  window.addEventListener("scroll", () => {
-    const currentScrollY = window.scrollY;
+    // Scroll-Logik: Container verstecken/anzeigen
+    window.addEventListener("scroll", () => {
+        const currentScrollY = window.scrollY;
 
-    if (currentScrollY > lastScrollY && currentHeightState === "collapsed") {
-      // Verstecke Header, wenn nach unten gescrollt wird und Container collapsed ist
-      newsHeader.classList.add("news-hidden");
-      newsTab.classList.add("news-hidden");
-    } else if (currentScrollY < lastScrollY) {
-      // Zeige Header, wenn nach oben gescrollt wird
-      newsHeader.classList.remove("news-hidden");
-      newsTab.classList.remove("news-hidden");
-    }
+        if (currentScrollY > lastScrollY && currentHeightState === "collapsed") {
+        // Verstecke Container, wenn nach unten gescrollt wird und er collapsed ist
+        newsTab.classList.add("news-hidden");
+        } else if (currentScrollY < lastScrollY) {
+        // Zeige Container, wenn nach oben gescrollt wird
+        newsTab.classList.remove("news-hidden");
+        }
 
-    lastScrollY = currentScrollY;
-  });
-});
+        lastScrollY = currentScrollY;
+    });
+    });
+
+
 
 
     </script>

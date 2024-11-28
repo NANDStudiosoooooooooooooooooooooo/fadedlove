@@ -1,7 +1,7 @@
 {
     "headline": "PROMO #01 | GET 30% OFF",
     "media": "https://fadedcloth.de/media/promo/promo0.png",
-    "isVideo": false,
+    "mediaType": "image",
     "mediaLink": "https://fadedcloth.de/promo1"
   }
   
