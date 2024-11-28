@@ -314,7 +314,13 @@
 }
 
 #news-tab.full-height {
-  height: calc(100vh - 50px);
+  height: calc(100vh - 100px);
+}
+
+.media {
+    height: 80%;
+    justify-content: center;
+    align-items: center;
 }
 
     .news-hidden {
@@ -387,10 +393,12 @@
             video.autoplay = true;
             video.loop = true;
             video.muted = true;
+            video.classList.add(media);
             newsMedia.appendChild(video);
         } else {
             const img = document.createElement("img");
             img.src = data.media;
+            img.classList.add(media);
             newsMedia.appendChild(img);
         }
 
