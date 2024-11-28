@@ -389,10 +389,12 @@
             video.loop = true;
             video.muted = true;
             video.classList.add('media');
+            video.id = 'media';
             newsMedia.appendChild(video);
         } else {
             const img = document.createElement("img");
             img.src = data.media;
+            img.id = 'media';
             img.classList.add('media');
             newsMedia.appendChild(img);
         }
