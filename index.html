@@ -260,7 +260,6 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  border-top: 1px solid white;
   overflow: hidden;
   background-color: #000000;
   transition: height 0.3s ease;
@@ -375,7 +374,7 @@
         let lastScrollY = window.scrollY;
 
     // JSON-Daten laden
-    fetch("news-data.https://fadedcloth.de/JSON/news-data.json?v=1.2")
+    fetch("https://fadedcloth.de/JSON/news-data.json?v=1.2")
         .then((response) => response.json())
         .then((data) => {
         // Headline setzen
