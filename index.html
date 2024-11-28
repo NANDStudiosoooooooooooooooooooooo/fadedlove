@@ -370,28 +370,28 @@
   const headline = document.getElementById("news-headline");
   const toggleArrow = document.getElementById("toggle-arrow");
 
-  let currentHeightState = "collapsed"; // 'collapsed', 'half-height', 'full-height'
-  let previousHeightState = null;
+  let currentHeightState = "collapsed"; // Aktueller Zustand
+  let previousHeightState = null; // Vorheriger Zustand
   let lastScrollY = window.scrollY;
 
-  // Load JSON data
-  fetch("https://fadedcloth.de/JSON/news-data.json?v=1.1")
+  // JSON-Daten laden
+  fetch("https://fadedcloth.de/JSON/news-data.json?v=1.1 s")
     .then((response) => response.json())
     .then((data) => {
-      // Set headline and media
+      // Headline und Medien setzen
       headline.textContent = data.headline;
       newsMedia.style.backgroundImage = `url('${data.media}')`;
 
-      // Click on media to open the link
+      // Klick auf das Medium öffnet den Link
       newsMedia.addEventListener("click", () => {
-        window.open(data.mediaLink);
+        window.open(data.mediaLink, "_blank");
       });
     })
     .catch((error) => {
       console.error("Error loading JSON:", error);
     });
 
-  // Toggle height states
+  // Klick-Logik für den Header
   newsHeader.addEventListener("click", () => {
     previousHeightState = currentHeightState;
 
@@ -402,12 +402,12 @@
       currentHeightState = "half-height";
     } else if (currentHeightState === "half-height") {
       if (previousHeightState === "collapsed") {
-        // Von half-height -> full-height (nach collapsed)
+        // Von half-height -> full-height
         newsTab.classList.remove("half-height");
         newsTab.classList.add("full-height");
         currentHeightState = "full-height";
       } else if (previousHeightState === "full-height") {
-        // Von half-height -> collapsed (nach full-height)
+        // Von half-height -> collapsed
         newsTab.classList.remove("half-height");
         newsTab.classList.add("collapsed");
         currentHeightState = "collapsed";
@@ -420,21 +420,24 @@
     }
   });
 
-  // Show/hide header on scroll
-
+  // Scroll-Logik: Header verstecken/anzeigen
   window.addEventListener("scroll", () => {
-
     const currentScrollY = window.scrollY;
+
     if (currentScrollY > lastScrollY && currentHeightState === "collapsed") {
+      // Verstecke Header, wenn nach unten gescrollt wird und Container collapsed ist
       newsHeader.classList.add("news-hidden");
       newsTab.classList.add("news-hidden");
     } else if (currentScrollY < lastScrollY) {
+      // Zeige Header, wenn nach oben gescrollt wird
       newsHeader.classList.remove("news-hidden");
       newsTab.classList.remove("news-hidden");
     }
-    lastScrollY = window.scrollY;
+
+    lastScrollY = currentScrollY;
   });
 });
+
 
     </script>
   
