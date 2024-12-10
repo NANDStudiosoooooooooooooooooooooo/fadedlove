@@ -329,6 +329,7 @@
 
     .dropLink .ended{
         text-decoration: line-through;
+        user-select: none;
     }
 
     </style>
@@ -576,7 +577,7 @@
     const container = document.getElementById('drops-container');
     const now = new Date();
 
-    // Shopify GraphQL query to get collections with metafield drop
+    // Shopify GraphQL query to get collections with metafields drop and dropend
     const query = `
         {
             collections(first: 50) {
@@ -584,10 +585,8 @@
                     node {
                         title
                         handle
-                        metafield(namespace: "custom", key: "drop") {
-                            value
-                        }
-                        metafield(namespace: "custom", key: "dropend") {
+                        metafields(namespace: "custom") {
+                            key
                             value
                         }
                     }
@@ -610,15 +609,31 @@
 
         const data = await response.json();
 
+        // Debugging the structure of the data
+        console.log("Fetched data:", data);
+
+        // Überprüfen, ob collections existieren
+        if (!data.data || !data.data.collections || !data.data.collections.edges) {
+            throw new Error("No collections found in the response.");
+        }
+
         const collections = data.data.collections.edges
-            .map(edge => ({
-                title: edge.node.title,
-                handle: edge.node.handle,
-                drop: edge.node.metafield ? new Date(edge.node.metafield.value) : null,
-                dropend: edge.node.metafield ? new Date(edge.node.metafield.value) : null
-            }))
-            .filter(collection => collection.drop) // Only collections with a drop date
-            .sort((a, b) => a.drop - b.drop); // Sort by ascending drop date
+            .map(edge => {
+                const collectionNode = edge.node;
+                const metafields = collectionNode.metafields.reduce((acc, metafield) => {
+                    acc[metafield.key] = metafield.value;
+                    return acc;
+                }, {});
+
+                return {
+                    title: collectionNode.title,
+                    handle: collectionNode.handle,
+                    drop: metafields['drop'] ? new Date(metafields['drop']) : null,
+                    dropend: metafields['dropend'] ? new Date(metafields['dropend']) : null
+                };
+            })
+            .filter(collection => collection.drop) // Nur Collections mit Drop-Datum
+            .sort((a, b) => a.drop - b.drop); // Sortieren nach aufsteigendem Drop-Datum
 
         await Promise.all(collections.map(async (collection) => {
             const dropinfoQuery = `
@@ -661,18 +676,13 @@
             dropNumberHash.textContent = '#';
             const dropNumber = document.createElement('div');
             dropNumber.textContent = isUpcoming ? String(index + 1).padStart(2, '0') : String(index + 1).padStart(2, '0');
-            dropNumberContainer.appendChild(dropNumberHash);  //+3 if newsletter & collection use # | +1 if they use //
+            dropNumberContainer.appendChild(dropNumberHash);
             dropNumberContainer.appendChild(dropNumber);
             dropElement.appendChild(dropNumberContainer);
 
             const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
             dropLink.className = 'drop_link';
             const formattedDate = formatUpcomingDate(collection.drop);
-
-            // Überprüfen des Drop-End-Datums
-            if (collection.dropend && collection.dropend < now) {
-                dropLink.classList.add('ended');  // Klasse 'ended' hinzufügen, wenn Drop-End-Datum überschritten
-            }
 
             if (isUpcoming) {
                 upcomingDrops.push(dropElement);
@@ -684,25 +694,29 @@
             dropElement.appendChild(dropLink);
             container.appendChild(dropElement);
 
+            // Überprüfen, ob der Drop beendet ist
+            if (collection.dropend && collection.dropend < now) {
+                dropLink.classList.add('ended');
+            } else if (!isUpcoming) {
+                dropLink.classList.add('dropactive');
+            }
+
             if (isUpcoming) {
                 handleCountdown(dropLink, collection.drop, collection.title, formattedDate, collection.dropinfo, collection.handle);
             }
         });
 
         createSection('Dropped Drops', droppedItems);
-
         addNewsletterInput('//');
-        //droppedItems.length + 1 //'//'
         addCollectionButton('//');
-
         createSection('Upcoming Drops', upcomingDrops);
-
         createSection('Navigation', nav);
 
     } catch (error) {
         console.error("Error fetching Shopify drops:", error);
     }
 }
+
 
 
         const nav = [
