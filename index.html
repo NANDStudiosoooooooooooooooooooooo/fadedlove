@@ -327,6 +327,22 @@
         transform: translateY(100%) !important;
     }
 
+    .drop_link.expired {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.drop_link.active {
+    color: pink;
+    font-weight: bold;
+}
+
+.drop_link.upcoming {
+    color: black;
+    font-style: italic;
+}
+
+
     </style>
 
     <script>
@@ -583,6 +599,12 @@
                                 metafield(namespace: "custom", key: "drop") {
                                     value
                                 }
+                                metafield(namespace: "custom", key: "dropinfo") {
+                                    value
+                                }
+                                metafield(namespace: "custom", key: "dropend") {
+                                    value
+                                }
                             }
                         }
                     }
@@ -607,74 +629,66 @@
                     .map(edge => ({
                         title: edge.node.title,
                         handle: edge.node.handle,
-                        drop: edge.node.metafield ? new Date(edge.node.metafield.value) : null
+                        drop: edge.node.metafield ? new Date(edge.node.metafield.value) : null,
+                        dropend: edge.node.metafield && edge.node.metafield.key === "dropend" 
+                            ? new Date(edge.node.metafield.value) 
+                            : null,
+                        dropinfo: edge.node.metafield && edge.node.metafield.key === "dropinfo"
+                            ? edge.node.metafield.value : null
                     }))
                     .filter(collection => collection.drop) // Only collections with a drop date
                     .sort((a, b) => a.drop - b.drop); // Sort by ascending drop date
-
-                await Promise.all(collections.map(async (collection) => {
-                    const dropinfoQuery = `
-                        {
-                            collection(handle: "${collection.handle}") {
-                                metafield(namespace: "custom", key: "dropinfo") {
-                                    value
-                                }
-                            }
-                        }
-                    `;
-
-                    const dropinfoResponse = await fetch("https://checkout.fadedcloth.de/api/2023-07/graphql.json", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-Shopify-Storefront-Access-Token": "ed72f09d8742f37356305b6e49310909"
-                        },
-                        body: JSON.stringify({ query: dropinfoQuery })
-                    });
-
-                    const dropinfoData = await dropinfoResponse.json();
-                    if (dropinfoData.data && dropinfoData.data.collection) {
-                        collection.dropinfo = dropinfoData.data.collection.metafield ? dropinfoData.data.collection.metafield.value : null;
-                    }
-                }));
 
                 const upcomingDrops = [];
                 const droppedItems = [];
 
                 collections.forEach((collection, index) => {
-                    const isUpcoming = collection.drop > now;
-                    const dropElement = document.createElement('div');
-                    dropElement.className = 'drop_item';
-                    dropElement.setAttribute('data-drop-date', collection.drop.toISOString());
+                const isUpcoming = collection.drop > now;
+                const isActive = collection.drop <= now && now < collection.dropend;
+                const isExpired = collection.dropend <= now;
 
-                    const dropNumberContainer = document.createElement('div');
-                    dropNumberContainer.className = 'drop_number_container';
-                    const dropNumberHash = document.createElement('div');
-                    dropNumberHash.textContent = '#';
-                    const dropNumber = document.createElement('div');
-                    dropNumber.textContent = isUpcoming ? String(index + 1).padStart(2, '0') : String(index + 1).padStart(2, '0');
-                    dropNumberContainer.appendChild(dropNumberHash);  //+3 if newslettter & collection use # | +1 if they use //
-                    dropNumberContainer.appendChild(dropNumber);
-                    dropElement.appendChild(dropNumberContainer);
+                const dropElement = document.createElement('div');
+                dropElement.className = 'drop_item';
+                dropElement.setAttribute('data-drop-date', collection.drop.toISOString());
 
-                    const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
-                    dropLink.className = 'drop_link';
-                    const formattedDate = formatUpcomingDate(collection.drop);
+                const dropNumberContainer = document.createElement('div');
+                dropNumberContainer.className = 'drop_number_container';
+                const dropNumberHash = document.createElement('div');
+                dropNumberHash.textContent = '#';
+                const dropNumber = document.createElement('div');
+                dropNumber.textContent = isUpcoming 
+                    ? String(index + 3).padStart(2, '0')
+                    : String(index + 1).padStart(2, '0');
+                dropNumberContainer.appendChild(dropNumberHash);
+                dropNumberContainer.appendChild(dropNumber);
+                dropElement.appendChild(dropNumberContainer);
 
-                    if (isUpcoming) {
-                        upcomingDrops.push(dropElement);
-                    } else {
-                        dropLink.textContent = collection.dropinfo ? `${collection.title} - ${collection.dropinfo}` : collection.title;
-                        dropLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
-                        droppedItems.push(dropElement);
-                    }
-                    dropElement.appendChild(dropLink);
-                    container.appendChild(dropElement);
+                const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
+                dropLink.className = 'drop_link';
 
-                    if (isUpcoming) {
-                        handleCountdown(dropLink, collection.drop, collection.title, formattedDate, collection.dropinfo, collection.handle);
-                    }
-                });
+                if (isUpcoming) {
+                    dropLink.classList.add('upcoming');
+                    upcomingDrops.push(dropElement);
+                    handleCountdown(dropLink, collection.drop, collection.title, collection.dropinfo, collection.handle);
+                } else if (isActive) {
+                    dropLink.classList.add('active');
+                    dropLink.textContent = collection.dropinfo 
+                        ? `${collection.title} - ${collection.dropinfo}` 
+                        : collection.title;
+                    dropLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
+                    droppedItems.push(dropElement);
+                } else if (isExpired) {
+                    dropLink.classList.add('expired');
+                    dropLink.textContent = collection.dropinfo 
+                        ? `${collection.title} - ${collection.dropinfo}` 
+                        : collection.title;
+                    dropLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
+                    droppedItems.push(dropElement);
+                }
+
+                dropElement.appendChild(dropLink);
+                container.appendChild(dropElement);
+            });
 
                 createSection('Dropped Drops', droppedItems);
 
