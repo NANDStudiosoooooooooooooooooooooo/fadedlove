@@ -577,7 +577,7 @@
     const container = document.getElementById('drops-container');
     const now = new Date();
 
-    // Shopify GraphQL query to get collections with metafields drop and dropend
+    // Shopify GraphQL query to get collections with metafields
     const query = `
         {
             collections(first: 50) {
@@ -585,9 +585,14 @@
                     node {
                         title
                         handle
-                        metafields(namespace: "custom") {
-                            key
-                            value
+                        metafields(first: 5) {
+                            edges {
+                                node {
+                                    namespace
+                                    key
+                                    value
+                                }
+                            }
                         }
                     }
                 }
@@ -620,8 +625,8 @@
         const collections = data.data.collections.edges
             .map(edge => {
                 const collectionNode = edge.node;
-                const metafields = collectionNode.metafields.reduce((acc, metafield) => {
-                    acc[metafield.key] = metafield.value;
+                const metafields = collectionNode.metafields.edges.reduce((acc, metafield) => {
+                    acc[metafield.node.key] = metafield.node.value;
                     return acc;
                 }, {});
 
@@ -716,6 +721,7 @@
         console.error("Error fetching Shopify drops:", error);
     }
 }
+
 
 
 
