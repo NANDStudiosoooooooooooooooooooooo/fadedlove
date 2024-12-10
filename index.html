@@ -624,14 +624,19 @@
         const collections = data.data.collections.edges
             .map(edge => {
                 const collectionNode = edge.node;
-                const metafields = collectionNode.metafields.reduce((acc, metafield) => {
+
+                // Überprüfen, ob Metafelder vorhanden sind, bevor darauf zugegriffen wird
+                const metafields = Array.isArray(collectionNode.metafields) ? collectionNode.metafields : [];
+
+                // Metafelder aufbauen
+                const metafieldsObj = metafields.reduce((acc, metafield) => {
                     acc[metafield.key] = metafield.value;
                     return acc;
                 }, {});
 
                 // Nur Collections mit drop und dropend definieren
-                const drop = metafields['drop'] ? new Date(metafields['drop']) : null;
-                const dropend = metafields['dropend'] ? new Date(metafields['dropend']) : null;
+                const drop = metafieldsObj['drop'] ? new Date(metafieldsObj['drop']) : null;
+                const dropend = metafieldsObj['dropend'] ? new Date(metafieldsObj['dropend']) : null;
 
                 // Wenn drop oder dropend fehlt, Collection ignorieren
                 if (!drop || !dropend) {
@@ -729,6 +734,7 @@
         console.error("Error fetching Shopify drops:", error);
     }
 }
+
 
 
 
