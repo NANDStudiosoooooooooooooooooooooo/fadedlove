@@ -581,7 +581,7 @@
     const container = document.getElementById('drops-container');
     const now = new Date();
 
-    // Shopify GraphQL query to get collections with metafields drop, dropend, and isdrop
+    // Shopify GraphQL query to get collections with metafields drop, dropend, isdrop, and dropinfo
     const query = `
         {
             collections(first: 50) {
@@ -591,9 +591,9 @@
                         handle
                         metafields(identifiers: [
                             {namespace: "custom", key: "drop"}, 
-                            {namespace: "custom", key: "dropinfo"}, 
                             {namespace: "custom", key: "dropend"}, 
-                            {namespace: "custom", key: "isdrop"}
+                            {namespace: "custom", key: "isdrop"}, 
+                            {namespace: "custom", key: "dropinfo"}
                         ]) {
                             key
                             value
@@ -618,10 +618,6 @@
 
         const data = await response.json();
 
-        // Debugging the structure of the data
-        console.log("Fetched data:", data);
-
-        // Überprüfen, ob collections existieren
         if (!data.data || !data.data.collections || !data.data.collections.edges) {
             throw new Error("No collections found in the response.");
         }
@@ -630,16 +626,15 @@
             .map(edge => {
                 const collectionNode = edge.node;
 
-                // Überprüfen, ob Metafelder vorhanden sind, bevor darauf zugegriffen wird
+                // Ensure metafields are available
                 const metafields = Array.isArray(collectionNode.metafields) ? collectionNode.metafields : [];
 
-                // Metafelder in ein Objekt umwandeln
+                // Convert metafields array to an object
                 const metafieldsObj = metafields.reduce((acc, metafield) => {
                     acc[metafield.key] = metafield.value;
                     return acc;
                 }, {});
 
-                // Nur Collections mit isdrop true
                 if (metafieldsObj['isdrop'] !== 'true') {
                     return null;
                 }
@@ -647,81 +642,75 @@
                 const drop = metafieldsObj['drop'] ? new Date(metafieldsObj['drop']) : null;
                 const dropend = metafieldsObj['dropend'] ? new Date(metafieldsObj['dropend']) : null;
 
-                // Wenn drop oder dropend fehlt, Collection ignorieren
                 if (!drop || !dropend) {
-                    return null; // Gibt null zurück, um sie aus der Liste zu entfernen
+                    return null;
                 }
 
                 return {
                     title: collectionNode.title,
                     handle: collectionNode.handle,
                     drop: drop,
-                    dropend: dropend
+                    dropend: dropend,
+                    dropinfo: metafieldsObj['dropinfo'] || null
                 };
             })
-            .filter(collection => collection !== null) // Filtert alle null-Werte heraus
-            .sort((a, b) => a.drop - b.drop); // Sortieren nach aufsteigendem Drop-Datum
+            .filter(collection => collection !== null)
+            .sort((a, b) => a.drop - b.drop);
 
-        // Rest des Codes bleibt gleich
         const upcomingDrops = [];
         const droppedItems = [];
 
         collections.forEach((collection, index) => {
-    const isUpcoming = collection.drop > now; // Prüfen, ob der Drop in der Zukunft liegt
-    const dropElement = document.createElement('div');
-    dropElement.className = 'drop_item';
-    dropElement.setAttribute('data-drop-date', collection.drop ? collection.drop.toISOString() : "");
+            const isUpcoming = collection.drop > now;
+            const dropElement = document.createElement('div');
+            dropElement.className = 'drop_item';
+            dropElement.setAttribute('data-drop-date', collection.drop ? collection.drop.toISOString() : "");
 
-    const dropNumberContainer = document.createElement('div');
-    dropNumberContainer.className = 'drop_number_container';
-    const dropNumberHash = document.createElement('div');
-    dropNumberHash.textContent = '#';
-    const dropNumber = document.createElement('div');
-    dropNumber.textContent = String(index + 1).padStart(2, '0'); // Drop-Nummer
-    dropNumberContainer.appendChild(dropNumberHash);
-    dropNumberContainer.appendChild(dropNumber);
-    dropElement.appendChild(dropNumberContainer);
+            const dropNumberContainer = document.createElement('div');
+            dropNumberContainer.className = 'drop_number_container';
+            const dropNumberHash = document.createElement('div');
+            dropNumberHash.textContent = '#';
+            const dropNumber = document.createElement('div');
+            dropNumber.textContent = String(index + 1).padStart(2, '0');
+            dropNumberContainer.appendChild(dropNumberHash);
+            dropNumberContainer.appendChild(dropNumber);
+            dropElement.appendChild(dropNumberContainer);
 
-    // Link oder span für Drops erstellen
-    const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
-    dropLink.className = 'drop_link';
+            const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
+            dropLink.className = 'drop_link';
 
-    if (isUpcoming) {
-        // Logik für zukünftige Drops bleibt unverändert
-        handleCountdown(
-            dropLink,
-            collection.drop,
-            collection.title,
-            formatUpcomingDate(collection.drop),
-            collection.dropinfo,
-            collection.handle
-        );
-        upcomingDrops.push(dropElement);
-    } else {
-        // Logik für abgelaufene und aktive Drops
-        const dropinfoText = collection.dropinfo ? ` - ${collection.dropinfo}` : '';
-        dropLink.textContent = `${collection.title}${dropinfoText}`;
-        dropLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
-        droppedItems.push(dropElement);
-    }
+            if (isUpcoming) {
+                handleCountdown(
+                    dropLink,
+                    collection.drop,
+                    collection.title,
+                    formatUpcomingDate(collection.drop),
+                    collection.dropinfo,
+                    collection.handle
+                );
+                upcomingDrops.push(dropElement);
+            } else {
+                const dropinfoText = collection.dropinfo ? ` - ${collection.dropinfo}` : '';
+                dropLink.textContent = `${collection.title}${dropinfoText}`;
+                dropLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
+                droppedItems.push(dropElement);
+            }
 
-    dropElement.appendChild(dropLink);
-    container.appendChild(dropElement);
+            dropElement.appendChild(dropLink);
+            container.appendChild(dropElement);
 
-    // Klassen setzen
-    if (collection.dropend && collection.dropend < now) {
-        dropLink.classList.add('ended');
-    } else if (!isUpcoming) {
-        dropLink.classList.add('active');
-    }
-});
-
+            if (collection.dropend && collection.dropend < now) {
+                dropLink.classList.add('ended');
+            } else if (!isUpcoming) {
+                dropLink.classList.add('active');
+            }
+        });
 
         createSection('Dropped Drops', droppedItems);
         addNewsletterInput('//');
         addCollectionButton('//');
         createSection('Upcoming Drops', upcomingDrops);
-        createSection('Navigation', nav);
+        createSection('Navigation', []);
 
     } catch (error) {
         console.error("Error fetching Shopify drops:", error);
