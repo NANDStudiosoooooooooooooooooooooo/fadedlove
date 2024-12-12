@@ -631,7 +631,9 @@
 
                 // Convert metafields array to an object
                 const metafieldsObj = metafields.reduce((acc, metafield) => {
-                    acc[metafield.key] = metafield.value;
+                    if (metafield && metafield.key) {
+                        acc[metafield.key] = metafield.value;
+                    }
                     return acc;
                 }, {});
 
