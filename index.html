@@ -581,7 +581,7 @@
     const container = document.getElementById('drops-container');
     const now = new Date();
 
-    // Shopify GraphQL query to get collections with metafields drop and dropend
+    // Shopify GraphQL query to get collections with metafields drop, dropend, and isdrop
     const query = `
         {
             collections(first: 50) {
@@ -589,7 +589,11 @@
                     node {
                         title
                         handle
-                        metafields(identifiers: [{namespace: "custom", key: "drop"}, {namespace: "custom", key: "dropend"}]) {
+                        metafields(identifiers: [
+                            {namespace: "custom", key: "drop"}, 
+                            {namespace: "custom", key: "dropend"}, 
+                            {namespace: "custom", key: "isdrop"}
+                        ]) {
                             key
                             value
                         }
@@ -628,13 +632,17 @@
                 // Überprüfen, ob Metafelder vorhanden sind, bevor darauf zugegriffen wird
                 const metafields = Array.isArray(collectionNode.metafields) ? collectionNode.metafields : [];
 
-                // Metafelder aufbauen
+                // Metafelder in ein Objekt umwandeln
                 const metafieldsObj = metafields.reduce((acc, metafield) => {
                     acc[metafield.key] = metafield.value;
                     return acc;
                 }, {});
 
-                // Nur Collections mit drop und dropend definieren
+                // Nur Collections mit isdrop true
+                if (metafieldsObj['isdrop'] !== 'true') {
+                    return null;
+                }
+
                 const drop = metafieldsObj['drop'] ? new Date(metafieldsObj['drop']) : null;
                 const dropend = metafieldsObj['dropend'] ? new Date(metafieldsObj['dropend']) : null;
 
@@ -653,32 +661,7 @@
             .filter(collection => collection !== null) // Filtert alle null-Werte heraus
             .sort((a, b) => a.drop - b.drop); // Sortieren nach aufsteigendem Drop-Datum
 
-        await Promise.all(collections.map(async (collection) => {
-            const dropinfoQuery = `
-                {
-                    collection(handle: "${collection.handle}") {
-                        metafield(namespace: "custom", key: "dropinfo") {
-                            value
-                        }
-                    }
-                }
-            `;
-
-            const dropinfoResponse = await fetch("https://checkout.fadedcloth.de/api/2023-07/graphql.json", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-Shopify-Storefront-Access-Token": "ed72f09d8742f37356305b6e49310909"
-                },
-                body: JSON.stringify({ query: dropinfoQuery })
-            });
-
-            const dropinfoData = await dropinfoResponse.json();
-            if (dropinfoData.data && dropinfoData.data.collection) {
-                collection.dropinfo = dropinfoData.data.collection.metafield ? dropinfoData.data.collection.metafield.value : null;
-            }
-        }));
-
+        // Rest des Codes bleibt gleich
         const upcomingDrops = [];
         const droppedItems = [];
 
