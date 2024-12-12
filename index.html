@@ -666,60 +666,46 @@
         const droppedItems = [];
 
         collections.forEach((collection, index) => {
-    const isUpcoming = collection.drop > now;
-    const dropElement = document.createElement('div');
-    dropElement.className = 'drop_item';
-    dropElement.setAttribute('data-drop-date', collection.drop ? collection.drop.toISOString() : "");
+            const isUpcoming = collection.drop > now;
+            const dropElement = document.createElement('div');
+            dropElement.className = 'drop_item';
+            dropElement.setAttribute('data-drop-date', collection.drop ? collection.drop.toISOString() : "");
 
-    const dropNumberContainer = document.createElement('div');
-    dropNumberContainer.className = 'drop_number_container';
-    const dropNumberHash = document.createElement('div');
-    dropNumberHash.textContent = '#';
-    const dropNumber = document.createElement('div');
-    dropNumber.textContent = isUpcoming 
-        ? String(index + 1).padStart(2, '0') 
-        : String(index + 1).padStart(2, '0');
-    dropNumberContainer.appendChild(dropNumberHash);
-    dropNumberContainer.appendChild(dropNumber);
-    dropElement.appendChild(dropNumberContainer);
+            const dropNumberContainer = document.createElement('div');
+            dropNumberContainer.className = 'drop_number_container';
+            const dropNumberHash = document.createElement('div');
+            dropNumberHash.textContent = '#';
+            const dropNumber = document.createElement('div');
+            dropNumber.textContent = isUpcoming ? String(index + 1).padStart(2, '0') : String(index + 1).padStart(2, '0');
+            dropNumberContainer.appendChild(dropNumberHash);
+            dropNumberContainer.appendChild(dropNumber);
+            dropElement.appendChild(dropNumberContainer);
 
-    const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
-    dropLink.className = 'drop_link';
+            const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
+            dropLink.className = 'drop_link';
+            const formattedDate = formatUpcomingDate(collection.drop);
 
-    if (isUpcoming) {
-        dropLink.textContent = '...'; // Placeholder für Countdown
-        upcomingDrops.push(dropElement);
-    } else {
-        const dropinfoText = collection.dropinfo 
-            ? ` - ${collection.dropinfo}` 
-            : '';
-        dropLink.textContent = `${collection.title}${dropinfoText}`;
-        dropLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
-        droppedItems.push(dropElement);
-    }
+            if (isUpcoming) {
+                upcomingDrops.push(dropElement);
+            } else {
+                dropLink.textContent = collection.dropinfo ? `${collection.title} - ${collection.dropinfo}` : collection.title;
+                dropLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
+                droppedItems.push(dropElement);
+            }
+            dropElement.appendChild(dropLink);
+            container.appendChild(dropElement);
 
-    dropElement.appendChild(dropLink);
-    container.appendChild(dropElement);
+            // Überprüfen, ob der Drop beendet ist
+            if (collection.dropend && collection.dropend < now) {
+                dropLink.classList.add('ended');
+            } else if (!isUpcoming) {
+                dropLink.classList.add('active');
+            }
 
-    // Überprüfen, ob der Drop beendet ist
-    if (collection.dropend && collection.dropend < now) {
-        dropLink.classList.add('ended');
-    } else if (!isUpcoming) {
-        dropLink.classList.add('active');
-    }
-
-    if (isUpcoming) {
-        handleCountdown(
-            dropLink, 
-            collection.drop, 
-            collection.title, 
-            formatUpcomingDate(collection.drop), 
-            collection.dropinfo, 
-            collection.handle
-        );
-    }
-});
-
+            if (isUpcoming) {
+                handleCountdown(dropLink, collection.drop, collection.title, formattedDate, collection.dropinfo, collection.handle);
+            }
+        });
 
         createSection('Dropped Drops', droppedItems);
         addNewsletterInput('//');
