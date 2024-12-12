@@ -981,8 +981,11 @@ async function addCollectionButton(dropCount) {
 
     // Create links for each collection
     collections.forEach((collection) => {
-        // Check if isdrop is explicitly false
-        if (collection.metafields.find(meta => meta.key === 'isdrop')?.value === 'false') {
+        // Safely handle the metafields property
+        const metafields = Array.isArray(collection.metafields) ? collection.metafields : [];
+        const isdropMetafield = metafields.find(meta => meta.key === 'isdrop');
+        
+        if (isdropMetafield?.value === 'false') {
             const collectionLink = document.createElement('a');
             collectionLink.className = 'drop_link';
             collectionLink.href = `https://shop.fadedcloth.de/?collection=${collection.handle}`;
@@ -1019,6 +1022,7 @@ async function addCollectionButton(dropCount) {
         collectionButton.textContent = isHidden ? '- COLLECTION' : '+ COLLECTION';
     });
 }
+
 
     
         // Function to process email validation and submission
