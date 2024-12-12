@@ -930,20 +930,20 @@
 
     
 async function addCollectionButton(dropCount) {
-    dropCount = String(dropCount); // Convert dropCount to a string
+    dropCount = String(dropCount); // Wandelt dropCount in einen String um
 
     const container = document.getElementById('drops-container');
 
-    // Create a button container for the COLLECTION
+    // Erstelle einen Button-Container für die COLLECTION
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'drop_item';
 
-    // Drop number for the COLLECTION button
+    // Drop-Nummer für den COLLECTION-Button
     const collectionNumberContainer = document.createElement('div');
     collectionNumberContainer.className = 'drop_number_container';
 
     if (!dropCount.includes('/')) {
-        // Standard display with # and drop number
+        // Standardanzeige mit # und Drop-Nummer
         const collectionNumberHash = document.createElement('div');
         collectionNumberHash.textContent = '#';
         const collectionNumber = document.createElement('div');
@@ -952,7 +952,7 @@ async function addCollectionButton(dropCount) {
         collectionNumberContainer.appendChild(collectionNumberHash);
         collectionNumberContainer.appendChild(collectionNumber);
     } else {
-        // If dropCount contains '/', insert only a // link
+        // Falls dropCount '/' enthält, wird nur ein //-Link eingefügt
         const collectionNumberLink = document.createElement('a');
         collectionNumberLink.textContent = dropCount;
         collectionNumberContainer.appendChild(collectionNumberLink);
@@ -960,7 +960,7 @@ async function addCollectionButton(dropCount) {
 
     buttonContainer.appendChild(collectionNumberContainer);
 
-    // COLLECTION button
+    // COLLECTION-Button
     const collectionButton = document.createElement('div');
     collectionButton.className = 'drop_link';
     collectionButton.classList.add('collection-button');
@@ -970,41 +970,38 @@ async function addCollectionButton(dropCount) {
     buttonContainer.appendChild(collectionButton);
     container.appendChild(buttonContainer);
 
-    // Container for the collections
+    // Container für die Collections
     const collectionsContainer = document.createElement('div');
     collectionsContainer.className = 'collections_container';
-    collectionsContainer.style.display = 'none'; // Hidden initially
+    collectionsContainer.style.display = 'none'; // Unsichtbar beim Laden
     container.appendChild(collectionsContainer);
 
-    // Load collections from Shopify
-    const collections = await getCollections(); // Ensure this function is implemented
+    // Lade die Collections von Shopify
+    const collections = await getCollections(); // Implementiere diese Funktion
 
-    // Create links for each collection
+    // Erstelle Links für jede Collection
     collections.forEach((collection) => {
-        // Safely handle the metafields property
-        const metafields = Array.isArray(collection.metafields) ? collection.metafields : [];
-        const isdropMetafield = metafields.find(meta => meta.key === 'isdrop');
-        
-        if (isdropMetafield?.value === 'false') {
+        // Überprüfen, ob 'drop' nicht im Handle enthalten ist
+        if (!collection.handle.includes('drop')) {
             const collectionLink = document.createElement('a');
             collectionLink.className = 'drop_link';
             collectionLink.href = `https://shop.fadedcloth.de/?collection=${collection.handle}`;
-            collectionLink.textContent = collection.title; // Use collection title as link text
+            collectionLink.textContent = collection.title; // Titel der Collection als Linktext
             collectionLink.target = '';
 
-            // Container for the collection link (with placeholder for the number)
+            // Container für den Collection-Link (mit Platzhalter für die Nummer)
             const collectionContainer = document.createElement('div');
             collectionContainer.className = 'drop_item';
             collectionContainer.classList.add('collection_container');
 
-            // Placeholder for the number (00, hidden)
+            // Platzhalter für die Nummer (00, unsichtbar)
             const placeholderNumberContainer = document.createElement('div');
             placeholderNumberContainer.className = 'drop_number_container';
-            placeholderNumberContainer.style.visibility = 'hidden'; // Hidden
+            placeholderNumberContainer.style.visibility = 'hidden'; // Unsichtbar
             const placeholderNumberHash = document.createElement('div');
             placeholderNumberHash.textContent = '#';
             const placeholderNumber = document.createElement('div');
-            placeholderNumber.textContent = '00'; // Placeholder number
+            placeholderNumber.textContent = '00'; // Platzhalter-Nummer
 
             placeholderNumberContainer.appendChild(placeholderNumberHash);
             placeholderNumberContainer.appendChild(placeholderNumber);
@@ -1015,15 +1012,13 @@ async function addCollectionButton(dropCount) {
         }
     });
 
-    // Event listener for the button
+    // Event-Listener für den Button
     collectionButton.addEventListener('click', () => {
         const isHidden = collectionsContainer.style.display === 'none';
         collectionsContainer.style.display = isHidden ? 'flex' : 'none';
         collectionButton.textContent = isHidden ? '- COLLECTION' : '+ COLLECTION';
     });
 }
-
-
     
         // Function to process email validation and submission
         function processSubscription(email, newsletterLabel, emailInput) {
