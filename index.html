@@ -681,35 +681,12 @@
     dropNumberContainer.appendChild(dropNumber);
     dropElement.appendChild(dropNumberContainer);
 
-    // Link erstellen
-    const dropLink = document.createElement('a');
+    // Link oder span für Drops erstellen
+    const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
     dropLink.className = 'drop_link';
-    dropLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
 
-    // Name und Dropinfo hinzufügen (nur wenn Dropinfo vorhanden)
-    const dropinfoText = collection.dropinfo ? ` - ${collection.dropinfo}` : '';
-    dropLink.textContent = `${collection.title}${dropinfoText}`;
-
-    // Element für aktive und vergangene Drops hinzufügen
     if (isUpcoming) {
-        upcomingDrops.push(dropElement);
-    } else {
-        droppedItems.push(dropElement);
-    }
-
-    // Element finalisieren
-    dropElement.appendChild(dropLink);
-    container.appendChild(dropElement);
-
-    // Klassen für abgeschlossene oder aktive Drops setzen
-    if (collection.dropend && collection.dropend < now) {
-        dropLink.classList.add('ended');
-    } else if (!isUpcoming) {
-        dropLink.classList.add('active');
-    }
-
-    // Countdown nur für zukünftige Drops
-    if (isUpcoming) {
+        // Logik für zukünftige Drops bleibt unverändert
         handleCountdown(
             dropLink,
             collection.drop,
@@ -718,6 +695,23 @@
             collection.dropinfo,
             collection.handle
         );
+        upcomingDrops.push(dropElement);
+    } else {
+        // Logik für abgelaufene und aktive Drops
+        const dropinfoText = collection.dropinfo ? ` - ${collection.dropinfo}` : '';
+        dropLink.textContent = `${collection.title}${dropinfoText}`;
+        dropLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
+        droppedItems.push(dropElement);
+    }
+
+    dropElement.appendChild(dropLink);
+    container.appendChild(dropElement);
+
+    // Klassen setzen
+    if (collection.dropend && collection.dropend < now) {
+        dropLink.classList.add('ended');
+    } else if (!isUpcoming) {
+        dropLink.classList.add('active');
     }
 });
 
