@@ -194,7 +194,7 @@ function makeMovable() {
         document.addEventListener('mousemove', function(e) {
             if (isDragging) {
                 movableDiv.style.left = (e.clientX - offsetX) + 'px';
-                movableDiv.style.top = (e.clientY - offsetY) + 'px';
+                movableDiv.style.bottom = (window.innerHeight - (e.clientY - offsetY)) + 'px'; // bottom-Wert anpassen
             }
         });
 
