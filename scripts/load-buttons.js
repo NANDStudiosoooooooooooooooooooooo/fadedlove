@@ -180,7 +180,7 @@ function makeMovable() {
     movableDivs.forEach(function(movableDiv) {
         let isDragging = false;
         let offsetX = 0, offsetY = 0;
-s
+
         // Für Desktop (PC) - Mausereignisse
         movableDiv.addEventListener('mousedown', function(e) {
             if (window.innerWidth >= 768) { // Nur auf PC und Tablets, aber nicht auf mobilen Geräten
@@ -194,7 +194,7 @@ s
         document.addEventListener('mousemove', function(e) {
             if (isDragging) {
                 movableDiv.style.left = (e.clientX - offsetX) + 'px';
-                movableDiv.style.bottom = (window.innerHeight - (e.clientY - offsetY)) + 'px'; // bottom-Wert anpassen
+                movableDiv.style.bottom = (window.innerHeight - (e.clientY - offsetY)) + 'px';
             }
         });
 
