@@ -174,5 +174,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function setContainerPosition(){const e=document.querySelector(".glass-panel"),t=window.innerHeight,n=e.offsetHeight,o=window.innerWidth<=767?80:20;e.style.top=t-n-o+"px"}window.addEventListener("load",setContainerPosition),window.addEventListener("resize",setContainerPosition),window.matchMedia("(pointer: fine)").matches&&(()=>{let e={x:null,y:null},t={dom:null,x:null,y:null};document.addEventListener("mousedown",n=>{n.target.classList.contains("glass-panel")&&(e={x:n.clientX,y:n.clientY},t={dom:n.target,x:n.target.getBoundingClientRect().left,y:n.target.getBoundingClientRect().top})}),document.addEventListener("mousemove",n=>{if(null==t.dom)return;const o={x:n.clientX,y:n.clientY},i={x:o.x-e.x,y:o.y-e.y};t.dom.style.left=t.x+i.x+"px",t.dom.style.top=t.y+i.y+"px",t.dom.style.cursor="grabbing"}),document.addEventListener("mouseup",()=>{null!=t.dom&&(t.dom.style.cursor="auto",t.dom=null)})})();
+function setContainerPosition() {
+    const movableDiv = document.querySelector('.glass-panel');
+    const windowHeight = window.innerHeight;
+    const divHeight = movableDiv.offsetHeight;
+    const bottomSpacing = window.innerWidth <= 767 ? 80 : 20;
+    const topPosition = windowHeight - divHeight - bottomSpacing - divHeight;
 
+    movableDiv.style.top = topPosition + 'px';
+    movableDiv.style.left = '20px'; // Optional: Initiale Position von links
+}
+window.addEventListener('load', setContainerPosition);
+window.addEventListener('resize', setContainerPosition);
+
+let cursor = { x: null, y: null };
+let panel = { dom: null, x: null, y: null };
+
+document.addEventListener('mousedown', (event) => {
+    if (event.target.classList.contains('glass-panel')) {
+        cursor = {
+            x: event.clientX,
+            y: event.clientY
+        };
+        panel = {
+            dom: event.target,
+            x: event.target.getBoundingClientRect().left,
+            y: event.target.getBoundingClientRect().top
+        };
+    }
+});
+
+document.addEventListener('mousemove', (event) => {
+    if (panel.dom == null) return;
+
+    const currentCursor = { x: event.clientX, y: event.clientY };
+    const distance = {
+        x: currentCursor.x - cursor.x,
+        y: currentCursor.y - cursor.y
+    };
+
+    panel.dom.style.left = (panel.x + distance.x) + 'px';
+    panel.dom.style.top = (panel.y + distance.y) + 'px';
+    panel.dom.style.cursor = 'grabbing';
+});
+
+document.addEventListener('mouseup', () => {
+    if (panel.dom == null) return;
+    panel.dom.style.cursor = 'auto';
+    panel.dom = null;
+});
