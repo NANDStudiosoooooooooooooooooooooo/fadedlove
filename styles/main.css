@@ -220,7 +220,7 @@ h2 {
 }
 
 .glass-panel {
-    position: fixed;
+    position: absolute;
     bottom: 20px;
     left: calc(150px + 40px);
     background: rgba(52, 52, 52, 0.5);
