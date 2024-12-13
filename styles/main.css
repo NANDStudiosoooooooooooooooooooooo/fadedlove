@@ -221,7 +221,7 @@ h2 {
 
 .glass-panel {
     position: absolute;
-    bottom: 20px;
+    /*bottom: 20px;*/
     left: calc(150px + 40px);
     background: rgba(52, 52, 52, 0.5);
     backdrop-filter: blur(15px);
