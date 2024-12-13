@@ -174,3 +174,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+function makeMovable() {
+    const movableDivs = document.querySelectorAll('.glass-panel');
+    
+    movableDivs.forEach(function(movableDiv) {
+        let isDragging = false;
+        let offsetX = 0, offsetY = 0;
+
+        // Für Desktop (PC) - Mausereignisse
+        movableDiv.addEventListener('mousedown', function(e) {
+            if (window.innerWidth >= 768) { // Nur auf PC und Tablets, aber nicht auf mobilen Geräten
+                isDragging = true;
+                offsetX = e.clientX - movableDiv.getBoundingClientRect().left;
+                offsetY = e.clientY - movableDiv.getBoundingClientRect().top;
+                document.body.style.userSelect = 'none'; // Verhindern, dass der Text markiert wird
+            }
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (isDragging) {
+                movableDiv.style.left = (e.clientX - offsetX) + 'px';
+                movableDiv.style.top = (e.clientY - offsetY) + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+            document.body.style.userSelect = ''; // Wieder erlauben, Text zu markieren
+        });
+
+        // Für Mobile - Verhindern, dass das div verschoben wird
+        movableDiv.addEventListener('touchstart', function(e) {
+            if (window.innerWidth < 768) { // Auf mobilen Geräten bleibt es an der Startposition
+                e.preventDefault(); // Verhindert, dass es bewegt wird
+            }
+        });
+    });
+}
+
+// Funktion aufrufen, um alle .glass-panel Elemente bewegbar zu machen
+makeMovable();
+
