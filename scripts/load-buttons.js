@@ -174,44 +174,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function makeMovable() {
-    const movableDivs = document.querySelectorAll('.glass-panel');
-    
-    movableDivs.forEach(function(movableDiv) {
-        let isDragging = false;
-        let offsetX = 0, offsetY = 0;
-
-        // Für Desktop (PC) - Mausereignisse
-        movableDiv.addEventListener('mousedown', function(e) {
-            if (window.innerWidth >= 768) { // Nur auf PC und Tablets, aber nicht auf mobilen Geräten
-                isDragging = true;
-                offsetX = e.clientX - movableDiv.getBoundingClientRect().left;
-                offsetY = e.clientY - movableDiv.getBoundingClientRect().top;
-                document.body.style.userSelect = 'none'; // Verhindern, dass der Text markiert wird
-            }
-        });
-
-        document.addEventListener('mousemove', function(e) {
-            if (isDragging) {
-                movableDiv.style.left = (e.clientX - offsetX) + 'px';
-                movableDiv.style.bottom = (window.innerHeight - (e.clientY - offsetY)) + 'px'; // bottom-Wert anpassen
-            }
-        });
-
-        document.addEventListener('mouseup', function() {
-            isDragging = false;
-            document.body.style.userSelect = ''; // Wieder erlauben, Text zu markieren
-        });
-
-        // Für Mobile - Verhindern, dass das div verschoben wird
-        movableDiv.addEventListener('touchstart', function(e) {
-            if (window.innerWidth < 768) { // Auf mobilen Geräten bleibt es an der Startposition
-                e.preventDefault(); // Verhindert, dass es bewegt wird
-            }
-        });
-    });
-}
-
-// Funktion aufrufen, um alle .glass-panel Elemente bewegbar zu machen
-makeMovable();
+function setContainerPosition(){const e=document.querySelector(".glass-panel"),t=window.innerHeight,n=e.offsetHeight,o=window.innerWidth<=767?80:20;e.style.top=t-n-o+"px"}window.addEventListener("load",setContainerPosition),window.addEventListener("resize",setContainerPosition),window.matchMedia("(pointer: fine)").matches&&(()=>{let e={x:null,y:null},t={dom:null,x:null,y:null};document.addEventListener("mousedown",n=>{n.target.classList.contains("glass-panel")&&(e={x:n.clientX,y:n.clientY},t={dom:n.target,x:n.target.getBoundingClientRect().left,y:n.target.getBoundingClientRect().top})}),document.addEventListener("mousemove",n=>{if(null==t.dom)return;const o={x:n.clientX,y:n.clientY},i={x:o.x-e.x,y:o.y-e.y};t.dom.style.left=t.x+i.x+"px",t.dom.style.top=t.y+i.y+"px",t.dom.style.cursor="grabbing"}),document.addEventListener("mouseup",()=>{null!=t.dom&&(t.dom.style.cursor="auto",t.dom=null)})})();
 
