@@ -196,7 +196,7 @@ function loadShopifyCollections() {
                 : false;
 
             // Wenn isdrop FALSE ist, füge das <a>-Element hinzu
-            if (!isDrop) {
+            if (isDrop) {
                 const collectionLink = document.createElement('a');
                 collectionLink.href = `https://shop.fadedcloth.de/?collection=${collection.handle}&hide=TRUE`;
                 collectionLink.classList.add('panel-link');
