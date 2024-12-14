@@ -200,7 +200,7 @@ function loadShopifyCollections() {
                 const collectionLink = document.createElement('a');
                 collectionLink.href = `https://shop.fadedcloth.de/?collection=${collection.handle}&hide=TRUE`;
                 collectionLink.classList.add('panel-link');
-                collectionLink.textContent = collection.handle;
+                collectionLink.textContent = collection.handle.toUpperCase();
 
                 panel1.appendChild(collectionLink);
             }
