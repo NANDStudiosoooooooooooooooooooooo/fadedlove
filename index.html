@@ -579,7 +579,7 @@
     const container = document.getElementById('drops-container');
     const now = new Date();
 
-    // Shopify GraphQL query to get collections with metafields drop, dropend, isdrop, and dropinfo
+    // Shopify GraphQL query to get collections with metafields drop, dropend, isdrop, dropinfo, and link
     const query = `
         {
             collections(first: 50) {
@@ -591,7 +591,8 @@
                             {namespace: "custom", key: "drop"}, 
                             {namespace: "custom", key: "dropend"}, 
                             {namespace: "custom", key: "isdrop"}, 
-                            {namespace: "custom", key: "dropinfo"}
+                            {namespace: "custom", key: "dropinfo"},
+                            {namespace: "custom", key: "link"}
                         ]) {
                             key
                             value
@@ -651,7 +652,8 @@
                     handle: collectionNode.handle,
                     drop: drop,
                     dropend: dropend,
-                    dropinfo: metafieldsObj['dropinfo'] || null
+                    dropinfo: metafieldsObj['dropinfo'] || null,
+                    link: metafieldsObj['link'] || null // Store the custom link (if any)
                 };
             })
             .filter(collection => collection !== null)
@@ -692,7 +694,11 @@
             } else {
                 const dropinfoText = collection.dropinfo ? ` - ${collection.dropinfo}` : '';
                 dropLink.textContent = `${collection.title}${dropinfoText}`;
-                dropLink.href = `https://shop.fadedcloth.de?collection=${collection.handle}`;
+
+                // Use custom link if it exists and is valid
+                const customLink = collection.link && isValidUrl(collection.link) ? collection.link : `https://shop.fadedcloth.de?collection=${collection.handle}`;
+                dropLink.href = customLink;
+
                 droppedItems.push(dropElement);
             }
 
@@ -716,6 +722,17 @@
         console.error("Error fetching Shopify drops:", error);
     }
 }
+
+// Helper function to validate URLs
+function isValidUrl(url) {
+    try {
+        new URL(url);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
 
         const nav = [
             createLinkElement('GALLERY  ', 'https://fadedcloth.de/gallery'),
