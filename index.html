@@ -579,7 +579,7 @@
     const container = document.getElementById('drops-container');
     const now = new Date();
 
-    // Shopify GraphQL query to get collections with metafields drop, dropend, isdrop, dropinfo, and link
+    // Shopify GraphQL query to get collections with metafields drop, dropend, isdrop, dropinfo, link and first product image
     const query = `
         {
             collections(first: 50) {
@@ -596,6 +596,19 @@
                         ]) {
                             key
                             value
+                        }
+                        products(first: 1) {
+                            edges {
+                                node {
+                                    images(first: 1) {
+                                        edges {
+                                            node {
+                                                src
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -647,13 +660,17 @@
                     return null;
                 }
 
+                // Get first product image
+                const productImage = collectionNode.products.edges[0]?.node.images.edges[0]?.node.src || null;
+
                 return {
                     title: collectionNode.title,
                     handle: collectionNode.handle,
                     drop: drop,
                     dropend: dropend,
                     dropinfo: metafieldsObj['dropinfo'] || null,
-                    link: metafieldsObj['link'] || null // Store the custom link (if any)
+                    link: metafieldsObj['link'] || null,
+                    productImage: productImage
                 };
             })
             .filter(collection => collection !== null)
@@ -696,8 +713,17 @@
                 dropLink.textContent = `${collection.title}${dropinfoText}`;
 
                 // Use custom link if it exists and is valid
-                const customLink = collection.link  ? collection.link : `https://shop.fadedcloth.de?collection=${collection.handle}`;
+                const customLink = collection.link ? collection.link : `https://shop.fadedcloth.de?collection=${collection.handle}`;
                 dropLink.href = customLink;
+
+                if (collection.productImage) {
+                    // Create an image element and append it next to the drop link
+                    const productImageElement = document.createElement('img');
+                    productImageElement.src = collection.productImage;
+                    productImageElement.alt = `${collection.title} product image`;
+                    productImageElement.className = 'product-image';
+                    dropLink.appendChild(productImageElement);
+                }
 
                 droppedItems.push(dropElement);
             }
