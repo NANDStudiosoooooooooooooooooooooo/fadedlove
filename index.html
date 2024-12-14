@@ -1025,7 +1025,7 @@ async function addCollectionButton(dropCount) {
         if (!collection.handle.includes('drop')) {
             const collectionLink = document.createElement('a');
             collectionLink.className = 'drop_link';
-            collectionLink.href = `https://shop.fadedcloth.de/?collection=${collection.handle}`;
+            collectionLink.href = `https://shop.fadedcloth.de/?collection=${collection.handle}&hide=TRUE`;
             collectionLink.textContent = collection.title; // Titel der Collection als Linktext
             collectionLink.target = '';
 
