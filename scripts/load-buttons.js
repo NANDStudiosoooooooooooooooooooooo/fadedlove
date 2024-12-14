@@ -174,19 +174,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function setContainerPosition() {
-    const movableDiv = document.querySelector('.glass-panel');
-    const windowHeight = window.innerHeight;
-    const divHeight = movableDiv.offsetHeight;
-    const bottomSpacing = window.innerWidth <= 767 ? 80 : 20;
-    const topPosition = windowHeight - divHeight - bottomSpacing - divHeight;
-
-    movableDiv.style.top = topPosition + 'px';
-    movableDiv.style.left = '20px'; // Optional: Initiale Position von links
-}
-window.addEventListener('load', setContainerPosition);
-window.addEventListener('resize', setContainerPosition);
-
 let cursor = { x: null, y: null };
 let panel = { dom: null, x: null, y: null };
 
