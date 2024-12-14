@@ -202,7 +202,7 @@ function loadShopifyCollections() {
                 collectionLink.classList.add('panel-link');
                 collectionLink.textContent = collection.handle.toUpperCase();
 
-                panel1.appendChild(collectionLink);
+                panel1.insertBefore(collectionLink, panel1.firstChild);
             }
         });
     })
