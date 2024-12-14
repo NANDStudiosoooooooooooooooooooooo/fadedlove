@@ -696,7 +696,7 @@
                 dropLink.textContent = `${collection.title}${dropinfoText}`;
 
                 // Use custom link if it exists and is valid
-                const customLink = collection.link && isValidUrl(collection.link) ? collection.link : `https://shop.fadedcloth.de?collection=${collection.handle}`;
+                const customLink = collection.link  ? collection.link : `https://shop.fadedcloth.de?collection=${collection.handle}`;
                 dropLink.href = customLink;
 
                 droppedItems.push(dropElement);
