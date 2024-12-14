@@ -210,3 +210,71 @@ document.addEventListener('mouseup', () => {
     panel.dom.style.cursor = 'auto';
     panel.dom = null;
 });
+
+
+
+function loadShopifyCollections() {
+    const query = `
+    {
+        collections(first: 100) {
+            edges {
+                node {
+                    handle
+                    title
+                    metafields(identifiers: [
+                        {namespace: "custom", key: "isdrop"}
+                    ]) {
+                        key
+                        value
+                    }
+                }
+            }
+        }
+    }`;
+
+    fetch('https://zkwisj-0b.myshopify.com/api/2023-10/graphql.json', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Shopify-Storefront-Access-Token': 'ed72f09d8742f37356305b6e49310909'
+        },
+        body: JSON.stringify({ query })
+    })
+    .then(response => response.json())
+    .then(json => {
+        // Überprüfen, ob die Daten korrekt sind
+        if (!json.data || !json.data.collections) {
+            console.error('Fehlende oder ungültige Daten in der Antwort');
+            return;
+        }
+
+        const collections = json.data.collections.edges.map(edge => edge.node);
+        const panel1 = document.getElementById('panel1');
+        if (!panel1) {
+            console.error('Element mit ID "panel1" wurde nicht gefunden');
+            return;
+        }
+
+        collections.forEach(collection => {
+            const isDrop = collection.metafields && collection.metafields.length > 0
+                ? collection.metafields.find(field => field.key === 'isdrop')?.value === 'false'
+                : false;
+
+            // Wenn isdrop FALSE ist, füge das <a>-Element hinzu
+            if (!isDrop) {
+                const collectionLink = document.createElement('a');
+                collectionLink.href = `https://shop.fadedcloth.de/?collection=${collection.handle}&hide=TRUE`;
+                collectionLink.classList.add('panel-link');
+                collectionLink.textContent = collection.handle;
+
+                panel1.appendChild(collectionLink);
+            }
+        });
+    })
+    .catch(error => {
+        console.error('Fehler beim Laden der Kollektionen:', error);
+    });
+}
+
+// Beim Laden der Seite das Skript ausführen
+document.addEventListener('DOMContentLoaded', loadShopifyCollections);
