@@ -487,9 +487,7 @@
             currentScrollY < lastScrollY &&
             currentScrollY < lastShownScrollY - 30 // Mindestens 30px nach oben gescrollt
         ) {
-            // Zeige Container, wenn nach oben gescrollt wird
             newsTab.classList.remove("news-hidden");
-           // newsTab.classList.remove("hidden"); // Falls es versteckt wurde
         }
 
         lastScrollY = currentScrollY;
