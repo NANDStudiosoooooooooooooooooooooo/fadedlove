@@ -304,10 +304,12 @@
                                 image {
                                     src
                                 }
-                                metafield(namespace: "gallery", key: "product") {
-                                    value
-                                }
-                                metafield(namespace: "gallery", key: "collection") {
+                                metafields(identifiers: [
+                                    {namespace: "gallery", key: "product"},
+                                    {namespace: "gallery", key: "collection"}
+                                ]) {
+                                    namespace
+                                    key
                                     value
                                 }
                             }
@@ -333,8 +335,16 @@
             const posts = data.data.blog.articles.edges.map(edge => {
                 const article = edge.node;
                 const image = article.image?.src || '';
-                const productHandle = article.metafield?.value || null; // Metafeld für Produkt
-                const collectionHandle = article.metafield?.value || null; // Metafeld für Kollektion
+                const metafields = article.metafields || [];
+
+                // Extrahiere die Werte für Produkt und Kollektion
+                const productHandle = metafields.find(
+                    metafield => metafield.namespace === "gallery" && metafield.key === "product"
+                )?.value || null;
+
+                const collectionHandle = metafields.find(
+                    metafield => metafield.namespace === "gallery" && metafield.key === "collection"
+                )?.value || null;
 
                 let link = null;
                 if (productHandle) {
@@ -400,6 +410,7 @@
     // Galerie-Daten laden
     await loadGalleryData();
 });
+
 
     </script>
     
