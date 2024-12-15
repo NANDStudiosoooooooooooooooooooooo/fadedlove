@@ -253,7 +253,7 @@
     <script src="scripts/subscribe.js" defer></script>
 
     <script>
-       document.addEventListener('DOMContentLoaded', async () => {
+       document.addEventListener('DOMContentLoaded', async () => { 
     const imageContainer = document.querySelector('.gallery-image-container');
     const headlineContainer = document.querySelector('.gallery-headline');
     const buttonContainer = document.querySelector('.gallery-imagebutton-container');
@@ -294,30 +294,28 @@
 
     // Funktion zum Laden der Blog-Daten aus Shopify
     async function loadGalleryData() {
-        const query = `
-            {
-                blog(handle: "gallery") {
-                    articles(first: 100) {
-                        edges {
-                            node {
-                                title
-                                image {
-                                    src
-                                }
-                                metafields(identifiers: [
-                                    {namespace: "gallery", key: "product"},
-                                    {namespace: "gallery", key: "collection"}
-                                ]) {
-                                    namespace
-                                    key
-                                    value
-                                }
+        const query = `{
+            blog(handle: "gallery") {
+                articles(first: 100) {
+                    edges {
+                        node {
+                            title
+                            image {
+                                src
+                            }
+                            metafields(identifiers: [
+                                {namespace: "gallery", key: "product"},
+                                {namespace: "gallery", key: "collection"}
+                            ]) {
+                                namespace
+                                key
+                                value
                             }
                         }
                     }
                 }
             }
-        `;
+        }`;
 
         try {
             const response = await fetch("https://checkout.fadedcloth.de/api/2023-07/graphql.json", {
@@ -332,7 +330,7 @@
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
             const data = await response.json();
-            const posts = data.data.blog.articles.edges.map(edge => {
+            let posts = data.data.blog.articles.edges.map(edge => {
                 const article = edge.node;
                 const image = article.image?.src || '';
                 const metafields = article.metafields || [];
@@ -349,7 +347,7 @@
                 // Erstelle den Link basierend auf den IDs
                 let link = null;
                 if (productId) {
-                    link = `https://shop.fadedcloth.de?item_id=${productId}`;
+                    link = `https://shop.fadedcloth.de/item?item_id=${productId}`;
                 } else if (collectionId) {
                     link = `https://shop.fadedcloth.de?collection_id=${collectionId}&hide=TRUE`;
                 }
@@ -360,6 +358,9 @@
                     link: link
                 };
             });
+
+            // Posts umdrehen, damit der neueste Post am Anfang kommt
+            posts.reverse();
 
             // Buttons dynamisch laden
             posts.forEach((post, index) => {
@@ -411,10 +412,6 @@
     // Galerie-Daten laden
     await loadGalleryData();
 });
-
-
-
-
 
     </script>
     
