@@ -335,16 +335,16 @@
                 const image = article.image?.src || '';
                 const metafields = article.metafields || [];
 
-                // Extrahiere die ID aus den Metafeld-Werten
+                // Extrahiere die IDs aus den Metafeld-Werten
                 const productId = metafields.find(
                     metafield => metafield.namespace === "gallery" && metafield.key === "product"
                 )?.value?.match(/gid:\/\/shopify\/Product\/(\d+)/)?.[1] || null;
 
                 const collectionId = metafields.find(
-                    metafield => metafield.namespace === "gallery" && metafield.key === "collection"
+                    metafield => metafield.namespace === "gallery" && metaffield.key === "collection"
                 )?.value?.match(/gid:\/\/shopify\/Collection\/(\d+)/)?.[1] || null;
 
-                // Erstelle den Link basierend auf den IDs
+                // Bestimmen des Links basierend auf den Metafeldern
                 let link = null;
                 if (productId) {
                     link = `https://shop.fadedcloth.de/item?item_id=${productId}`;
@@ -352,6 +352,7 @@
                     link = `https://shop.fadedcloth.de?collection_id=${collectionId}&hide=TRUE`;
                 }
 
+                // Rückgabe des Posts mit Link
                 return {
                     title: article.title,
                     image: image,
