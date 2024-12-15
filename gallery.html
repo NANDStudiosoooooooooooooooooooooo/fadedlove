@@ -337,20 +337,21 @@
                 const image = article.image?.src || '';
                 const metafields = article.metafields || [];
 
-                // Extrahiere die Werte für Produkt und Kollektion
-                const productHandle = metafields.find(
+                // Extrahiere die ID aus den Metafeld-Werten
+                const productId = metafields.find(
                     metafield => metafield.namespace === "gallery" && metafield.key === "product"
-                )?.value || null;
+                )?.value?.match(/gid:\/\/shopify\/Product\/(\d+)/)?.[1] || null;
 
-                const collectionHandle = metafields.find(
+                const collectionId = metafields.find(
                     metafield => metafield.namespace === "gallery" && metafield.key === "collection"
-                )?.value || null;
+                )?.value?.match(/gid:\/\/shopify\/Collection\/(\d+)/)?.[1] || null;
 
+                // Erstelle den Link basierend auf den IDs
                 let link = null;
-                if (productHandle) {
-                    link = `https://shop.fadedcloth.de/item?item=${productHandle}`;
-                } else if (collectionHandle) {
-                    link = `https://shop.fadedcloth.de?collection=${collectionHandle}&hide=TRUE`;
+                if (productId) {
+                    link = `https://shop.fadedcloth.de?item_id=${productId}`;
+                } else if (collectionId) {
+                    link = `https://shop.fadedcloth.de?collection_id=${collectionId}&hide=TRUE`;
                 }
 
                 return {
@@ -410,6 +411,7 @@
     // Galerie-Daten laden
     await loadGalleryData();
 });
+
 
 
     </script>
