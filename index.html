@@ -369,10 +369,10 @@
     const newsHeader = document.getElementById("news-header");
     const newsMedia = document.getElementById("news-media");
     const headline = document.getElementById("news-headline");
-    const toggleArrow = document.getElementById("toggle-arrow");
 
     let currentHeightState = "collapsed"; // Aktueller Zustand
     let lastScrollY = window.scrollY;
+    let lastShownScrollY = window.scrollY; // Letzte Scroll-Position, bei der das Element versteckt wurde
 
     const API_URL = "https://checkout.fadedcloth.de/api/2023-04/graphql.json";
     const STOREFRONT_TOKEN = "ed72f09d8742f37356305b6e49310909";
@@ -417,7 +417,7 @@
         if (result.data.blog && result.data.blog.articles.edges.length > 0) {
             return result.data.blog.articles.edges[0].node;
         } else {
-            console.error(".");
+            console.error("No articles found in the announcement blog.");
             return null;
         }
     }
@@ -433,7 +433,7 @@
             // Bild dynamisch setzen
             const img = document.createElement("img");
             img.src = latestBlogPost.image.originalSrc;
-            img.alt = latestBlogPost.image.altText || "IMG";
+            img.alt = latestBlogPost.image.altText || "Blog Image";
             img.id = "media";
             img.classList.add("media");
             img.setAttribute("data-tilt", "");
@@ -446,13 +446,18 @@
             newsMedia.addEventListener("click", () => {
                 window.open(blogLink, "_blank");
             });
+        } else {
+            // Kein Blog-Post vorhanden -> news-tab ausblenden
+            newsTab.classList.add("hidden");
         }
     } catch (error) {
         console.error("Error loading blog post:", error);
+        // Bei Fehler -> news-tab ausblenden
+        newsTab.classList.add("hidden");
     }
 
     // Klick-Logik für den Header
-    newsHeader.addEventListener("click", () => {
+    newsHeader?.addEventListener("click", () => {
         if (currentHeightState === "collapsed") {
             // Von collapsed -> half-height
             newsTab.classList.remove("collapsed");
@@ -478,14 +483,24 @@
         if (currentScrollY > lastScrollY && currentHeightState === "collapsed") {
             // Verstecke Container, wenn nach unten gescrollt wird und er collapsed ist
             newsTab.classList.add("news-hidden");
-        } else if (currentScrollY < lastScrollY) {
+        } else if (
+            currentScrollY < lastScrollY &&
+            currentScrollY < lastShownScrollY - 50 // Mindestens 50px nach oben gescrollt
+        ) {
             // Zeige Container, wenn nach oben gescrollt wird
             newsTab.classList.remove("news-hidden");
+            newsTab.classList.remove("hidden"); // Falls es versteckt wurde
         }
 
         lastScrollY = currentScrollY;
+
+        // Speichere Scroll-Position, wenn der Container versteckt wird
+        if (newsTab.classList.contains("news-hidden")) {
+            lastShownScrollY = currentScrollY;
+        }
     });
 });
+
 
 
 
