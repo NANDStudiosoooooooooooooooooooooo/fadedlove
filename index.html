@@ -446,6 +446,7 @@
             newsMedia.addEventListener("click", () => {
                 window.open(blogLink, "_blank");
             });
+            newsTab.classList.remove(`hidden`);
         } else {
             // Kein Blog-Post vorhanden -> news-tab ausblenden
             newsTab.classList.add("hidden");
@@ -498,13 +499,6 @@
         }
     });
 });
-
-
-
-
-
-
-
     </script>
   
 </head>
@@ -550,9 +544,9 @@
         </div>
     </div>
 
-    <div id="news-tab" class="collapsed">
+    <div id="news-tab" class="collapsed hidden">
         <div id="news-header">
-          <span id="news-headline">...</span>
+          <span id="news-headline"></span>
           <span id="toggle-arrow">^</span>
         </div>
         <div id="news-media"></div>
