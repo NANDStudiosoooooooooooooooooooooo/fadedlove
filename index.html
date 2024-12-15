@@ -417,7 +417,7 @@
         if (result.data.blog && result.data.blog.articles.edges.length > 0) {
             return result.data.blog.articles.edges[0].node;
         } else {
-            console.error("No articles found in the announcement blog.");
+            console.error(".");
             return null;
         }
     }
@@ -433,7 +433,7 @@
             // Bild dynamisch setzen
             const img = document.createElement("img");
             img.src = latestBlogPost.image.originalSrc;
-            img.alt = latestBlogPost.image.altText || "Blog Image";
+            img.alt = latestBlogPost.image.altText || "IMG";
             img.id = "media";
             img.classList.add("media");
             img.setAttribute("data-tilt", "");
