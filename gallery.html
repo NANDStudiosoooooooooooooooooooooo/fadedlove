@@ -295,27 +295,27 @@
     // Funktion zum Laden der Blog-Daten aus Shopify
     async function loadGalleryData() {
         const query = `{
-            blog(handle: "gallery") {
-                articles(first: 100) {
-                    edges {
-                        node {
-                            title
-                            image {
-                                src
-                            }
-                            metafields(identifiers: [
-                                {namespace: "gallery", key: "product"},
-                                {namespace: "gallery", key: "collection"}
-                            ]) {
-                                namespace
-                                key
-                                value
+                blog(handle: "gallery") {
+                    articles(first: 100) {
+                        edges {
+                            node {
+                                title
+                                image {
+                                    src
+                                }
+                                metafields(identifiers: [
+                                    {namespace: "gallery", key: "product"},
+                                    {namespace: "gallery", key: "collection"}
+                                ]) {
+                                    namespace
+                                    key
+                                    value
+                                }
                             }
                         }
                     }
                 }
-            }
-        }`;
+            }`;
 
         try {
             const response = await fetch("https://checkout.fadedcloth.de/api/2023-07/graphql.json", {
