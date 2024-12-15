@@ -322,7 +322,7 @@
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "X-Shopify-Storefront-Access-Token": "ed72f09d8742f37356305b6e49310909"
+                    "X-Shopify-Storefront-Access-Token": process.env.SHOPIFY_API_KEY
                 },
                 body: JSON.stringify({ query })
             });
