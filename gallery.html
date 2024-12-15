@@ -304,10 +304,10 @@
                                 image {
                                     src
                                 }
-                                metafields(identifiers: [
-                                    {namespace: "custom", key: "post"}
-                                ]) {
-                                    key
+                                metafield(namespace: "gallery", key: "product") {
+                                    value
+                                }
+                                metafield(namespace: "gallery", key: "collection") {
                                     value
                                 }
                             }
@@ -333,17 +333,14 @@
             const posts = data.data.blog.articles.edges.map(edge => {
                 const article = edge.node;
                 const image = article.image?.src || '';
-                const metafield = article.metafields?.[0]?.value ? JSON.parse(article.metafields[0].value) : null;
+                const productHandle = article.metafield?.value || null; // Metafeld für Produkt
+                const collectionHandle = article.metafield?.value || null; // Metafeld für Kollektion
 
                 let link = null;
-                if (metafield) {
-                    if (metafield.product) {
-                        // Produkt-Handle nutzen
-                        link = `https://shop.fadedcloth.de/item=${metafield.product.handle}`;
-                    } else if (metafield.collection) {
-                        // Collection-Handle nutzen
-                        link = `https://shop.fadedcloth.de?collection=${metafield.collection.handle}&hide=TRUE`;
-                    }
+                if (productHandle) {
+                    link = `https://shop.fadedcloth.de/item=${productHandle}`;
+                } else if (collectionHandle) {
+                    link = `https://shop.fadedcloth.de?collection=${collectionHandle}&hide=TRUE`;
                 }
 
                 return {
