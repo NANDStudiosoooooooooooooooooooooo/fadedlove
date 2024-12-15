@@ -485,7 +485,7 @@
             newsTab.classList.add("news-hidden");
         } else if (
             currentScrollY < lastScrollY &&
-            currentScrollY < lastShownScrollY - 30 // Mindestens 50px nach oben gescrollt
+            currentScrollY < lastShownScrollY - 30 // Mindestens 30px nach oben gescrollt
         ) {
             // Zeige Container, wenn nach oben gescrollt wird
             newsTab.classList.remove("news-hidden");
@@ -500,6 +500,7 @@
         }
     });
 });
+
 
 
 
