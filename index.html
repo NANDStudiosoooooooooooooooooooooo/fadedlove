@@ -364,86 +364,110 @@
     </script>
 
     <script>
-        function checkScroll() {
-        var element = document.querySelector('.scroll-effect');
-        var scrollHeight = document.documentElement.scrollHeight;
-        var clientHeight = document.documentElement.clientHeight;
-        var scrollPosition = window.scrollY + clientHeight;
-    
-        if (scrollHeight <= clientHeight || scrollPosition >= scrollHeight) {
-            element.style.display = 'none';
+        document.addEventListener("DOMContentLoaded", async () => {
+    const newsTab = document.getElementById("news-tab");
+    const newsHeader = document.getElementById("news-header");
+    const newsMedia = document.getElementById("news-media");
+    const headline = document.getElementById("news-headline");
+    const toggleArrow = document.getElementById("toggle-arrow");
+
+    let currentHeightState = "collapsed"; // Aktueller Zustand
+    let lastScrollY = window.scrollY;
+
+    const API_URL = "https://checkout.fadedcloth.de/api/2023-04/graphql.json";
+    const STOREFRONT_TOKEN = "ed72f09d8742f37356305b6e49310909";
+
+    // Funktion zum Abrufen der Blog-Posts
+    async function fetchLatestBlogPost() {
+        const query = `
+        {
+            blog(handle: "announcement") {
+                articles(first: 1) {
+                    edges {
+                        node {
+                            title
+                            onlineStoreUrl
+                            image {
+                                originalSrc
+                                altText
+                            }
+                            metafields(identifiers: [
+                                { namespace: "announcement", key: "link" }
+                            ]) {
+                                key
+                                value
+                            }
+                        }
+                    }
+                }
+            }
+        }`;
+
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Shopify-Storefront-Access-Token": STOREFRONT_TOKEN,
+            },
+            body: JSON.stringify({ query }),
+        });
+
+        const result = await response.json();
+
+        if (result.data.blog && result.data.blog.articles.edges.length > 0) {
+            return result.data.blog.articles.edges[0].node;
         } else {
-            element.style.display = 'block';
+            console.error("No articles found in the announcement blog.");
+            return null;
         }
-        }
-    
-        window.addEventListener('scroll', checkScroll);
-        window.addEventListener('resize', checkScroll);
-        document.addEventListener('DOMContentLoaded', checkScroll);
+    }
 
+    try {
+        // Abrufen des neuesten Blog-Posts
+        const latestBlogPost = await fetchLatestBlogPost();
 
-        document.addEventListener("DOMContentLoaded", () => {
-        const newsTab = document.getElementById("news-tab");
-        const newsHeader = document.getElementById("news-header");
-        const newsMedia = document.getElementById("news-media");
-        const headline = document.getElementById("news-headline");
-        const toggleArrow = document.getElementById("toggle-arrow");
+        if (latestBlogPost) {
+            // Titel setzen
+            headline.textContent = latestBlogPost.title;
 
-        let currentHeightState = "collapsed"; // Aktueller Zustand
-        let lastScrollY = window.scrollY;
-
-    // JSON-Daten laden
-    fetch("https://fadedcloth.de/JSON/news-data.json?v=1.3")
-        .then((response) => response.json())
-        .then((data) => {
-        // Headline setzen
-        headline.textContent = data.headline;
-
-        // Bild oder Video dynamisch setzen
-        if (data.mediaType === "video") {
-            const video = document.createElement("video");
-            video.src = data.media;
-            video.autoplay = true;
-            video.loop = true;
-            video.muted = true;
-            video.classList.add('media');
-            video.id = 'media';
-            newsMedia.appendChild(video);
-        } else {
+            // Bild dynamisch setzen
             const img = document.createElement("img");
-            img.src = data.media;
-            img.id = 'media';
-            img.classList.add('media');
-            img.setAttribute('data-tilt', '');
+            img.src = latestBlogPost.image.originalSrc;
+            img.alt = latestBlogPost.image.altText || "Blog Image";
+            img.id = "media";
+            img.classList.add("media");
+            img.setAttribute("data-tilt", "");
             newsMedia.appendChild(img);
-        }
 
-        // Klick auf das Medium öffnet den Link
-        newsMedia.addEventListener("click", () => {
-            window.open(data.mediaLink, "_blank");
-        });
-        })
-        .catch((error) => {
-        console.error("Error loading JSON:", error);
-        });
+            // Klick auf das Medium öffnet den Blog-Link oder das Metafeld-Link
+            const blogLink =
+                latestBlogPost.metafields[0]?.value || latestBlogPost.onlineStoreUrl;
+
+            newsMedia.addEventListener("click", () => {
+                window.open(blogLink, "_blank");
+            });
+        }
+    } catch (error) {
+        console.error("Error loading blog post:", error);
+    }
 
     // Klick-Logik für den Header
     newsHeader.addEventListener("click", () => {
         if (currentHeightState === "collapsed") {
-        // Von collapsed -> half-height
-        newsTab.classList.remove("collapsed");
-        newsTab.classList.add("half-height");
-        currentHeightState = "half-height";
+            // Von collapsed -> half-height
+            newsTab.classList.remove("collapsed");
+            newsTab.classList.add("half-height");
+            currentHeightState = "half-height";
         } else if (currentHeightState === "half-height") {
-        // Von half-height -> full-height
-        newsTab.classList.remove("half-height");
-        newsTab.classList.add("full-height");
-        currentHeightState = "full-height";
+            // Von half-height -> full-height
+            newsTab.classList.remove("half-height");
+            newsTab.classList.add("full-height");
+            currentHeightState = "full-height";
         } else if (currentHeightState === "full-height") {
-        // Von full-height -> collapsed
-        newsTab.classList.remove("full-height");
-        newsTab.classList.add("collapsed");
-        currentHeightState = "collapsed";
+            // Von full-height -> collapsed
+            newsTab.classList.remove("full-height");
+            newsTab.classList.add("collapsed");
+            currentHeightState = "collapsed";
         }
     });
 
@@ -452,16 +476,17 @@
         const currentScrollY = window.scrollY;
 
         if (currentScrollY > lastScrollY && currentHeightState === "collapsed") {
-        // Verstecke Container, wenn nach unten gescrollt wird und er collapsed ist
-        newsTab.classList.add("news-hidden");
+            // Verstecke Container, wenn nach unten gescrollt wird und er collapsed ist
+            newsTab.classList.add("news-hidden");
         } else if (currentScrollY < lastScrollY) {
-        // Zeige Container, wenn nach oben gescrollt wird
-        newsTab.classList.remove("news-hidden");
+            // Zeige Container, wenn nach oben gescrollt wird
+            newsTab.classList.remove("news-hidden");
         }
 
         lastScrollY = currentScrollY;
     });
-    });
+});
+
 
 
 
