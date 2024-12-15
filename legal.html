@@ -23,7 +23,7 @@
         document.addEventListener("DOMContentLoaded", () => {
         const params = new URLSearchParams(window.location.search);
         const legal = params.get('id');
-        if (itemHandle) {
+        if (legal) {
             const link = document.getElementById('legal-link');
             if (link) {
                 link.href = `https://fadedcloth.de/legal?id=${legal}`;
