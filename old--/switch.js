@@ -1,4 +1,4 @@
-const videos = [
+https://cdn.shopify.com/videos/c/o/v/696856536feb451699e4337ac233c8a9.webmconst videos = [
     {
         src: "media/collections/fadedlove.mp4",
         hoverText: "FADEDLOVE",
