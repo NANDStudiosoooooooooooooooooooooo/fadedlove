@@ -1021,20 +1021,18 @@ async function addCollectionButton(dropCount) {
     const collectionNumberContainer = document.createElement('div');
     collectionNumberContainer.className = 'drop_number_container';
 
-    if (!dropCount.includes('/')) {
-        // Standardanzeige mit # und Drop-Nummer
-        const collectionNumberHash = document.createElement('div');
-        collectionNumberHash.textContent = '#';
-        const collectionNumber = document.createElement('div');
-        collectionNumber.textContent = String(parseInt(dropCount) + 1).padStart(2, '0');
-
-        collectionNumberContainer.appendChild(collectionNumberHash);
-        collectionNumberContainer.appendChild(collectionNumber);
-    } else {
+    if (dropCount.includes('/')) {
         // Falls dropCount '/' enthält, wird nur ein //-Link eingefügt
         const collectionNumberLink = document.createElement('a');
         collectionNumberLink.textContent = dropCount;
         collectionNumberContainer.appendChild(collectionNumberLink);
+    } else {
+        const collectionNumberHash = document.createElement('div');
+        collectionNumberHash.textContent = '#';
+        const collectionNumber = document.createElement('div');
+        collectionNumber.textContent = String(parseInt(dropCount) + 1).padStart(2, '0');
+        collectionNumberContainer.appendChild(collectionNumberHash);
+        collectionNumberContainer.appendChild(collectionNumber);
     }
 
     buttonContainer.appendChild(collectionNumberContainer);
