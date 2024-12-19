@@ -925,7 +925,7 @@
             const dropNumberContainer = document.createElement('div');
             dropNumberContainer.className = 'drop_number_container';
 
-            if (nextDropNumber.includes('/')) {
+            if (nextDropNumber.includes('/') || nextDropNumber.includes('>')) {
                 // Fügt nur den //-Link ein, wenn nextDropNumber das Zeichen '/' enthält
                 const dropNumberLink = document.createElement('a');
                 dropNumberLink.textContent = nextDropNumber;
@@ -1021,7 +1021,7 @@ async function addCollectionButton(dropCount) {
     const collectionNumberContainer = document.createElement('div');
     collectionNumberContainer.className = 'drop_number_container';
 
-    if (!dropCount.includes('/')) {
+    if (!dropCount.includes('/') || !dropCount.includes('>')) {
         // Standardanzeige mit # und Drop-Nummer
         const collectionNumberHash = document.createElement('div');
         collectionNumberHash.textContent = '#';
