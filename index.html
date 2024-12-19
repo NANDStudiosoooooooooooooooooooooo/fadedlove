@@ -1021,7 +1021,7 @@ async function addCollectionButton(dropCount) {
     const collectionNumberContainer = document.createElement('div');
     collectionNumberContainer.className = 'drop_number_container';
 
-    if (!dropCount.includes('/') || !dropCount.includes('>')) {
+    if (dropCount.includes('/')) {
         // Standardanzeige mit # und Drop-Nummer
         const collectionNumberHash = document.createElement('div');
         collectionNumberHash.textContent = '#';
