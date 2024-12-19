@@ -862,7 +862,7 @@
         // Countdown-Format aktualisieren
         countdownElement.textContent = `${getExtendedCountdown(endTime)}`;
 
-        dropnameElement.textContent = `${title} `;
+        dropnameElement.textContent = ``; //${title} 
         
         // Bildschirmabhängige Anzeige anpassen
         if (window.innerWidth < 501) {
