@@ -249,6 +249,9 @@
                 height: 6VW;
                 MARGIN-LEFT: 20PX;
             }
+            .newsletter_number_container{
+                transform: translateY(-100%);
+            }
         }
 
         @media (min-width: 501px) {
@@ -264,6 +267,9 @@
             .product-image {
                 height: 4VW;
                 MARGIN-LEFT: 20PX;
+            }
+            .newsletter_number_container{
+                transform: translateY(0);
             }
         }
 
@@ -930,6 +936,7 @@
 
                 const dropNumberContainer = document.createElement('div');
                 dropNumberContainer.className = 'drop_number_container';
+                dropNumberContainer.classList.add('newsletter_number_container')
 
                 if (nextDropNumber.includes('/') || nextDropNumber.includes('>')) {
                     // Fügt nur den //-Link ein, wenn nextDropNumber das Zeichen '/' enthält
