@@ -358,7 +358,7 @@
         color: white !important;
     }
 
-    .custom-cursor { position: absolute; width: 2px; height: 1em; background-color: black; animation: blink 1s step-end infinite; } 
+    .custom-cursor { position: absolute; width: 1ch; height: 1em; background-color: rgb(230, 230, 230); animation: blink 1s step-end infinite; }
 
         	@keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; }}
 
@@ -1157,20 +1157,7 @@ async function addCollectionButton(dropCount) {
         }
         });
 
-        function updateCursor() { 
-            const inputRect = emailInput.getBoundingClientRect(); 
-            const cursorPosition = emailInput.selectionStart; const textBeforeCursor = emailInput.value.substring(0, cursorPosition); 
-            const textWidth = getTextWidth(textBeforeCursor, getComputedStyle(emailInput).font); 
-            customCursor.style.left = `${inputRect.left + textWidth + emailInput.scrollLeft}px`; 
-            customCursor.style.top = `${inputRect.top}px`; 
-        } 
-
-        function getTextWidth(text, font) { 
-            const canvas = document.createElement('canvas'); 
-            const context = canvas.getContext('2d'); 
-            context.font = font; 
-            return context.measureText(text).width; 
-        } 
+        function updateCursor() { const inputRect = emailInput.getBoundingClientRect(); const cursorPosition = emailInput.selectionStart; const textBeforeCursor = emailInput.value.substring(0, cursorPosition); const textWidth = getTextWidth(textBeforeCursor, getComputedStyle(emailInput).font); customCursor.style.left = `${inputRect.left + textWidth + emailInput.scrollLeft}px`; customCursor.style.top = `${inputRect.top + inputRect.height}px`; } function getTextWidth(text, font) { const canvas = document.createElement('canvas'); const context = canvas.getContext('2d'); context.font = font; return context.measureText(text).width; }
     </script>
     
     <script src="scripts/loader.js" defer></script>
