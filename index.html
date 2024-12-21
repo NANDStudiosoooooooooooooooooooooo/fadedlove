@@ -48,6 +48,16 @@
             
         }
 
+        #blurOverlay { position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0, 0, 0, 0.5); 
+            backdrop-filter: blur(0px); 
+            -webkit-backdrop-filter: blur(0px);
+            transition: backdrop-filter 0.5s, -webkit-backdrop-filter 0.5s; }
+
         .drop_container::-webkit-scrollbar {
             height: 6px; /* Set the scrollbar height for horizontal scrolling */
         }
@@ -382,6 +392,22 @@
     </script>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const blurOverlay = document.getElementById('blurOverlay');
+        const maxBlur = 15; // Maximaler Blur in Pixeln
+
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const blurValue = (scrollPosition / documentHeight) * maxBlur;
+
+            blurOverlay.style.backdropFilter = `blur(${blurValue}px)`;
+            blurOverlay.style.webkitBackdropFilter = `blur(${blurValue}px)`;
+        });
+    });
+    </script>
+
+    <script>
         document.addEventListener("DOMContentLoaded", async () => {
     const newsTab = document.getElementById("news-tab");
     const newsHeader = document.getElementById("news-header");
@@ -555,6 +581,8 @@
             </video>
         </div>
     </div>
+
+    <div id="blurOverlay"></div>
 
     <div class="scroll-text fade-in" onclick="(function() { const newsletterContainer = document.querySelector('.newsletter_form'); const collectionButton = document.querySelector('.collection-button'); if (newsletterContainer && collectionButton) { const newsletterRect = newsletterContainer.getBoundingClientRect(); const collectionRect = collectionButton.getBoundingClientRect(); const middlePosition = window.pageYOffset + ((newsletterRect.top + collectionRect.top) / 2) - (window.innerHeight / 2); window.scrollTo({ top: middlePosition, behavior: 'smooth' }); } })()">VIEW DROPS ↓</div>
     
