@@ -517,26 +517,25 @@ border-radius: 0;
 }
 
 video::-webkit-media-controls {
-    display: none !important; /* Versteckt die Steuerungselemente in WebKit-basierten Browsern */
+    display: none !important;
   }
   
   video::-moz-media-controls {
-    display: none !important; /* Versteckt die Steuerungselemente in Mozilla-basierten Browsern */
+    display: none !important;
   }
   
   video::-ms-media-controls {
-    display: none !important; /* Versteckt die Steuerungselemente in Microsoft Edge/IE */
+    display: none !important;
   }
   
   video::-webkit-media-controls-picture-in-picture-button {
-    display: none !important; /* Verhindert den Bild-in-Bild-Modus in WebKit-basierten Browsern */
+    display: none !important;
   }
   
   video::-webkit-media-controls-fullscreen-button {
-    display: none !important; /* Verhindert die Vollbildschaltfläche in WebKit-basierten Browsern */
+    display: none !important;
   }
   
-  /* Für mobile Geräte: Verhindert, dass lange Drücken oder Doppeltippen Interaktionen auslösen */
   video {
     -webkit-touch-callout: none; /* iOS */
     -webkit-user-select: none;   /* Safari */
@@ -547,7 +546,7 @@ video::-webkit-media-controls {
     pointer-events: none; 
     pointer-events: none; 
     background-color: transparent;
-    user-select: none;      /* Kein Klicken oder Tippen möglich */
+    user-select: none;
   }
 
   img {
@@ -560,99 +559,88 @@ video::-webkit-media-controls {
     -moz-user-select: none; 
     -ms-user-select: none; 
     user-select: none; 
-    pointer-events: none; /* Verhindert Interaktionen wie Rechtsklick */
+    pointer-events: none;
   }
 
   #content-body {
     margin-top: 20px;
     max-width: 300px;
     line-height: 1.5;
-    max-height: 400px; /* Höhe für den scrollbaren Bereich */
-    overflow-y: auto;  /* Ermöglicht vertikales Scrollen */
-    padding: 10px;     /* Polsterung für etwas Abstand */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Optional: Rahmen für Sichtbarkeit */
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
     word-wrap: break-word; 
     overflow-wrap: break-word;
 }
 
     .main-body {
-        display: flex; /* Flexbox aktivieren, um das Zentrieren zu ermöglichen */
-        justify-content: center; /* Horizontale Zentrierung */
-        align-items: normal; /* Vertikale Zentrierung */
-        height: 70vh; /* Höhe 80% der Viewport-Höhe */
-        max-width: 800px; /* Maximale Breite von 800px */
+        display: flex;
+        justify-content: center;
+        align-items: normal;
+        height: 70vh;
+        max-width: 800px;
         overflow-y: auto;
-        width: 100%; /* Nimmt die volle Breite des Containers ein */
-        margin: 20px auto; /* Abstand oben und unten, zentriert in der Mitte */
-        padding: 20px; /* Innenabstand für etwas Platz */
+        width: 100%;
+        margin: 20px auto;
+        padding: 20px;
         background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(15px); /* Optional: Glas-Effekt */
-        border-radius: 12px; /* Abgerundete Ecken */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional: Schatten für Tiefe */
+        backdrop-filter: blur(15px);
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
 
-    /* Responsive Anpassungen für kleinere Bildschirme */
     @media (max-width: 800px) {
         .main-body {
-            width: calc(100% - 40px); /* Breite 100% minus etwas Abstand */
-            margin: 20px; /* Abstand von den Rändern */
+            width: calc(100% - 40px);
+            margin: 20px;
         }
     }
-
-/* Optional: Scrollbalken anpassen (nur für Webkit-basierte Browser) */
 #content-body::-webkit-scrollbar {
-    width: 8px; /* Breite des Scrollbalkens */
+    width: 8px;
 }
 
 #content-body::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.5); /* Farbe des Scrollbalkens */
-    border-radius: 10px; /* Abgerundete Ecken des Scrollbalkens */
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
 }
 
 #content-body::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(255, 255, 255, 0.7); /* Farbe des Scrollbalkens bei Hover */
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .main-body::-webkit-scrollbar {
-    width: 8px; /* Breite der vertikalen Scrollbar */
+    width: 8px;
 }
-
-/* Hintergrund der Scrollbar-Spur (versteckt) */
 .main-body::-webkit-scrollbar-track {
-    background: transparent; /* Hintergrund transparent, sodass er nicht sichtbar ist */
+    background: transparent;
 }
-
-/* Farbe und Stil des Scrollbalkens */
 .main-body::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.5); /* Farbe des Scrollbalkens */
-    border-radius: 10px; /* Abgerundete Ecken für den Scrollbalken */
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
 }
 
 .main-body::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.7); /* Farbe des Scrollbalkens bei Hover */
+    background: rgba(255, 255, 255, 0.7);
 }
 
-/* Verstecke die Pfeile in Firefox */
 .main-body {
-    scrollbar-width: thin; /* Macht die Scrollbar schmaler */
-    scrollbar-color: rgba(255, 255, 255, 0.5) transparent; /* Scrollbalkenfarbe und transparente Spur */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
 }
-
-/* Verstecke die Pfeile in IE und Edge */
 .main-body::-ms-scrollbar {
-    display: none; /* Entfernt die Scrollbar (inkl. Pfeile) in IE/Edge */
+    display: none;
 }
 
-/* Für Firefox */
 .main-body {
-    scrollbar-width: thin; /* Macht die Scrollbar schmaler */
-    scrollbar-color: rgba(255, 255, 255, 0.5) transparent; /* Scrollbalkenfarbe und transparente Spur */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
 }
 
 .sms-message {
-    color: white; /* Farbe der Statusnachricht */
-    margin-top: 10px; /* Abstand nach oben */
+    color: white;
+    margin-top: 10px;
 }
 
 @media (max-width: 767px) {
@@ -664,19 +652,19 @@ video::-webkit-media-controls {
       gap: 10px;
       width: calc(100% - 40px);
       margin: 0;
-      overflow-x: scroll; /* Allow horizontal scrolling */
+      overflow-x: scroll;
       padding: 10px;
       margin-right: 20px;
       max-width: 100%;
     }
   
     .buttons-container::-webkit-scrollbar {
-      display: none; /* Hide scrollbar for a cleaner UI */
+      display: none;
     }
   
     .buttons-container {
-      -ms-overflow-style: none;  /* Internet Explorer 10+ */
-      scrollbar-width: none;  /* Firefox */
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
   
     .buttons-container:active, 
@@ -685,16 +673,16 @@ video::-webkit-media-controls {
     }
   
     .buttons-container:focus-within {
-      overflow-x: auto; /* Allow scroll on focus */
+      overflow-x: auto;
     }
   
     .glass-button {
-      white-space: nowrap; /* Prevent buttons from breaking into multiple lines */
-      flex-shrink: 0; /* Prevent buttons from shrinking */
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .buttons-container {
-        bottom: 20px; /* Gleiche Höhe wie das Panel */
+        bottom: 20px;
     }
 
     .glass-panel .panel-link .glass-button {
@@ -702,7 +690,7 @@ video::-webkit-media-controls {
     }
 
     .glass-panel {
-        left: 30px; /* Abstand zwischen Panel und Buttons auf mobilen Geräten */
+        left: 30px;
        /* bottom: 80px;*/
         padding-right: 20px;
     }
