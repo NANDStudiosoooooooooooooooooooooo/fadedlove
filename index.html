@@ -956,17 +956,22 @@
                 emailInput.setAttribute('placeholder', '');
 
                 const submitButton = document.createElement('div');
-                submitButton.className = 'submit_button';
+                submitButton.className = 'submit_button hidden';
                 submitButton.textContent = '>';
+
+                const inputWrapper = document.createElement('div'); 
+                inputWrapper.className = 'input_wrapper'; 
+                inputWrapper.appendChild(emailInput); inputWrapper.appendChild(submitButton);
 
                 const newsletterForm = document.createElement('div');
                 newsletterForm.className = 'newsletter_form';
                 newsletterForm.appendChild(newsletterLabel);
-                newsletterForm.appendChild(emailInput);
-                newsletterForm.appendChild(submitButton);
+                newsletterForm.appendChild(inputWrapper);
 
                 newsletterContainer.appendChild(newsletterForm);
                 container.appendChild(newsletterContainer);
+
+                emailInput.addEventListener('input', function () { if (emailInput.value.trim() === '') { submitButton.classList.add('hidden'); } else { submitButton.classList.remove('hidden'); } });
 
                 emailInput.addEventListener('keypress', function (event) {
                     if (event.key === 'Enter') {
@@ -1122,7 +1127,9 @@ async function addCollectionButton(dropCount) {
                 .then(response => response.json())
                 .then(data => {
                     newsletterLabel.textContent = "THANK YOU!";
-                    emailInput.value = ''; // Reset input
+                    emailInput.value = '';
+                    emailInput.disabled = true;
+                    submitButton.classList.add('hidden');
                 })
                 .catch(error => {
                     console.error("Error:", error);
