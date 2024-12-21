@@ -146,7 +146,6 @@
         @media (min-width: 501px) {
             .newsletter_form input[type="email"] {
                 font-size: 5vw !important;
-                padding: 0 0 0 0 !important;
                 line-height: 0.8 !important;
                 height: 4vw !important;
             }
@@ -175,7 +174,6 @@
             .newsletter_form input[type="email"] {
                 MAX-HEIGHT: 7vw;
                 font-size: 8vw;
-                padding: 0 !important;
             }
         }
 
@@ -203,6 +201,8 @@
             text-align: left;
             overflow-x: visible;
             height: 100%;
+            caret-color: transparent;
+            padding-right: 20px;
         }
 
         /* Verstecken des Eingabefelds nach erfolgreicher Eingabe */
@@ -357,6 +357,10 @@
         filter: blur(2px);
         color: white !important;
     }
+
+    .custom-cursor { position: absolute; width: 2px; height: 1em; background-color: black; animation: blink 1s step-end infinite; } 
+
+        	@keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; }}
 
     </style>
 
@@ -970,9 +974,11 @@
                 submitButton.className = 'submit_button hidden';
                 submitButton.textContent = '>';
 
+                const customCursor = document.createElement('div'); customCursor.id = 'customCursor'; customCursor.className = 'custom-cursor';
+
                 const inputWrapper = document.createElement('div'); 
                 inputWrapper.className = 'input_wrapper'; 
-                inputWrapper.appendChild(emailInput); inputWrapper.appendChild(submitButton);
+                inputWrapper.appendChild(emailInput); inputWrapper.appendChild(submitButton); inputWrapper.appendChild(customCursor);
 
                 const newsletterForm = document.createElement('div');
                 newsletterForm.className = 'newsletter_form';
@@ -982,7 +988,7 @@
                 newsletterContainer.appendChild(newsletterForm);
                 container.appendChild(newsletterContainer);
 
-                emailInput.addEventListener('input', function () { if (emailInput.value.trim() === '') { submitButton.classList.add('hidden'); } else { submitButton.classList.remove('hidden'); } });
+                emailInput.addEventListener('input', function () { if (emailInput.value.trim() === '') { submitButton.classList.add('hidden'); } else { submitButton.classList.remove('hidden'); } updateCursor(); });
 
                 emailInput.addEventListener('keypress', function (event) {
                     if (event.key === 'Enter') {
@@ -1150,6 +1156,21 @@ async function addCollectionButton(dropCount) {
             }
         }
         });
+
+        function updateCursor() { 
+            const inputRect = emailInput.getBoundingClientRect(); 
+            const cursorPosition = emailInput.selectionStart; const textBeforeCursor = emailInput.value.substring(0, cursorPosition); 
+            const textWidth = getTextWidth(textBeforeCursor, getComputedStyle(emailInput).font); 
+            customCursor.style.left = `${inputRect.left + textWidth + emailInput.scrollLeft}px`; 
+            customCursor.style.top = `${inputRect.top}px`; 
+        } 
+
+        function getTextWidth(text, font) { 
+            const canvas = document.createElement('canvas'); 
+            const context = canvas.getContext('2d'); 
+            context.font = font; 
+            return context.measureText(text).width; 
+        } 
     </script>
     
     <script src="scripts/loader.js" defer></script>
