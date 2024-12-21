@@ -918,58 +918,68 @@
             }
 
             function addNewsletterInput(nextDropNumber) {
-            nextDropNumber = String(nextDropNumber); // Wandelt nextDropNumber in einen String um
+                nextDropNumber = String(nextDropNumber); // Wandelt nextDropNumber in einen String um
 
-            const container = document.getElementById('drops-container');
-            const newsletterContainer = document.createElement('div');
-            newsletterContainer.className = 'drop_item';
+                const container = document.getElementById('drops-container');
+                const newsletterContainer = document.createElement('div');
+                newsletterContainer.className = 'drop_item';
 
-            const dropNumberContainer = document.createElement('div');
-            dropNumberContainer.className = 'drop_number_container';
+                const dropNumberContainer = document.createElement('div');
+                dropNumberContainer.className = 'drop_number_container';
 
-            if (nextDropNumber.includes('/') || nextDropNumber.includes('>')) {
-                // Fügt nur den //-Link ein, wenn nextDropNumber das Zeichen '/' enthält
-                const dropNumberLink = document.createElement('a');
-                dropNumberLink.textContent = nextDropNumber;
-                dropNumberContainer.appendChild(dropNumberLink);
-            } else {
-                // Standardanzeige mit # und Drop-Nummer
-                const dropNumberHash = document.createElement('div');
-                dropNumberHash.textContent = '#';
-                const dropNumber = document.createElement('div');
-                dropNumber.textContent = nextDropNumber.padStart(2, '0');
+                if (nextDropNumber.includes('/') || nextDropNumber.includes('>')) {
+                    // Fügt nur den //-Link ein, wenn nextDropNumber das Zeichen '/' enthält
+                    const dropNumberLink = document.createElement('a');
+                    dropNumberLink.textContent = nextDropNumber;
+                    dropNumberContainer.appendChild(dropNumberLink);
+                } else {
+                    // Standardanzeige mit # und Drop-Nummer
+                    const dropNumberHash = document.createElement('div');
+                    dropNumberHash.textContent = '#';
+                    const dropNumber = document.createElement('div');
+                    dropNumber.textContent = nextDropNumber.padStart(2, '0');
 
-                dropNumberContainer.appendChild(dropNumberHash);
-                dropNumberContainer.appendChild(dropNumber);
+                    dropNumberContainer.appendChild(dropNumberHash);
+                    dropNumberContainer.appendChild(dropNumber);
+                }
+
+                newsletterContainer.appendChild(dropNumberContainer);
+
+                const newsletterLabel = document.createElement('div');
+                newsletterLabel.className = 'drop_link';
+                newsletterLabel.textContent = 'ENTER EMAIL:';
+
+                const emailInput = document.createElement('input');
+                emailInput.id = 'email';
+                emailInput.className = 'drop_link';
+                emailInput.setAttribute('type', 'email');
+                emailInput.setAttribute('placeholder', '');
+
+                const submitButton = document.createElement('div');
+                submitButton.className = 'submit_button';
+                submitButton.textContent = '>';
+
+                const newsletterForm = document.createElement('div');
+                newsletterForm.className = 'newsletter_form';
+                newsletterForm.appendChild(newsletterLabel);
+                newsletterForm.appendChild(emailInput);
+                newsletterForm.appendChild(submitButton);
+
+                newsletterContainer.appendChild(newsletterForm);
+                container.appendChild(newsletterContainer);
+
+                emailInput.addEventListener('keypress', function (event) {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        processSubscription(emailInput.value, newsletterLabel, emailInput);
+                    }
+                });
+
+                submitButton.addEventListener('click', function () {
+                    processSubscription(emailInput.value, newsletterLabel, emailInput);
+                });
             }
 
-            newsletterContainer.appendChild(dropNumberContainer);
-
-            const newsletterLabel = document.createElement('div');
-            newsletterLabel.className = 'drop_link';
-            newsletterLabel.textContent = 'ENTER EMAIL:';
-
-            const emailInput = document.createElement('input');
-            emailInput.id = 'email';
-            emailInput.className = 'drop_link';
-            emailInput.setAttribute('type', 'email');
-            emailInput.setAttribute('placeholder', '');
-
-            const newsletterForm = document.createElement('div');
-            newsletterForm.className = 'newsletter_form';
-            newsletterForm.appendChild(newsletterLabel);
-            newsletterForm.appendChild(emailInput);
-
-            newsletterContainer.appendChild(newsletterForm);
-            container.appendChild(newsletterContainer);
-
-            emailInput.addEventListener('keypress', function (event) {
-                if (event.key === 'Enter') {
-                    event.preventDefault();
-                    processSubscription(emailInput.value, newsletterLabel, emailInput);
-                }
-            });
-}
 
 
 
