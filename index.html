@@ -201,8 +201,8 @@
             text-align: left;
             overflow-x: visible;
             height: 100%;
-            caret-color: transparent;
-            padding-right: 20px;
+            /*caret-color: transparent;*/
+            /*padding-right: 20px;*/
         }
 
         /* Verstecken des Eingabefelds nach erfolgreicher Eingabe */
@@ -988,7 +988,9 @@
                 newsletterContainer.appendChild(newsletterForm);
                 container.appendChild(newsletterContainer);
 
-                emailInput.addEventListener('input', function () { if (emailInput.value.trim() === '') { submitButton.classList.add('hidden'); } else { submitButton.classList.remove('hidden'); } updateCursor(); });
+                emailInput.addEventListener('input', function () { if (emailInput.value.trim() === '') { submitButton.classList.add('hidden'); } else { submitButton.classList.remove('hidden'); } 
+                //updateCursor(); 
+            });
 
                 emailInput.addEventListener('keypress', function (event) {
                     if (event.key === 'Enter') {
@@ -1157,7 +1159,7 @@ async function addCollectionButton(dropCount) {
         }
         });
 
-        function updateCursor() { const inputRect = emailInput.getBoundingClientRect(); const cursorPosition = emailInput.selectionStart; const textBeforeCursor = emailInput.value.substring(0, cursorPosition); const textWidth = getTextWidth(textBeforeCursor, getComputedStyle(emailInput).font); customCursor.style.left = `${inputRect.left + textWidth + emailInput.scrollLeft}px`; customCursor.style.top = `${inputRect.top + inputRect.height}px`; } function getTextWidth(text, font) { const canvas = document.createElement('canvas'); const context = canvas.getContext('2d'); context.font = font; return context.measureText(text).width; }
+        //function updateCursor() { const inputRect = emailInput.getBoundingClientRect(); const cursorPosition = emailInput.selectionStart; const textBeforeCursor = emailInput.value.substring(0, cursorPosition); const textWidth = getTextWidth(textBeforeCursor, getComputedStyle(emailInput).font); customCursor.style.left = `${inputRect.left + textWidth + emailInput.scrollLeft}px`; customCursor.style.top = `${inputRect.top + inputRect.height}px`; } function getTextWidth(text, font) { const canvas = document.createElement('canvas'); const context = canvas.getContext('2d'); context.font = font; return context.measureText(text).width; }
     </script>
     
     <script src="scripts/loader.js" defer></script>
