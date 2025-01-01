@@ -289,8 +289,9 @@ h2 {
 .headline {
     text-transform: uppercase;
     text-align: center;
-    margin-bottom: 20px;
     color: white;
+    font-size: 14.5px;
+    line-height: 12.5px;
     text-decoration: underline;
     font-weight: 500;
 }
@@ -316,23 +317,22 @@ h2 {
     text-transform: uppercase;
     margin-bottom: 20px;
     border-radius: 12px;
-    -webkit-appearance: none; /*For Chrome*/
-    -moz-appearance: none;/*For Mozilla*/
+    -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
     text-decoration: none;
 }
 
 .email-input:focus{
-    text-decoration: underline;
+    box-shadow: 0 0 4px 2px rgba(255, 255, 255, 0.5);
 }
 
-/* Subscribe/Unsubscribe Buttons */
 .form-buttons {
     display: flex;
     justify-content: space-between;
     gap: 10px;
-    -webkit-appearance: none; /*For Chrome*/
-    -moz-appearance: none;/*For Mozilla*/
+    -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
     justify-content: center;
 }
