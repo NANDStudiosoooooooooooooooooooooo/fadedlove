@@ -208,36 +208,9 @@ a {
   text-decoration: underline;
 }
 
-.icon {
-  width: calc(0.6 * var(--m));
-  height: calc(0.6 * var(--m));
-  fill: white;
-}
-
-.link {
-  width: calc(1 * var(--m));
-  height: calc(1 * var(--m));
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: calc(0.1 * var(--m));
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 4000;
-}
-
 @media screen and (max-width: 1000px) {
   :root {
     --m: 3rem;
-  }
-}
-
-@media screen and (max-width: 700px) {
-  footer {
-    flex-direction: column;
-    padding: 5rem 20vw;
-  }
-  .col {
-    width: 100%;
   }
 }
 
