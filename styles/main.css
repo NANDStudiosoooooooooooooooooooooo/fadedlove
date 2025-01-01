@@ -27,7 +27,7 @@ body {
     background-color: #000;
     color: white;
     font-family: "IBM Plex Sans";
-    font-size: calc(0.3 * var(--m));
+    font-size: 13.5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
