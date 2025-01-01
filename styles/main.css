@@ -28,6 +28,7 @@ body {
     color: white;
     font-family: "IBM Plex Sans";
     font-size: 13.5px;
+    line-height: 13px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -287,7 +288,7 @@ h2 {
 
 /* Headline für das Subscribe-Panel */
 .headline {
-    font-size: 22px;
+    font-size: 16px;
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 20px;
@@ -299,7 +300,7 @@ h2 {
 .small-headline {
     text-transform: uppercase;
     text-align: left;
-    font-size: 16px;
+    font-size: 14px;
     margin-bottom: 10px;
     color: white;
     text-decoration: underline;
@@ -753,8 +754,8 @@ video::-webkit-media-controls {
     position: absolute;
     top: 2px;
     left: 2px;
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
     background: white;
     border-radius: 50%;
     transition: left 0.3s ease;
@@ -771,7 +772,6 @@ video::-webkit-media-controls {
 .switch-label {
     margin-right: 10px;
     color: white;
-    font-size: 16px;
     font-family: "IBM Plex Sans";
 }
 
@@ -873,7 +873,6 @@ video::-webkit-media-controls {
     padding: 10px;
     z-index: 2000;
     margin: 10PX;
-    font-size: 16px;
     color: white;
     border-radius: 12px;
     cursor: pointer;
@@ -886,60 +885,6 @@ video::-webkit-media-controls {
 .cart-button:hover {
     box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5);
 }
-
-#size-select {
-    appearance: none; /* Entfernt das Standard-Dropdown-Styling */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background: rgba(255, 255, 255, 0.5); /* Glas-Effekt */
-    border: none; /* Entfernt den Standardrahmen */
-    border-radius: 12px; /* Abgerundete Ecken */
-    text-align: center;
-    padding: 5px; /* Abstand innerhalb des Dropdowns */
-    color: #fff; /* Textfarbe */
-    font-size: 16px; /* Schriftgröße */
-    outline: none; /* Entfernt den Standard-Fokus-Rahmen */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Weicher Schatten */
-    transition: all 0.3s ease;
-    backdrop-filter: blur(15px); /* Verschwommener Glas-Effekt */
-    cursor: pointer;
-}
-
-#size-select option {
-    background: rgb(0, 0, 0); /* Hintergrundfarbe des Dropdown-Menüs */
-    color: #fff; /* Textfarbe der Optionen */
-    padding: 10px; /* Abstand innerhalb der Optionen */
-}
-
-#size-select option:hover, #size-select option:focus {
-    background: rgba(255, 255, 255, 0.2); /* Hover-Effekt für die Optionen */
-    color: #fff; /* Textfarbe bei Hover */
-}
-
-#size-select:focus, #size-select option:checked {
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); /* Leuchtender Schatten bei Fokus oder ausgewählter Option */
-}
-
-#size-select::-ms-expand {
-    display: none; /* Entfernt den Standard-Dropdown-Pfeil im Internet Explorer */
-}
-
-#size-select-container {
-    position: relative;
-    display: inline-block;
-}
-
-#size-select-container::after {
-    content: '▼'; /* Eigenes Pfeil-Icon */
-    font-size: 12px;
-    color: #ffffff;
-    position: absolute;
-    top: 50%;
-    right: 15px;
-    transform: translateY(-50%);
-    pointer-events: none; /* Icon nicht klickbar */
-}
-
 /* iOS-Spezifisches Styling anpassen */
 select::-webkit-inner-spin-button,
 select::-webkit-outer-spin-button {
@@ -1201,13 +1146,15 @@ select {
 }
 
 .mainshop-item .name {
-    font-size: 1.2rem; /* Standardgröße */
+    font-size: 13.5px; /* Standardgröße */
     margin: 0;
+    line-height: 13px;
 }
 
 .mainshop-item .price {
-    font-size: 1rem; /* Standardgröße */
+    font-size: 13.5px; /* Standardgröße */
     margin-top: 10px;
+    line-height: 13px;
 }
 
 /* Horizontale Linie über jeder Zeile */
@@ -1229,24 +1176,6 @@ select {
         max-width: 100%;
         margin: 0;
         padding: 0;
-    }
-
-    .mainshop-item .name {
-        font-size: 1rem; /* Kleinere Schriftgröße */
-    }
-
-    .mainshop-item .price {
-        font-size: 0.9rem; /* Kleinere Schriftgröße */
-    }
-}
-
-@media (max-width: 600px) {
-    .mainshop-item .name {
-        font-size: 0.9rem; /* Noch kleinere Schriftgröße für sehr kleine Bildschirme */
-    }
-
-    .mainshop-item .price {
-        font-size: 0.8rem; /* Noch kleinere Schriftgröße */
     }
 }
 
