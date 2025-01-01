@@ -406,7 +406,6 @@ input[type="submit"],
 input[type="email"],
 .input-checkbox {
 -webkit-appearance: none;
-border-radius: 0;
 }
 /* END */
 
