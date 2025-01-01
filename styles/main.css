@@ -368,36 +368,30 @@ input[type="text"] {
     outline: none;
     text-decoration: none;
 }
-/* CSS Reset BEGIN */
-/* Autofill-Styling für iOS verhindern */
+/* CSS BEGIN */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important; /* Entfernt Autofill-Hintergrund */
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
     box-shadow: 0 0 0px 1000px transparent inset !important;
-    -webkit-text-fill-color: white !important; /* Textfarbe im Autofill-Zustand */
+    -webkit-text-fill-color: white !important;
 }
-
-/* Safari-spezifische Anpassungen deaktivieren */
 input[type="email"],
 input[type="text"],
 button {
-    color: white !important; /* Textfarbe bleibt weiß */
-    -webkit-appearance: none; /* iOS-spezifische Stile entfernen */
+    color: white !important;
+    -webkit-appearance: none;
     appearance: none;
-    box-shadow: none; /* Schatten auf iOS entfernen */
+    box-shadow: none;
 }
-
 input::placeholder {
-    color: rgba(255, 255, 255, 0.3); /* Platzhalterfarbe leicht transparent */
+    color: rgba(255, 255, 255, 0.3);
     background-color: #ffffff00;
 }
-
 button:focus, input:focus {
-    outline: none; /* Verhindert Standard-Fokusrahmen */
+    outline: none;
 }
-
 textarea,
 input.text,
 input[type="text"],
@@ -407,8 +401,6 @@ input[type="email"],
 .input-checkbox {
 -webkit-appearance: none;
 }
-/* END */
-
 
 .shop-container {
     display: grid;
@@ -530,12 +522,12 @@ video::-webkit-media-controls {
   }
   
   video {
-    -webkit-touch-callout: none; /* iOS */
-    -webkit-user-select: none;   /* Safari */
-    -moz-user-select: none;      /* Firefox */
-    -ms-user-select: none;       /* Edge */
-    user-select: none;           /* Andere */
-    touch-action: none;          /* Deaktiviert Swipe-Gesten */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none; 
+    user-select: none; 
+    touch-action: none;
     pointer-events: none; 
     pointer-events: none; 
     background-color: transparent;
@@ -684,7 +676,6 @@ video::-webkit-media-controls {
 
     .glass-panel {
         left: 30px;
-       /* bottom: 80px;*/
         padding-right: 20px;
     }
     
@@ -713,23 +704,20 @@ video::-webkit-media-controls {
     position: fixed;
     width: 40px;
     height: 40px;
-    border-radius: 50%; /* Macht den Kreis rund */
-    background-color: rgba(255, 255, 255, 0.2); /* Leicht transparenter Hintergrund */
-    pointer-events: none; /* Cursor darf nicht klickbar sein */
-    transform: translate(-50%, -50%); /* Zentriert den Cursor an der Maus */
-    transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, background-color 0.3s ease; /* Animation */
-    z-index: 1000; /* Cursor bleibt über allem */
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+    z-index: 1000000;
 }
-
-/* Hover-Effekt: Der Kreis wird größer und animiert sich */
 .custom-cursor.hover {
-    width: 80px; /* Vergrößert den Cursor */
+    width: 80px;
     height: 80px;
-    background-color: rgba(255, 255, 255, 0.4); /* Weniger transparent */
-    transform: translate(-50%, -50%) scale(1.2); /* Optionale zusätzliche Vergrößerung */
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: translate(-50%, -50%) scale(1.2);
 }
 
-/* Switch styling */
 .glass-switch {
     position: relative;
     width: 60px;
