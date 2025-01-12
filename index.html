@@ -970,14 +970,6 @@
             addHoverEffectToLinksForTitles(container, allowedTitles);
         }
 
-        document.addEventListener('mousemove', (e) => {
-    const tooltips = document.querySelectorAll('.tooltiptext');
-    tooltips.forEach(tooltip => {
-        tooltip.style.left = `${e.pageX + 10}px`;
-        tooltip.style.top = `${e.pageY + 10}px`;
-    });
-});
-
         function addHoverEffectToLinksForTitles(container, allowedTitles) {
             // Event-Listener für Mouseover und Mouseout auf dem Container
             container.addEventListener('mouseover', (event) => {
