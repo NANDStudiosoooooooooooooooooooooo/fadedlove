@@ -868,17 +868,7 @@
 
             } else {
 
-                if (!latestActiveDrop) {
-                    latestActiveDrop = dropLink;
-                    const tooltip = document.createElement('span');
-                    tooltip.className = 'tooltiptext';
-                    tooltip.textContent = 'LATEST DROP';
-                    const tooltipContainer = document.createElement('div');
-                    tooltipContainer.className = 'tooltip';
-                    tooltipContainer.appendChild(dropLink);
-                    tooltipContainer.appendChild(tooltip);
-                    dropElement.appendChild(tooltipContainer);
-                } 
+                
                 const dropinfoText = collection.dropinfo ? ` - ${collection.dropinfo}` : '';
                 dropLink.textContent = `${collection.title}${dropinfoText}`;
 
@@ -899,7 +889,20 @@
                 droppedItems.push(dropElement);
             }
 
-            dropElement.appendChild(dropLink);
+            if (!latestActiveDrop) {
+                    latestActiveDrop = dropLink;
+                    const tooltip = document.createElement('span');
+                    tooltip.className = 'tooltiptext';
+                    tooltip.textContent = 'LATEST DROP';
+                    const tooltipContainer = document.createElement('div');
+                    tooltipContainer.className = 'tooltip';
+                    tooltipContainer.appendChild(dropLink);
+                    tooltipContainer.appendChild(tooltip);
+                    dropElement.appendChild(tooltipContainer);
+                } else {
+                    dropElement.appendChild(dropLink);
+                }
+
             container.appendChild(dropElement);
 
             if (collection.dropend && collection.dropend < now) {
