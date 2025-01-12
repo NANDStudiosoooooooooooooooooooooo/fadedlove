@@ -880,8 +880,45 @@
             const section = document.createElement('div');
             section.className = 'drop_section';
 
+            section.dataset.title = title;
+
             items.forEach(item => section.appendChild(item));
             container.appendChild(section);
+        }
+
+        const allowedTitles = ['Navigation'];
+
+        function addHoverEffectToLinksForTitles(container, allowedTitles) {
+            // Event-Listener für Mouseover und Mouseout auf dem Container
+            container.addEventListener('mouseover', (event) => {
+                if (event.target.classList.contains('drop-link')) {
+                    const section = event.target.closest('.drop_section'); // Finde die übergeordnete Section
+                    const title = section ? section.dataset.title : null; // Hole den Titel der Section
+
+                    // Prüfe, ob der Titel in der Liste erlaubt ist
+                    if (allowedTitles.includes(title)) {
+                        if (!event.target.classList.contains('hovered')) {
+                            event.target.innerHTML += ' ↗';
+                            event.target.classList.add('hovered');
+                        }
+                    }
+                }
+            });
+
+            container.addEventListener('mouseout', (event) => {
+                if (event.target.classList.contains('drop-link')) {
+                    const section = event.target.closest('.drop_section'); // Finde die übergeordnete Section
+                    const title = section ? section.dataset.title : null; // Hole den Titel der Section
+
+                    // Prüfe, ob der Titel in der Liste erlaubt ist
+                    if (allowedTitles.includes(title)) {
+                        if (event.target.classList.contains('hovered')) {
+                            event.target.innerHTML = event.target.innerHTML.replace(' ↗', '');
+                            event.target.classList.remove('hovered');
+                        }
+                    }
+                }
+            });
         }
 
         // Function to handle the countdown and update on expiry
