@@ -396,12 +396,12 @@
 
 
 
-    .tooltip {
+            .tooltip {
             position: relative;
             display: inline-block;
         }
 
-    .tooltip .tooltiptext {
+        .tooltip .tooltiptext {
             visibility: hidden;
             width: 120px;
             background-color: #ba63dd; /* Pink color used in the project */
@@ -411,16 +411,27 @@
             padding: 5px 0;
             position: absolute;
             z-index: 1;
-            bottom: 125%; /* Position the tooltip above the text */
-            left: 50%;
-            margin-left: -60px;
+            font-size: 11px; /* Set font size to 11px */
             opacity: 0;
             transition: opacity 0.3s;
+            pointer-events: none; /* Make tooltip non-interactive */
         }
 
-    .tooltip:hover .tooltiptext {
+        .tooltip:hover .tooltiptext {
             visibility: visible;
             opacity: 1;
+        }
+
+        .tooltip-follow {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1000;
+            font-size: 11px;
+            background-color: #ba63dd;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            white-space: nowrap;
         }
     </style>
 
@@ -842,73 +853,73 @@
             dropLink.className = 'drop_link';
 
             if (isUpcoming) {
-                handleCountdown(
-                    dropLink,
-                    collection.drop,
-                    collection.title,
-                    formatUpcomingDate(collection.drop),
-                    collection.dropinfo,
-                    collection.handle
-                );
-                upcomingDrops.push(dropElement);
-                dropLink.classList.add('drop_upcoming');
-                if (firstUpcomingDrop) {
-                    dropLink.classList.add('first-upcoming-drop');
-                    firstUpcomingDrop = false;
+            handleCountdown(
+                dropLink,
+                collection.drop,
+                collection.title,
+                formatUpcomingDate(collection.drop),
+                collection.dropinfo,
+                collection.handle
+            );
+            upcomingDrops.push(dropElement);
+            dropLink.classList.add('drop_upcoming');
+            if (firstUpcomingDrop) {
+                dropLink.classList.add('first-upcoming-drop');
+                firstUpcomingDrop = false;
 
-                    const tooltip = document.createElement('span');
-                    tooltip.className = 'tooltiptext';
-                    tooltip.textContent = 'NEXT DROP';
-                    const tooltipContainer = document.createElement('div');
-                    tooltipContainer.className = 'tooltip';
-                    tooltipContainer.appendChild(dropLink);
-                    tooltipContainer.appendChild(tooltip);
-                    dropElement.appendChild(tooltipContainer);
-                }
+                const tooltip = document.createElement('span');
+                tooltip.className = 'tooltiptext';
+                tooltip.textContent = 'NEXT DROP';
+                const tooltipContainer = document.createElement('div');
+                tooltipContainer.className = 'tooltip';
+                tooltipContainer.appendChild(dropLink);
+                tooltipContainer.appendChild(tooltip);
+                dropElement.appendChild(tooltipContainer);
+            } else {
+                dropElement.appendChild(dropLink);
+            }
 
             } else {
+            const dropinfoText = collection.dropinfo ? ` - ${collection.dropinfo}` : '';
+            dropLink.textContent = `${collection.title}${dropinfoText}`;
 
-                
-                const dropinfoText = collection.dropinfo ? ` - ${collection.dropinfo}` : '';
-                dropLink.textContent = `${collection.title}${dropinfoText}`;
+            // Use custom link if it exists and is valid
+            const customLink = collection.link ? collection.link : `https://shop.fadedcloth.de?collection=${collection.handle}`;
+            dropLink.href = customLink;
 
-                // Use custom link if it exists and is valid
-                const customLink = collection.link ? collection.link : `https://shop.fadedcloth.de?collection=${collection.handle}`;
-                dropLink.href = customLink;
+            if (collection.productImage) {
+                // Create an image element and append it next to the drop link
+                const productImageElement = document.createElement('img');
+                productImageElement.src = collection.productImage;
+                productImageElement.alt = `${collection.title} product image`;
+                productImageElement.className = 'product-image';
+                productImageElement.classList.add(`floating`);
+                dropLink.appendChild(productImageElement);
+            }
 
-                if (collection.productImage) {
-                    // Create an image element and append it next to the drop link
-                    const productImageElement = document.createElement('img');
-                    productImageElement.src = collection.productImage;
-                    productImageElement.alt = `${collection.title} product image`;
-                    productImageElement.className = 'product-image';
-                    productImageElement.classList.add(`floating`);
-                    dropLink.appendChild(productImageElement);
-                }
-
-                droppedItems.push(dropElement);
+            droppedItems.push(dropElement);
             }
 
             if (!latestActiveDrop) {
-                    latestActiveDrop = dropLink;
-                    const tooltip = document.createElement('span');
-                    tooltip.className = 'tooltiptext';
-                    tooltip.textContent = 'LATEST DROP';
-                    const tooltipContainer = document.createElement('div');
-                    tooltipContainer.className = 'tooltip';
-                    tooltipContainer.appendChild(dropLink);
-                    tooltipContainer.appendChild(tooltip);
-                    dropElement.appendChild(tooltipContainer);
-                } else {
-                    dropElement.appendChild(dropLink);
-                }
+            latestActiveDrop = dropLink;
+            const tooltip = document.createElement('span');
+            tooltip.className = 'tooltiptext';
+            tooltip.textContent = 'LATEST DROP';
+            const tooltipContainer = document.createElement('div');
+            tooltipContainer.className = 'tooltip';
+            tooltipContainer.appendChild(dropLink);
+            tooltipContainer.appendChild(tooltip);
+            dropElement.appendChild(tooltipContainer);
+            } else {
+            dropElement.appendChild(dropLink);
+            }
 
             container.appendChild(dropElement);
 
             if (collection.dropend && collection.dropend < now) {
-                dropLink.classList.add('ended');
+            dropLink.classList.add('ended');
             } else if (!isUpcoming) {
-                dropLink.classList.add('active');
+            dropLink.classList.add('active');
             }
         });
 
@@ -918,10 +929,10 @@
         createSection('Upcoming Drops', upcomingDrops);
         createSection('Navigation', nav);
 
-    } catch (error) {
+        } catch (error) {
         console.error("Error fetching Shopify drops:", error);
+        }
     }
-}
 
         const nav = [
             createLinkElement('GALLERY', 'https://fadedcloth.de/gallery'),
