@@ -965,6 +965,7 @@
                 const container = document.getElementById('drops-container');
                 const newsletterContainer = document.createElement('div');
                 newsletterContainer.className = 'drop_item';
+                newsletterContainer.classList.add('active-drop');
 
                 const dropNumberContainer = document.createElement('div');
                 dropNumberContainer.className = 'drop_number_container';
@@ -1080,6 +1081,7 @@ async function addCollectionButton(dropCount) {
     // Erstelle einen Button-Container für die COLLECTION
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'drop_item';
+    buttonContainer.classList.add('active-drop');
 
     // Drop-Nummer für den COLLECTION-Button
     const collectionNumberContainer = document.createElement('div');
