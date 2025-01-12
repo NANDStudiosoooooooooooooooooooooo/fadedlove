@@ -899,7 +899,7 @@
                     // Prüfe, ob der Titel in der Liste erlaubt ist
                     if (allowedTitles.includes(title)) {
                         if (!event.target.classList.contains('hovered')) {
-                            event.target.innerHTML += ' ↗';
+                            event.target.innerHTML += '↗';
                             event.target.classList.add('hovered');
                         }
                     }
@@ -914,7 +914,7 @@
                     // Prüfe, ob der Titel in der Liste erlaubt ist
                     if (allowedTitles.includes(title)) {
                         if (event.target.classList.contains('hovered')) {
-                            event.target.innerHTML = event.target.innerHTML.replace(' ↗', '');
+                            event.target.innerHTML = event.target.innerHTML.replace('↗', '');
                             event.target.classList.remove('hovered');
                         }
                     }
