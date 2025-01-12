@@ -891,7 +891,7 @@
         function addHoverEffectToLinksForTitles(container, allowedTitles) {
             // Event-Listener für Mouseover und Mouseout auf dem Container
             container.addEventListener('mouseover', (event) => {
-                if (event.target.classList.contains('drop-link')) {
+                if (event.target.classList.contains('drop_link')) {
                     const section = event.target.closest('.drop_section'); // Finde die übergeordnete Section
                     const title = section ? section.dataset.title : null; // Hole den Titel der Section
 
@@ -906,7 +906,7 @@
             });
 
             container.addEventListener('mouseout', (event) => {
-                if (event.target.classList.contains('drop-link')) {
+                if (event.target.classList.contains('drop_link')) {
                     const section = event.target.closest('.drop_section'); // Finde die übergeordnete Section
                     const title = section ? section.dataset.title : null; // Hole den Titel der Section
 
