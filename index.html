@@ -820,6 +820,7 @@
         const upcomingDrops = [];
         const droppedItems = [];
         let firstUpcomingDrop = true;
+        let latestActiveDrop = null;
 
         collections.forEach((collection, index) => {
             const isUpcoming = collection.drop > now;
@@ -854,9 +855,30 @@
                 if (firstUpcomingDrop) {
                     dropLink.classList.add('first-upcoming-drop');
                     firstUpcomingDrop = false;
+
+                    const tooltip = document.createElement('span');
+                    tooltip.className = 'tooltiptext';
+                    tooltip.textContent = 'NEXT DROP';
+                    const tooltipContainer = document.createElement('div');
+                    tooltipContainer.className = 'tooltip';
+                    tooltipContainer.appendChild(dropLink);
+                    tooltipContainer.appendChild(tooltip);
+                    dropElement.appendChild(tooltipContainer);
                 }
 
             } else {
+
+                if (!latestActiveDrop) {
+                    latestActiveDrop = dropLink;
+                    const tooltip = document.createElement('span');
+                    tooltip.className = 'tooltiptext';
+                    tooltip.textContent = 'LATEST DROP';
+                    const tooltipContainer = document.createElement('div');
+                    tooltipContainer.className = 'tooltip';
+                    tooltipContainer.appendChild(dropLink);
+                    tooltipContainer.appendChild(tooltip);
+                    dropElement.appendChild(tooltipContainer);
+                } 
                 const dropinfoText = collection.dropinfo ? ` - ${collection.dropinfo}` : '';
                 dropLink.textContent = `${collection.title}${dropinfoText}`;
 
