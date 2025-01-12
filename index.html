@@ -875,6 +875,8 @@
             return dropElement;
         }
 
+        const allowedTitles = ['Navigation'];
+
         function createSection(title, items) {
             const container = document.getElementById('drops-container');
             const section = document.createElement('div');
@@ -884,9 +886,8 @@
 
             items.forEach(item => section.appendChild(item));
             container.appendChild(section);
+            addHoverEffectToLinksForTitles(container, allowedTitles);
         }
-
-        const allowedTitles = ['Navigation'];
 
         function addHoverEffectToLinksForTitles(container, allowedTitles) {
             // Event-Listener für Mouseover und Mouseout auf dem Container
