@@ -1290,7 +1290,7 @@ select {
 .text-box{
     background-color: #111111;
     font-family: monospace;
-    color: #84898E;
+    color: #84898E !important;
     width: auto;
     padding: 2px;
     margin: 10px;
