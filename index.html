@@ -207,6 +207,10 @@
             color: #FFFFFF;
         }
 
+        .first-upcoming-drop{
+            color: red !important;
+        }
+
         .submit_button { position: relative; right: 5px; cursor: pointer; height: 100%; line-height: 0.7; margin-left: 5px;}
 
         .input_wrapper { display: flex; flex-direction: row; }
@@ -787,6 +791,7 @@
 
         const upcomingDrops = [];
         const droppedItems = [];
+        let firstUpcomingDrop = true;
 
         collections.forEach((collection, index) => {
             const isUpcoming = collection.drop > now;
@@ -818,6 +823,11 @@
                 );
                 upcomingDrops.push(dropElement);
                 dropLink.classList.add('drop_upcoming');
+                if (firstUpcomingDrop) {
+                    dropLink.classList.add('first-upcoming-drop');
+                    firstUpcomingDrop = false;
+                }
+
             } else {
                 const dropinfoText = collection.dropinfo ? ` - ${collection.dropinfo}` : '';
                 dropLink.textContent = `${collection.title}${dropinfoText}`;
