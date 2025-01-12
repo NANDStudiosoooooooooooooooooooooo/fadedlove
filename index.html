@@ -821,6 +821,7 @@
                 );
                 upcomingDrops.push(dropElement);
             } else {
+                dropLink.classList.add('drop_upcoming');
                 const dropinfoText = collection.dropinfo ? ` - ${collection.dropinfo}` : '';
                 dropLink.textContent = `${collection.title}${dropinfoText}`;
 
