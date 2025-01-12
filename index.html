@@ -39,6 +39,7 @@
         }
 
         .drop_container {
+            padding-left: 1.38888vw;
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             font-family: monospace;
@@ -113,22 +114,14 @@
             width: 100%;
         }
 
-        .drop_number {
-            width: 5%;
-            text-align: left;
-            z-index: 12000;
-        }
-
         .drop_number_container {
             display: flex;
             flex-direction: column;
             align-items: flex-start; /* Align to the left */
-            justify-content: center;
-            height: auto; /* Align vertically with the text */
-            font-size: 2.5vw;
-            padding-right: 10px;
-            padding-left: 5px;
-            line-height: 0.8;
+            justify-content: flex-end;
+            height: calc(4.9vw* 0.8);
+            font-size: 2.0vw;
+            line-height: 1.0;
             width: 4ch;
         }
 
@@ -138,7 +131,7 @@
             flex-grow: 1;
             text-align: left;
             white-space: nowrap;
-            font-size: 5vw;
+            font-size: 4.9vw;
             display: block;
             width: auto;
             box-sizing: border-box;
@@ -168,13 +161,13 @@
 
         @media (min-width: 501px) {
             .newsletter_form input[type="email"] {
-                font-size: 5vw !important;
+                font-size: 4.9vw !important;
                 line-height: 0.8 !important;
-                height: 4vw !important;
+                height: calc(4.9vw* 0.8) !important;
             }
             .newsletter_form{
-                font-size: 5vw;
-                line-height: 0.5;
+                font-size: 4.9vw;
+                line-height: 0.8;
                 flex-direction: row;
             }
         }
@@ -298,7 +291,7 @@
                 overflow-x: scroll;
             }
             .product-image {
-                height: 4VW;
+                height: 3VW;
                 MARGIN-LEFT: 20PX;
             }
             .newsletter_number_container{
