@@ -92,8 +92,8 @@
         }
 
         .drop_upcoming{
-            background: repeating-linear-gradient(45deg, transparent 0px, transparent 2px, #84898e 2px, #84898e 4px), repeating-linear-gradient(-45deg, transparent 0px, transparent 2px, #84898e 2px, #84898e 4px);
-            background-size: 1px 6px;
+            background: repeating-linear-gradient(45deg, transparent 0%, transparent 12.5%, /* Pixelgröße relativ */ #84898e 12.5%, #84898e 25%), repeating-linear-gradient(-45deg, transparent 0%, transparent 12.5%, #84898e 12.5%, #84898e 25%);
+            background-size: calc(1em / 4) calc(1em / 4);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
