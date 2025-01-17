@@ -1,7 +1,7 @@
-<div class="terms">Last Updated: October 11, 2024.
+<div class="terms">Last Updated: January 17, 2025.
 
 1. SCOPE
-These Terms of Service (TOS) apply to all orders placed by consumers (§ 13 BGB) and businesses (§ 14 BGB) via the website <a href="https://fadedcloth.de" class="href">fadedcloth.de</a> and the subdomain <a href="https://shop.fadedcloth.de" class="href">shop.fadedcloth.de</a> (referred to as "we", "us", or "our").
+These Terms of Service (TOS) apply to all orders placed by consumers (§ 13 BGB) and businesses (§ 14 BGB) via the websites <a href="https://fadedcloth.de" class="href">fadedcloth.de</a>, <a href="https://f6c3.xyz" class="href">f6c3.xyz</a> and the subdomains <a href="https://shop.fadedcloth.de" class="href">shop.fadedcloth.de</a>, <a href="https://checkout.fadedcloth.de" class="href">checkout.fadedcloth.de</a> (referred to as "we", "us", or "our").
 
 2. Contractual Partner
 The purchase contract is concluded with:
