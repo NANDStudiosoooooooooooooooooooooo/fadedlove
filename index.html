@@ -643,6 +643,17 @@
         </div>
     </div>
 
+    <style>
+        canvas {
+      position: fixed; /* Fixiere das Canvas */
+      top: 0;
+      left: 0;
+      width: auto;
+      max-width: 100%;
+      height: 100%;
+    }
+    </style>
+
     <script>
         const canvas = document.getElementById("sequenceCanvas");
         const ctx = canvas.getContext("2d");
@@ -720,7 +731,7 @@
           drawFrame(0); // Starte mit dem ersten Bild
         }
       </script>
-      
+
     <div id="blurOverlay"></div>
 
     <div class="scroll-text fade-in" onclick="(function() { const newsletterContainer = document.querySelector('.newsletter_form'); const collectionButton = document.querySelector('.collection-button'); if (newsletterContainer && collectionButton) { const newsletterRect = newsletterContainer.getBoundingClientRect(); const collectionRect = collectionButton.getBoundingClientRect(); const middlePosition = window.pageYOffset + ((newsletterRect.top + collectionRect.top) / 2) - (window.innerHeight / 2); window.scrollTo({ top: middlePosition, behavior: 'smooth' }); } })()">VIEW DROPS ↓</div>
