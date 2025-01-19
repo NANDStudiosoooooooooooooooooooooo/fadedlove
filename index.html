@@ -654,78 +654,56 @@
     <script>
         const canvas = document.getElementById("sequenceCanvas");
         const ctx = canvas.getContext("2d");
-    
-        // Canvas-Größe anpassen
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-    
-        // Bildsequenz vorbereiten
-        const frameCount = 126; // Anzahl der Bilder
-        const images = []; // Leeres Array für Bilder
+        const frameCount = 126; // img count -important
+        const images = [];
         let loadedImages = 0;
-    
-        // Funktion zum Formatieren der Zahl mit führenden Nullen
         function formatNumber(num) {
-          return num.toString().padStart(3, '0'); // Erweitert auf 3 Stellen (z.B. 001, 002, ...)
+          return num.toString().padStart(3, '0');
         }
-    
-        // Lade alle PNGs
         for (let i = 1; i <= frameCount; i++) {
           const img = new Image();
-          const formattedNumber = formatNumber(i); // Formatierte Bildnummer
-          img.src = `https://cdn.shopify.com/s/files/1/0892/0445/7817/files/ezgif-frame-${formattedNumber}.png`; // Passe den Pfad an
+          const formattedNumber = formatNumber(i);
+          img.src = `https://cdn.shopify.com/s/files/1/0892/0445/7817/files/ezgif-frame-${formattedNumber}.png`;
           img.onload = () => {
             loadedImages++;
-            console.log(`Bild ${formattedNumber} geladen`);
+            console.log(`img ${formattedNumber} done`);
     
-            // Sobald alle Bilder geladen sind, starte das Rendering
             if (loadedImages === frameCount) {
-              console.log("Alle Bilder geladen!");
-              render(); // Starte Animation
+              console.log("animation done!");
+              render();
             }
           };
     
           img.onerror = () => {
-            console.error(`Bild ${formattedNumber} konnte nicht geladen werden. Überprüfe den Pfad.`);
+            console.error(`img: ${formattedNumber} error`);
           };
-    
-          // Speichere das Bild im Array, nachdem es geladen wurde
           images.push(img);
         }
-    
-        // Funktion, um einen Frame zu zeichnen
         function drawFrame(index) {
           const img = images[index];
           if (img && img.complete) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // Canvas leeren
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height); // Bild zeichnen
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
           } else {
-            console.error(`Bild ${index + 1} ist noch nicht bereit.`);
+            console.error(`img ${index + 1} not ready`);
           }
         }
-    
-        // Scrollen basierte Animation
         window.addEventListener("scroll", () => {
           if (loadedImages === frameCount) {
-            // Animation nur starten, wenn alle Bilder geladen sind
             const scrollPosition = window.scrollY;
             const maxScroll = document.body.scrollHeight - window.innerHeight;
             const scrollFraction = scrollPosition / maxScroll;
-    
-            // Bestimme aktuellen Frame
             const currentFrame = Math.min(
               frameCount - 1,
               Math.floor(scrollFraction * frameCount)
             );
-    
-            // Bild zeichnen
             drawFrame(currentFrame);
           }
         });
-    
-        // Erstes Rendering
         function render() {
-          drawFrame(0); // Starte mit dem ersten Bild
+          drawFrame(0);
         }
       </script>
 
