@@ -896,14 +896,14 @@
                 dropLink.classList.add('first-upcoming-drop');
                 firstUpcomingDrop = false;
 
-                const tooltip = document.createElement('span');
-                tooltip.className = 'tooltiptext';
-                tooltip.textContent = 'NEXT DROP';
-                const tooltipContainer = document.createElement('div');
-                tooltipContainer.className = 'tooltip';
-                tooltipContainer.appendChild(dropLink);
-                tooltipContainer.appendChild(tooltip);
-                dropElement.appendChild(tooltipContainer);
+                // const tooltip = document.createElement('span');
+                // tooltip.className = 'tooltiptext';
+                // tooltip.textContent = 'NEXT DROP';
+                // const tooltipContainer = document.createElement('div');
+                // tooltipContainer.className = 'tooltip';
+                // tooltipContainer.appendChild(dropLink);
+                // tooltipContainer.appendChild(tooltip);
+                // dropElement.appendChild(tooltipContainer);
             } else {
                 dropElement.appendChild(dropLink);
             }
@@ -931,14 +931,14 @@
 
             if (!latestActiveDrop) {
             latestActiveDrop = dropLink;
-            const tooltip = document.createElement('span');
-            tooltip.className = 'tooltiptext';
-            tooltip.textContent = 'LATEST DROP';
-            const tooltipContainer = document.createElement('div');
-            tooltipContainer.className = 'tooltip';
-            tooltipContainer.appendChild(dropLink);
-            tooltipContainer.appendChild(tooltip);
-            dropElement.appendChild(tooltipContainer);
+            // const tooltip = document.createElement('span');
+            // tooltip.className = 'tooltiptext';
+            // tooltip.textContent = 'LATEST DROP';
+            // const tooltipContainer = document.createElement('div');
+            // tooltipContainer.className = 'tooltip';
+            // tooltipContainer.appendChild(dropLink);
+            // tooltipContainer.appendChild(tooltip);
+            // dropElement.appendChild(tooltipContainer);
             } else {
             dropElement.appendChild(dropLink);
             }
