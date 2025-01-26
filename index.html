@@ -413,6 +413,23 @@
             element.style.pointerEvents = '';
         }
         });
+
+        window.addEventListener('load', function() {
+    window.addEventListener('scroll', function() {
+        var scrollPosition = window.scrollY;
+        var element = document.querySelector('.scroll-text');
+        if (scrollPosition > 0) {
+            element.classList.replace('fade-in', 'fade-out');
+            element.style.userSelect = 'none';
+            element.style.pointerEvents = 'none';
+        } else {
+            element.classList.replace('fade-out', 'fade-in');
+            element.style.userSelect = '';
+            element.style.pointerEvents = '';
+        }
+    });
+});
+
     </script>
 
     <script>
