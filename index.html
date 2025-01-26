@@ -709,7 +709,9 @@
     <div class="text-box top-left"><a href="https://fadedcloth.de">fadedcloth.de</a></div>
 
     <script>
-        window.addEventListener('load', scrollToMiddle);
+        window.addEventListener('load', function() {
+            setTimeout(scrollToMiddle, 1000);
+        });
         function scrollToMiddle() {
             const newsletterContainer = document.querySelector('.newsletter_form');
             const collectionButton = document.querySelector('.collection-button');
