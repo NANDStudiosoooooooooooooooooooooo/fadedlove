@@ -707,7 +707,20 @@
     </div>
 
     <div class="text-box top-left"><a href="https://fadedcloth.de">fadedcloth.de</a></div>
-    
+
+    <script>
+        window.addEventListener('load', scrollToMiddle);
+        function scrollToMiddle() {
+            const newsletterContainer = document.querySelector('.newsletter_form');
+            const collectionButton = document.querySelector('.collection-button');
+            if (newsletterContainer && collectionButton) {
+                const newsletterRect = newsletterContainer.getBoundingClientRect();
+                const collectionRect = collectionButton.getBoundingClientRect();
+                const middlePosition = window.pageYOffset + ((newsletterRect.top + collectionRect.top) / 2) - (window.innerHeight / 2);
+                window.scrollTo({ top: middlePosition, behavior: 'smooth' });
+            }
+        }
+    </script>
 
     <!--<div class="buttons-container">
         <button id="button1" class="glass-button" data-target="panel1">COLLECTION</button>
