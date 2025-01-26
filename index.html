@@ -892,21 +892,8 @@
             );
             upcomingDrops.push(dropElement);
             dropLink.classList.add('drop_upcoming');
-            if (firstUpcomingDrop) {
-                dropLink.classList.add('first-upcoming-drop');
-                firstUpcomingDrop = false;
-
-                // const tooltip = document.createElement('span');
-                // tooltip.className = 'tooltiptext';
-                // tooltip.textContent = 'NEXT DROP';
-                // const tooltipContainer = document.createElement('div');
-                // tooltipContainer.className = 'tooltip';
-                // tooltipContainer.appendChild(dropLink);
-                // tooltipContainer.appendChild(tooltip);
-                // dropElement.appendChild(tooltipContainer);
-            } else {
                 dropElement.appendChild(dropLink);
-            }
+            
 
             } else {
             const dropinfoText = collection.dropinfo ? ` - ${collection.dropinfo}` : '';
