@@ -636,7 +636,7 @@
         const ctx = canvas.getContext("2d");
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        const frameCount = 14; // img count -important // 126 //76
+        const frameCount = 76; // img count -important // 126 //76
         const images = [];
         let loadedImages = 0;
         function formatNumber(num) {
@@ -645,7 +645,7 @@
         for (let i = 1; i <= frameCount; i++) {
           const img = new Image();
           const formattedNumber = formatNumber(i);
-          const imageName = 'logo-'; //ezgif-frame-
+          const imageName = 'tv-fadedlove-'; //ezgif-frame-
           img.src = `https://cdn.shopify.com/s/files/1/0892/0445/7817/files/${imageName}${formattedNumber}.png`;
           img.onload = () => {
             loadedImages++;
