@@ -1083,13 +1083,11 @@ select {
     margin: 0;
     padding: 0;
     height: calc(100% - 80px);
-    overflow-y: scroll;
     box-sizing: border-box;
     position: relative;
     top: 80px;
-    scrollbar-width: none;
     z-index: 5000;
-    overflow: auto;
+    overflow: visible;
 }
 
 .mainshop-container::-webkit-scrollbar {
