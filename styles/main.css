@@ -570,7 +570,7 @@ video::-webkit-media-controls {
     overflow-wrap: break-word;
 }
 
-    .v=2.83 {
+    .main-body {
         display: flex;
         justify-content: center;
         align-items: normal;
@@ -587,7 +587,7 @@ video::-webkit-media-controls {
     }
 
     @media (max-width: 800px) {
-        .v=2.83 {
+        .main-body {
             width: calc(100% - 40px);
             margin: 20px;
         }
@@ -605,30 +605,30 @@ video::-webkit-media-controls {
     background-color: rgba(255, 255, 255, 0.7);
 }
 
-.v=2.83::-webkit-scrollbar {
+.main-body::-webkit-scrollbar {
     width: 8px;
 }
-.v=2.83::-webkit-scrollbar-track {
+.main-body::-webkit-scrollbar-track {
     background: transparent;
 }
-.v=2.83::-webkit-scrollbar-thumb {
+.main-body::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.5);
     border-radius: 10px;
 }
 
-.v=2.83::-webkit-scrollbar-thumb:hover {
+.main-body::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.7);
 }
 
-.v=2.83 {
+.main-body {
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
 }
-.v=2.83::-ms-scrollbar {
+.main-body::-ms-scrollbar {
     display: none;
 }
 
-.v=2.83 {
+.main-body {
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
 }
@@ -693,7 +693,7 @@ video::-webkit-media-controls {
         margin-bottom: 20px;
     }
 
-    .v=2.83{
+    .main-body{
         height: 60vh;
     }
   }
