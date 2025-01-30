@@ -582,6 +582,7 @@ video::-webkit-media-controls {
         .main-body {
             width: calc(100% - 40px);
             margin: 20px;
+            margin-bottom: 40px;
         }
     }
 #content-body::-webkit-scrollbar {
