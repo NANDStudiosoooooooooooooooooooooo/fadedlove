@@ -84,17 +84,24 @@ h2 {
 }
 
 .header-logo-container {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #ffffff1a;
+    box-shadow: -4px -4px 9px #00000040 inset, 4px 4px 10px #ffffff40 inset;
+    -webkit-backdrop-filter: blur(17px);
+    backdrop-filter: blur(17px);
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    pointer-events: none;
-    top: 40px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /*touch-action: pan-y;*/
-    width: 60%;
-    height: auto;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.header-logo-container svg{
+    width: 40px;
+    height: 40px;
+    fill: #ffffff;
 }
 
 .logo {
