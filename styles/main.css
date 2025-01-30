@@ -570,21 +570,19 @@ video::-webkit-media-controls {
     overflow-wrap: break-word;
 }
 
-    .main-body {
-        display: flex;
-        justify-content: center;
-        align-items: normal;
-        height: 80vh;
-        max-width: 800px;
-        overflow-y: auto;
-        width: 100%;
-        margin: 20px auto;
-        padding: 20px;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(15px);
-        border-radius: 12px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    }
+.main-body {
+    display: flex;
+    justify-content: center;
+    align-items: normal;
+    max-width: 600px;
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    /* background: rgba(255, 255, 255, 0.1); */
+    backdrop-filter: blur(15px);
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
 
     @media (max-width: 800px) {
         .main-body {
