@@ -1304,4 +1304,5 @@ select {
     margin: 10px;
     display: flex;
     flex-direction: row;
+    z-index: 20000;
 }
