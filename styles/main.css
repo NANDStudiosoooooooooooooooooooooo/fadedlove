@@ -199,6 +199,7 @@ h2 {
     z-index: 7000;
     justify-content: flex-start;
     overflow-x: scroll;
+    bottom: 20px;
 }
 
 .glass-button {
@@ -675,10 +676,6 @@ video::-webkit-media-controls {
     .glass-button {
       white-space: nowrap;
       flex-shrink: 0;
-    }
-
-    .buttons-container {
-        bottom: 20px;
     }
 
     .glass-panel .panel-link .glass-button {
