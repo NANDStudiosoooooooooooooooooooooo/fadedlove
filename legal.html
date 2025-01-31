@@ -147,15 +147,16 @@
     <script>
         async function loadBlogPost() {
             const params = new URLSearchParams(window.location.search);
-            const blogHandle = params.get('blog');
-            
-            if (!blogHandle) {
+            const blogHandle = params.get('bloghandle') || 'main-blog'; // Standard ist "main-blog"
+            const blogPostHandle = params.get('blog'); // Blogpost-Handle
+    
+            if (!blogPostHandle) {
                 return;
             }
-
+    
             const query = `
             {
-                blogByHandle(handle: "main-blog") {
+                blogByHandle(handle: "${blogHandle}") {
                     articles(first: 50) {
                         edges {
                             node {
@@ -168,7 +169,7 @@
                     }
                 }
             }`;
-
+    
             try {
                 const response = await fetch('https://checkout.fadedcloth.de/api/2023-04/graphql.json', {
                     method: 'POST',
@@ -178,17 +179,25 @@
                     },
                     body: JSON.stringify({ query })
                 });
-
+    
                 const json = await response.json();
+                
+                // Prüfen, ob der Blog existiert
+                if (!json.data.blogByHandle) {
+                    console.error("Der Blog wurde nicht gefunden.");
+                    document.querySelector('.headline').textContent = "Blog not found";
+                    document.querySelector('.text').innerHTML = "";
+                    return;
+                }
+    
                 const articles = json.data.blogByHandle.articles.edges.map(edge => edge.node);
-
-                const blogPost = articles.find(article => article.handle === blogHandle);
-
+                const blogPost = articles.find(article => article.handle === blogPostHandle);
+    
                 if (blogPost) {
                     document.querySelector('.headline').textContent = blogPost.title;
                     document.querySelector('.text').innerHTML = blogPost.contentHtml;
                 } else {
-                    document.querySelector('.headline').textContent = "Blog not found";
+                    document.querySelector('.headline').textContent = "Blog post not found";
                     document.querySelector('.text').innerHTML = "";
                 }
             } catch (error) {
@@ -196,9 +205,10 @@
                 document.querySelector('.headline').textContent = "Error loading blog";
             }
         }
-
-        loadBlogPost();
+    
+        document.addEventListener("DOMContentLoaded", loadBlogPost);
     </script>
+    
 
     <script src="scripts/load-buttons.js?v=1.47"></script>
     <script src="scripts/loader.js"></script>
