@@ -1067,7 +1067,7 @@ select {
 .mainshop-container {
     max-width: 880px;
     margin: 0;
-    padding: 0;
+    padding-bottom: 80px;
     height: calc(100% - 80px);
     box-sizing: border-box;
     position: relative;
