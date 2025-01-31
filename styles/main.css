@@ -101,6 +101,24 @@ h2 {
     z-index: 15000;
 }
 
+.header-logo-container:hover{
+    width: 60px;
+    height: 60px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    background: #ffffff00;
+    box-shadow: -4px -4px 9px #00000000 inset, 4px 4px 10px #ffffff00 inset;
+    -webkit-backdrop-filter: blur(17px);
+    backdrop-filter: blur(17px);
+    border: 1.5px solid #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    z-index: 15000;
+}
+
 .header-logo-container svg{
     width: 40px;
     height: 40px;
