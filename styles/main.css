@@ -1327,3 +1327,12 @@ select {
 .blurred-eclipse-background:hover {
     opacity: 1;
 }
+
+#back-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease-out;
+}
+
+#back-button:hover #back-arrow {
+    transform: translateX(-5px);
+}
