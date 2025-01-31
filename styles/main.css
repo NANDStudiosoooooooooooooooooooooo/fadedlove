@@ -204,6 +204,7 @@ h2 {
     scrollbar-width: none;
     -ms-overflow-style: none;
     padding: 10px;
+    left: 10px;
 }
 
 .buttons-container::-webkit-scrollbar {
