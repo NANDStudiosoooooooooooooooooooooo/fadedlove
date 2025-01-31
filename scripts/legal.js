@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const queryParams = new URLSearchParams(window.location.search);
-    const contentId = queryParams.get('id') || '404';
+    const contentId = queryParams.get('id');
 
     if (!contentId) {
         return; // Beende das Script, wenn kein 'id'-Parameter vorhanden ist
