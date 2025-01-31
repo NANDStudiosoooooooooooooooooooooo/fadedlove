@@ -191,14 +191,14 @@ h2 {
 /* Buttons Container - untereinander angeordnet */
 .buttons-container {
     position: fixed;
-    bottom: 20px;
-    left: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 10px;
     width: auto;
     overflow: visible;
     z-index: 7000;
+    justify-content: flex-start;
+    overflow-x: scroll;
 }
 
 .glass-button {
@@ -650,19 +650,7 @@ video::-webkit-media-controls {
 }
 
 @media (max-width: 767px) {
-    .buttons-container {
-      display: flex;
-      flex-direction: row;
-      overflow: visible;
-      justify-content: flex-start;
-      gap: 10px;
-      width: calc(100% - 40px);
-      margin: 0;
-      overflow-x: scroll;
-      padding: 10px;
-      margin-right: 20px;
-      max-width: 100%;
-    }
+    
   
     .buttons-container::-webkit-scrollbar {
       display: none;
