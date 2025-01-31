@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const queryParams = new URLSearchParams(window.location.search);
     const contentId = queryParams.get('id') || '404';
 
+    if (!contentId) {
+        return; // Beende das Script, wenn kein 'id'-Parameter vorhanden ist
+    }
+
     // Funktion zum Laden der Markdown-Datei
     function loadMarkdown(contentId) {
         const filePath = `/text/${contentId}.md`; // Pfad zu den Markdown-Dateien
