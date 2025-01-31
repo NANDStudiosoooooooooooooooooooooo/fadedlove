@@ -203,6 +203,7 @@ h2 {
     scroll-behavior: smooth;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    padding: 10px;
 }
 
 .buttons-container::-webkit-scrollbar {
