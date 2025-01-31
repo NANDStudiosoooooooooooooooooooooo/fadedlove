@@ -1145,8 +1145,6 @@ select {
 @media (max-width: 920px) {
     .mainshop-container {
         max-width: 100%;
-        margin: 0;
-        padding: 0;
     }
 }
 
