@@ -200,7 +200,23 @@ h2 {
     justify-content: flex-start;
     overflow-x: scroll;
     bottom: 20px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
+
+.buttons-container::-webkit-scrollbar {
+    display: none;
+  }
+
+.buttons-container:focus-within {
+    overflow-x: auto;
+  }
+
+.buttons-container:active, 
+  .buttons-container:hover {
+    scroll-behavior: smooth;
+  }
 
 .glass-button {
     background: rgba(0, 0, 0, 0.1);
@@ -653,25 +669,6 @@ video::-webkit-media-controls {
 }
 
 @media (max-width: 767px) {
-    
-  
-    .buttons-container::-webkit-scrollbar {
-      display: none;
-    }
-  
-    .buttons-container {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-  
-    .buttons-container:active, 
-    .buttons-container:hover {
-      scroll-behavior: smooth;
-    }
-  
-    .buttons-container:focus-within {
-      overflow-x: auto;
-    }
   
     .glass-button {
       white-space: nowrap;
