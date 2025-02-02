@@ -14,6 +14,15 @@
     <script src="https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js"></script>
     <link rel="stylesheet" href="https://fadedcloth.de/styles/main.css?v=3.85">
 
+    <script>
+        if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+            .register("/service-worker.js")
+            .then(() => console.log("Service Worker registriert"))
+            .catch((error) => console.log("Service Worker Fehler:", error));
+        }
+    </script>
+
     <style>
         body {
             background-color: black;
