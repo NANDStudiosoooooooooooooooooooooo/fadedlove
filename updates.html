@@ -394,6 +394,19 @@
         filter: blur(2px);
         color: white !important;
     }
+
+    /* Beispiel: unendliche Lauftext-Animation */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.drop_link.marquee {
+  /* Damit der gesamte Text animiert wird, solltest du eventuell den inneren Text in einen extra Container packen.
+     Alternativ kannst du auch direkt an .drop_link arbeiten – dies ist nur ein Beispiel. */
+  animation: marquee 10s linear infinite;
+}
+
     
     </style>
 
@@ -412,6 +425,34 @@
         });
     });
     </script>
+
+<script>
+    // Funktion, die für jedes .drop_link-Element prüft, ob der Inhalt überläuft.
+    function checkDropScrolling() {
+      const dropLinks = document.querySelectorAll('.drop_link');
+      dropLinks.forEach(link => {
+        // Ist der Inhalt breiter als das Element (ohne Scrollbar)?
+        if (link.scrollWidth > link.offsetWidth) {
+          link.classList.add('marquee'); // Klasse hinzufügen, wenn zu lang
+        } else {
+          link.classList.remove('marquee');
+        }
+      });
+    }
+  
+    // Beim Laden der Seite (und nachdem alle Drops eingefügt wurden)
+    document.addEventListener("DOMContentLoaded", () => {
+      // Falls dein Script die Drops dynamisch erstellt, 
+      // stelle sicher, dass du checkDropScrolling() _nach_ dem Anhängen der Drops aufrufst.
+      checkDropScrolling();
+    });
+  
+    // Bei Fenstergrößenänderung erneut prüfen
+    window.addEventListener("resize", () => {
+      checkDropScrolling();
+    });
+  </script>
+  
   
 </head>
 <body>
