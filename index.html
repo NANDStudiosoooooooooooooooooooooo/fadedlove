@@ -983,34 +983,6 @@
 
 window.addEventListener("resize", () => setTimeout(checkMarquee, 200));
 
-//         function createLinkElement(text, url, collectionTitle) {
-//     const dropElement = document.createElement('div');
-//     dropElement.className = 'drop_item';
-
-//     const dropNumberContainer = document.createElement('div');
-//     dropNumberContainer.className = 'drop_number_container';
-
-//     const placeholderTag = document.createElement('a');
-//     dropNumberContainer.appendChild(placeholderTag);
-
-//     // Der Text wird in ein span gesetzt
-//     const textSpan = document.createElement('span');
-//     textSpan.textContent = text; // Der Text, den du anzeigst
-//     placeholderTag.appendChild(textSpan); // Span in placeholderTag einfügen
-
-//     const link = document.createElement('a');
-//     link.className = 'drop_link';
-//     link.href = url;
-//     link.setAttribute('title', collectionTitle); // Der Collection-Titel als Tooltip für den Link
-//     link.textContent = collectionTitle; // Der Titel der Collection wird als Linktext angezeigt
-
-//     // Das span bleibt als Teil der dropNumberContainer, der link enthält den Collection-Titel.
-//     dropElement.appendChild(dropNumberContainer);
-//     dropElement.appendChild(link);
-
-//     return dropElement;
-// }
-
 function createLinkElement(text, url) {
             const dropElement = document.createElement('div');
             dropElement.className = 'drop_item';
