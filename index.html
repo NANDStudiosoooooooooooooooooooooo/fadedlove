@@ -151,7 +151,7 @@
             box-sizing: border-box;
             height: auto;
             line-height: 0.8;
-            max-width: 93vw;
+            max-width: 94vw;
             /* overflow: hidden; */
         }
 
@@ -885,7 +885,7 @@
 
         // Den Titel in ein <span> setzen
         const titleSpan = document.createElement('span');
-        titleSpan.textContent = `${collection.title}`;
+        titleSpan.textContent = `${collection.title}${dropinfoText}`;
 
         dropLink.appendChild(titleSpan); // Titel in das Link-Element einfügen
         dropLink.title = `${collection.title}`;
@@ -974,7 +974,7 @@
       const stepsExact = Math.ceil(diff / parseFloat(window.getComputedStyle(document.documentElement).fontSize));
 
       el.style.setProperty("--steps", stepsExact);
-      el.style.setProperty("--animation-duration", (stepsExact * 0.5) + "s");
+      el.style.setProperty("--animation-duration", (stepsExact * 1.1) + "s");
       el.classList.add("marquee");
     }
   });
@@ -982,6 +982,34 @@
 
 
 window.addEventListener("resize", () => setTimeout(checkMarquee, 200));
+
+//         function createLinkElement(text, url, collectionTitle) {
+//     const dropElement = document.createElement('div');
+//     dropElement.className = 'drop_item';
+
+//     const dropNumberContainer = document.createElement('div');
+//     dropNumberContainer.className = 'drop_number_container';
+
+//     const placeholderTag = document.createElement('a');
+//     dropNumberContainer.appendChild(placeholderTag);
+
+//     // Der Text wird in ein span gesetzt
+//     const textSpan = document.createElement('span');
+//     textSpan.textContent = text; // Der Text, den du anzeigst
+//     placeholderTag.appendChild(textSpan); // Span in placeholderTag einfügen
+
+//     const link = document.createElement('a');
+//     link.className = 'drop_link';
+//     link.href = url;
+//     link.setAttribute('title', collectionTitle); // Der Collection-Titel als Tooltip für den Link
+//     link.textContent = collectionTitle; // Der Titel der Collection wird als Linktext angezeigt
+
+//     // Das span bleibt als Teil der dropNumberContainer, der link enthält den Collection-Titel.
+//     dropElement.appendChild(dropNumberContainer);
+//     dropElement.appendChild(link);
+
+//     return dropElement;
+// }
 
 function createLinkElement(text, url) {
             const dropElement = document.createElement('div');
