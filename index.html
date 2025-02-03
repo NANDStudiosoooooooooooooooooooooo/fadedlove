@@ -732,7 +732,6 @@
     const container = document.getElementById('drops-container');
     const now = new Date();
 
-    // Shopify GraphQL query to get collections with metafields drop, dropend, isdrop, dropinfo, link and first product image
     const query = `
         {
             collections(first: 200) {
@@ -890,14 +889,6 @@
 
             if (!latestActiveDrop) {
             latestActiveDrop = dropLink;
-            // const tooltip = document.createElement('span');
-            // tooltip.className = 'tooltiptext';
-            // tooltip.textContent = 'LATEST DROP';
-            // const tooltipContainer = document.createElement('div');
-            // tooltipContainer.className = 'tooltip';
-            // tooltipContainer.appendChild(dropLink);
-            // tooltipContainer.appendChild(tooltip);
-            // dropElement.appendChild(tooltipContainer);
             dropElement.appendChild(dropLink);
             } else {
             dropElement.appendChild(dropLink);
@@ -1046,7 +1037,8 @@
         // Bei Ablauf des Countdowns aktualisieren
         if (distance < 0) {
             clearInterval(countdownInterval);
-            dropLink.textContent = dropinfo ? `${title} - ${dropinfo}` : title;
+            // dropLink.textContent = dropinfo ? `${title} - ${dropinfo}` : title;
+            dropLink.textContent = title;
             dropLink.href = `https://shop.fadedcloth.de?collection=${handle}`;
             dropLink.style.pointerEvents = 'auto';
             dropLink.onclick = () => {
