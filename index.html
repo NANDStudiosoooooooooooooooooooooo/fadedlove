@@ -151,6 +151,8 @@
             box-sizing: border-box;
             height: auto;
             line-height: 0.8;
+            max-width: 93vw;
+            /* overflow: hidden; */
         }
 
         .drop_link:hover {
@@ -408,7 +410,20 @@
 
         	@keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; }}
 
+          .marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee var(--animation-duration) steps(var(--steps)) infinite;
+          }
 
+          @keyframes marquee {
+            0% {
+              transform: translate(0); /* Keine Verschiebung am Anfang */
+            }
+            100% {
+              transform: translate(calc(var(--overflow-amount) * -1ch)); /* Verschiebung um 'overflow-amount' mal 1ch */
+            }
+          }
 
     
     </style>
@@ -834,74 +849,85 @@
         let latestActiveDrop = null;
 
         collections.forEach((collection, index) => {
-            const isUpcoming = collection.drop > now;
-            const dropElement = document.createElement('div');
-            dropElement.className = 'drop_item';
-            dropElement.setAttribute('data-drop-date', collection.drop ? collection.drop.toISOString() : "");
+    const isUpcoming = collection.drop > now;
+    const dropElement = document.createElement('div');
+    dropElement.className = 'drop_item';
+    dropElement.setAttribute('data-drop-date', collection.drop ? collection.drop.toISOString() : "");
 
-            const dropNumberContainer = document.createElement('div');
-            dropNumberContainer.className = 'drop_number_container';
-            const dropNumberHash = document.createElement('div');
-            dropNumberHash.textContent = '#';
-            const dropNumber = document.createElement('div');
-            dropNumber.textContent = String(index + 1).padStart(2, '0');
-            dropNumberContainer.appendChild(dropNumberHash);
-            dropNumberContainer.appendChild(dropNumber);
-            dropElement.appendChild(dropNumberContainer);
+    const dropNumberContainer = document.createElement('div');
+    dropNumberContainer.className = 'drop_number_container';
+    const dropNumberHash = document.createElement('div');
+    dropNumberHash.textContent = '#';
+    const dropNumber = document.createElement('div');
+    dropNumber.textContent = String(index + 1).padStart(2, '0');
+    dropNumberContainer.appendChild(dropNumberHash);
+    dropNumberContainer.appendChild(dropNumber);
+    dropElement.appendChild(dropNumberContainer);
 
-            const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
-            dropLink.className = 'drop_link';
+    const dropLink = document.createElement(isUpcoming ? 'span' : 'a');
+    dropLink.className = 'drop_link';
 
-            if (isUpcoming) {
-            handleCountdown(
-                dropLink,
-                collection.drop,
-                collection.title,
-                formatUpcomingDate(collection.drop),
-                collection.dropinfo,
-                collection.handle
-            );
-            upcomingDrops.push(dropElement);
-            dropLink.classList.add('drop_upcoming');
-                dropElement.appendChild(dropLink);
-            
+    if (isUpcoming) {
+        handleCountdown(
+            dropLink,
+            collection.drop,
+            collection.title,
+            formatUpcomingDate(collection.drop),
+            collection.dropinfo,
+            collection.handle
+        );
+        upcomingDrops.push(dropElement);
+        dropLink.classList.add('drop_upcoming');
+        dropElement.appendChild(dropLink);
 
-            } else {
-            const dropinfoText = collection.dropinfo ? ` - ${collection.dropinfo}` : '';
-            dropLink.textContent = `${collection.title}${dropinfoText}`;
+    } else {
+        const dropinfoText = collection.dropinfo ? ` - ${collection.dropinfo}` : '';
 
-            // Use custom link if it exists and is valid
-            const customLink = collection.link ? collection.link : `https://shop.fadedcloth.de?collection=${collection.handle}`;
-            dropLink.href = customLink;
+        // Den Titel in ein <span> setzen
+        const titleSpan = document.createElement('span');
+        titleSpan.textContent = `${collection.title}`;
 
-            if (collection.productImage) {
-                // Create an image element and append it next to the drop link
-                const productImageElement = document.createElement('img');
-                productImageElement.src = collection.productImage;
-                productImageElement.alt = `${collection.title} product image`;
-                productImageElement.className = 'product-image';
-                productImageElement.classList.add(`floating`);
-                dropLink.appendChild(productImageElement);
-            }
+        dropLink.appendChild(titleSpan); // Titel in das Link-Element einfügen
+        dropLink.title = `${collection.title}`;
 
-            droppedItems.push(dropElement);
-            }
+        // Use custom link if it exists and is valid
+        const customLink = collection.link ? collection.link : `https://shop.fadedcloth.de?collection=${collection.handle}`;
+        dropLink.href = customLink;
+        //dropLink.classList.add(`marquee`);
+        titleSpan.classList.add(`marquee`);
+        titleSpan.classList.add(`span-text`);
 
-            if (!latestActiveDrop) {
-            latestActiveDrop = dropLink;
-            dropElement.appendChild(dropLink);
-            } else {
-            dropElement.appendChild(dropLink);
-            }
+        if (collection.productImage) {
+            // Create an image element and append it inside the titleSpan
+            const productImageElement = document.createElement('img');
+            productImageElement.src = collection.productImage;
+            productImageElement.alt = `${collection.title} product image`;
+            productImageElement.className = 'product-image';
+            productImageElement.classList.add(`floating`);
+            titleSpan.appendChild(productImageElement); // Bild im <span> platzieren
+        }
 
-            container.appendChild(dropElement);
+        droppedItems.push(dropElement);
+        checkMarquee();
+    }
 
-            if (collection.dropend && collection.dropend < now) {
-            dropLink.classList.add('ended');
-            } else if (!isUpcoming) {
-            dropLink.classList.add('active');
-            }
-        });
+    if (!latestActiveDrop) {
+        latestActiveDrop = dropLink;
+        dropElement.appendChild(dropLink);
+    } else {
+        dropElement.appendChild(dropLink);
+    }
+
+    container.appendChild(dropElement);
+
+    if (collection.dropend && collection.dropend < now) {
+        dropLink.classList.add('ended');
+    } else if (!isUpcoming) {
+        dropLink.classList.add('active');
+    }
+});
+
+
 
         createSection('Dropped Drops', droppedItems);
         addNewsletterInput('>>>');
@@ -920,7 +946,44 @@
             createLinkElement('TERMS OF SERVICE', 'https://fadedcloth.de/legal?id=terms-of-service'),
             createLinkElement('PRIVACY POLICY', 'https://fadedcloth.de/legal?id=privacy-policy')
         ];
-        function createLinkElement(text, url) {
+
+        function checkMarquee() {
+  document.querySelectorAll(".marquee").forEach(el => {
+    //el.classList.remove("marquee");
+    el.style.animation = "";
+
+    // Finde den direkten Container, der den Text enthält
+    const container = el.parentElement;
+    if (!container) return;
+    container.style.overflow = "hidden";
+
+    // Prüfe das span-Element, das den Text enthält
+    const textElement = el; 
+    if (!textElement) return;
+
+    const diff = textElement.scrollWidth - container.offsetWidth;
+
+    // Wenn der Text breiter ist als der Container, berechne den Marquee-Effekt
+    if (diff > 0) {
+      const overflowAmount = Math.ceil(diff / parseFloat(window.getComputedStyle(document.documentElement).fontSize));
+
+      // Setze den Wert für 'overflow-amount' als CSS-Variable
+      el.style.setProperty("--overflow-amount", overflowAmount);
+
+      // Berechne die Anzahl der Schritte (für die steps()-Funktion)
+      const stepsExact = Math.ceil(diff / parseFloat(window.getComputedStyle(document.documentElement).fontSize));
+
+      el.style.setProperty("--steps", stepsExact);
+      el.style.setProperty("--animation-duration", (stepsExact * 0.5) + "s");
+      el.classList.add("marquee");
+    }
+  });
+}
+
+
+window.addEventListener("resize", () => setTimeout(checkMarquee, 200));
+
+function createLinkElement(text, url) {
             const dropElement = document.createElement('div');
             dropElement.className = 'drop_item';
             const dropNumberContainer = document.createElement('div');
@@ -931,11 +994,15 @@
             placeholderTag.textContent = '///';
             link.className = 'drop_link';
             link.href = url;
+            link.title = text;
             link.textContent = text;
+            
             dropElement.appendChild(dropNumberContainer);
             dropElement.appendChild(link);
             return dropElement;
         }
+
+
 
         const allowedTitles = ['Navigation']; //add all section-titels for ↗ at hover
 
@@ -1243,6 +1310,7 @@ async function addCollectionButton(dropCount) {
             collectionLink.className = 'drop_link';
             collectionLink.href = `https://shop.fadedcloth.de/?collection=${collection.handle}&hide=TRUE`;
             collectionLink.textContent = collection.title; // Titel der Collection als Linktext
+            collectionLink.title = collection.title; // Titel der Collection als Tooltip
             collectionLink.target = '';
 
             // Container für den Collection-Link (mit Platzhalter für die Nummer)
