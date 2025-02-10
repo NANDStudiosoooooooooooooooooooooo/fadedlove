@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-title" content="FADEDCLOTH">
 <link rel="apple-touch-icon" href="https://cdn.shopify.com/s/files/1/0892/0445/7817/files/icon-512x512.png?v=1738496004">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FADEDCLOTH - UPDATES</title>
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:500|IBM+Plex+Sans:300&display=swap" rel="stylesheet">
     <meta name="description" content="The offical FADEDCLOTH site. Subscribe for updates.">
@@ -45,8 +45,6 @@
 
         .drop_container {
             padding-left: 1.38888vw;
-            /* backdrop-filter: blur(15px); */
-            -webkit-backdrop-filter: blur(15px);
             font-family: monospace;
             color: #84898E;
             display: flex;
@@ -255,17 +253,6 @@
             cursor: pointer;
         }
 
-
-        .scroll-effect{
-            width: 100%;
-            height: 140px;
-            position: fixed;
-            top: 0px;
-            background: linear-gradient(to top, transparent, black);
-            user-select: none;
-            pointer-events: none;
-        }
-
         .dropname {
             width: 7ch;
             min-width: 7ch;
@@ -443,7 +430,7 @@
     <div id="cart-button-container" class="nav-link top-right">
         <a style="padding-top: 60px;" href="https://checkout.fadedcloth.de/cart">
             <div class="cart-count-bubble">!</div>
-            <div style="position: relative; z-index: 2; pointer-events: none; user-select: none;"><img src="https://cdn.shopify.com/s/files/1/0892/0445/7817/files/cart.png?v=1738269126" style="height: 60px; width: 60px;"></div>
+            <div style="position: relative; z-index: 2; pointer-events: none; user-select: none;"><img src="https://cdn.shopify.com/s/files/1/0892/0445/7817/files/cart.png?v=1738269126" title="CART" style="height: 60px; width: 60px;"></div>
             <div class="blurred-eclipse-background" bis_skin_checked="1"></div>
         </a>
     </div>
@@ -567,7 +554,7 @@
         </div>
     </div>
 
-    <div class="scroll-effect"></div>
+    <div class="scroll-effect-top"></div>
 
     <script>
         async function loadBlogPosts() {

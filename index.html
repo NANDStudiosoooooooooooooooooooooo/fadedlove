@@ -7,12 +7,12 @@
 <meta name="apple-mobile-web-app-title" content="FADEDCLOTH">
 <link rel="apple-touch-icon" href="https://cdn.shopify.com/s/files/1/0892/0445/7817/files/icon-512x512.png?v=1738496004">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FADEDCLOTH</title>
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:500|IBM+Plex+Sans:300&display=swap" rel="stylesheet">
     <meta name="description" content="The offical FADEDCLOTH site. Subscribe for updates.">
     <script src="https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js"></script>
-    <link rel="stylesheet" href="https://fadedcloth.de/styles/main.css?v=3.85">
+    <link rel="stylesheet" href="https://fadedcloth.de/styles/main.css?v=3.87">
 
     <script>
         if ("serviceWorker" in navigator) {
@@ -46,7 +46,6 @@
         }
 
         .glas-wrapper{
-            margin-top: 100vh ;
             display: flex;
             flex-direction: column;
             width: fit-content;
@@ -54,8 +53,6 @@
 
         .drop_container {
             padding-left: 1.38888vw;
-            /* backdrop-filter: blur(15px); */
-            -webkit-backdrop-filter: blur(15px);
             font-family: monospace;
             color: #84898E;
             display: flex;
@@ -69,6 +66,7 @@
             max-width: auto;
             scrollbar-color: #84898E transparent;
             white-space: nowrap;
+            top: 100%;
             
         }
 
@@ -264,17 +262,6 @@
             z-index: 1000;
             text-align: center;
             cursor: pointer;
-        }
-
-
-        .scroll-effect{
-            width: 100%;
-            height: 140px;
-            position: fixed;
-            top: 0px;
-            background: linear-gradient(to top, transparent, black);
-            user-select: none;
-            pointer-events: none;
         }
 
         .dropname {
@@ -738,7 +725,7 @@
         }
     </script> -->
 
-    <div class="scroll-effect"></div>
+    <div class="scroll-effect-top"></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -1375,6 +1362,7 @@ async function addCollectionButton(dropCount) {
     </script>
     
     <script src="scripts/animate.js" defer></script> 
+    <script src="dist/bundle.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js" defer></script>
     <script src="scripts/subscribe.js?v=1.2" defer></script>
     <script src="scripts/vanilla-tilt.js"></script>
