@@ -1,16 +1,23 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './scripts/main.js', // Eintrittspunkt deines JavaScript
+  entry: {
+    main: './scripts/main.js',
+    script1: './scripts/script1.js',
+    script2: './scripts/script2.js',
+    // Füge weitere Skripte nach Bedarf hinzu
+  },
   output: {
-    filename: 'bundle.js', // Name der Ausgabe-Datei
-    path: path.resolve(__dirname, 'dist')
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true
   },
   module: {
     rules: [
       {
-        test: /\.js$/, // Regel für JavaScript-Dateien
-        exclude: /node_modules/, // Schließe node_modules aus
+        test: /\.js$/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -19,13 +26,21 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/, // Regel für CSS-Dateien
+        test: /\.css$/,
         use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.html$/,
+        use: ['html-loader']
       }
     ]
   },
-  resolve: {
-    extensions: ['.js']
-  },
-  mode: 'production' // Setze den Modus auf 'production' für optimierte Builds
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      filename: 'index.html',
+      chunks: ['main', 'script1', 'script2'] // Füge alle Bundles hinzu
+    })
+  ],
+  mode: 'production'
 };
