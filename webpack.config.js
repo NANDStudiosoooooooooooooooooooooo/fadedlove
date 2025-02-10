@@ -7,13 +7,13 @@ module.exports = {
     main: './scripts/main.js',
     canvas: './scripts/canvas.js',
     unsubscribe: './scripts/unsubscribe.js',
-    loaddroplist: './scripts/load_droplist.js',
+    loaddroplist: './scripts/loaddroplist.js',
     index_scripts: './scripts/index_scripts.js'
   },
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    // publicPath: '/dist/',
+    publicPath: '/dist/',
     clean: true
   },
   module: {
