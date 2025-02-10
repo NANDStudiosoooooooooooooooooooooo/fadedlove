@@ -1,0 +1,1 @@
+var video=document.getElementById("load-obj"),loader=document.getElementById("loader"),logocontainerRef=document.getElementById("load-container");video.addEventListener("canplaythrough",(function(){loader.style.display="none",logocontainerRef.style.display="flex"}));
