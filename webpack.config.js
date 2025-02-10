@@ -1,12 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { unsubscribe } = require('diagnostics_channel');
 
 module.exports = {
   entry: {
     main: './scripts/main.js',
-    script1: './scripts/script1.js',
-    script2: './scripts/script2.js',
-    // Füge weitere Skripte nach Bedarf hinzu
+    canvas: './scripts/canvas.js',
+    unsubscribe: './scripts/unsubscribe.js',
+    loaddroplist: './scripts/load_droplist.js',
+    index_scripts: './scripts/index_scripts.js',
   },
   output: {
     filename: '[name].bundle.js',
@@ -39,8 +41,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './index.html',
       filename: 'index.html',
-      chunks: ['main', 'script1', 'script2'] // Füge alle Bundles hinzu
-    })
+      chunks: ['main', 'canvas', 'loaddroplist', 'index-scripts'] // Füge alle Bundles hinzu
+    }),
+    new HtmlWebpackPlugin({
+      template: './unsub.html',
+      filename: 'unsub.html',
+      chunks: ['unsubscribe', 'main'] // Füge nur das unsubscribe-Bundle hinzu
+    }),
   ],
   mode: 'production'
 };
