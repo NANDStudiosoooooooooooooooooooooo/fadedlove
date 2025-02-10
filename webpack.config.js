@@ -8,7 +8,7 @@ module.exports = {
     canvas: './scripts/canvas.js',
     unsubscribe: './scripts/unsubscribe.js',
     loaddroplist: './scripts/load_droplist.js',
-    index_scripts: './scripts/index_scripts.js',
+    index_scripts: './scripts/index_scripts.js'
   },
   output: {
     filename: '[name].bundle.js',
