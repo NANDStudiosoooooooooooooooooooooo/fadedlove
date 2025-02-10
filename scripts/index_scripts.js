@@ -1,4 +1,4 @@
-import '../styles/index-site.css'
+import '../styles/index_site.css'
 
 //SCROLL TO NEXT DROP BUTTON --BEGIN--
 window.addEventListener('scroll', function() {

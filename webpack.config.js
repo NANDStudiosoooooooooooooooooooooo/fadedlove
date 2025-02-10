@@ -1,6 +1,6 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { unsubscribe } = require('diagnostics_channel');
 
 module.exports = {
   entry: {
@@ -29,7 +29,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       {
         test: /\.html$/,
@@ -38,15 +38,18 @@ module.exports = {
     ]
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].bundle.css'
+    }),
     new HtmlWebpackPlugin({
       template: './index.html',
       filename: 'index.html',
-      chunks: ['main', 'canvas', 'loaddroplist', 'index-scripts'] // Füge alle Bundles hinzu
+      chunks: ['main', 'canvas', 'loaddroplist', 'index_scripts']
     }),
     new HtmlWebpackPlugin({
       template: './unsub.html',
       filename: 'unsub.html',
-      chunks: ['unsubscribe', 'main'] // Füge nur das unsubscribe-Bundle hinzu
+      chunks: ['unsubscribe', 'main']
     }),
   ],
   mode: 'production'
