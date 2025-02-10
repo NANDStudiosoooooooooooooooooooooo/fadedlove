@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { unsubscribe } = require('diagnostics_channel');
 
 module.exports = {
@@ -30,7 +29,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /\.html$/,
@@ -39,9 +38,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: '[name].bundle.css'
-    }),
     new HtmlWebpackPlugin({
       template: './index.html',
       filename: 'index.html',
