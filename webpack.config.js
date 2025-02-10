@@ -4,7 +4,7 @@ module.exports = {
   entry: './scripts/main.js', // Eintrittspunkt deines JavaScript
   output: {
     filename: 'bundle.js', // Name der Ausgabe-Datei
-    path: path.resolve(__dirname, 'dist') // Ausgabe-Verzeichnis
+    path: path.resolve(__dirname, 'dist')
   },
   module: {
     rules: [
