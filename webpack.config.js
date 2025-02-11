@@ -11,7 +11,7 @@ module.exports = {
     index_scripts: './scripts/index_scripts.js'
   },
   output: {
-    filename: '[name].b.js',
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
     // publicPath: '/dist/',
     clean: true
@@ -44,7 +44,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].b.css'
+      filename: '[name].[contenthash].css'
     }),
     new HtmlWebpackPlugin({
       template: './index.html',
