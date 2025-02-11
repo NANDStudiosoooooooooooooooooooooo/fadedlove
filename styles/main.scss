@@ -1283,6 +1283,9 @@ select {
     position: fixed;
     bottom: 0px;
     background: linear-gradient(to bottom, transparent, black);
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: none;
 }
 
 .scroll-effect-top{
@@ -1291,6 +1294,9 @@ select {
     position: fixed;
     top: 0px;
     background: linear-gradient(to top, transparent, black);
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: none;
 }
 
 .text-box{
