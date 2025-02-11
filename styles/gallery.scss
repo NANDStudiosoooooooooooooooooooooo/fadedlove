@@ -1,0 +1,143 @@
+body{
+    overflow: hidden;
+    align-items: center;
+}
+
+.gallery-imagebutton-container::-webkit-scrollbar-track {
+background: transparent; /* Transparent scrollbar track */
+}
+
+/* Removes arrows from the scrollbars in Webkit browsers (Chrome, Safari) */
+.gallery-imagebutton-container::-webkit-scrollbar-button {
+display: none; /* Hides the up/down or left/right arrow buttons */
+}
+
+/* Ensures the active button is always visible */
+.gallery-imagebutton-container button.active-image-button {
+scroll-margin-left: 10px; /* Ensures active button is smoothly scrolled into view */
+}
+
+.gallery-imagebutton-container::-webkit-scrollbar-thumb {
+border-radius: 0;
+}
+
+.gallery-container {
+width: 100%;
+max-width: 450px;
+display: flex;
+flex-direction: column;
+align-items: center;
+z-index: 6900;
+}
+
+.gallery-headline {
+text-align: center;
+font-size: 2rem;
+margin-bottom: 10px;
+color: white;
+}
+
+.gallery-headline a {
+text-decoration: none;
+color: inherit;
+}
+
+.gallery-image-container {
+width: 100%;
+max-width: 100%;
+height: auto;
+overflow: visible;
+position: relative;
+margin-bottom: 10px;
+}
+
+@media (max-width: 500px) {
+    .gallery-container{
+        max-width: 100%;
+    }
+    @media (max-height: 780px) {
+        .gallery-container{
+            max-width: auto;
+            max-height: calc(100% - 150px);
+        }
+    }
+}
+@media (max-height: 780px) {
+        .gallery-container{
+            max-width: auto;
+            max-height: calc(100% - 150px);
+        }
+    }
+
+
+.gallery-image-container img {
+width: 100%;
+height: auto;
+object-fit: cover;
+transition: opacity 0.5s ease;
+}
+
+.gallery-imagebutton-container {
+display: flex;
+max-width: 100%;
+overflow: hidden;
+scrollbar-width: none;
+scrollbar-color: rgba(255, 255, 255, 0.2) transparent; 
+scroll-snap-type: x mandatory; /* Buttons will snap into view when scrolling */
+}
+
+.gallery-imagebutton-container button {
+flex: 0 0 auto; /* Prevent buttons from shrinking */
+margin-right: 10px; /* Optional: Space between buttons */
+}
+
+/* For Webkit-based browsers like Chrome */
+.gallery-imagebutton-container::-webkit-scrollbar {
+height: 8px; /* Set the height of the horizontal scrollbar */
+}
+
+.gallery-imagebutton-container::-webkit-scrollbar-thumb {
+background-color: rgba(255, 255, 255, 0.2); /* Dezent transparent scrollbar thumb */
+border-radius: 10px; /* Rounded corners for the scrollbar */
+}
+
+.gallery-imagebutton-container::-webkit-scrollbar-track {
+background: transparent; /* Transparent scrollbar track */
+}
+
+/* Ensures the active button is always visible */
+.gallery-imagebutton-container button.active-image-button {
+scroll-margin-left: 10px; /* Ensures active button is smoothly scrolled into view */
+}
+
+
+.gallery-imagebutton-container button {
+border: none;
+background: none;
+margin-right: 10px;
+cursor: pointer;
+transition: transform 0.3s;
+}
+
+.gallery-imagebutton-container button img {
+width: 50px;
+height: 50px;
+object-fit: cover;
+}
+
+.gallery-imagebutton-container::-webkit-scrollbar {
+height: 5px;
+}
+
+.gallery-imagebutton-container::-webkit-scrollbar-thumb {
+background: #888;
+border-radius: 10px;
+}
+
+.gallery-imagebutton-container::-webkit-scrollbar-thumb:hover {
+background: #555;
+}
+
+.active-image-button{
+    /*box-shadow: 0 0 4px 2px rgba(255, 255, 255, 0.5);*/
+}

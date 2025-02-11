@@ -9,7 +9,8 @@ module.exports = {
     canvas: './scripts/canvas.js',
     unsubscribe: './scripts/unsubscribe.js',
     loaddroplist: './scripts/loaddroplist.js',
-    index_scripts: './scripts/index_scripts.js'
+    index_scripts: './scripts/index_scripts.js',
+    gallery: './scripts/gallery.js',
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -78,6 +79,11 @@ module.exports = {
       template: './unsub.html',
       filename: 'unsub.html',
       chunks: ['unsubscribe', 'main']
+    }),
+    new HtmlWebpackPlugin({
+      template: './gallery.html',
+      filename: 'gallery.html',
+      chunks: ['main' , 'gallery']
     }),
   ],
   optimization: {
