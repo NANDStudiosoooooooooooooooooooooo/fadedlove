@@ -8,8 +8,7 @@ module.exports = {
     canvas: './scripts/canvas.js',
     unsubscribe: './scripts/unsubscribe.js',
     loaddroplist: './scripts/loaddroplist.js',
-    index_scripts: './scripts/index_scripts.js',
-    loadupdates: './scripts/loadupdates.js',
+    index_scripts: './scripts/index_scripts.js'
   },
   output: {
     filename: '[name].bundle.js',
@@ -30,8 +29,12 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader'
+        ]
       },
       {
         test: /\.html$/,
@@ -54,9 +57,9 @@ module.exports = {
       chunks: ['unsubscribe', 'main']
     }),
     new HtmlWebpackPlugin({
-      template: './updates.html',
-      filename: 'updates.html',
-      chunks: ['main', 'canvas', 'loadupdates', 'index_scripts']
+      template: './gallery.html',
+      filename: 'gallery.html',
+      chunks: ['main']
     }),
   ],
   mode: 'production'

@@ -5,7 +5,7 @@ const ASSETS_TO_CACHE = [
   "https://fadedcloth.de/index.html",
   "https://fadedcloth.de/legal.html",
   "https://fadedcloth.de/offline.html",
-  "https://fadedcloth.de/styles/main.css",
+  "https://fadedcloth.de/styles/main.scss",
   "https://fadedcloth.de/scripts/animate.js",
   "https://fadedcloth.de/scripts/legal.js",
   "https://fadedcloth.de/scripts/loader.js",

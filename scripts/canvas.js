@@ -1,4 +1,4 @@
-import '../styles/canvas.css'
+import '../styles/canvas.scss'
 
 //RENDER CANVAS --BEGIN--
 const canvas = document.getElementById("sequenceCanvas");
