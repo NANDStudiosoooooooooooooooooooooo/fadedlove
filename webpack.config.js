@@ -12,6 +12,8 @@ module.exports = {
     index_scripts: './scripts/index_scripts.js',
     gallery: './scripts/gallery.js',
     buttons: './scripts/buttons.js',
+    loadupdates: './scripts/loadupdates.js',
+    legal: './scripts/legal.js',
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -86,6 +88,21 @@ module.exports = {
       filename: 'gallery.html',
       chunks: ['main' , 'gallery', 'buttons']
     }),
+    new HtmlWebpackPlugin({
+      template: './updates.html',
+      filename: 'updates.html',
+      chunks: ['main' , 'loadupdates', 'buttons']
+    }),
+    new HtmlWebpackPlugin({
+      template: './legal.html',
+      filename: 'legal.html',
+      chunks: ['main' , 'buttons', 'legal']
+    }),
+    new HtmlWebpackPlugin({
+      template: './404.html',
+      filename: '404.html',
+      chunks: ['main']
+    }),
   ],
   optimization: {
     minimize: true,
@@ -93,7 +110,7 @@ module.exports = {
       terserOptions: {
         format: {
           comments: (node, comment) => {
-            return comment.value.includes('@');
+            return comment.value.includes('fadedcloth.de');
           },
         },
       },

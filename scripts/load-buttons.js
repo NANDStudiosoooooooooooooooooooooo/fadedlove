@@ -1,3 +1,4 @@
+//BUTTONS --START
 // Funktion zum Öffnen und Schließen der Panels
 function togglePanel(panelId) {
     // Alle Panels und Buttons auswählen
@@ -213,3 +214,62 @@ function loadShopifyCollections() {
 
 // Beim Laden der Seite das Skript ausführen
 document.addEventListener('DOMContentLoaded', loadShopifyCollections);
+//BUTTONS --END
+
+//SOCIAL --START
+document.getElementById('social-select').addEventListener('change', function() {
+    const linkElement = document.getElementById('social-select-link');
+    const platform = this.value;
+
+    // Links je nach ausgewählter Plattform anpassen
+    let href;
+    switch (platform) {
+        case 'tiktok':
+            href = 'https://tiktok.com/@fadedcloth.de';
+            break;
+        case 'twitter':
+            href = 'https://x.com/fadedcloth';
+            break;
+        case 'instagram':
+        default:
+            href = 'https://instagram.com/fadedcloth.de';
+            break;
+    }
+
+    // Link aktualisieren
+    linkElement.href = href;
+
+    // Animation hinzufügen und nach Ende entfernen
+    linkElement.classList.add('jump');
+    linkElement.addEventListener('animationend', function() {
+        linkElement.classList.remove('jump');
+    });
+});
+//SOCIAL --END
+
+
+
+//BACKBUTTON --START
+let backButtonLink = "https://fadedcloth.de/";
+            let backButtonText = "BACK TO FADEDCLOTH";
+            let backButtonShortText = "BACK";
+
+            function setBackButtonLink(newLink) {
+                backButtonLink = newLink;
+            }
+            function setBackButtonText(newText) {
+                document.getElementById("back-button-text").textContent = newText;
+            }
+            function updateBackButtonText() {
+                if (window.innerWidth <= 880) {
+                    setBackButtonText(backButtonShortText);
+                } else {
+                    setBackButtonText(backButtonText);
+                }
+            }
+            document.getElementById("back-button").addEventListener("click", function() {
+                window.location.href = backButtonLink;
+            });
+            window.addEventListener("resize", updateBackButtonText);
+            document.addEventListener("DOMContentLoaded", updateBackButtonText);
+//BACKBUTTON --END
