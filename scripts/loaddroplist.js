@@ -628,4 +628,16 @@ collectionButton.addEventListener('click', () => {
         }
     }
     });
+
+    function shakeElement(element) {
+        element.classList.add("shake");
+        setTimeout(() => {
+            element.classList.remove("shake");
+        }, 500); // Remove shake effect after 500ms
+    }
+    
+    function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
 //LOAD DROP LIST --END--
