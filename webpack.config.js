@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -49,7 +50,18 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './index.html',
       filename: 'index.html',
-      chunks: ['main', 'canvas', 'loaddroplist', 'index_scripts']
+      chunks: ['main', 'canvas', 'loaddroplist', 'index_scripts'],
+      inject: 'body',
+      templateParameters: {
+        logo: `
+         _______
+        |  ____|
+        | |  __  ___ _ __  ___
+        | | |_ |/ _ \\ '_ \\/ __|
+        | |__| |  __/ | | \\__ \\
+         \\_____|\___|_| |_|___/
+        `
+      },
     }),
     new HtmlWebpackPlugin({
       template: './unsub.html',
@@ -57,5 +69,18 @@ module.exports = {
       chunks: ['unsubscribe', 'main']
     }),
   ],
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin({
+      terserOptions: {
+        format: {
+          comments: (node, comment) => {
+            return comment.value.includes('______');
+          },
+        },
+      },
+      extractComments: false,
+    })],
+  },
   mode: 'production'
 };
