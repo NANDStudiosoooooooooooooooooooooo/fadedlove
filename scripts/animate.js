@@ -15,3 +15,6 @@ document.addEventListener("DOMContentLoaded", function() {
     animateElements('top', 'slideInTop');
     animateElements('top-right', 'slideInRight');
 });
+
+
+

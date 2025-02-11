@@ -11,6 +11,7 @@ module.exports = {
     loaddroplist: './scripts/loaddroplist.js',
     index_scripts: './scripts/index_scripts.js',
     gallery: './scripts/gallery.js',
+    buttons: './scripts/buttons.js',
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -78,12 +79,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './unsub.html',
       filename: 'unsub.html',
-      chunks: ['unsubscribe', 'main']
+      chunks: ['unsubscribe', 'main',  'buttons']
     }),
     new HtmlWebpackPlugin({
       template: './gallery.html',
       filename: 'gallery.html',
-      chunks: ['main' , 'gallery']
+      chunks: ['main' , 'gallery', 'buttons']
     }),
   ],
   optimization: {
