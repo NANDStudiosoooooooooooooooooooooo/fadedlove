@@ -1,1 +1,0 @@
-document.addEventListener("DOMContentLoaded",(function(){function t(t,n){var o=arguments.length>2&&void 0!==arguments[2]?arguments[2]:0;document.querySelectorAll(".".concat(t)).forEach((function(t,e){t.style.animation="".concat(n," 0.5s forwards"),t.style.animationDelay="".concat(o+100*e,"ms")}))}t("top-left","slideInLeft"),t("top","slideInTop"),t("top-right","slideInRight")}));
