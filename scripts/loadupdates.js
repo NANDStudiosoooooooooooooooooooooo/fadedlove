@@ -1,3 +1,5 @@
+import '../styles/index_site.scss'
+
 async function loadBlogPosts() {
     const queryParams = new URLSearchParams(window.location.search);
     const blogHandle = queryParams.get('blog') || 'main-blog'; // Standard: "main-blog"

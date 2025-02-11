@@ -55,6 +55,18 @@ document.getElementById("subscribeButton").addEventListener("click", function(ev
         }
     }
 });
+
+function shakeElement(element) {
+  element.classList.add("shake");
+  setTimeout(() => {
+      element.classList.remove("shake");
+  }, 500); // Remove shake effect after 500ms
+}
+
+function isValidEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
 //Email Subscribtion -- END
 
 //TILT -- BEGIN

@@ -14,6 +14,7 @@ module.exports = {
     buttons: './scripts/load-buttons.js',
     loadupdates: './scripts/loadupdates.js',
     legal: './scripts/legal.js',
+    subscribe: './scripts/subscribe.js',
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -111,7 +112,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './404.html',
       filename: '404.html',
-      chunks: ['main'],
+      chunks: ['main',],
       scriptLoading: 'blocking',
       chunksSortMode: 'manual',
     }),
