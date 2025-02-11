@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Funktion zum Laden der Markdown-Datei
     function loadMarkdown(contentId) {
-        const filePath = `/text/${contentId}.md`; // Pfad zu den Markdown-Dateien
+        const filePath = `https://fadedcloth.de/text/${contentId}.md`; // Pfad zu den Markdown-Dateien
         
         fetch(filePath)
             .then(response => {
