@@ -54,12 +54,23 @@ module.exports = {
       inject: 'body',
       templateParameters: {
         logo: `
-         _______
-        |  ____|
-        | |  __  ___ _ __  ___
-        | | |_ |/ _ \\ '_ \\/ __|
-        | |__| |  __/ | | \\__ \\
-         \\_____|\___|_| |_|___/
+        <!--
+               @@@@@@@@@@@@@@@@@@@@@@
+            @@@@@@@@@@@@@@@@@@@@@@@@@@
+          @@@@@@@@@@@@@@@@@@
+        @@@@@@@@@@@@@@@@
+        @@@@@@@@@@@
+        @@@
+        @@
+              @@@@@@@@@@@@@@@@@@@
+           @@@@@@@@@@@@@@@@@@@@@
+          @@@@@@@@@
+        @@@@@@@@
+        @@@@@
+        @@@
+        @@@
+        @@@             fadedcloth.de
+        -->
         `
       },
     }),
@@ -75,7 +86,7 @@ module.exports = {
       terserOptions: {
         format: {
           comments: (node, comment) => {
-            return comment.value.includes('______');
+            return comment.value.includes('@');
           },
         },
       },
