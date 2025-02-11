@@ -56,11 +56,6 @@ module.exports = {
       filename: 'unsub.html',
       chunks: ['unsubscribe', 'main']
     }),
-    new HtmlWebpackPlugin({
-      template: './gallery.html',
-      filename: 'gallery.html',
-      chunks: ['main']
-    }),
   ],
   mode: 'production'
 };
