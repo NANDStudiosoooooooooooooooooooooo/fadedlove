@@ -8,7 +8,8 @@ module.exports = {
     canvas: './scripts/canvas.js',
     unsubscribe: './scripts/unsubscribe.js',
     loaddroplist: './scripts/loaddroplist.js',
-    index_scripts: './scripts/index_scripts.js'
+    index_scripts: './scripts/index_scripts.js',
+    loadupdates: './scripts/loadupdates.js',
   },
   output: {
     filename: '[name].bundle.js',
@@ -51,6 +52,11 @@ module.exports = {
       template: './unsub.html',
       filename: 'unsub.html',
       chunks: ['unsubscribe', 'main']
+    }),
+    new HtmlWebpackPlugin({
+      template: './updates.html',
+      filename: 'updates.html',
+      chunks: ['main', 'canvas', 'loadupdates', 'index_scripts']
     }),
   ],
   mode: 'production'
