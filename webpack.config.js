@@ -54,7 +54,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './index.html',
       filename: 'index.html',
-      chunks: ['main', 'canvas', 'loaddroplist', 'index_scripts'],
+      chunks: ['canvas', 'loaddroplist', 'index_scripts', 'main'],
       inject: 'body',
       templateParameters: {
         logo: `
@@ -81,22 +81,22 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './unsub.html',
       filename: 'unsub.html',
-      chunks: ['unsubscribe', 'main',  'buttons']
+      chunks: ['unsubscribe',  'buttons', 'main'],
     }),
     new HtmlWebpackPlugin({
       template: './gallery.html',
       filename: 'gallery.html',
-      chunks: ['main' , 'gallery', 'buttons']
+      chunks: [ 'gallery', 'buttons', 'main'],
     }),
     new HtmlWebpackPlugin({
       template: './updates.html',
       filename: 'updates.html',
-      chunks: ['main' , 'loadupdates', 'buttons']
+      chunks: ['loadupdates', 'buttons' , 'main'],
     }),
     new HtmlWebpackPlugin({
       template: './legal.html',
       filename: 'legal.html',
-      chunks: ['main' , 'buttons', 'legal']
+      chunks: ['buttons', 'legal', 'main'],
     }),
     new HtmlWebpackPlugin({
       template: './404.html',
