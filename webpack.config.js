@@ -11,7 +11,7 @@ module.exports = {
     loaddroplist: './scripts/loaddroplist.js',
     index_scripts: './scripts/index_scripts.js',
     gallery: './scripts/gallery.js',
-    buttons: './scripts/buttons.js',
+    buttons: './scripts/load-buttons.js',
     loadupdates: './scripts/loadupdates.js',
     legal: './scripts/legal.js',
   },
