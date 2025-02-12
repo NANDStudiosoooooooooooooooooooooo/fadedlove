@@ -94,9 +94,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Bestimmen des Links basierend auf den Metafeldern
                 let link = null;
                 if (productId) {
-                    link = `https://shop.fadedcloth.de/item?item_id=${productId}`;
+                    link = `https://fadedcloth.de/shop/item?item_id=${productId}`;
                 } else if (collectionId) {
-                    link = `https://shop.fadedcloth.de?collection_id=${collectionId}&hide=TRUE`;
+                    link = `https://fadedcloth.de/shop?collection_id=${collectionId}&hide=TRUE`;
                 }
 
                 // Rückgabe des Posts mit Link

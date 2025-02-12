@@ -150,7 +150,7 @@ if (isUpcoming) {
     dropLink.title = `${collection.title}`;
 
     // Use custom link if it exists and is valid
-    const customLink = collection.link ? collection.link : `https://shop.fadedcloth.de?collection=${collection.handle}`;
+    const customLink = collection.link ? collection.link : `https://fadedcloth.de/shop?collection=${collection.handle}`;
     dropLink.href = customLink;
     //dropLink.classList.add(`marquee`);
     titleSpan.classList.add(`marquee`);
@@ -368,7 +368,7 @@ function createLinkElement(text, url) {
         clearInterval(countdownInterval);
         // dropLink.textContent = dropinfo ? `${title} - ${dropinfo}` : title;
         dropLink.textContent = title;
-        dropLink.href = `https://shop.fadedcloth.de?collection=${handle}`;
+        dropLink.href = `https://fadedcloth.de/shop?collection=${handle}`;
         dropLink.style.pointerEvents = 'auto';
         dropLink.onclick = () => {
             window.location.href = dropLink.href;
@@ -583,7 +583,7 @@ collections.forEach((collection) => {
     if (!collection.handle.includes('drop')) {
         const collectionLink = document.createElement('a');
         collectionLink.className = 'drop_link';
-        collectionLink.href = `https://shop.fadedcloth.de/?collection=${collection.handle}&hide=TRUE`;
+        collectionLink.href = `https://fadedcloth.de/shop/?collection=${collection.handle}&hide=TRUE`;
         collectionLink.textContent = collection.title; // Titel der Collection als Linktext
         collectionLink.title = collection.title; // Titel der Collection als Tooltip
         collectionLink.target = '';

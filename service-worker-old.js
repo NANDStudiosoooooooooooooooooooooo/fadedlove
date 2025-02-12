@@ -8,7 +8,7 @@ const ASSETS_TO_CACHE = [
   "https://fadedcloth.de/styles/main.scss",
   "https://fadedcloth.de/scripts/animate.js",
   "https://fadedcloth.de/scripts/legal.js",
-  "https://shop.fadedcloth.de/index.html",
+  "https://fadedcloth.de/shop/index.html",
   "https://cdn.shopify.com/s/files/1/0892/0445/7817/files/icon-512x512.png?v=1738496004",
   "https://cdn.shopify.com/s/files/1/0892/0445/7817/files/icon-192x192.png?v=1738496004"
 ];
