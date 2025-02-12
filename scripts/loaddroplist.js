@@ -200,7 +200,7 @@ if (collection.dropend && collection.dropend < now) {
 }
 
     const nav = [
-        createLinkElement('GALLERY', 'https://fadedcloth.de/gallery'),
+        createLinkElement('GALLERY', 'https://fadedcloth.de/lookbook'),
         createLinkElement('UPDATES', 'https://fadedcloth.de/updates'),
         createLinkElement('TERMS OF SERVICE', 'https://fadedcloth.de/legal?id=terms-of-service'),
         createLinkElement('PRIVACY POLICY', 'https://fadedcloth.de/legal?id=privacy-policy')
