@@ -353,7 +353,7 @@ function createLinkElement(text, url) {
         const day = String(dropDate.getDate()).padStart(2, '0');
         
         // Nur Countdown und Datum anzeigen
-        dateElement.textContent = ` ${month}/${day}`;
+        dateElement.textContent = `${formattedDate} ${month}/${day}`;
         utcElement.style.display = "none";
     } else {
         dateElement.textContent = ` ${formattedDate}`;
@@ -384,7 +384,14 @@ function createLinkElement(text, url) {
                 hour: '2-digit',
                 hour12: true
             };
-            return new Intl.DateTimeFormat('en-US', options).format(date).replace(/,\s/g, ' ').replace(/ (\w{2})$/, '$1').trim();
+            const short ={
+                weekday: 'first-letter'
+            }
+            if (window.innerWidth < 501) {
+                return new Intl.DateTimeFormat('en-US', short).format(date).replace(/,\s/g, ' ').replace(/ (\w{2})$/, '$1').trim();
+            } else {
+                return new Intl.DateTimeFormat('en-US', options).format(date).replace(/,\s/g, ' ').replace(/ (\w{2})$/, '$1').trim();
+            }
         }
 
         function getExtendedCountdown(date) {
