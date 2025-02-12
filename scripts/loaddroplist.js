@@ -311,7 +311,7 @@ function createLinkElement(text, url) {
     }
 
     // Function to handle the countdown and update on expiry
-    function handleCountdown(dropLink, endTime, title, formattedDate, dropinfo, handle) {
+    function handleCountdown(dropLink, endTime, title, dropinfo, handle) {
     // Erstelle separate Elemente für die Anzeige
     const dropnameElement = document.createElement("span");
     const countdownElement = document.createElement("span");
@@ -387,7 +387,7 @@ function createLinkElement(text, url) {
                 hour12: true
             };
             const short ={
-                weekday: 'first-letter'
+                weekday: 'narrow',
             }
             if (window.innerWidth < 501) {
                 return new Intl.DateTimeFormat('en-US', short).format(date).replace(/,\s/g, ' ').replace(/ (\w{2})$/, '$1').trim();
