@@ -89,9 +89,9 @@ module.exports = {
       chunksSortMode: 'manual',
     }),
     new HtmlWebpackPlugin({
-      template: './gallery.html',
-      filename: 'gallery.html',
-      chunks: [ 'main', 'gallery', 'buttons', 'main'],
+      template: './lookbook.html',
+      filename: 'lookbook.html',
+      chunks: [ 'gallery', 'buttons', 'main'],
       scriptLoading: 'blocking',
       chunksSortMode: 'manual',
     }),
