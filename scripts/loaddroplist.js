@@ -325,6 +325,8 @@ function createLinkElement(text, url) {
     utcElement.classList.add("utc");
     dropInfoElement.classList.add("drop-info");
 
+    formattedDate = formatUpcomingDate(collection.drop);
+
     // Set initial display content
     dateElement.textContent = formattedDate; // Originaldatum
     utcElement.textContent = " MEZ";
@@ -353,7 +355,7 @@ function createLinkElement(text, url) {
         const day = String(dropDate.getDate()).padStart(2, '0');
         
         // Nur Countdown und Datum anzeigen
-        dateElement.textContent = `${formattedDate} ${month}/${day}`;
+        dateElement.textContent = ` ${formattedDate} ${month}/${day}`;
         utcElement.style.display = "none";
     } else {
         dateElement.textContent = ` ${formattedDate}`;
