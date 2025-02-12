@@ -41,6 +41,8 @@ function togglePanel(panelId) {
     return isAnyPanelOpen || !currentPanel.classList.contains('hidden');
 }
 
+window.togglePanel = togglePanel; // Funktion global verfügbar machen
+
 // Funktion zum Umschalten der Collection Links
 function toggleCollectionLinks() {
     const links = document.querySelector('.collection-links');
