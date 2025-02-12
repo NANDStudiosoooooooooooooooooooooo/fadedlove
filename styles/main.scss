@@ -50,7 +50,6 @@ body {
     line-height: 14px;
     display: flex;
     flex-direction: column;
-    justify-content: start;
     margin: 0;
     position: relative;
     -webkit-appearance: none;
@@ -58,6 +57,18 @@ body {
     font-weight: 300;
     color: $light-gray;
 }
+
+@mixin justify-content($value) {
+    justify-content: $value;
+  }
+
+  .body-center {
+    @include justify-content(center);
+  }
+  
+  .body-start {
+    @include justify-content(start);
+  }
 
 h2 {
     font-weight: 500;
