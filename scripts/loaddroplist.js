@@ -325,7 +325,7 @@ function createLinkElement(text, url) {
     utcElement.classList.add("utc");
     dropInfoElement.classList.add("drop-info");
 
-    formattedDate = formatUpcomingDate(collection.drop);
+    formattedDate = formatUpcomingDate(endTime);
 
     // Set initial display content
     dateElement.textContent = formattedDate; // Originaldatum
