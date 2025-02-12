@@ -353,9 +353,10 @@ function createLinkElement(text, url) {
         const dropDate = new Date(endTime);
         const month = String(dropDate.getMonth() + 1).padStart(2, '0');
         const day = String(dropDate.getDate()).padStart(2, '0');
+        const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'narrow' }).format(dropDate);
         
         // Nur Countdown und Datum anzeigen
-        dateElement.textContent = ` ${formattedDate} ${month}/${day}`;
+        dateElement.textContent = ` ${weekday} ${month}/${day}`;
         utcElement.style.display = "none";
     } else {
         dateElement.textContent = ` ${formattedDate}`;
@@ -390,7 +391,7 @@ function createLinkElement(text, url) {
                 weekday: 'narrow',
             }
             if (window.innerWidth < 501) {
-                return new Intl.DateTimeFormat('en-US', short).format(date).replace(/,\s/g, ' ').replace(/ (\w{2})$/, '$1').trim();
+                return new Intl.DateTimeFormat('en-US', options).format(date).replace(/,\s/g, ' ').replace(/ (\w{2})$/, '$1').trim();
             } else {
                 return new Intl.DateTimeFormat('en-US', options).format(date).replace(/,\s/g, ' ').replace(/ (\w{2})$/, '$1').trim();
             }
