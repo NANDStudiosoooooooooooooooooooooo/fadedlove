@@ -1,5 +1,3 @@
-import '../styles/canvas.scss'
-
 //RENDER CANVAS --BEGIN--
 const canvas = document.getElementById("sequenceCanvas");
         const ctx = canvas.getContext("2d");
