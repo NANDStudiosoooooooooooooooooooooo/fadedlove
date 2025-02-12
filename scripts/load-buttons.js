@@ -95,7 +95,7 @@ document.addEventListener('click', function(event) {
 });
 
 // Event Listener für alle Buttons
-document.querySelectorAll('.glass-button').forEach(button => {
+document.querySelectorAll('button').forEach(button => {
     button.addEventListener('click', function(event) {
         event.stopPropagation(); // Verhindert, dass das Event auch das document erreicht
 
