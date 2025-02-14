@@ -1,5 +1,14 @@
 import '../styles/main.scss'
 
+import Vue from 'vue/dist/vue.esm.js';
+import HeaderMain from '../components/header-main.vue';
+
+Vue.component('header-main', HeaderMain);
+
+new Vue({
+  el: '#header'
+});
+
 //ANIMATION -- BEGIN
 document.addEventListener("DOMContentLoaded", function() {
     // Function to animate elements based on class

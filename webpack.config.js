@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
   entry: {
@@ -22,11 +23,14 @@ module.exports = {
   output: {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
-    // publicPath: '/dist/',
     clean: true
   },
   module: {
     rules: [
+      {
+        test: /\.vue$/,
+        use: 'vue-loader'
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -48,6 +52,10 @@ module.exports = {
       {
         test: /\.html$/,
         use: ['html-loader']
+      },
+      {
+        test: /\.vue$/,
+        use: 'vue-loader'
       }
     ]
   },
@@ -55,6 +63,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css'
     }),
+    new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       template: './index.html',
       filename: 'index.html',
@@ -87,21 +96,21 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './unsub.html',
       filename: 'unsub.html',
-      chunks: ['unsubscribe',  'buttons', 'main'],
+      chunks: ['unsubscribe', 'buttons', 'main'],
       scriptLoading: 'blocking',
       chunksSortMode: 'manual',
     }),
     new HtmlWebpackPlugin({
       template: './lookbook.html',
       filename: 'lookbook.html',
-      chunks: [ 'gallery', 'buttons', 'main'],
+      chunks: ['gallery', 'buttons', 'main'],
       scriptLoading: 'blocking',
       chunksSortMode: 'manual',
     }),
     new HtmlWebpackPlugin({
       template: './updates.html',
       filename: 'updates.html',
-      chunks: ['loadupdates', 'buttons' , 'main'],
+      chunks: ['loadupdates', 'buttons', 'main'],
       scriptLoading: 'blocking',
       chunksSortMode: 'manual',
     }),
@@ -115,25 +124,34 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './404.html',
       filename: '404.html',
-      chunks: ['main',],
+      chunks: ['main'],
       scriptLoading: 'blocking',
       chunksSortMode: 'manual',
     }),
     new HtmlWebpackPlugin({
       template: './item.html',
       filename: 'item.html',
-      chunks: ['main', 'item', 'loadproduct', 'buttons', 'subscribe'],
+      chunks: ['item', 'loadproduct', 'buttons', 'subscribe', 'main'],
       scriptLoading: 'blocking',
       chunksSortMode: 'manual',
     }),
     new HtmlWebpackPlugin({
       template: './shop.html',
       filename: 'shop.html',
-      chunks: ['main', 'shop', 'buttons', 'subscribe'],
+      chunks: ['shop', 'buttons', 'subscribe', 'main'],
       scriptLoading: 'blocking',
       chunksSortMode: 'manual',
     }),
+    new VueLoaderPlugin()
   ],
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    },
+    extensions: ['.js', '.vue', '.json'],
+    modules: [path.resolve(__dirname, 'node_modules'), 'node_modules']
+    
+  },
   optimization: {
     minimize: true,
     minimizer: [new TerserPlugin({

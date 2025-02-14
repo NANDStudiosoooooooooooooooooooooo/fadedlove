@@ -24,7 +24,32 @@ $transparent-white: rgba(255, 255, 255, 0.3);
 }
 
 :root {
-    --m: 4rem;
+    --color-white: #ffffff;
+    --color-main: var(--color-white);
+    --color-black: #000000;
+    --color-transparent-light-gray: rgba(255, 255, 255, 0.5);
+    --color-lightgray: #d5d5d5;
+    --color-bg: var(--color-black);
+    --font-family-main: 'IBM Plex Sans';
+    --blur-medium: blur(15px);
+    --font-size-medium: 11.5px;
+    --font-size-large: 14.5px;
+    --line-height-large: 12.5px;
+    --color-transparent-dark-gray: rgba(52, 52, 52, 0.5);
+    --box-shadow-inset: -4px -4px 9px var(--color-shadow-1) inset, 4px 4px 10px var(--color-shadow-2) inset;
+    --box-shadow-hover: 0 0 10px 5px var(--color-shadow-2);
+    --color-shadow-1: var(--color-black-40);
+    --color-shadow-2: var(--color-white-40);
+    --color-black-40: rgba(0, 0, 0, 0.4);
+    --color-white-40: rgba(255, 255, 255, 0.4);
+    --blur-large: blur(17px);
+    --color-accent: var(--color-pink);
+    --color-pink: #ffd3fe;
+    --color-red: #ff2500;
+    --color-black-light: #84898E;
+    --color-text-2: var(--color-black-light);
+    --color-text-1: var(--color-white);
+    --color-transparent-white: rgba(255, 255, 255, 0.3);
   }
 
 html, body {
