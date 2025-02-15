@@ -53,9 +53,8 @@ export default {
        // import('~/static/scripts/canvas.js').then(module => module.default());
     },
     beforeMount() {
+    // Konsolidiere alle Skript-Initialisierungen in einer Methode
     this.initializeScripts();
-    this.initializeLoadDropList();
-    import('../static/scripts/main.js').then(module => module.default());
   },
   methods: {
     initializeScripts() {
@@ -65,26 +64,36 @@ export default {
             initializeScripts();
           }
         }).catch(error => {
-          console.error("Error loading script:", error);
+          console.error("Error loading index_scripts.js:", error);
         });
-      }
-    },
-    initializeLoadDropList() {
-      if (process.client) {
+
         import('../static/scripts/loaddroplist.js').then(({ default: initializeLoadDropList }) => {
           if (typeof initializeLoadDropList === 'function') {
             initializeLoadDropList();
           }
         }).catch(error => {
-          console.error("Error loading script:", error);
+          console.error("Error loading loaddroplist.js:", error);
+        });
+
+        import('../static/scripts/main.js').then(module => {
+          if (typeof module.default === 'function') {
+            module.default();
+          }
+        }).catch(error => {
+          console.error("Error loading main.js:", error);
+        });
+
+        import('../static/scripts/canvas.js').then(module => {
+          if (typeof module.default === 'function') {
+            module.default();
+          }
+        }).catch(error => {
+          console.error("Error loading canvas.js:", error);
         });
       }
     }
-  },
-    
-  
   }
-
+}
 </script>
 
 <style scoped>
