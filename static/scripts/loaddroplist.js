@@ -1,9 +1,12 @@
 function initializeLoadDropList() {
+    console.log('Initializing loadDropList...');
     if (process.client) {
       window.onload = async function() {
+        console.log('Window loaded!');
         fetchShopifyDrops();
 
     async function fetchShopifyDrops() {
+        console.log('Fetching Shopify drops...');
 const container = document.getElementById('drops-container');
 const now = new Date();
 

@@ -44,52 +44,64 @@
 
 <script>
 export default {
-    name: 'indexPage',
-    components: {
-    },
-    mounted() {
-        // import('~/static/scripts/loaddroplist.js').then(module => module.default());
-         
-       // import('~/static/scripts/canvas.js').then(module => module.default());
-    },
-    beforeMount() {
-    // Konsolidiere alle Skript-Initialisierungen in einer Methode
+  name: 'indexPage',
+  components: {},
+  mounted() {
+    // Konsolidiere alle Skript-Initialisierungen in der mounted-Methode
     this.initializeScripts();
   },
   methods: {
-    initializeScripts() {
+    async initializeScripts() {
       if (process.client) {
-        import('../static/scripts/index_scripts.js').then(({ default: initializeScripts }) => {
-          if (typeof initializeScripts === 'function') {
-            initializeScripts();
-          }
-        }).catch(error => {
-          console.error("Error loading index_scripts.js:", error);
-        });
+        try {
+          // Lade alle Skripte parallel
+          await Promise.all([
+            import('../static/scripts/index_scripts.js').then(({ default: initializeScripts }) => {
+              if (typeof initializeScripts === 'function') {
+                initializeScripts();
+              }
+            }).catch(error => {
+              console.error("Error loading index_scripts.js:", error);
+            }),
+            
+            import('../static/scripts/loaddroplist.js').then(({ default: initializeLoadDropList }) => {
+              if (typeof initializeLoadDropList === 'function') {
+                initializeLoadDropList();
+              }
+            }).catch(error => {
+              console.error("Error loading loaddroplist.js:", error);
+            }),
 
-        import('../static/scripts/loaddroplist.js').then(({ default: initializeLoadDropList }) => {
-          if (typeof initializeLoadDropList === 'function') {
-            initializeLoadDropList();
-          }
-        }).catch(error => {
-          console.error("Error loading loaddroplist.js:", error);
-        });
+            import('../static/scripts/index_scripts.js').then(({ default: initializeScripts }) => {
+              if (typeof initializeScripts === 'function') {
+                initializeScripts();
+              }
+            }).catch(error => {
+              console.error("Error loading index_scripts.js:", error);
+            }),
 
-        import('../static/scripts/main.js').then(module => {
-          if (typeof module.default === 'function') {
-            module.default();
-          }
-        }).catch(error => {
-          console.error("Error loading main.js:", error);
-        });
+            import('../static/scripts/main.js').then(module => {
+              if (typeof module.default === 'function') {
+                module.default();
+              }
+            }).catch(error => {
+              console.error("Error loading main.js:", error);
+            }),
 
-        import('../static/scripts/canvas.js').then(module => {
-          if (typeof module.default === 'function') {
-            module.default();
-          }
-        }).catch(error => {
-          console.error("Error loading canvas.js:", error);
-        });
+            import('../static/scripts/canvas.js').then(module => {
+              if (typeof module.default === 'function') {
+                module.default();
+              }
+            }).catch(error => {
+              console.error("Error loading canvas.js:", error);
+            })
+          ]);
+
+          console.log("{initializeScripts}: All scripts loaded successfully");
+
+        } catch (error) {
+          console.error("Error during script initialization:", error);
+        }
       }
     }
   }

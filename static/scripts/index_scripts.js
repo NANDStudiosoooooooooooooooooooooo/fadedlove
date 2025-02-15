@@ -1,6 +1,9 @@
 function initializeScripts() {
+    console.log("{initializeScripts}: Execution started");
     if (process.client) {
-      window.onload = async function() {
+        console.log("{initializeScripts}: Client-side detected");
+        window.onload = async function() {
+        console.log("{initializeScripts}: Window loaded");
   
         // SCROLL TO NEXT DROP BUTTON --BEGIN--
         window.addEventListener('scroll', function() {
@@ -24,6 +27,7 @@ function initializeScripts() {
         const maxBlur = 15; // setting
   
         window.addEventListener('scroll', () => {
+            console.log('scrolling');
           const scrollPosition = window.scrollY;
           const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
           const blurValue = (scrollPosition / documentHeight) * maxBlur;
