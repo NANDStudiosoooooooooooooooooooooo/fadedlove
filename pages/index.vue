@@ -49,18 +49,18 @@ export default {
     },
     mounted() {
         // import('~/static/scripts/loaddroplist.js').then(module => module.default());
-        import('~/static/scripts/main.js').then(module => module.default());
-        import('~/static/scripts/canvas.js').then(module => module.default());
+        // import('~/static/scripts/main.js').then(module => module.default());
+       // import('~/static/scripts/canvas.js').then(module => module.default());
     },
     beforeMount() {
     this.initializeScripts();
   },
   methods: {
-    async initializeScripts() {
+    initializeScripts() {
       if (process.client) {
-        import('~/static/scripts/index_scripts.js').then(module => {
-          if (module && typeof module.default === 'function') {
-            module.default();
+        import('~/static/scripts/index_scripts.js').then(({ default: initializeScripts }) => {
+          if (typeof initializeScripts === 'function') {
+            initializeScripts();
           }
         }).catch(error => {
           console.error("Error loading script:", error);
@@ -68,6 +68,8 @@ export default {
       }
     }
   },
+    
+  
   }
 
 </script>

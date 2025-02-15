@@ -1,6 +1,9 @@
-export default function initializeScripts() {
+function initializeScripts() {
+    console.log('initializeScripts invoked');
     if (process.client) {
-      document.addEventListener('DOMContentLoaded', function() {
+      console.log('Running on client');
+      document.addEventListener('DOMContentLoaded', async function() {
+        console.log('DOM Content Loaded');
   
         // SCROLL TO NEXT DROP BUTTON --BEGIN--
         window.addEventListener('scroll', function() {
@@ -37,11 +40,13 @@ export default function initializeScripts() {
         const newsMedia = document.getElementById("news-media");
         const headline = document.getElementById("news-headline");
   
+        console.log('News elements:', { newsTab, newsHeader, newsMedia, headline });
+  
         let currentHeightState = "collapsed";
         let lastScrollY = window.scrollY;
         let lastShownScrollY = window.scrollY;
   
-        function fetchLatestBlogPost() {
+        async function fetchLatestBlogPost() {
           const API_URL = "https://checkout.fadedcloth.de/api/2023-04/graphql.json";
           const STOREFRONT_TOKEN = "ed72f09d8742f37356305b6e49310909";
   
@@ -69,19 +74,32 @@ export default function initializeScripts() {
             }
           }`;
   
-          return fetch(API_URL, {
+          console.log('Fetching latest blog post');
+          const response = await fetch(API_URL, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
               "X-Shopify-Storefront-Access-Token": STOREFRONT_TOKEN,
             },
             body: JSON.stringify({ query }),
-          }).then(response => response.json());
+          });
+  
+          const result = await response.json();
+          console.log('Fetch result:', result);
+  
+          if (result.data.blog && result.data.blog.articles.edges.length > 0) {
+            return result.data.blog.articles.edges[0].node;
+          } else {
+            console.error("No articles found in the announcement blog.");
+            return null;
+          }
         }
   
-        fetchLatestBlogPost().then(result => {
-          if (result.data.blog && result.data.blog.articles.edges.length > 0) {
-            const latestBlogPost = result.data.blog.articles.edges[0].node;
+        try {
+          const latestBlogPost = await fetchLatestBlogPost();
+          console.log('Latest blog post:', latestBlogPost);
+  
+          if (latestBlogPost) {
             headline.textContent = latestBlogPost.title;
             const img = document.createElement("img");
             img.src = latestBlogPost.image.originalSrc;
@@ -100,12 +118,11 @@ export default function initializeScripts() {
             newsTab.classList.remove("hidden");
           } else {
             newsTab.classList.add("hidden");
-            console.error("No articles found in the announcement blog.");
           }
-        }).catch(error => {
+        } catch (error) {
           console.error("Error loading blog post:", error);
           newsTab.classList.add("hidden");
-        });
+        }
   
         newsHeader?.addEventListener("click", () => {
           if (currentHeightState === "collapsed") {
@@ -146,21 +163,5 @@ export default function initializeScripts() {
     }
   }
   
-    
+  export default initializeScripts;
   
-
-// AUTO SCROLL ON LOAD --BEGIN--
-        // window.addEventListener('load', function() {
-        //     setTimeout(scrollToMiddle, 1000);
-        // });
-        // function scrollToMiddle() {
-        //     const newsletterContainer = document.querySelector('.newsletter_form');
-        //     const collectionButton = document.querySelector('.collection-button');
-        //     if (newsletterContainer && collectionButton) {
-        //         const newsletterRect = newsletterContainer.getBoundingClientRect();
-        //         const collectionRect = collectionButton.getBoundingClientRect();
-        //         const middlePosition = window.pageYOffset + ((newsletterRect.top + collectionRect.top) / 2) - (window.innerHeight / 2);
-        //         window.scrollTo({ top: middlePosition, behavior: 'smooth' });
-        //     }
-        // }
-// AUTO SCROLL ON LOAD --END--
