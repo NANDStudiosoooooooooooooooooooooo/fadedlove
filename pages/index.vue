@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a href="https://fadedcloth.de/shop/" class="drop_link top-right" onmouseover="this.style.filter=`blur(2px)`;" onmouseout="this.style.filter=`blur(0px)`;">SHOP</a>
+    <a href="https://fadedcloth.de/shop/" class="drop-link top-right" onmouseover="this.style.filter=`blur(2px)`;" onmouseout="this.style.filter=`blur(0px)`;">SHOP</a>
 
     <div class="logo-container" id="load-container">
       <div id="loader" class="loader-container">
