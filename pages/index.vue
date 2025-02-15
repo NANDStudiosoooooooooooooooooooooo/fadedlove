@@ -60,5 +60,5 @@ export default {
 </script>
 
 <style scoped>
-@import '~/static/styles/main.css';
+@import '~/static/styles/index_site.css';
 </style>
