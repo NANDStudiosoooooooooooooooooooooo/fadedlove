@@ -20,7 +20,7 @@
 
     <div id="blur-overlay"></div>
 
-    <div class="scroll-text fade-in" onclick="viewDrops">VIEW DROPS ↓</div>
+    <div class="scroll-text fade-in" >VIEW DROPS ↓</div>
 
     <div class="glas-wrapper">
       <div class="drop-container fade-in" id="drops-container">
