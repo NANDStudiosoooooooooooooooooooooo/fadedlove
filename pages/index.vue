@@ -51,9 +51,14 @@ export default {
         import('~/static/scripts/loaddroplist.js').then(module => module.default());
         import('~/static/scripts/main.js').then(module => module.default());
         import('~/static/scripts/index_scripts.js').then(module => module.default());
+        import('~/static/scripts/canvas.js').then(module => module.default());
     },
     methods: {
     },
   }
 
 </script>
+
+<style scoped>
+@import '~/static/styles/main.css';
+</style>
