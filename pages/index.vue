@@ -44,17 +44,30 @@
 
 <script>
 export default {
-  name: 'indexPage',
+    name: 'indexPage',
     components: {
     },
     mounted() {
-        import('~/static/scripts/loaddroplist.js').then(module => module.default());
+        // import('~/static/scripts/loaddroplist.js').then(module => module.default());
         import('~/static/scripts/main.js').then(module => module.default());
-        import('~/static/scripts/index_scripts.js').then(module => module.default());
         import('~/static/scripts/canvas.js').then(module => module.default());
     },
-    methods: {
-    },
+    beforeMount() {
+    this.initializeScripts();
+  },
+  methods: {
+    async initializeScripts() {
+      if (process.client) {
+        import('~/static/scripts/index_scripts.js').then(module => {
+          if (module && typeof module.default === 'function') {
+            module.default();
+          }
+        }).catch(error => {
+          console.error("Error loading script:", error);
+        });
+      }
+    }
+  },
   }
 
 </script>
