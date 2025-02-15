@@ -2,39 +2,39 @@ function initializeScripts() {
     console.log("{initializeScripts}: Execution started");
     if (process.client) {
         console.log("{initializeScripts}: Client-side detected");
-        window.onload = async function() {
+        document.addEventListener('DOMContentLoaded', async function() {
         console.log("{initializeScripts}: Window loaded");
   
         // SCROLL TO NEXT DROP BUTTON --BEGIN--
         window.addEventListener('scroll', function() {
-          const scrollPosition = window.scrollY;
-          const element = document.querySelector('.scroll-text');
-          console.log(scrollPosition);
-          if (scrollPosition > 0) {
-            element.classList.replace('fade-in', 'fade-out');
-            console.log('fade-out');
-            element.style.userSelect = 'none';
-            element.style.pointerEvents = 'none';
-          } else {
-            element.classList.replace('fade-out', 'fade-in');
-            element.style.userSelect = '';
-            element.style.pointerEvents = '';
-          }
-        });
-  
-        // BACKGROUND BLUR ON SCROLL --BEGIN--
-        const blurOverlay = document.getElementById('blurOverlay');
-        const maxBlur = 15; // setting
-  
-        window.addEventListener('scroll', () => {
-            console.log('scrolling');
-          const scrollPosition = window.scrollY;
-          const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
-          const blurValue = (scrollPosition / documentHeight) * maxBlur;
-  
-          blurOverlay.style.backdropFilter = `blur(${blurValue}px)`;
-          blurOverlay.style.webkitBackdropFilter = `blur(${blurValue}px)`;
-        });
+            const scrollPosition = window.scrollY;
+            const element = document.querySelector('.scroll-text');
+            console.log(scrollPosition);
+            if (scrollPosition > 0) {
+              element.classList.replace('fade-in', 'fade-out');
+              console.log('fade-out');
+              element.style.userSelect = 'none';
+              element.style.pointerEvents = 'none';
+            } else {
+              element.classList.replace('fade-out', 'fade-in');
+              element.style.userSelect = '';
+              element.style.pointerEvents = '';
+            }
+          });
+    
+          // BACKGROUND BLUR ON SCROLL --BEGIN--
+          const blurOverlay = document.getElementById('blurOverlay');
+          const maxBlur = 15; // setting
+    
+          window.addEventListener('scroll', () => {
+              console.log('scrolling');
+            const scrollPosition = window.scrollY;
+            const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const blurValue = (scrollPosition / documentHeight) * maxBlur;
+    
+            blurOverlay.style.backdropFilter = `blur(${blurValue}px)`;
+            blurOverlay.style.webkitBackdropFilter = `blur(${blurValue}px)`;
+          });
         // BACKGROUND BLUR ON SCROLL --END--
   
         // LOAD NEWSTAB --BEGIN--
@@ -160,7 +160,7 @@ function initializeScripts() {
   
         console.log("{initializeScripts}: Execution completed with 0 errors");
       }
-    }
+    )}
   }
   
   export default initializeScripts;
