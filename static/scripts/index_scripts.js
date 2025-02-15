@@ -1,16 +1,15 @@
 function initializeScripts() {
-    console.log('initializeScripts invoked');
     if (process.client) {
-      console.log('Running on client');
-      document.addEventListener('DOMContentLoaded', async function() {
-        console.log('DOM Content Loaded');
+      window.onload = async function() {
   
         // SCROLL TO NEXT DROP BUTTON --BEGIN--
         window.addEventListener('scroll', function() {
           const scrollPosition = window.scrollY;
           const element = document.querySelector('.scroll-text');
+          console.log(scrollPosition);
           if (scrollPosition > 0) {
             element.classList.replace('fade-in', 'fade-out');
+            console.log('fade-out');
             element.style.userSelect = 'none';
             element.style.pointerEvents = 'none';
           } else {
@@ -39,8 +38,6 @@ function initializeScripts() {
         const newsHeader = document.getElementById("news-header");
         const newsMedia = document.getElementById("news-media");
         const headline = document.getElementById("news-headline");
-  
-        console.log('News elements:', { newsTab, newsHeader, newsMedia, headline });
   
         let currentHeightState = "collapsed";
         let lastScrollY = window.scrollY;
@@ -74,7 +71,6 @@ function initializeScripts() {
             }
           }`;
   
-          console.log('Fetching latest blog post');
           const response = await fetch(API_URL, {
             method: "POST",
             headers: {
@@ -85,7 +81,6 @@ function initializeScripts() {
           });
   
           const result = await response.json();
-          console.log('Fetch result:', result);
   
           if (result.data.blog && result.data.blog.articles.edges.length > 0) {
             return result.data.blog.articles.edges[0].node;
@@ -97,7 +92,6 @@ function initializeScripts() {
   
         try {
           const latestBlogPost = await fetchLatestBlogPost();
-          console.log('Latest blog post:', latestBlogPost);
   
           if (latestBlogPost) {
             headline.textContent = latestBlogPost.title;
@@ -159,7 +153,9 @@ function initializeScripts() {
           }
         });
         // LOAD NEWSTAB --END--
-      });
+  
+        console.log("{initializeScripts}: Execution completed with 0 errors");
+      }
     }
   }
   

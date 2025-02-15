@@ -1,6 +1,7 @@
-//LOAD DROP LIST --BEGIN--
-document.addEventListener('DOMContentLoaded', () => {
-    fetchShopifyDrops();
+function initializeLoadDropList() {
+    if (process.client) {
+      window.onload = async function() {
+        fetchShopifyDrops();
 
     async function fetchShopifyDrops() {
 const container = document.getElementById('drops-container');
@@ -325,7 +326,7 @@ function createLinkElement(text, url) {
     utcElement.classList.add("utc");
     dropInfoElement.classList.add("drop-info");
 
-    formattedDate = formatUpcomingDate(endTime);
+    const formattedDate = formatUpcomingDate(endTime);
 
     // Set initial display content
     dateElement.textContent = formattedDate; // Originaldatum
@@ -643,7 +644,7 @@ collectionButton.addEventListener('click', () => {
             shakeElement(emailInput);
         }
     }
-    });
+    };
 
     function shakeElement(element) {
         element.classList.add("shake");
@@ -656,4 +657,8 @@ collectionButton.addEventListener('click', () => {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
     }
-//LOAD DROP LIST --END--
+// LOAD DROP LIST --END--
+        
+    }
+}
+export default initializeLoadDropList;

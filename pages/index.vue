@@ -49,18 +49,31 @@ export default {
     },
     mounted() {
         // import('~/static/scripts/loaddroplist.js').then(module => module.default());
-        // import('~/static/scripts/main.js').then(module => module.default());
+         
        // import('~/static/scripts/canvas.js').then(module => module.default());
     },
     beforeMount() {
     this.initializeScripts();
+    this.initializeLoadDropList();
+    import('../static/scripts/main.js').then(module => module.default());
   },
   methods: {
     initializeScripts() {
       if (process.client) {
-        import('~/static/scripts/index_scripts.js').then(({ default: initializeScripts }) => {
+        import('../static/scripts/index_scripts.js').then(({ default: initializeScripts }) => {
           if (typeof initializeScripts === 'function') {
             initializeScripts();
+          }
+        }).catch(error => {
+          console.error("Error loading script:", error);
+        });
+      }
+    },
+    initializeLoadDropList() {
+      if (process.client) {
+        import('../static/scripts/loaddroplist.js').then(({ default: initializeLoadDropList }) => {
+          if (typeof initializeLoadDropList === 'function') {
+            initializeLoadDropList();
           }
         }).catch(error => {
           console.error("Error loading script:", error);
@@ -75,5 +88,5 @@ export default {
 </script>
 
 <style scoped>
-@import '~/static/styles/index_site.css';
+@import '../static/styles/index_site.css';
 </style>
