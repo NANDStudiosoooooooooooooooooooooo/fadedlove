@@ -85,7 +85,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Items hinzufügen (doppelte Anzahl für nahtlose Wiederholung)
-    // Items hinzufügen (doppelte Anzahl für nahtlose Wiederholung)
 function initializeItems() {
     const maxItems = 9; // Anzahl eindeutiger Items
     const selectedItems = [];
