@@ -6,9 +6,6 @@
 
       <footer-buttons></footer-buttons>
 
-      
-
-      
       <LoaderContent></LoaderContent>
     </div>
     
@@ -30,7 +27,6 @@
       if (process.client) {
         // import('~/static/scripts/legal.js').then(module => module.default());
         import('~/static/scripts/main.js').then(module => module.default());
-         import('~/static/scripts/load-buttons.js').then(module => module.default());
       }
     },
     methods: {

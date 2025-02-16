@@ -2,6 +2,8 @@
   <div >
     <div class="buttons-container">
       <button id="button1" class="glass-button" @click="togglePanel('panel1')">COLLECTION</button>
+      <button class="glass-button hidden" id="button5" @click="togglePanel('panel5')">DROP INFO</button>
+      <button class="glass-button"><input type="checkbox" class="custom-checkbox" id="label-toggle" checked><label class="underlineonhover clickcursor" for="label-toggle"><a>LABELS</a></label></button>
       <button id="button2" class="glass-button" @click="togglePanel('panel2')">INFO</button>
       <button id="button3" class="glass-button" @click="togglePanel('panel3')">NEWSLETTER</button>
       <!--<button id="button4" class="glass-button" @click="togglePanel('panel4')">SMS</button>-->
@@ -34,7 +36,7 @@
       <div id="panel3" class="glass-panel hidden">
         <button class="close-btn" @click="togglePanel('panel3')">X</button>
         <div class="headline">SUBSCRIBE FOR UPDATES</div>
-        <form id="emailForm" @submit.prevent="submitForm">
+        <form id="emailForm" @submit.prevent="submitForm" novalidate>
           <input 
             type="email" 
             id="email" 
@@ -56,6 +58,13 @@
         </form>
       </div>
 
+      <div id="panel5" class="glass-panel hidden">
+        <button class="close-btn" onclick="togglePanel('panel5')">X</button>
+        <div class="headline" id="collection-name"></div>
+        <div id="countdown" class="countdown hidden"></div>
+        <img title="COLLECTION" class="collection-img hidden" id="collection-img">
+    </div>
+
   </div>
   </template>
   
@@ -66,6 +75,43 @@
     document.addEventListener('DOMContentLoaded', this.loadShopifyCollections);
     document.getElementById('social-select').addEventListener('change', this.updateSocialLink);
     document.addEventListener('click', this.handleDocumentClick);
+
+    let cursor = { x: null, y: null };
+    let panel = { dom: null, x: null, y: null };
+
+    document.addEventListener('mousedown', (event) => {
+      if (event.target.classList.contains('glass-panel')) {
+        cursor = {
+          x: event.clientX,
+          y: event.clientY
+        };
+        panel = {
+          dom: event.target,
+          x: event.target.getBoundingClientRect().left,
+          y: event.target.getBoundingClientRect().top
+        };
+      }
+    });
+
+    document.addEventListener('mousemove', (event) => {
+      if (panel.dom == null) return;
+
+      const currentCursor = { x: event.clientX, y: event.clientY };
+      const distance = {
+        x: currentCursor.x - cursor.x,
+        y: currentCursor.y - cursor.y
+      };
+
+      panel.dom.style.left = (panel.x + distance.x) + 'px';
+      panel.dom.style.top = (panel.y + distance.y) + 'px';
+      panel.dom.style.cursor = 'grabbing';
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (panel.dom == null) return;
+      panel.dom.style.cursor = 'auto';
+      panel.dom = null;
+    });
   },
   methods: {
     togglePanel(panelId) {

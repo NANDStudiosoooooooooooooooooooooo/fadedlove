@@ -651,7 +651,6 @@ img {
 @media (max-width: 800px) {
   .main-body {
     width: calc(100% - 40px);
-    margin: 20px;
     margin-bottom: 40px;
   }
 }
@@ -1139,6 +1138,7 @@ select {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  color: var(--color-text-1);
 }
 
 .mainshop-item .name {
