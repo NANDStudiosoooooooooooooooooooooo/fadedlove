@@ -21,6 +21,7 @@
   --color-shadow-2: var(--color-white-40);
   --color-text-1: var(--color-white);
   --color-text-2: var(--color-black-light);
+  --color-logo: var(--color-white);
 }
 
 /* Spezifische Variablen für Stileigenschaften */
@@ -148,7 +149,7 @@ a {
 .header-logo-container svg {
   width: 40px;
   height: 40px;
-  fill: var(--color-main);
+  fill: var(--color-logo);
 }
 
 .logo {
@@ -668,63 +669,6 @@ img {
   margin-top: 10px;
 }
 
-@media (max-width: 767px)/* Grundlegende Farbvariablen */
-:root {
-  --color-white: #fff;
-  --color-white-40: rgba(255, 255, 255, 0.4);
-  --color-white-30: rgba(255, 255, 255, 0.3);
-  --color-white-20: rgba(255, 255, 255, 0.2);
-  --color-black: #000;
-  --color-black-40: rgba(0, 0, 0, 0.4);
-  --color-black-30: rgba(0, 0, 0, 0.3);
-  --color-black-20: rgba(0, 0, 0, 0.2);
-  --color-pink: #ffd3fe;
-  --color-red: #ff2500;
-  --color-black-light: #84898e;
-  --color-transparent-light-gray: rgba(255, 255, 255, 0.5);
-  --color-transparent-dark-gray: rgba(52, 52, 52, 0.5);
-  --color-transparent-white: rgba(255, 255, 255, 0.3);
-  --color-main: var(--color-white);
-  --color-bg: var(--color-black);
-  --color-accent: var(--color-pink);
-  --color-shadow-1: var(--color-black-40);
-  --color-shadow-2: var(--color-white-40);
-  --color-text-1: var(--color-white);
-  --color-text-2: var(--color-black-light);
-}
-
-/* Spezifische Variablen für Stileigenschaften */
-:root {
-  --font-family-sans: "IBM Plex Sans";
-  --font-family-mono: "monospace";
-  --font-family-plex-mono: "IBM Plex Mono";
-  --font-family-main: var(--font-family-sans);
-  --font-weight-light: 300;
-  --font-weight-normal: 400;
-  --font-weight-bold: 500;
-  --font-weight-extrabold: 700;
-  --font-size-medium: 11.5px;
-  --font-size-large: 14.5px;
-  --line-height-medium: 1.5;
-  --line-size-medium: 14px;
-  --line-size-large: 12.5px;
-  --blur-medium: blur(15px);
-  --blur-large: blur(17px);
-  --border-medium: 1.5px;
-  --border-radius-medium: 12px;
-  --border-radius-large: 15px;
-  --border-radius-small: 10px;
-  --box-shadow-inset: -4px -4px 9px var(--color-shadow-1) inset, 4px 4px 10px var(--color-shadow-2) inset;
-  --box-shadow-hover: 0 0 10px 5px var(--color-shadow-2);
-}
-
-/* Allgemeine Stile */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-}
 
 html,
 body {
