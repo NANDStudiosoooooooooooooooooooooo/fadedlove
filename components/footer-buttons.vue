@@ -245,6 +245,7 @@
         }
 
         const collections = json.data.collections.edges.map(edge => edge.node);
+        console.log('collections:', collections);
         const panel1 = document.getElementById('panel1');
         if (!panel1) {
           console.error('Element mit ID "panel1" wurde nicht gefunden');
@@ -252,7 +253,7 @@
         }
 
         collections.forEach(collection => {
-          console.log('Collektion:', collection);
+          console.log('Collection:', collection);
           const isDrop = collection.metafields && collection.metafields.length > 0
             ? collection.metafields.find(field => field.key === 'isdrop')?.value === 'false'
             : false;
