@@ -1,10 +1,12 @@
 <template>
     <div class="body-center">
       <header-main/>
+
+      <footer-buttons/>
       
       <LoaderGallery class="gallery-comp"/>
   
-      <footer-buttons/>
+      
     </div>
   </template>
   
