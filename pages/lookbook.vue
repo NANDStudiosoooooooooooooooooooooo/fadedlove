@@ -6,7 +6,7 @@
       
       <LoaderGallery class="gallery-comp"/>
   
-      
+      <script src="/scripts/vanilla-tilt.js" defer></script>
     </div>
   </template>
   
