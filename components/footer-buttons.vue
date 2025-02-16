@@ -252,6 +252,7 @@
         }
 
         collections.forEach(collection => {
+          console.log('Collektion:', collection);
           const isDrop = collection.metafields && collection.metafields.length > 0
             ? collection.metafields.find(field => field.key === 'isdrop')?.value === 'false'
             : false;

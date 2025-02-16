@@ -11,8 +11,18 @@
     name: 'LoaderGallery',
     mounted() {
       this.loadGalleryData();
+      this.loadVanillaTilt();
     },
     methods: {
+       loadVanillaTilt() {
+        const script = document.createElement('script');
+        script.src = './scripts/vanilla-tilt.js';
+        script.defer = true;
+        script.onload = () => {
+            console.log('Vanilla Tilt script loaded');
+        };
+        document.head.appendChild(script);
+      },
       updateGallery(index, posts) {
         const imageContainer = document.querySelector('.gallery-image-container');
         const headlineContainer = document.querySelector('.gallery-headline');
@@ -91,7 +101,7 @@
           if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
   
           const data = await response.json();
-          let posts = data.data.blog.articles.edges.map(edge => {
+          const posts = data.data.blog.articles.edges.map(edge => {
             const article = edge.node;
             const image = article.image?.src || '';
             const metafields = article.metafields || [];
@@ -116,8 +126,8 @@
             // Rückgabe des Posts mit Link
             return {
               title: article.title,
-              image: image,
-              link: link
+              image,
+              link
             };
           });
   
