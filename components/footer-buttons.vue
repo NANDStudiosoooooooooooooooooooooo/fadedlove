@@ -1,10 +1,11 @@
 <template>
+  <div >
     <div class="buttons-container">
       <button id="button1" class="glass-button" @click="togglePanel('panel1')">COLLECTION</button>
       <button id="button2" class="glass-button" @click="togglePanel('panel2')">INFO</button>
       <button id="button3" class="glass-button" @click="togglePanel('panel3')">NEWSLETTER</button>
       <!--<button id="button4" class="glass-button" @click="togglePanel('panel4')">SMS</button>-->
-    
+    </div>
       <!-- Panel für Button 1 -->
       <div id="panel1" class="glass-panel hidden">
         <button class="close-btn" @click="togglePanel('panel1')">X</button>
@@ -54,7 +55,8 @@
           </div>
         </form>
       </div>
-    </div>
+
+  </div>
   </template>
   
   <script>
@@ -234,6 +236,7 @@
     if (!isValidEmail(email)) {
         shakeElement(emailInput); // Nur das E-Mail-Feld wackelt
     } else {
+        console.log("Email is valid");
         // E-Mail ist gültig, dann prüfen, ob die Checkbox angeklickt ist
         if (!termsCheckbox.checked) {
             shakeElement(checkboxContainer); // Jetzt nur die Checkbox und der Text wackeln

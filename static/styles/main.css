@@ -52,7 +52,7 @@ body {
 body {
   background-color: var(--color-bg);
   font-family: var(--font-family-main);
-  font-size: var(--font-medium);
+  font-size: var(--font-size-medium);
   line-height: 14px;
   display: flex;
   flex-direction: column;
@@ -87,8 +87,7 @@ h3 {
 
 a {
   text-decoration: none;
-  color: inherit;
-  color: var(--color-light-gray);
+  color: var(--color-text-2);
 }
 
 .text {
@@ -1035,14 +1034,16 @@ select {
 }
 
 /* Entfernt das Dropdown-Symbol bei WebKit-basierten Browsern (z.B. Chrome, Safari) */
-#social-select::-webkit-appearance {
+/* #social-select::-webkit-appearance {
   appearance: none;
-}
+} */
 
 /* Styling für die Optionsliste */
 #social-select option {
-  background: transparent;
+  background-color: var(--color-bg);
   color: var(--color-main);
+  -webkit-backdrop-filter: var(--blur-large);
+  backdrop-filter: var(--blur-large);
   padding: 10px 15px;
   border: none;
   text-shadow: none;
@@ -1052,15 +1053,10 @@ select {
   border-radius: 0;
 }
 
-/* Optional: Hover-Effekt für die Optionen */
-#social-select option:hover {
-  background: rgb(255 255 255 / 10%);
-  text-decoration: underline;
-}
-
 /* Fokus-Effekt beim Klicken */
 #social-select:focus {
   box-shadow: 0 0 10px var(--color-transparent-dark-gray); /* Weißer Glanz beim Fokussieren */
+  text-decoration: underline;
 }
 
 .social-container {
@@ -1387,16 +1383,6 @@ a {
   top: 100vh;
 }
 
-#blur-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgb(0 0 0 / 0%);
-  transition: backdrop-filter 0.1s, -webkit-backdrop-filter 0.1s;
-}
-
 .drop-container::-webkit-scrollbar {
   height: 6px; /* Set the scrollbar height for horizontal scrolling */
 }
@@ -1612,6 +1598,7 @@ a {
   z-index: 1000;
   text-align: center;
   cursor: pointer;
+  color: var(--color-text-1);
 }
 
 .dropname {

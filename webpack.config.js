@@ -32,7 +32,7 @@ module.exports = {
         use: 'vue-loader'
       },
       {
-        test: /\.js$/,
+        test: /\.umd\.js$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',

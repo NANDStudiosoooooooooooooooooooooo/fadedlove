@@ -18,9 +18,10 @@
       </div>
     </div>
 
-    <div id="blur-overlay"></div>
+    <BgBlur :maxBlur="20" />
 
-    <div class="scroll-text fade-in" >VIEW DROPS ↓</div>
+
+    <button-view-drops/>
 
     <div class="glas-wrapper">
       <div class="drop-container fade-in" id="drops-container">
@@ -43,9 +44,15 @@
 </template>
 
 <script>
+import ButtonViewDrops from '~/components/button-viewdrops.vue';
+import BgBlur from '~/components/bg-blur.vue';
+
 export default {
   name: 'indexPage',
-  components: {},
+  components: {
+    ButtonViewDrops,
+    BgBlur,
+  },
   mounted() {
     // Konsolidiere alle Skript-Initialisierungen in der mounted-Methode
     this.initializeScripts();

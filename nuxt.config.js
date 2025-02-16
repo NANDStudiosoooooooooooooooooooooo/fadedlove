@@ -43,7 +43,20 @@ export default {
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    extend(config, { isDev, isClient }) {
+      config.module.rules.push({
+        test: /\.umd\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      });
+    }
+  },
 
   generate: {
     fallback: '404.html',
