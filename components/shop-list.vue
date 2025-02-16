@@ -1,8 +1,7 @@
 <template>
     <div>
-        <footer-buttons ref="footerButtons"></footer-buttons>
+      <footer-buttons ref="footerButtons"></footer-buttons>
       <div class="mainshop-container fade-in" id="shop-container"></div>
-      
     </div>
   </template>
   
@@ -23,14 +22,23 @@
         const labelToggle = this.$refs.footerButtons.$el.querySelector('#label-toggle');
         const dropButton = this.$refs.footerButtons.$el.querySelector('#button5');
   
-        if (hide) {
-          labelToggle.checked = false;
-        } else {
-          labelToggle.checked = true;
-        }
+        // Update the visibility of the LABELS and DROP INFO buttons
+        this.updateButtonVisibility(labelToggle.parentNode, true);
+        this.updateButtonVisibility(dropButton, collection === 'drop' && drop !== 'all');
+
+        labelToggle.checked = !hide;
+        this.toggleInfoDisplay();
+  
         this.setupCheckboxToggle();
         this.loadShopifyProducts(collection, drop);
         this.loadCollectionMetafields(collection);
+      },
+      updateButtonVisibility(button, visible) {
+        if (visible) {
+          button.classList.remove('hidden');
+        } else {
+          button.classList.add('hidden');
+        }
       },
       toggleInfoDisplay() {
         const checkbox = this.$refs.footerButtons.$el.querySelector('#label-toggle');
@@ -174,103 +182,108 @@
         }
       },
       async loadCollectionMetafields(collection) {
-        const query = `
-        {
-          collectionByHandle(handle: "${collection}") {
-            id
-            title
-            image {
-              src
-            }
-            metafields(identifiers: [
-              {namespace: "custom", key: "dropend"},
-              {namespace: "custom", key: "isdrop"}
-            ]) {
-              namespace
-              key
-              value
-              type
-            }
-          }
-        }`;
-  
-        console.log(`Lade Collection: ${collection}`);
-  
-        try {
-          const response = await fetch('https://zkwisj-0b.myshopify.com/api/2024-10/graphql.json', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-Shopify-Storefront-Access-Token': 'ed72f09d8742f37356305b6e49310909'
-            },
-            body: JSON.stringify({ query })
-          });
-  
-          const json = await response.json();
-          const collectionData = json.data?.collectionByHandle;
-  
-          if (collectionData) {
-            const collectionImage = collectionData.image?.src;
-            const collectionImgElement = document.getElementById('collection-img');
-            if (collectionImgElement && collectionImage) {
-              collectionImgElement.src = collectionImage;
-              collectionImgElement.classList.remove('hidden');
-            }
-  
-            const metafields = collectionData.metafields;
-            if (metafields && Array.isArray(metafields)) {
-              const dropendMetafield = metafields.find(edge => edge.key === 'dropend')?.value;
-              if (dropendMetafield) {
-                this.displayCountdown(dropendMetafield);
-              }
-  
-              const collectionNameElement = document.getElementById('collection-name');
-              if (collectionNameElement) {
-                collectionNameElement.textContent = collectionData.title;
-                collectionNameElement.classList.remove('hidden');
-              }
-  
-              const isDropMetafield = metafields.find(edge => edge.key === 'isdrop')?.value;
-              if (isDropMetafield === 'true') { // Shopify-Boolean = String
-                const buttonElement = this.$refs.footerButtons.$el.querySelector('#button5');
-                if (buttonElement) {
-                  buttonElement.classList.remove('hidden');
-                }
-              }
-            }
-          } else {
-            console.error('NO COLLECTION / DROP');
-          }
-        } catch (error) {
-          console.error('ERROR (LOADING COLLECTION-DATA):', error);
-        }
+  const query = `
+  {
+    collectionByHandle(handle: "${collection}") {
+      id
+      title
+      image {
+        src
+      }
+      metafields(identifiers: [
+        {namespace: "custom", key: "dropend"},
+        {namespace: "custom", key: "isdrop"}
+      ]) {
+        namespace
+        key
+        value
+        type
+      }
+    }
+  }`;
+
+  console.log(`Lade Collection: ${collection}`);
+
+  try {
+    const response = await fetch('https://zkwisj-0b.myshopify.com/api/2024-10/graphql.json', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': 'ed72f09d8742f37356305b6e49310909'
       },
-      displayCountdown(dropendTime) {
-      const countdownElement = document.getElementById('countdown');
-      const endTime = new Date(dropendTime).getTime();
-      if (isNaN(endTime)) {
-        return;
+      body: JSON.stringify({ query })
+    });
+
+    const json = await response.json();
+    const collectionData = json.data?.collectionByHandle;
+
+    if (collectionData) {
+      const collectionImage = collectionData.image?.src;
+      const collectionImgElement = document.getElementById('collection-img');
+      if (collectionImgElement && collectionImage) {
+        collectionImgElement.src = collectionImage;
+        collectionImgElement.classList.remove('hidden');
       }
 
-      countdownElement.classList.remove("hidden");
-      const countdownInterval = setInterval(() => {
-        const now = new Date().getTime();
-        const timeRemaining = endTime - now;
-
-        if (timeRemaining <= 0) {
-          clearInterval(countdownInterval);
-          countdownElement.textContent = "DROP EXPIRED";
-        } else {
-          const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-          const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-          const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-          countdownElement.textContent = `${days < 10 ? '0' : ''}${days}:${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      const metafields = collectionData.metafields;
+      if (metafields && Array.isArray(metafields)) {
+        const dropendMetafield = metafields.find(edge => edge.key === 'dropend')?.value;
+        if (dropendMetafield) {
+          this.displayCountdown(dropendMetafield);
         }
-      }, 1000);
-    },
+
+        const collectionNameElement = document.getElementById('collection-name');
+        if (collectionNameElement) {
+          collectionNameElement.textContent = collectionData.title;
+          collectionNameElement.classList.remove('hidden');
+        }
+
+        const isDropMetafield = metafields.find(edge => edge.key === 'isdrop')?.value;
+        if (isDropMetafield === 'true') { // Shopify-Boolean = String
+          const buttonElement = this.$refs.footerButtons.$el.querySelector('#button5');
+          if (buttonElement) {
+            buttonElement.classList.remove('hidden');
+          }
+        }
+      }
+    } else {
+      console.error('NO COLLECTION / DROP');
+    }
+  } catch (error) {
+    console.error('ERROR (LOADING COLLECTION-DATA):', error);
+  }
+},
+
+displayCountdown(dropendTime) {
+  const countdownElement = document.getElementById('countdown');
+  const endTime = new Date(dropendTime).getTime();
+  if (isNaN(endTime)) {
+    return;
+  }
+
+  countdownElement.classList.remove("hidden");
+  const countdownInterval = setInterval(() => {
+    const now = new Date().getTime();
+    const timeRemaining = endTime - now;
+
+    if (timeRemaining <= 0) {
+      clearInterval(countdownInterval);
+      countdownElement.textContent = "DROP EXPIRED";
+    } else {
+      const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+      countdownElement.textContent = `${days < 10 ? '0' : ''}${days}:${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }
+  }, 1000);
+}
+
     }}
     </script>
 
     <style scoped>
+    .mainshop-item .info {
+        display: var(--hide-labels, flex) !important;
+    }
     </style>

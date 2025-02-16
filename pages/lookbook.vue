@@ -2,7 +2,7 @@
     <div class="body-center">
       <header-main/>
       
-      <LoaderGallery/>
+      <LoaderGallery class="gallery-comp"/>
   
       <footer-buttons/>
     </div>
@@ -28,4 +28,13 @@
   overflow: hidden !important;
   align-items: center !important;
 }
+.gallery-comp{
+    margin-top: 100px;
+}
+.body-center {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+  }
 </style>

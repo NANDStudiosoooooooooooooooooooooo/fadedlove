@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="body-center">
       <header-main/>
 
         <shop-list/>
@@ -29,5 +29,10 @@
   </script>
   
   <style scoped>
-  @import '../static/styles/index_site.css';
+  .body-center {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+  }
   </style>
