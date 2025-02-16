@@ -2300,4 +2300,9 @@ canvas {
   position: absolute;
   z-index: 30;
 }
+
+.buy-now{
+  width: 100%;
+  max-width: 200px;
+}
 /* SHOP END */

@@ -1,12 +1,5 @@
 <template>
     <div>
-    <div class="wrapper" id="background_wrapper" style="--color-one: #000000; ">
-    <div class="ellipse ellipse-1"></div> 
-    <div class="ellipse ellipse-2"></div> 
-    <div class="ellipse ellipse-3"></div>
-    <div class="ellipse ellipse-4"></div>
-    <div class="ellipse ellipse-5"></div>
-    </div>
       <div class="headline error-message" id="error-message"></div>
       <div style="display: flex; flex-direction: column;">
         <div class="item-container">
@@ -17,17 +10,20 @@
             <!-- Item details will be displayed here -->
           </div>
         </div>
-        <LoaderMoreitems/>
+        <loader-moreitems/>
       </div>
     </div>
   </template>
   
   <script>
+  import LoaderMoreitems from '~/components/loader-moreitems.vue';
   import ShopifyBuy from 'shopify-buy';
-import LoaderMoreitems from '~/components/loader-moreitems.vue';
   
   export default {
-    name: 'ItemRenderer',
+    components: {
+      LoaderMoreitems,
+    },
+    name: 'LoaderItem',
     data() {
       return {
         selectedVariant: null,
@@ -35,9 +31,6 @@ import LoaderMoreitems from '~/components/loader-moreitems.vue';
         client: null,
         checkoutId: null
       };
-    },
-    components: {
-        LoaderMoreitems,
     },
     mounted() {
       this.loadProduct();
@@ -75,6 +68,7 @@ import LoaderMoreitems from '~/components/loader-moreitems.vue';
           this.displayImages(product);
           this.createSizeButtons(product.variants);
           this.createAddToCartButton();
+          this.createBuyNowButton();
         } catch (error) {
           console.error("Error fetching Shopify product:", error);
           document.querySelector('.error-message').innerHTML = '<a class="headline" href="https://fadedcloth.de/shop/">Item is no longer available.</a>';
@@ -307,7 +301,6 @@ import LoaderMoreitems from '~/components/loader-moreitems.vue';
           itemPrice.innerText = `${parseFloat(price).toFixed(2)} EUR`;
         } else {
           console.error("Product price element not found");
-          return;
         }
       },
       updatePrice(selectedVariant) {
@@ -331,6 +324,19 @@ import LoaderMoreitems from '~/components/loader-moreitems.vue';
         addToCartButton.style.display = 'none';
         addToCartButton.addEventListener('click', this.handleAddToCart);
         addToCartButtonContainer.appendChild(addToCartButton);
+      },
+      createBuyNowButton() {
+        const buyNowButtonContainer = document.getElementById('buy-now-button-container');
+        buyNowButtonContainer.innerHTML = '';
+  
+        const buyNowButton = document.createElement('button');
+        buyNowButton.innerText = 'SELECT SIZE';
+        buyNowButton.id = 'buy-now-button';
+        buyNowButton.classList.add('buy-now');
+        buyNowButton.classList.add('glass-button');
+        buyNowButton.disabled = true;
+        buyNowButton.addEventListener('click', this.handleBuyNow);
+        buyNowButtonContainer.appendChild(buyNowButton);
       },
       createSizeButtons(variants) {
         const sizeContainer = document.getElementById('size-button-container');
@@ -379,7 +385,7 @@ import LoaderMoreitems from '~/components/loader-moreitems.vue';
         buyNowButton.innerText = 'BUY NOW';
   
         if (!variant.available) {
-          buyNowButton.disabled = false;
+          buyNowButton.disabled = true;
           buyNowButton.innerText = 'SOLD OUT';
   
           if (addToCartButton) {
@@ -400,11 +406,12 @@ import LoaderMoreitems from '~/components/loader-moreitems.vue';
         addButton.textContent = 'REDIRECTING...';
   
         const variantId = this.selectedVariant.id.split('/').pop();
+        const itemHandle = new URLSearchParams(window.location.search).get('item');
         const shopifyUrl = `https://checkout.fadedcloth.de/products/${itemHandle}?variant=${variantId}`;
   
         setTimeout(() => {
           window.location.href = shopifyUrl;
-        }, 1000);
+        }, 200);
       },
       handleBuyNow() {
         if (!this.selectedVariant) {
@@ -478,3 +485,6 @@ import LoaderMoreitems from '~/components/loader-moreitems.vue';
     }
   };
   </script>
+  
+  <style scoped>
+  </style>
