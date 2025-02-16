@@ -1,5 +1,12 @@
 <template>
     <div>
+        <div class="wrapper" id="background_wrapper" style="--color-one: #000000; ">
+        <div class="ellipse ellipse-1"></div> 
+        <div class="ellipse ellipse-2"></div> 
+        <div class="ellipse ellipse-3"></div>
+        <div class="ellipse ellipse-4"></div>
+        <div class="ellipse ellipse-5"></div>
+    </div>
       <div class="headline error-message" id="error-message"></div>
       <div style="display: flex; flex-direction: column;">
         <div class="item-container">
