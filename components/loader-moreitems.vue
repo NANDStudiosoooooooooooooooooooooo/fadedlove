@@ -88,7 +88,7 @@
         img.src = data.imageSrc;
   
         item.addEventListener('click', () => {
-          window.location.href = `https://fadedcloth.de/item?item=${data.handle}`;
+          window.location.href = `https://fadedcloth.de/item/?item=${data.handle}`;
         });
   
         item.appendChild(eclipse);

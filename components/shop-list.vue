@@ -138,7 +138,7 @@
                 const itemElement = document.createElement('div');
                 itemElement.classList.add('mainshop-item');
                 const productHandle = product.handle;
-                itemElement.onclick = () => window.location.href = `https://fadedcloth.de/item?item=${productHandle}`;
+                itemElement.onclick = () => window.location.href = `https://fadedcloth.de/item/?item=${productHandle}`;
   
                 const imageUrl = product.images.edges.length > 0 ? product.images.edges[0].node.src : 'fallback-image.jpg';
                 const price = product.variants.edges[0].node.price.amount;
