@@ -17,14 +17,14 @@
             <!-- Item details will be displayed here -->
           </div>
         </div>
-        <loader-moreitems/>
+        <loader-moreitems :maxItems="9"></loader-moreitems>
       </div>
     </div>
   </template>
   
   <script>
-  import LoaderMoreitems from '~/components/loader-moreitems.vue';
   import ShopifyBuy from 'shopify-buy';
+  import LoaderMoreitems from '~/components/loader-moreitems.vue';
   
   export default {
     components: {
