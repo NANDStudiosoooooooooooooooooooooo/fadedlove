@@ -1,7 +1,7 @@
 <template>
   <div class="featured-items-container fade-in">
     <div class="featured-items-inner" id="featured-items">
-      <!-- Featured items werden hier dynamisch eingefügt -->
+      <!-- Featured items will be dynamically inserted here -->
     </div>
   </div>
 </template>
@@ -112,8 +112,8 @@ export default {
         selectedItems.push(randomItem);
       }
 
-      const loopItems = [...selectedItems, ...selectedItems];
-      loopItems.push(selectedItems[0], selectedItems[1]);
+      const loopItems = [...selectedItems, ...selectedItems, ...selectedItems];
+      loopItems.push(selectedItems[0], selectedItems[1], selectedItems[2]);
 
       loopItems.forEach(itemData => {
         const item = this.createItem(itemData);
@@ -138,13 +138,16 @@ export default {
     },
     async main() {
       this.itemsData = await this.fetchFeaturedItems();
-      const minItems = 28;
+      const minItems = 20;
+      const maxItems = this.maxItems;
 
       let totalItemsCount = 0;
 
-      while (totalItemsCount < minItems + this.maxItems) {
-        totalItemsCount += this.maxItems;
+      // Sicherstellen, dass totalItemsCount >= minItems + maxItems
+      while (totalItemsCount < minItems) {
+        totalItemsCount += maxItems;
       }
+      totalItemsCount += maxItems;
 
       this.itemsData = this.itemsData.sort(() => Math.random() - 0.5).slice(0, totalItemsCount);
       console.log('Items:', totalItemsCount);
