@@ -60,7 +60,7 @@ export default {
 
   generate: {
     fallback: '404.html',
-    routes: ['/legal', '/shop', '/item' , '/404', '/lookbook'
+    routes: ['/legal', '/shop', '/item' , '/404', '/lookbook', '/updates', '/unsub',
     ],
   },
 }

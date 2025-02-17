@@ -3,7 +3,7 @@
     <div class="buttons-container">
       <button id="button1" class="glass-button" @click="togglePanel('panel1')">COLLECTION</button>
       <button class="glass-button hidden" id="button5" @click="togglePanel('panel5')">DROP INFO</button>
-      <button class="glass-button hidden"><input type="checkbox" class="custom-checkbox" id="label-toggle" checked><label class="underlineonhover clickcursor" for="label-toggle"><a>LABELS</a></label></button>
+      <button class="glass-button hidden"><input type="checkbox" class="custom-checkbox" id="label-toggle" checked><label class="underlineonhover clickcursor" for="label-toggle"><a class="checkbox-lable">LABELS</a></label></button>
       <button id="button2" class="glass-button" @click="togglePanel('panel2')">INFO</button>
       <button id="button3" class="glass-button" @click="togglePanel('panel3')">NEWSLETTER</button>
       <!--<button id="button4" class="glass-button" @click="togglePanel('panel4')">SMS</button>-->
