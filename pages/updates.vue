@@ -3,9 +3,9 @@
     <header-main/>
 
     <CanvasScoller
-      :frameCount="146"
+      :frameCount="1"
       fileExtension=".jpg"
-      imageName="NewLevelSequence.0"
+      imageName=""
     />
 
     <BgBlur :maxBlur="20" />
@@ -23,8 +23,6 @@
       </div>
       <div id="news-media"></div>
     </div>
-
-    <div class="text-box top-left"><a href="https://fadedcloth.de/updates/">UPDATES</a></div>
 
     <div class="scroll-effect-top"></div>
   </div>
