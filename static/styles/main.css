@@ -1704,7 +1704,7 @@ select {
   width: 50%;
   box-sizing: border-box;
   text-align: center;
-  background-color: black;
+  background-color: var(--color --color-bg);
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -1714,7 +1714,8 @@ select {
 
 .mainshop-item img {
   width: calc(100% - 80px);
-  height: auto;
+  height: -webkit-fill-available;
+  height: fill-available;
   margin: 115px 40px 40px;
   object-fit: contain;
   flex-grow: 1;
@@ -1861,7 +1862,7 @@ select {
   height: 140px;
   position: fixed;
   bottom: 0;
-  background: linear-gradient(to bottom, transparent, black);
+  background: linear-gradient(to bottom, transparent, var(--color-bg));
   -webkit-user-select: none;
   user-select: none;
   pointer-events: none;
@@ -1872,7 +1873,7 @@ select {
   height: 140px;
   position: fixed;
   top: 0;
-  background: linear-gradient(to top, transparent, black);
+  background: linear-gradient(to top, transparent, var(--color-bg));
   -webkit-user-select: none;
   user-select: none;
   pointer-events: none;
@@ -1952,7 +1953,7 @@ canvas {
 .drop-container {
   padding-left: 1.3889vw;
   font-family: monospace;
-  color: #84898e;
+  color: var(--color-text-2);
   display: flex;
   overflow: visible;
   flex-direction: column;
@@ -1998,15 +1999,15 @@ canvas {
       45deg,
       transparent 0%,
       transparent 12.5%,
-      #84898e 12.5%,
-      #84898e 25%
+      var(--color-text-2) 12.5%,
+      var(--color-text-2) 25%
     ),
     repeating-linear-gradient(
       -45deg,
       transparent 0%,
       transparent 12.5%,
-      #84898e 12.5%,
-      #84898e 25%
+      var(--color-text-2) 12.5%,
+      var(--color-text-2) 25%
     );
   background-size: calc(1em / 4) calc(1em / 4);
   background-clip: text;
@@ -2015,7 +2016,7 @@ canvas {
 }
 
 .drop-upcoming:hover {
-  color: #84898e !important;
+  color: var(--color-text-2) !important;
 }
 
 .collection-container {
@@ -2059,7 +2060,7 @@ canvas {
 }
 
 .drop-link:hover {
-  color: white;
+  color: var(--color-text-1);
 }
 
 .drop-time,
@@ -2070,11 +2071,11 @@ canvas {
 }
 
 .active-drop {
-  color: #fcddff !important; /* Farbe für den aktiven Drop */
+  color: var(--color-accent) !important; /* Farbe für den aktiven Drop */
 }
 
 .active-drop:hover {
-  color: white; /* Farbe beim Hover über den aktiven Drop */
+  color: var(--color-text-1); /* Farbe beim Hover über den aktiven Drop */
 }
 
 @media (min-width: 501px) {
@@ -2123,15 +2124,15 @@ canvas {
 }
 
 .newsletter-form:hover {
-  color: #fcddff !important;
+  color: var(--color-accent) !important;
 }
 
 .ended:hover {
-  color: #fff;
+  color: var(--color-text-2) !important;
 }
 
 .first-upcoming-drop {
-  color: #ba63dd !important;
+  color: var(--color-accent) !important;
 }
 
 .submit-button {
@@ -2153,7 +2154,7 @@ canvas {
   background: none;
   text-overflow: ellipsis;
   border: none;
-  color: #fcddff !important;
+  color: var(--color-accent) !important;
   text-transform: uppercase;
   width: 100%; /* Breite des Eingabefelds */
   max-width: 1200px;
@@ -2318,12 +2319,12 @@ canvas {
 }
 
 .active {
-  color: #ffd3fe;
+  color: var(--color-accent);
 }
 
 .blur-white {
   filter: blur(2px);
-  color: white !important;
+  color: var(color --color-white) !important;
 }
 
 .custom-cursor {
@@ -2370,7 +2371,7 @@ canvas {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 10px;
-  color: white;
+  color: var(--color-text-1);
 }
 
 .gallery-headline a {
@@ -2451,12 +2452,12 @@ canvas {
 }
 
 .gallery-imagebutton-container::-webkit-scrollbar-thumb {
-  background: #888;
+  background: var(--color-text-2);
   border-radius: 10px;
 }
 
 .gallery-imagebutton-container::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: var(--color-text-2);
 }
 /* GALLERY END */
 
@@ -2609,10 +2610,10 @@ canvas {
 .size-button {
   width: 45px;
   height: 45px;
-  border: 1px solid white;
+  border: 1px solid var(--color-text-1);
   border-radius: 50%;
   background: rgb(0 0 0 / 10%);
-  color: white;
+  color: var(--color-text-1);
   font-size: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -2752,7 +2753,7 @@ canvas {
   transform: translate(-50%, -50%);
   overflow: visible !important;
   display: block !important;
-  filter: blur(15px);
+  filter: var(--blur-medium);
   z-index: 0;
 }
 
