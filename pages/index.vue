@@ -18,31 +18,7 @@
       <!-- </div>
     </div> -->
 
-    <div class="body-center">
-      <div class="panel-error">
-        <a id="page-error" href="https://fadedcloth.de" class="headline">BACK SOON.</a>
-        <div class="headline">SUBSCRIBE FOR UPDATES</div>
-        <form id="emailForm" @submit.prevent="submitForm" novalidate>
-          <input
-            type="email"
-            id="email"
-            placeholder="ENTER YOUR EMAIL"
-            class="email-input"
-          />
-          <div class="checkbox-container">
-            <input type="checkbox" id="termsCheckbox" class="custom-checkbox">
-            <label for="termsCheckbox" class="checkbox-label">
-              I ACCEPT THE <a class="href" href="/legal?id=terms-of-service">TERMS</a>
-            </label>
-          </div>
-          <div class="form-buttons">
-            <button id="subscribeButton" class="email-button small-button" type="submit">
-              SUBMIT
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <PanelNewsletter :headlineText="headlineText" :href="href" />
 
     <div id="news-tab" class="collapsed hidden">
       <div id="news-header">
@@ -62,6 +38,7 @@
 import ButtonViewDrops from '~/components/button-viewdrops.vue';
 import BgBlur from '~/components/bg-blur.vue';
 import CanvasScoller from '~/components/canvas-scoller.vue';
+import PanelNewsletter from '~/components/panel_newsletter.vue';
 
 export default {
   name: 'indexPage',
@@ -69,6 +46,13 @@ export default {
     ButtonViewDrops,
     BgBlur,
     CanvasScoller,
+    PanelNewsletter,
+  },
+  data() {
+    return {
+      headlineText: 'BACK SOON.',
+      href: 'https://fadedcloth.de/'
+    };
   },
   mounted() {
     this.initializeScripts();
@@ -127,29 +111,6 @@ export default {
 </script>
 
 <style scoped>
-.panel-error {
-    margin-top: 120px;
-    padding: 20px;
-    max-width: 400px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-  }
-
-  #page-error {
-    margin-bottom: 20px;
-  }
-  .body-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  #emailForm {
-    margin-top: 20px;
-  }
-
 @import '../static/styles/index_site.css';
 
 </style>
