@@ -59,7 +59,7 @@ const query = `
     }
 }`;
 
-fetch('fadedcloth-dev.myshopify.com/api/2023-10/graphql.json', {
+fetch('https://fadedcloth-dev.myshopify.com/api/2023-10/graphql.json', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -163,7 +163,7 @@ const query = `
 
 console.log(`Lade Collection: ${collection}`);
 
-fetch('fadedcloth-dev.myshopify.com/api/2024-10/graphql.json', {
+fetch('https://fadedcloth-dev.myshopify.com/api/2024-10/graphql.json', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',

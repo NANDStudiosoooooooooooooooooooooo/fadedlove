@@ -45,7 +45,7 @@
     methods: {
       async loadProduct() {
         this.client = ShopifyBuy.buildClient({
-          domain: 'fadedcloth-dev.myshopify.com',
+          domain: 'https://fadedcloth-dev.myshopify.com',
           storefrontAccessToken: '164c16be080cbc521c378eb87142486d'
         });
   

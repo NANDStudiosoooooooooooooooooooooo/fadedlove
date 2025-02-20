@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     const client = ShopifyBuy.buildClient({
-        domain: 'fadedcloth-dev.myshopify.com',
+        domain: 'https://fadedcloth-dev.myshopify.com',
         storefrontAccessToken: '164c16be080cbc521c378eb87142486d'
     });
     client.checkout.create().then((checkout) => {

@@ -104,7 +104,7 @@
         }`;
   
         try {
-          const response = await fetch('fadedcloth-dev.myshopify.com/api/2023-10/graphql.json', {
+          const response = await fetch('https://fadedcloth-dev.myshopify.com/api/2023-10/graphql.json', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -205,7 +205,7 @@
   console.log(`Lade Collection: ${collection}`);
 
   try {
-    const response = await fetch('fadedcloth-dev.myshopify.com/api/2024-10/graphql.json', {
+    const response = await fetch('https://fadedcloth-dev.myshopify.com/api/2024-10/graphql.json', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
