@@ -97,7 +97,7 @@
                       {namespace: "custom", key: "size"},
                       {namespace: "custom", key: "product"},
                       {namespace: "custom", key: "colorhex"},
-                      {namespace: "custom", key: "shippingdetails"}
+                      {namespace: "custom", key: "shipping"}
                     ]) {
                       key
                       value
@@ -120,7 +120,7 @@
                       {namespace: "custom", key: "size"},
                       {namespace: "custom", key: "colorhex"},
                       {namespace: "custom", key: "product"},
-                      {namespace: "custom", key: "shippingdetails"}
+                      {namespace: "custom", key: "shipping"}
                     ]) {
                       key
                       value
