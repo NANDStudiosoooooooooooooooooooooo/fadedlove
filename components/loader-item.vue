@@ -45,7 +45,7 @@
     methods: {
       async loadProduct() {
         this.client = ShopifyBuy.buildClient({
-          domain: 'https://fadedcloth-dev.myshopify.com',
+          domain: 'fadedcloth-dev.myshopify.com',
           storefrontAccessToken: '164c16be080cbc521c378eb87142486d'
         });
   
@@ -97,7 +97,7 @@
                       {namespace: "custom", key: "size"},
                       {namespace: "custom", key: "product"},
                       {namespace: "custom", key: "colorhex"},
-                      {namespace: "custom", key: "shipping"}
+                      {namespace: "custom", key: "shippingdetails"}
                     ]) {
                       key
                       value
@@ -120,7 +120,7 @@
                       {namespace: "custom", key: "size"},
                       {namespace: "custom", key: "colorhex"},
                       {namespace: "custom", key: "product"},
-                      {namespace: "custom", key: "shipping"}
+                      {namespace: "custom", key: "shippingdetails"}
                     ]) {
                       key
                       value
@@ -144,6 +144,7 @@
         const result = await response.json();
         const product = id ? result.data.product : result.data.productByHandle;
         const variants = product?.variants?.edges || [];
+        console.error("Variants:", variants);
   
         let colorHex = "#ffffff";
         const metafields = variants[0]?.node?.metafields || [];

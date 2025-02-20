@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <a href="https://fadedcloth.de/shop/" class="drop-link top-right" onmouseover="this.style.filter=`blur(2px)`;" onmouseout="this.style.filter=`blur(0px)`;">SHOP</a>
+    <a href="https://fadedcloth.de/shop/" class="drop-link top-right" onmouseover="this.style.filter=`blur(2px)`;" onmouseout="this.style.filter=`blur(0px)`;">SHOP</a>
 
     <CanvasScoller
       :frameCount="146"
@@ -13,12 +13,12 @@
     <button-view-drops/>
 
     <div class="glas-wrapper">
-      <div class="drop-container fade-in" id="drops-container"> -->
+      <div class="drop-container fade-in" id="drops-container">
         <!-- Drop items will be appended here -->
-      <!-- </div>
-    </div> -->
+      </div>
+    </div>
 
-    <PanelNewsletter :headlineText="headlineText" :href="href" />
+    <!-- <PanelNewsletter :headlineText="headlineText" :href="href" /> -->
 
     <div id="news-tab" class="collapsed hidden">
       <div id="news-header">
