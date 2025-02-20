@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     {namespace: "custom", key: "size"},
                                     {namespace: "custom", key: "product"},
                                     {namespace: "custom", key: "colorhex"},
-                                    {namespace: "custom", key: "shippingdetails"}
+                                    {namespace: "custom", key: "shipping"}
                                 ]) {
                                     key
                                     value
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     {namespace: "custom", key: "size"},
                                     {namespace: "custom", key: "colorhex"},
                                     {namespace: "custom", key: "product"},
-                                    {namespace: "custom", key: "shippingdetails"}
+                                    {namespace: "custom", key: "shipping"}
                                 ]) {
                                     key
                                     value
