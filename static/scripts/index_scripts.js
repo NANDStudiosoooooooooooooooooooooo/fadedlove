@@ -17,8 +17,8 @@ function initializeScripts() {
         let lastShownScrollY = window.scrollY;
   
         async function fetchLatestBlogPost() {
-          const API_URL = "https://checkout.fadedcloth.de/api/2023-04/graphql.json";
-          const STOREFRONT_TOKEN = "ed72f09d8742f37356305b6e49310909";
+          const API_URL = "https://fadedcloth-dev.myshopify.com/api/2023-04/graphql.json";
+          const STOREFRONT_TOKEN = "164c16be080cbc521c378eb87142486d";
   
           const query = `
           {

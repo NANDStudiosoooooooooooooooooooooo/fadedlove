@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     const client = ShopifyBuy.buildClient({
-        domain: 'checkout.fadedcloth.de',
-        storefrontAccessToken: 'ed72f09d8742f37356305b6e49310909'
+        domain: 'fadedcloth-dev.myshopify.com',
+        storefrontAccessToken: '164c16be080cbc521c378eb87142486d'
     });
     client.checkout.create().then((checkout) => {
         checkoutId = checkout.id; // Speichere die Checkout-ID
@@ -70,11 +70,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }`;
         }
     
-        const response = await fetch('https://checkout.fadedcloth.de/api/2023-04/graphql.json', {
+        const response = await fetch('https://fadedcloth-dev.myshopify.com/api/2023-04/graphql.json', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-Shopify-Storefront-Access-Token': 'ed72f09d8742f37356305b6e49310909'
+                'X-Shopify-Storefront-Access-Token': '164c16be080cbc521c378eb87142486d'
             },
             body: JSON.stringify({ query })
         });
@@ -522,7 +522,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const variantId = selectedVariant.id.split('/').pop();
 
     // Weiterleitung zur Shopify-Seite mit Produkt-Handle und Variant-ID
-    const shopifyUrl = `https://checkout.fadedcloth.de/products/${itemHandle}?variant=${variantId}`;
+    const shopifyUrl = `https://fadedcloth-dev.myshopify.com/products/${itemHandle}?variant=${variantId}`;
     
     // Weiterleitung
     setTimeout(() => {

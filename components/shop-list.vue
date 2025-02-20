@@ -64,8 +64,8 @@
       },
       async loadShopifyProducts(collection = 'all', drop = 'all') {
         const apiKey = (collection === 'all' && drop === 'all') 
-          ? 'ed72f09d8742f37356305b6e49310909' 
-          : '26ddd765a66157f6946c55e9dded479a';
+          ? '164c16be080cbc521c378eb87142486d' 
+          : '685505dfe32143b2a1c5840a228a69b9';
   
         const query = `
         {
@@ -104,7 +104,7 @@
         }`;
   
         try {
-          const response = await fetch('https://zkwisj-0b.myshopify.com/api/2023-10/graphql.json', {
+          const response = await fetch('fadedcloth-dev.myshopify.com/api/2023-10/graphql.json', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -205,11 +205,11 @@
   console.log(`Lade Collection: ${collection}`);
 
   try {
-    const response = await fetch('https://zkwisj-0b.myshopify.com/api/2024-10/graphql.json', {
+    const response = await fetch('fadedcloth-dev.myshopify.com/api/2024-10/graphql.json', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': 'ed72f09d8742f37356305b6e49310909'
+        'X-Shopify-Storefront-Access-Token': '164c16be080cbc521c378eb87142486d'
       },
       body: JSON.stringify({ query })
     });

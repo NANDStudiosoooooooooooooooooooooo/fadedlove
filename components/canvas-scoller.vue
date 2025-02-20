@@ -54,7 +54,7 @@
         for (let i = 1; i <= frameCount; i++) {
           const img = new Image();
           const formattedNumber = formatNumber(i);
-          img.src = `https://cdn.shopify.com/s/files/1/0892/0445/7817/files/${imageName}${formattedNumber}${fileExtension}`;
+          img.src = `https://cdn.shopify.com/s/files/1/0905/8592/3907/files/${imageName}${formattedNumber}${fileExtension}`;
           img.onload = () => {
             loadedImages++;
             console.log(`img ${formattedNumber} done`);

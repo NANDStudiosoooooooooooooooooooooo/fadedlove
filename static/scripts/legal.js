@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Funktion zum Laden der Markdown-Datei
     function loadMarkdown(contentId) {
-        const filePath = `https://cdn.shopify.com/s/files/1/0892/0445/7817/files/${contentId}.md`; // Pfad zu den Markdown-Dateien
+        const filePath = `https://cdn.shopify.com/s/files/1/0905/8592/3907/files/${contentId}.md`; // Pfad zu den Markdown-Dateien
         
         fetch(filePath)
             .then(response => {
@@ -59,11 +59,11 @@ async function loadBlogPost() {
     }`;
 
     try {
-        const response = await fetch('https://checkout.fadedcloth.de/api/2023-04/graphql.json', {
+        const response = await fetch('https://fadedcloth-dev.myshopify.com/api/2023-04/graphql.json', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-Shopify-Storefront-Access-Token': 'ed72f09d8742f37356305b6e49310909'
+                'X-Shopify-Storefront-Access-Token': '164c16be080cbc521c378eb87142486d'
             },
             body: JSON.stringify({ query })
         });

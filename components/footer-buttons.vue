@@ -229,11 +229,11 @@
         }
       }`;
 
-      fetch('https://zkwisj-0b.myshopify.com/api/2023-10/graphql.json', {
+      fetch('fadedcloth-dev.myshopify.com/api/2023-10/graphql.json', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Shopify-Storefront-Access-Token': 'ed72f09d8742f37356305b6e49310909'
+          'X-Shopify-Storefront-Access-Token': '164c16be080cbc521c378eb87142486d'
         },
         body: JSON.stringify({ query })
       })

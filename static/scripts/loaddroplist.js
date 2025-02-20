@@ -48,11 +48,11 @@ const query = `
 `;
 
 try {
-    const response = await fetch("https://checkout.fadedcloth.de/api/2023-07/graphql.json", {
+    const response = await fetch("https://fadedcloth-dev.myshopify.com/api/2023-07/graphql.json", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "X-Shopify-Storefront-Access-Token": "26ddd765a66157f6946c55e9dded479a"
+            "X-Shopify-Storefront-Access-Token": "685505dfe32143b2a1c5840a228a69b9"
         },
         body: JSON.stringify({ query })
     });
@@ -511,11 +511,11 @@ const query = `
 `;
 
 try {
-    const response = await fetch("https://checkout.fadedcloth.de/api/2023-07/graphql.json", {
+    const response = await fetch("https://fadedcloth-dev.myshopify.com/api/2023-07/graphql.json", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "X-Shopify-Storefront-Access-Token": "ed72f09d8742f37356305b6e49310909"
+            "X-Shopify-Storefront-Access-Token": "164c16be080cbc521c378eb87142486d"
         },
         body: JSON.stringify({ query })
     });
@@ -683,8 +683,8 @@ async function initializeScripts() {
         let lastShownScrollY = window.scrollY;
   
         async function fetchLatestBlogPost() {
-          const API_URL = "https://checkout.fadedcloth.de/api/2023-04/graphql.json";
-          const STOREFRONT_TOKEN = "ed72f09d8742f37356305b6e49310909";
+          const API_URL = "https://fadedcloth-dev.myshopify.com/api/2023-04/graphql.json";
+          const STOREFRONT_TOKEN = "164c16be080cbc521c378eb87142486d";
   
           const query = `
           {

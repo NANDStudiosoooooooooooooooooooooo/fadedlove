@@ -10,7 +10,7 @@
       <a style="padding-top: 60px;" href="https://checkout.fadedcloth.de/cart">
         <div class="cart-count-bubble">!</div>
         <div style="position: relative; z-index: 2; pointer-events: none; user-select: none;">
-          <img title="CART" src="https://cdn.shopify.com/s/files/1/0892/0445/7817/files/cart.png?v=1738269126" style="height: 60px; width: 60px;">
+          <img title="CART" src="https://cdn.shopify.com/s/files/1/0905/8592/3907/files/cart.png?v=1738269126" style="height: 60px; width: 60px;">
         </div>
         <div class="blurred-eclipse-background"></div>
       </a>
