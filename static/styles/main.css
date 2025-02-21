@@ -1720,7 +1720,7 @@ select {
 .mainshop-item img {
   width: calc(100% - 80px);
   height: -webkit-fill-available;
-  height: fill-available;
+  /* height: fill-available; */
   margin: 115px 40px 40px;
   object-fit: contain;
   flex-grow: 1;
@@ -2133,7 +2133,7 @@ canvas {
 }
 
 .ended:hover {
-  color: var(--color-text-2) !important;
+  color: var(--color-text-1) !important;
 }
 
 .first-upcoming-drop {
