@@ -21,7 +21,7 @@ function loadShopifyProducts(collection = 'all', drop = 'all') {
 
     const apiKey = (collection === 'all' && drop === 'all') 
     ? '164c16be080cbc521c378eb87142486d' 
-    : '685505dfe32143b2a1c5840a228a69b9';
+    : '164c16be080cbc521c378eb87142486d';
 
 const query = `
 {
