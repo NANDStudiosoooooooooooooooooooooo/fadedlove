@@ -22,6 +22,8 @@
   --color-text-1: var(--color-white);
   --color-text-2: var(--color-black-light);
   --color-logo: var(--color-white);
+
+  --row-count: 3;
 }
 
 /* Spezifische Variablen für Stileigenschaften */
@@ -1706,10 +1708,10 @@ select {
 .mainshop-item {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: calc(100% / var(--row-count)); /* Berechne die Breite der Items */
   box-sizing: border-box;
   text-align: center;
-  background-color: var(--color --color-bg);
+  background-color: var(--color-bg);
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -1718,10 +1720,12 @@ select {
 }
 
 .mainshop-item img {
-  width: calc(100% - 80px);
-  height: -webkit-fill-available;
-  /* height: fill-available; */
-  margin: 115px 40px 40px;
+  --mainshop-item-margin: calc(80px / var(--row-count)); /* Feste Pixelwerte für Margin */
+  --mainshop-item-width-margin: 160px; /* Feste Pixelwerte für Width Margin */
+  width: calc(100% - (var(--mainshop-item-width-margin) / var(--row-count)));
+  -webkit-height: -webkit-fill-available;
+  height: fill-available;
+  margin: 115px var(--mainshop-item-margin) 40px;
   object-fit: contain;
   flex-grow: 1;
 }
@@ -2133,7 +2137,7 @@ canvas {
 }
 
 .ended:hover {
-  color: var(--color-text-1) !important;
+  color: var(--color-text-2) !important;
 }
 
 .first-upcoming-drop {
