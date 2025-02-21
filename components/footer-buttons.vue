@@ -324,3 +324,14 @@ function isValidEmail(email) {
   }
 }
 </script>
+
+<style scoped>
+  #collection-img {
+    max-width: 200px;
+    width: auto;
+  }
+  #countdown {
+    color: #ff2500;
+    text-align: center;
+  }
+</style>
