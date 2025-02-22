@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <div class="buttons-container">
       <button id="button1" class="glass-button" @click="togglePanel('panel1')">COLLECTION</button>
       <button class="glass-button hidden" id="button5" @click="togglePanel('panel5')">DROP INFO</button>
@@ -8,14 +8,17 @@
       <button id="button3" class="glass-button" @click="togglePanel('panel3')">NEWSLETTER</button>
       <!--<button id="button4" class="glass-button" @click="togglePanel('panel4')">SMS</button>-->
     </div>
-      <!-- Panel für Button 1 -->
+    <!-- Panel für Button 1 -->
+    <div class="glass-panel-container" id="panel1-container">
       <div id="panel1" class="glass-panel hidden">
         <button class="close-btn" @click="togglePanel('panel1')">X</button>
         <a href="https://fadedcloth.de/lookbook" class="panel-link">GALLERY</a>
         <a href="https://fadedcloth.de/" class="panel-link">MAINPAGE</a>
       </div>
-  
-      <!-- Panel für Button 2 -->
+    </div>
+
+    <!-- Panel für Button 2 -->
+    <div class="glass-panel-container" id="panel2-container">
       <div id="panel2" class="glass-panel hidden">
         <button class="close-btn" @click="togglePanel('panel2')">X</button>
         <div class="social-container">
@@ -31,8 +34,10 @@
         <a href="/legal?id=terms-of-service" class="panel-link">TERMS OF SERVICE</a>
         <div class="copyright">&copy; FADEDCLOTH 2024</div>
       </div>
-  
-      <!-- Panel für Button 3 (Subscribe Panel) -->
+    </div>
+
+    <!-- Panel für Button 3 (Subscribe Panel) -->
+    <div class="glass-panel-container" id="panel3-container">
       <div id="panel3" class="glass-panel hidden">
         <button class="close-btn" @click="togglePanel('panel3')">X</button>
         <div class="headline">SUBSCRIBE FOR UPDATES</div>
@@ -57,19 +62,21 @@
           </div>
         </form>
       </div>
+    </div>
 
+    <div class="glass-panel-container" id="panel5-container">
       <div id="panel5" class="glass-panel hidden">
         <button class="close-btn" @click="togglePanel('panel5')">X</button>
         <div class="headline" id="collection-name"></div>
         <div id="countdown" class="countdown hidden"></div>
         <img title="COLLECTION" class="collection-img hidden" id="collection-img">
+      </div>
     </div>
-
   </div>
-  </template>
-  
-  <script>
-  export default {
+</template>
+
+<script>
+export default {
   name: 'FooterButtons',
   mounted() {
     document.addEventListener('DOMContentLoaded', this.loadShopifyCollections);
@@ -87,9 +94,10 @@
         };
         panel = {
           dom: event.target,
-          x: event.target.getBoundingClientRect().left,
-          y: event.target.getBoundingClientRect().top
+          x: parseFloat(getComputedStyle(event.target.parentElement).getPropertyValue('--x')) || 0,
+          y: parseFloat(getComputedStyle(event.target.parentElement).getPropertyValue('--y')) || 0
         };
+        panel.dom.style.cursor = 'grabbing';
       }
     });
 
@@ -102,57 +110,69 @@
         y: currentCursor.y - cursor.y
       };
 
-      panel.dom.style.left = (panel.x + distance.x) + 'px';
-      panel.dom.style.top = (panel.y + distance.y) + 'px';
-      panel.dom.style.cursor = 'grabbing';
+      const newX = panel.x + distance.x;
+      const newY = panel.y + distance.y;
+
+      panel.dom.parentElement.style.setProperty('--x', `${newX}px`);
+      panel.dom.parentElement.style.setProperty('--y', `${newY}px`);
+      panel.dom.parentElement.style.transform = `translate(calc(-50% + var(--x)), calc(-50% + var(--y)))`;
     });
 
     document.addEventListener('mouseup', () => {
       if (panel.dom == null) return;
       panel.dom.style.cursor = 'auto';
       panel.dom = null;
+      cursor = { x: null, y: null };
     });
   },
   methods: {
     togglePanel(panelId) {
-        const panels = document.querySelectorAll('.glass-panel');
-    const buttons = document.querySelectorAll('.glass-button');
-    const currentPanel = document.getElementById(panelId);
-    let isAnyPanelOpen = false;
+      const panels = document.querySelectorAll('.glass-panel');
+      const buttons = document.querySelectorAll('.glass-button');
+      const currentPanel = document.getElementById(panelId);
+      let isAnyPanelOpen = false;
 
-    // Überprüfen, ob das aktuelle Panel bereits sichtbar ist
-    panels.forEach(panel => {
+      // Überprüfen, ob das aktuelle Panel bereits sichtbar ist
+      panels.forEach(panel => {
         if (!panel.classList.contains('hidden')) {
-            isAnyPanelOpen = true; // Ein Panel ist offen
+          isAnyPanelOpen = true; // Ein Panel ist offen
         }
-    });
+      });
 
-    if (currentPanel.classList.contains('hidden')) {
-        // Alle Panels schließen
-        panels.forEach(panel => panel.classList.add('hidden'));
+      if (currentPanel.classList.contains('hidden')) {
+        // Alle Panels schließen und Position zurücksetzen
+        panels.forEach(panel => {
+          panel.classList.add('hidden');
+          panel.parentElement.style.setProperty('--x', '0px');
+          panel.parentElement.style.setProperty('--y', '0px');
+          panel.parentElement.style.transform = 'translate(-50%, -50%)';
+        });
 
         // Aktuelles Panel öffnen
         currentPanel.classList.remove('hidden');
 
         // Button-Status aktualisieren
         buttons.forEach(button => {
-            button.classList.remove('active-button');
+          button.classList.remove('active-button');
         });
         const activeButton = Array.from(buttons).find(button => button.getAttribute('data-target') === panelId);
         if (activeButton) {
-            activeButton.classList.add('active-button');
+          activeButton.classList.add('active-button');
         }
-    } else {
-        // Wenn das Panel bereits offen ist, schließe es
+      } else {
+        // Wenn das Panel bereits offen ist, schließe es und setze die Position zurück
         currentPanel.classList.add('hidden');
+        currentPanel.parentElement.style.setProperty('--x', '0px');
+        currentPanel.parentElement.style.setProperty('--y', '0px');
+        currentPanel.parentElement.style.transform = 'translate(-50%, -50%)';
         const activeButton = Array.from(buttons).find(button => button.getAttribute('data-target') === panelId);
         if (activeButton) {
-            activeButton.classList.remove('active-button');
+          activeButton.classList.remove('active-button');
         }
-    }
+      }
 
-    // Rückgabe, ob ein Panel offen ist
-    return isAnyPanelOpen || !currentPanel.classList.contains('hidden');
+      // Rückgabe, ob ein Panel offen ist
+      return isAnyPanelOpen || !currentPanel.classList.contains('hidden');
     },
     updateSocialLink() {
       const linkElement = document.getElementById('social-select-link');
@@ -202,7 +222,12 @@
       });
 
       if (!clickedInsidePanel && isAnyPanelOpen) {
-        panels.forEach(panel => panel.classList.add('hidden'));
+        panels.forEach(panel => {
+          panel.classList.add('hidden');
+          panel.parentElement.style.setProperty('--x', '0px');
+          panel.parentElement.style.setProperty('--y', '0px');
+          panel.parentElement.style.transform = 'translate(-50%, -50%)';
+        });
         buttons.forEach(button => button.classList.remove('active-button'));
         if (links) {
           links.classList.add('hidden');
@@ -273,65 +298,140 @@
       });
     },
     submitForm() {
-        document.getElementById("subscribeButton").addEventListener("click", function(event) {
-    event.preventDefault();
-    const emailInput = document.getElementById("email");
-    const email = emailInput.value;
-    const termsCheckbox = document.getElementById("termsCheckbox");
-    const checkboxContainer = document.querySelector('.checkbox-container');
+      document.getElementById("subscribeButton").addEventListener("click", function(event) {
+        event.preventDefault();
+        const emailInput = document.getElementById("email");
+        const email = emailInput.value;
+        const termsCheckbox = document.getElementById("termsCheckbox");
+        const checkboxContainer = document.querySelector('.checkbox-container');
 
-    // Zuerst die E-Mail validieren
-    if (!isValidEmail(email)) {
-        shakeElement(emailInput); // Nur das E-Mail-Feld wackelt
-    } else {
-        console.log("Email is valid");
-        // E-Mail ist gültig, dann prüfen, ob die Checkbox angeklickt ist
-        if (!termsCheckbox.checked) {
-            shakeElement(checkboxContainer); // Jetzt nur die Checkbox und der Text wackeln
+        // Zuerst die E-Mail validieren
+        if (!isValidEmail(email)) {
+          shakeElement(emailInput); // Nur das E-Mail-Feld wackelt
         } else {
+          console.log("Email is valid");
+          // E-Mail ist gültig, dann prüfen, ob die Checkbox angeklickt ist
+          if (!termsCheckbox.checked) {
+            shakeElement(checkboxContainer); // Jetzt nur die Checkbox und der Text wackeln
+          } else {
             // Wenn beides korrekt ist, den normalen Submit-Prozess starten
             fetch("https://subscribe.fadedcloth.de/sub", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ email: email })
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({ email: email })
             })
             .then(response => response.json())
             .then(data => {
-                const currentUrl = encodeURIComponent(window.location.href);
-                window.location.href = `https://subscribe.fadedcloth.de/success?SUBSCRIBED&referrer=${currentUrl}`;
+              const currentUrl = encodeURIComponent(window.location.href);
+              window.location.href = `https://subscribe.fadedcloth.de/success?SUBSCRIBED&referrer=${currentUrl}`;
             })
             .catch(error => {
-                alert("An error occurred: " + error.message);
+              alert("An error occurred: " + error.message);
             });
+          }
         }
-    }
-});
+      });
 
-function shakeElement(element) {
-  element.classList.add("shake");
-  setTimeout(() => {
-      element.classList.remove("shake");
-  }, 500); // Remove shake effect after 500ms
-}
+      function shakeElement(element) {
+        element.classList.add("shake");
+        setTimeout(() => {
+          element.classList.remove("shake");
+        }, 500); // Remove shake effect after 500ms
+      }
 
-function isValidEmail(email) {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return re.test(email);
-}
+      function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-  #collection-img {
-    max-width: 200px;
-    width: auto;
-  }
-  #countdown {
-    color: #ff2500;
-    text-align: center;
-  }
+.glass-panel-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  --x: 0px;
+  --y: 0px;
+  z-index: 10000;
+}
+
+.glass-panel {
+  background: var(--color-transparent-dark-gray);
+  padding: 40px 20px;
+  border-radius: var(--border-radius-large);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: auto;
+  max-width: calc(100vw - 80px);
+  -webkit-backdrop-filter: var(--blur-large);
+  backdrop-filter: var(--blur-large);
+  cursor: grabbing;
+}
+
+.glass-panel:active {
+  cursor: grabbing;
+}
+
+.glass-panel .panel-link {
+  color: var(--color-main);
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+.glass-panel .panel-link:hover {
+  text-decoration: underline;
+}
+
+.active-button {
+  text-decoration: underline;
+  box-shadow: var(--box-shadow-hover);
+}
+
+#collection-img {
+  max-width: 200px;
+  width: auto;
+}
+
+#countdown {
+  color: #ff2500;
+  text-align: center;
+}
+
+#emailForm{
+  min-width: 250px;
+}
+
+.glass-panel .panel-link {
+  color: var(--color-main);
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+.glass-panel .panel-link:hover {
+  text-decoration: underline;
+}
+
+.glass-panel .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--color-main);
+  font-size: var(--font-size-large);
+  cursor: pointer;
+}
+
+#panel2 .copyright {
+  color: var(--color-transparent-light-gray);
+  text-align: left;
+  margin-top: 20px;
+}
 </style>

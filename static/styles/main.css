@@ -300,7 +300,9 @@ a {
 
 .glass-panel {
   position: fixed;
-  left: calc(150px + 40px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: var(--color-transparent-dark-gray);
   padding: 40px 20px;
   border-radius: var(--border-radius-large);
@@ -910,22 +912,6 @@ a {
 .active-button {
   text-decoration: underline;
   box-shadow: var(--box-shadow-hover);
-}
-
-.glass-panel {
-  position: fixed;
-  left: calc(150px + 40px);
-  background: var(--color-transparent-dark-gray);
-  padding: 40px 20px;
-  border-radius: var(--border-radius-large);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: auto;
-  max-width: calc(100vw - 80px);
-  -webkit-backdrop-filter: var(--blur-large);
-  backdrop-filter: var(--blur-large);
-  z-index: 10000;
 }
 
 .glass-panel .panel-link {
