@@ -11,7 +11,7 @@
     <!-- Panel für Button 1 -->
     <div class="glass-panel-container" id="panel1-container">
       <div id="panel1" class="glass-panel hidden">
-        <button class="close-btn" @click="togglePanel('panel1')">X</button>
+        <button class="close-btn" @click="togglePanel('panel1')"><svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.69182 5.50037L10.7535 1.43851C11.0822 1.10981 11.0822 0.575445 10.7535 0.247256C10.4243 -0.0824188 9.89034 -0.0824188 9.56164 0.247256L5.4995 4.30862L1.43836 0.247256C1.10964 -0.0824188 0.575731 -0.0824188 0.246537 0.247256C-0.0821789 0.575949 -0.0821789 1.10983 0.246537 1.43851L4.30868 5.50037L0.246537 9.56223C-0.0821789 9.89092 -0.0821789 10.4243 0.246537 10.7535C0.575743 11.0822 1.10966 11.0822 1.43836 10.7535L5.4995 6.69162L9.56164 10.7535C9.89036 11.0822 10.4243 11.0822 10.7535 10.7535C11.0822 10.4243 11.0822 9.89091 10.7535 9.56223L6.69182 5.50037Z" fill="white"></path></svg></button>
         <a href="https://fadedcloth.de/lookbook" class="panel-link">GALLERY</a>
         <a href="https://fadedcloth.de/" class="panel-link">MAINPAGE</a>
       </div>
@@ -20,7 +20,7 @@
     <!-- Panel für Button 2 -->
     <div class="glass-panel-container" id="panel2-container">
       <div id="panel2" class="glass-panel hidden">
-        <button class="close-btn" @click="togglePanel('panel2')">X</button>
+        <button class="close-btn" @click="togglePanel('panel2')"><svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.69182 5.50037L10.7535 1.43851C11.0822 1.10981 11.0822 0.575445 10.7535 0.247256C10.4243 -0.0824188 9.89034 -0.0824188 9.56164 0.247256L5.4995 4.30862L1.43836 0.247256C1.10964 -0.0824188 0.575731 -0.0824188 0.246537 0.247256C-0.0821789 0.575949 -0.0821789 1.10983 0.246537 1.43851L4.30868 5.50037L0.246537 9.56223C-0.0821789 9.89092 -0.0821789 10.4243 0.246537 10.7535C0.575743 11.0822 1.10966 11.0822 1.43836 10.7535L5.4995 6.69162L9.56164 10.7535C9.89036 11.0822 10.4243 11.0822 10.7535 10.7535C11.0822 10.4243 11.0822 9.89091 10.7535 9.56223L6.69182 5.50037Z" fill="white"></path></svg></button>
         <div class="social-container">
           <select title="SOCIAL" id="social-select" @change="updateSocialLink">
             <option value="instagram">INSTAGRAM</option>
@@ -39,7 +39,7 @@
     <!-- Panel für Button 3 (Subscribe Panel) -->
     <div class="glass-panel-container" id="panel3-container">
       <div id="panel3" class="glass-panel hidden">
-        <button class="close-btn" @click="togglePanel('panel3')">X</button>
+        <button class="close-btn" @click="togglePanel('panel3')"><svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.69182 5.50037L10.7535 1.43851C11.0822 1.10981 11.0822 0.575445 10.7535 0.247256C10.4243 -0.0824188 9.89034 -0.0824188 9.56164 0.247256L5.4995 4.30862L1.43836 0.247256C1.10964 -0.0824188 0.575731 -0.0824188 0.246537 0.247256C-0.0821789 0.575949 -0.0821789 1.10983 0.246537 1.43851L4.30868 5.50037L0.246537 9.56223C-0.0821789 9.89092 -0.0821789 10.4243 0.246537 10.7535C0.575743 11.0822 1.10966 11.0822 1.43836 10.7535L5.4995 6.69162L9.56164 10.7535C9.89036 11.0822 10.4243 11.0822 10.7535 10.7535C11.0822 10.4243 11.0822 9.89091 10.7535 9.56223L6.69182 5.50037Z" fill="white"></path></svg></button>
         <div class="headline">SUBSCRIBE FOR UPDATES</div>
         <form id="emailForm" @submit.prevent="submitForm" novalidate>
           <input 
@@ -66,7 +66,7 @@
 
     <div class="glass-panel-container" id="panel5-container">
       <div id="panel5" class="glass-panel hidden">
-        <button class="close-btn" @click="togglePanel('panel5')">X</button>
+        <button class="close-btn" @click="togglePanel('panel5')"><svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.69182 5.50037L10.7535 1.43851C11.0822 1.10981 11.0822 0.575445 10.7535 0.247256C10.4243 -0.0824188 9.89034 -0.0824188 9.56164 0.247256L5.4995 4.30862L1.43836 0.247256C1.10964 -0.0824188 0.575731 -0.0824188 0.246537 0.247256C-0.0821789 0.575949 -0.0821789 1.10983 0.246537 1.43851L4.30868 5.50037L0.246537 9.56223C-0.0821789 9.89092 -0.0821789 10.4243 0.246537 10.7535C0.575743 11.0822 1.10966 11.0822 1.43836 10.7535L5.4995 6.69162L9.56164 10.7535C9.89036 11.0822 10.4243 11.0822 10.7535 10.7535C11.0822 10.4243 11.0822 9.89091 10.7535 9.56223L6.69182 5.50037Z" fill="white"></path></svg></button>
         <div class="headline" id="collection-name"></div>
         <div id="countdown" class="countdown hidden"></div>
         <img title="COLLECTION" class="collection-img hidden" id="collection-img">
@@ -362,7 +362,7 @@ export default {
 }
 
 .glass-panel {
-  background: var(--color-transparent-dark-gray);
+  background: linear-gradient(0deg, #00000080 0% 100%), linear-gradient(180deg, #1a1a1a80, #33333380);
   padding: 40px 20px;
   border-radius: var(--border-radius-large);
   display: flex;
@@ -372,10 +372,15 @@ export default {
   max-width: calc(100vw - 80px);
   -webkit-backdrop-filter: var(--blur-large);
   backdrop-filter: var(--blur-large);
-  cursor: grabbing;
+  cursor: grab;
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+  box-shadow: 0 0 1px #0009, 0 30px 70px #0000001a !important;
 }
 
+.glass-panel:focus,
 .glass-panel:active {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 30px 70px #0000001a !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   cursor: grabbing;
 }
 
@@ -404,29 +409,23 @@ export default {
   text-align: center;
 }
 
-#emailForm{
+#emailForm {
   min-width: 250px;
-}
-
-.glass-panel .panel-link {
-  color: var(--color-main);
-  text-decoration: none;
-  margin-right: 20px;
-}
-
-.glass-panel .panel-link:hover {
-  text-decoration: underline;
 }
 
 .glass-panel .close-btn {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: none;
-  border: none;
+  width: 25px;
+  height: 25px;
+  background: var(--color-transparent-dark-gray);
+  border-radius: 12px;
   color: var(--color-main);
   font-size: var(--font-size-large);
   cursor: pointer;
+  justify-content: center;
+  align-items: center;
 }
 
 #panel2 .copyright {
