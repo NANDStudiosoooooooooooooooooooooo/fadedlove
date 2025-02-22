@@ -362,7 +362,7 @@ export default {
 }
 
 .glass-panel {
-  background: linear-gradient(0deg, #00000080 0% 100%), linear-gradient(180deg, #1a1a1a80, #33333380);
+  background: linear-gradient(0deg, var(--color-transparent-dark-gray) 0% 100%), linear-gradient(180deg, #1a1a1a80, #33333380);
   padding: 40px 20px;
   border-radius: var(--border-radius-large);
   display: flex;
@@ -375,6 +375,7 @@ export default {
   cursor: grab;
   transition: box-shadow 0.3s ease, border 0.3s ease;
   box-shadow: 0 0 1px #0009, 0 30px 70px #0000001a !important;
+  min-width: min-content;
 }
 
 .glass-panel:focus,
